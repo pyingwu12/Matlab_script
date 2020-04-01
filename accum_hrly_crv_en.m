@@ -39,7 +39,7 @@ for ti=pridh
    end   
 end %ti
 end
-%%
+%
 %---set x tick---
 nti=0;
 for ti=sth:sth+lenh
