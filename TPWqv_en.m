@@ -2,7 +2,6 @@ close all
 clear
 %---setting
 expri='ens02';  member=1:10;
-%year='2007'; mon='06'; date='01';
 year='2018'; mon='06'; date='22';  hr=10; minu=0; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
