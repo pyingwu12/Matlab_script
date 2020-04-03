@@ -1,13 +1,14 @@
 close all
 clear
 %---setting
-expri='test35';
-%year='2007'; mon='06'; date='01';
+expri='test38';
+%year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='22';
-hr=3; minu=[30 0]; infilenam='wrfout';  dom='01';  
+hr=0:8; minu=0; infilenam='wrfout';  dom='01';  
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/HDD001/Figures/expri_test/',expri];
+%outdir=['/HDD001/Figures/expri_test/',expri];
+outdir='/mnt/e/figures/expri191009/';
 titnam='Zh composite';   fignam=[expri,'_zh-model_'];
 
 load('colormap/colormap_zh.mat')

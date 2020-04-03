@@ -1,13 +1,15 @@
-% %close all
+close all
 clear
 %---setting
-expri='test35';
+expri='test38';
 year='2018'; mon='06'; date=21;
 %year='2018'; mon='08'; date=18;
 sth=21; acch=24; minu='00';
 
-indir=['E:/wrfout/expri191009/',expri];
-outdir='E:/figures/expri191009/';
+%indir=['E:/wrfout/expri191009/',expri];
+%outdir='E:/figures/expri191009/';
+indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+outdir='/mnt/e/figures/expri191009/';
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
 
 addpath('colorbar')
@@ -27,7 +29,8 @@ for ti=sth
       hrday=fix(hr/24);  hr=hr-24*hrday;
       s_date=num2str(date+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
       %------read netcdf data--------
-      infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,'%3A',minu,'%3A00'];
+      infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
+      %infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,'%3A',minu,'%3A00'];
       rc{j} = ncread(infile,'RAINC');
       rsh{j} = ncread(infile,'RAINSH');
       rnc{j} = ncread(infile,'RAINNC');
@@ -53,11 +56,8 @@ for ti=sth
       hFills(idx).ColorData=uint8(cmap2(idx,:)');
     end
  
-    % cm=colormap(cmap);  caxis([L2(1) L(length(L))])
-    % hc=Recolor_contourf(hp,cm,L,'vert');  
-    % set(hc,'fontsize',13,'LineWidth',1);
     tit=[expri,'  ',titnam,'  ',s_sth,minu,'-',s_edh,minu,' UTC'];
-    title(tit,'fontsize',18)
+    title(tit,'fontsize',16)
     outfile=[outdir,fignam,s_sth,s_edh];
     print(hf,'-dpng',[outfile,'.png'])
 
