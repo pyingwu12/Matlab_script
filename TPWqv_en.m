@@ -63,6 +63,10 @@ for ti=hr
 %---    
       outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min,'_m',nen];
       print(hf,'-dpng',[outfile,'.png']) 
+      
+      %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+      system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+      %system(['rm ',[outfile,'.pdf']]);  
    end
  end
 end

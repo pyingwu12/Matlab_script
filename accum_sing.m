@@ -60,6 +60,10 @@ for ti=sth
     title(tit,'fontsize',16)
     outfile=[outdir,fignam,s_sth,s_edh];
     print(hf,'-dpng',[outfile,'.png'])
+    
+    %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    %system(['rm ',[outfile,'.pdf']]);  
 
   end %acch
 end %ti

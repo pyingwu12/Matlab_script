@@ -65,6 +65,10 @@ for ti=sth
       %-----      
       outfile=[outdir,'/',fignam,s_sth,s_edh,'_m',nen];
       print(hf,'-dpng',[outfile,'.png'])
+      
+      %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+      system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+      %system(['rm ',[outfile,'.pdf']]); 
 
     end %member
   end %acch  

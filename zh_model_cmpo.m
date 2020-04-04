@@ -1,10 +1,11 @@
 close all
 clear
 %---setting
-expri='test38';
+expri='test35';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='22';
-hr=0:8; minu=0; infilenam='wrfout';  dom='01';  
+hr=0:11; minu=[0 20 40]; infilenam='wrfout';  dom='01'; 
+scheme='WSM6';
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 %outdir=['/HDD001/Figures/expri_test/',expri];
@@ -24,28 +25,7 @@ for ti=hr
    s_hr=num2str(ti,'%2.2d');  % start time string
    s_min=num2str(mi,'%2.2d');
    infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,':',s_min,':00'];
-   %------read netcdf data--------
-   qr = ncread(infile,'QRAIN'); qr=double(qr);
-   qc = ncread(infile,'QCLOUD');qc=double(qc);
-   qv = ncread(infile,'QVAPOR');qv=double(qv);
-   qi = ncread(infile,'QICE');qi=double(qi);
-   qs = ncread(infile,'QSNOW');qs=double(qs);
-   qg = ncread(infile,'QSNOW');qg=double(qg);
-   p = ncread(infile,'P');p=double(p);
-   pb = ncread(infile,'PB');pb=double(pb);
-   t = ncread(infile,'T');t=double(t);
-   %---
-   [nx,ny,nz]=size(qv);  zh=zeros(nx,ny,nz);
-   temp=(300.0+t).*((p+pb)/1.e5).^(287/1005);
-   den=(p+pb)/287.0./temp./(1.0+287.0*qv/461.6);
-   
-   %---Gaddard scheme---
-   fin=find(temp < 273.15);
-   zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+2.79e8*(den(fin).*qs(fin)).^1.75+1.12e9*(den(fin).*qg(fin)).^1.75);
-   fin=find(temp >= 273.15);
-   zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+1.21e11*(den(fin).*qs(fin)).^1.75+1.12e9*(den(fin).*qg(fin)).^1.75);
-   %--- 
-   zh_max=max(zh,[],3);   
+   zh_max=cal_zh_cmpo(infile,scheme);  
  
    %---plot---
    plotvar=zh_max';   %plotvar(plotvar<=0)=NaN;
@@ -70,6 +50,10 @@ for ti=hr
 %---    
    outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
    print(hf,'-dpng',[outfile,'.png']) 
+   
+    %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    %system(['rm ',[outfile,'.pdf']]);  
    
   end
 end

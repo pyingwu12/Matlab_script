@@ -30,9 +30,6 @@ for ti=hr
       infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,':',s_min,':00'];
       zh_max=cal_zh_cmpo(infile,scheme);  
       hgt = ncread(infile,'HGT');      
-%     end
-%   end
-% end
       
       %---plot---
       plotvar=zh_max';   %plotvar(plotvar<=0)=NaN;
@@ -61,6 +58,10 @@ for ti=hr
 %---    
       outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min,'_m',nen];
       print(hf,'-dpng',[outfile,'.png']) 
+      
+      %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+      system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+      %system(['rm ',[outfile,'.pdf']]);  
    end
  end
 end

@@ -3,15 +3,16 @@
 close all
 clear
 %---setting
-expri='ens02';  member=1:10;   zhcr=30;
+expri='ens03';  member=1:10;   zhcr=30;
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='22';  hr=0:10;  minu=00; 
+year='2018'; mon='06'; date='22';  hr=1;  minu=00; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %scheme='Gaddard';
 scheme='WSM6';
 
 indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir=['/HDD001/Figures/ens200323/',expri];
+%outdir=['/HDD001/Figures/ens200323/',expri];
+outdir='/mnt/e/figures/ens200323/';
 titnam='Zh composite';   fignam=[expri,'_zh-contr',num2str(zhcr),'_'];
 
 for ti=hr  
@@ -46,6 +47,10 @@ for ti=hr
     title(tit,'fontsize',17)
     outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
     print(hf,'-dpng',[outfile,'.png']) 
+    
+    %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    %system(['rm ',[outfile,'.pdf']]);  
     
   end % tmi=minu  
 end % ti=hr
