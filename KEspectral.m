@@ -1,21 +1,19 @@
-clear;  ccc='%3A';
-%close all
+clear;  ccc=':';
+close all
 %---setting
-expri='ens02';   member=1:10;    lev=35:49;  
+expri='ens02';   member=1:10;    lev=1:17;  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='22';  hr=1:3;  minu='00';
+year='2018'; mon='06'; date='22';  hr=1;  minu='00';
 dirmem='pert'; infilenam='wrfout';  dom='01';
 
-%indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-indir=['E:/wrfout/expri_ens200323/',expri];
-outdir='E:/figures/ens200323/';
-
+indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+%indir=['E:/wrfout/expri_ens200323/',expri];
+outdir='/mnt/e/figures/ens200323/';
 
 titnam='KE spectral';   fignam=[expri,'_KE-sptrl_'];
-
-tic
+%%
+%tic
 %dx=1000; dy=1000;
-
 nti=0;    
 for ti=hr
   nti=nti+1;
@@ -54,7 +52,7 @@ for ti=hr
         nk(xi,yi)=((xi-cenx)^2+(yi-ceny)^2)^0.5;        
       end    
       end   
-      nk2=round(nk);  %!! éZçDàÍå¬nkãÈêwÅCíºê⁄éléÃå‹ì¸!       
+      nk2=round(nk);  %
       KE_khm=zeros(max(max(nk2)),length(hr));   %KE_kh of different time
       KE_pert_khm=zeros(max(max(nk2)),length(hr));
     end
@@ -68,11 +66,11 @@ for ti=hr
       u.perfft=fft2(u.pert(:,:,lvi));
       v.perfft=fft2(v.pert(:,:,lvi));      
       %---calculate KE (power of the FFT)---
-      KE(:,:)=KE(:,:)+( abs(u.fft)+abs(v.fft) )/length(lev);  %2-D low level mean
-      KEshi=fftshift(KE);
-      KE_pert(:,:)=KE_pert(:,:)+(abs(u.perfft)+abs(v.perfft))/length(lev);
-      KE_pertshi=fftshift(KE_pert);
+      KE(:,:)=KE(:,:)+( abs(u.fft)+abs(v.fft) )/length(lev);  %2-D low level mean      
+      KE_pert(:,:)=KE_pert(:,:)+(abs(u.perfft)+abs(v.perfft))/length(lev);      
     end
+    KE_pertshi=fftshift(KE_pert);
+    KEshi=fftshift(KE);
     %----
     if nmi==1
       KE_kh=zeros(max(max(nk2)),length(member));  % KE_Kh of each member, reset to zero for each time step
@@ -86,8 +84,8 @@ for ti=hr
   KE_khm(:,nti)=mean(KE_kh,2);   %ensemble mean
   KE_pert_khm(:,nti)=mean(KE_pert_kh,2);
 end  %ti
-toc
-
+%toc
+%%
 hf=figure('position',[-1200 200 800 600]) ;
 h=plot(KE_khm,'LineWidth',1.5); hold on
 col=get(h,'Color');
@@ -96,11 +94,16 @@ plot(KE_pert_khm(:,ti),'LineWidth',1.5,'LineStyle','--','Color',col{ti})
 legh{ti}=[num2str(hr(ti),'%.2d'),minu,' UTC'];
 end
 legend(legh)
-%set(gca,'Ylim',[0 2]*10^5)
-set(gca,'Linewidth',1.2,'fontsize',15)
+%set(gca,'Ylim',[0 1.5]*10^5)
+set(gca,'Xlim',[1 120],'Linewidth',1.2,'fontsize',15)
+xlabel('k_h','fontsize',16)
 %---
 tit=[expri,'  ',titnam,'  (lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2d'),')'];     
 title(tit,'fontsize',19)
 outfile=[outdir,fignam,num2str(hr(1),'%.2d'),num2str(hr(end),'%.2d'),'_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 print(hf,'-dpng',[outfile,'.png']) 
+
+    %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    %system(['rm ',[outfile,'.pdf']]);  
 
