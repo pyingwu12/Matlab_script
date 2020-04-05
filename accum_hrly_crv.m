@@ -1,10 +1,10 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='test38';  typst='max';%mean/sum/max
+expri='test39';  typst='max';%mean/sum/max
 %year='2018'; mon='08'; date=18;  minu='00';
 year='2018'; mon='06'; date=21; minu='00';
-sth=21;  lenh=23;  pridh=sth:sth+lenh-1;
+sth=21;  lenh=24;  pridh=sth:sth+lenh-1;
 infilenam='wrfout';  dom='01';    
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];

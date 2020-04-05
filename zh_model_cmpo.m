@@ -1,11 +1,11 @@
 close all
 clear
 %---setting
-expri='test24';
+expri='test39';
 %year='2018'; mon='08'; date='19';
-%year='2018'; mon='06'; date='22';
-year='2007'; mon='06'; date='01';
-hr=1:6; minu=[0]; infilenam='wrfout';  dom='01'; 
+year='2018'; mon='06'; date='22';
+%year='2007'; mon='06'; date='01';
+hr=13:20; minu=[0]; infilenam='wrfout';  dom='01'; 
 scheme='WSM6';
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
