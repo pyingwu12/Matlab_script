@@ -1,6 +1,5 @@
 close all
-clear;  %ccc='%3A'; 
- ccc=':';
+clear;  ccc=':';
 %---setting
 expri='test39';  
 %year='2007'; mon='06'; date='01';

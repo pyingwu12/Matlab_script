@@ -1,15 +1,18 @@
 close all
-clear
+clear;   ccc='%3A';
 %---setting
-expri='test39';
+expri='test38';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='22';
 %year='2007'; mon='06'; date='01';
-hr=13:20; minu=[0]; infilenam='wrfout';  dom='01'; 
+hr=9:20; minu=[0]; infilenam='wrfout';  dom='01'; 
 scheme='WSM6';
 
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/';
+
+indir=['E:/wrfout/expri191009/',expri];
+outdir='E:/figures/expri191009/';
+%indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+%outdir='/mnt/e/figures/expri191009/';
 titnam='Zh composite';   fignam=[expri,'_zh-model_'];
 
 load('colormap/colormap_zh.mat')
@@ -24,7 +27,7 @@ for ti=hr
    %---set filename---
    s_hr=num2str(ti,'%2.2d');  % start time string
    s_min=num2str(mi,'%2.2d');
-   infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,':',s_min,':00'];
+   infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,ccc,s_min,ccc,'00'];
    zh_max=cal_zh_cmpo(infile,scheme);  
  
    %---plot---
