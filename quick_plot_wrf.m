@@ -1,9 +1,9 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='test39';  
+expri='test38';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='22';  s_hr='20'; minu='00';
+year='2018'; mon='06'; s_date='22';  s_hr='08'; minu='00';
 infilenam='wrfout';  dom='01'; 
 
 zi=9;  
@@ -62,9 +62,9 @@ w = ncread(infile,'W');
 %    colorbar
 %    
  hf=figure('Position',[100 100 800 500]);  
-   contourf(squeeze(w(:,100,:))',20,'linestyle','none')
+   contourf(squeeze(w(:,70,:))',20,'linestyle','none')
    title([expri,' W wind ', s_hr,minu,'Z '],'FontSize',15)
    colorbar    
-   caxis([-2 2])
+   %caxis([-2 2])
    set(gca,'Fontsize',14,'linewidth',1.2)
    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 

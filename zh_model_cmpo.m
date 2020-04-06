@@ -1,5 +1,5 @@
 close all
-clear;   ccc='%3A';
+clear;   ccc=':';
 %---setting
 expri='test38';
 %year='2018'; mon='08'; date='19';
@@ -9,10 +9,10 @@ hr=9:20; minu=[0]; infilenam='wrfout';  dom='01';
 scheme='WSM6';
 
 
-indir=['E:/wrfout/expri191009/',expri];
-outdir='E:/figures/expri191009/';
-%indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-%outdir='/mnt/e/figures/expri191009/';
+%indir=['E:/wrfout/expri191009/',expri];
+%outdir='E:/figures/expri191009/';
+indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+outdir='/mnt/e/figures/expri191009/';
 titnam='Zh composite';   fignam=[expri,'_zh-model_'];
 
 load('colormap/colormap_zh.mat')
