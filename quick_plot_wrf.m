@@ -1,9 +1,9 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='test38';  
+expri='test42';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='22';  s_hr='08'; minu='00';
+year='2018'; mon='06'; s_date='22';  s_hr='02'; minu='00';
 infilenam='wrfout';  dom='01'; 
 
 zi=9;  
@@ -12,11 +12,12 @@ indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
 
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
-% qv = ncread(infile,'QVAPOR');
-% u = ncread(infile,'U');
-% v = ncread(infile,'V');
+qv = ncread(infile,'QVAPOR');
+u = ncread(infile,'U');
+v = ncread(infile,'V');
 w = ncread(infile,'W');
-% t = ncread(infile,'T'); t=t+300;
+t = ncread(infile,'T'); t=t+300;
+tsk = ncread(infile,'TSK');
 
 % ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');
 % z=(ph+phb)./9.81; 
@@ -28,11 +29,10 @@ w = ncread(infile,'W');
 % rain=rc+rsh+rnc;
 %%
 %---plot different variables
-%  figure
-%    contourf(u(:,:,zi)',20,'linestyle','none')
-%    title([expri,' U wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
-%    colorbar
-% 
+ figure
+   contourf(u(:,:,zi)',20,'linestyle','none')
+   title([expri,' U wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
+   colorbar
 % 
 %  figure
 %    contourf(v(:,:,zi)',20,'linestyle','none')
@@ -42,10 +42,10 @@ w = ncread(infile,'W');
 %    contourf(w(:,:,zi)',20,'linestyle','none')
 %    title([expri,' W wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
 %    colorbar     
-%  figure
-%    contourf(qv(:,:,zi)',20,'linestyle','none')
-%    title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
-%    colorbar
+ figure
+   contourf(qv(:,:,zi)',20,'linestyle','none')
+   title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
+   colorbar
 %    %caxis([0.015 0.0175])
 % figure
 %   contourf(t(:,:,zi)',20,'linestyle','none')
@@ -61,10 +61,17 @@ w = ncread(infile,'W');
 %    title([expri,'  rain  ', s_hr,minu,'Z  , zi=',num2str(zi)],'FontSize',15)
 %    colorbar
 %    
- hf=figure('Position',[100 100 800 500]);  
-   contourf(squeeze(w(:,70,:))',20,'linestyle','none')
-   title([expri,' W wind ', s_hr,minu,'Z '],'FontSize',15)
-   colorbar    
-   %caxis([-2 2])
-   set(gca,'Fontsize',14,'linewidth',1.2)
-   print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 
+
+ figure
+   contourf(tsk',20,'linestyle','none')
+   title([expri,' Skin Temp. ', s_hr,minu,'Z'],'FontSize',15)
+   colorbar
+
+
+%  hf=figure('Position',[100 100 800 500]);  
+%    contourf(squeeze(w(:,70,:))',20,'linestyle','none')
+%    title([expri,' W wind ', s_hr,minu,'Z '],'FontSize',15)
+%    colorbar    
+%    %caxis([-2 2])
+%    set(gca,'Fontsize',14,'linewidth',1.2)
+%    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 

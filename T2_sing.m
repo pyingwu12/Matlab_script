@@ -1,13 +1,13 @@
 %function T2_sing(expri,typst)
 
-close all 
+%close all 
 clear; 
 ccc=':';
 %---setting
-expri='test37';  typst='mean'; %mean/max/min
-year='2018'; mon='08'; date=18;  minu='00';
-%year='2018'; mon='06';  date=21;  minu='00';
-sth=22;  lenh=23;  pridh=sth:sth+lenh-1;
+expri='test40';  typst='mean'; %mean/max/min
+%year='2018'; mon='08'; date=18;  minu='00';
+year='2018'; mon='06';  date=21;  minu='00';
+sth=19;  lenh=26;  pridh=sth:sth+lenh-1;
 infilenam='wrfout';  dom='01';    
 
 %indir=['E:/wrfout/expri191009/',expri];
@@ -33,8 +33,7 @@ for ti=pridh
      plotvar(nti)=max(max(t2));
     case('min')
      plotvar(nti)=min(min(t2));
-   end
-   
+   end   
 end
 
 %---set x tick---
