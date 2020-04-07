@@ -1,10 +1,11 @@
 close all
 clear
 %---setting
-expri='test41';
-year='2018'; mon='06'; date=23;
+expri='test42';
+year='2018'; mon='06'; date=21;
 %year='2018'; mon='08'; date=18;
-sth=0; acch=12; minu='00';
+sth=21; acch=6; minu='00';  
+infilenam='wrfout';  dom='02';
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
@@ -29,7 +30,7 @@ for ti=sth
       hrday=fix(hr/24);  hr=hr-24*hrday;
       s_date=num2str(date+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
       %------read netcdf data--------
-      infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
+      infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
       %infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,'%3A',minu,'%3A00'];
       rc{j} = ncread(infile,'RAINC');
       rsh{j} = ncread(infile,'RAINSH');
