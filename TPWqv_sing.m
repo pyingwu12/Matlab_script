@@ -1,11 +1,11 @@
 close all
 clear; ccc=':';
 %---setting
-expri='test42';
+expri='test46';
 %year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='22';
+year='2018'; mon='06'; date='21';
 %year='2007'; mon='06'; date='01';
-hr=0:5; minu=00; infilenam='wrfout';  dom='01'; 
+hr=22:23; minu=00; infilenam='wrfout';  dom='02'; 
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
@@ -41,24 +41,24 @@ for ti=hr
    plotvar=TPW';   %plotvar(plotvar<=0)=NaN;
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
    %---
-   figure('position',[-900 200 800 600]);
-   [c, hp]=contourf(plotvar,20,'linestyle','none');
-   colorbar
+%    figure('position',[-900 200 800 600]);
+%    [c, hp]=contourf(plotvar,20,'linestyle','none');
+%    colorbar
    %---    
-%    hf=figure('position',[-900 200 800 600]);
-%    [c, hp]=contourf(plotvar,L2,'linestyle','none');
-%    set(gca,'fontsize',16,'LineWidth',1.2)
+   hf=figure('position',[-900 200 800 600]);
+   [c, hp]=contourf(plotvar,L2,'linestyle','none');
+   set(gca,'fontsize',16,'LineWidth',1.2)
    
    
-%    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-%    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
-%    colormap(cmap)
+   L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
+   hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
+   colormap(cmap)
 
-%    drawnow;
-%    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
-%    for idx = 1 : numel(hFills)
-%       hFills(idx).ColorData=uint8(cmap2(idx,:)');
-%    end
+   drawnow;
+   hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
+   for idx = 1 : numel(hFills)
+      hFills(idx).ColorData=uint8(cmap2(idx,:)');
+   end
 %---
    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
    title(tit,'fontsize',18)
