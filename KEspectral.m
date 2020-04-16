@@ -1,13 +1,13 @@
-clear;  ccc=':';
+clear;  ccc='%3A';
 close all
 %---setting
-expri='ens02';   member=1:10;    lev=1:17;  
+expri='ens02';   member=1:5;    lev=1:5;  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='22';  hr=1;  minu='00';
+year='2018'; mon='06'; date='21';  hr=21:23;  minu='00';
 dirmem='pert'; infilenam='wrfout';  dom='01';
 
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-%indir=['E:/wrfout/expri_ens200323/',expri];
+%indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['E:/wrfout/expri_ens200323/',expri];
 outdir='/mnt/e/figures/ens200323/';
 
 titnam='KE spectral';   fignam=[expri,'_KE-sptrl_'];
@@ -95,15 +95,16 @@ legh{ti}=[num2str(hr(ti),'%.2d'),minu,' UTC'];
 end
 legend(legh)
 %set(gca,'Ylim',[0 1.5]*10^5)
-set(gca,'Xlim',[1 120],'Linewidth',1.2,'fontsize',15)
+%set(gca,'Xlim',[1 120],'Linewidth',1.2,'fontsize',15)
+set(gca,'YLim',[1 1e6],'YScale', 'log','XScale', 'log','Linewidth',1.2,'fontsize',15)
 xlabel('k_h','fontsize',16)
 %---
 tit=[expri,'  ',titnam,'  (lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2d'),')'];     
 title(tit,'fontsize',19)
 outfile=[outdir,fignam,num2str(hr(1),'%.2d'),num2str(hr(end),'%.2d'),'_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
-print(hf,'-dpng',[outfile,'.png']) 
+%print(hf,'-dpng',[outfile,'.png']) 
 
     %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    %system(['convert -trim ',outfile,'.png ',outfile,'.png']);
     %system(['rm ',[outfile,'.pdf']]);  
 
