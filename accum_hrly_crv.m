@@ -1,11 +1,11 @@
-close all
+%close all
 clear;  ccc=':';
 %---setting
-expri='test41';  typst='mean';%mean/sum/max
+expri='test48';  typst='mean';%mean/sum/max
 %year='2018'; mon='08'; date=18;  minu='00';
 year='2018'; mon='06'; date=21; minu='00';
-sth=21;  lenh=48;  pridh=sth:sth+lenh-1;
-infilenam='wrfout';  dom='01';    
+sth=18;  lenh=27;  pridh=sth:sth+lenh-1;
+infilenam='wrfout';  dom='01';
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
@@ -20,7 +20,7 @@ for ti=pridh
       hrday=fix(hr/24);  hr=hr-24*hrday;
       s_date=num2str(date+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
       %------read netcdf data--------
-      infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
+      infile = [indir,'/wrfout_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
       rc{j} = ncread(infile,'RAINC');
       rsh{j} = ncread(infile,'RAINSH');
       rnc{j} = ncread(infile,'RAINNC');

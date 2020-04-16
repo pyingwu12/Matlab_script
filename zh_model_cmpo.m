@@ -1,11 +1,11 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test42';
+expri='test47';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='21';
 %year='2007'; mon='06'; date='01';
-hr=22; minu=40; infilenam='wrfout';  dom='02'; 
+hr=20:22; minu=[20 40]; infilenam='wrfout';  dom='02'; 
 scheme='WSM6';
 
 
@@ -13,7 +13,7 @@ scheme='WSM6';
 %outdir='E:/figures/expri191009/';
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
-titnam='Zh composite';   fignam=[expri,'_zh-model_'];
+titnam='Zh composite';   fignam=[expri,'_zh-model_d',dom,'_'];
 
 load('colormap/colormap_zh.mat')
 cmap=colormap_zh; cmap(1,:)=[1 1 1];
@@ -28,8 +28,9 @@ for ti=hr
    s_hr=num2str(ti,'%2.2d');  % start time string
    s_min=num2str(mi,'%2.2d');
    infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,ccc,s_min,ccc,'00'];
-   zh_max=cal_zh_cmpo(infile,scheme);  
- 
+   hgt = ncread(infile,'HGT');  
+   zh_max=cal_zh_cmpo(infile,scheme);         
+  
    %---plot---
    plotvar=zh_max';   %plotvar(plotvar<=0)=NaN;
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
@@ -37,6 +38,10 @@ for ti=hr
    hf=figure('position',[-900 200 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
+   
+   if (max(max(hgt))~=0)
+    hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--'); 
+   end
 
    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
    title(tit,'fontsize',18)
@@ -44,6 +49,7 @@ for ti=hr
    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
    h=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
    colormap(cmap)
+   title(h,'dBZ','fontsize',13)
    
    drawnow;
    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects

@@ -1,12 +1,12 @@
-close all
+%close all
 clear;  ccc=':';
 %---setting
-expri='test42';  
+expri='test44';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='22';  s_hr='02'; minu='00';
+year='2018'; mon='06'; s_date='21';  s_hr='21'; minu='00';
 infilenam='wrfout';  dom='01'; 
 
-zi=9;  
+zi=15;  
 %indir=['E:/wrfout/expri191009/',expri];
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
@@ -17,6 +17,9 @@ u = ncread(infile,'U');
 v = ncread(infile,'V');
 w = ncread(infile,'W');
 t = ncread(infile,'T'); t=t+300;
+max(max(t(:,:,zi)))
+min(min(t(:,:,zi)))
+
 tsk = ncread(infile,'TSK');
 
 % ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');
@@ -29,10 +32,10 @@ tsk = ncread(infile,'TSK');
 % rain=rc+rsh+rnc;
 %%
 %---plot different variables
- figure
-   contourf(u(:,:,zi)',20,'linestyle','none')
-   title([expri,' U wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
-   colorbar
+%  figure
+%    contourf(u(:,:,zi)',20,'linestyle','none')
+%    title([expri,' U wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
+%    colorbar
 % 
 %  figure
 %    contourf(v(:,:,zi)',20,'linestyle','none')
@@ -42,16 +45,17 @@ tsk = ncread(infile,'TSK');
 %    contourf(w(:,:,zi)',20,'linestyle','none')
 %    title([expri,' W wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
 %    colorbar     
- figure
-   contourf(qv(:,:,zi)',20,'linestyle','none')
-   title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
-   colorbar
+%  figure
+%    contourf(qv(:,:,zi)',20,'linestyle','none')
+%    title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
+%    colorbar
 %    %caxis([0.015 0.0175])
-% figure
-%   contourf(t(:,:,zi)',20,'linestyle','none')
-%   title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
-%   colorbar  
-  %caxis([299 299.55])
+
+figure
+  contourf(t(:,:,zi)',20,'linestyle','none')
+  title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
+  colorbar  
+ % caxis([301.9 302.08])
 % figure
 %   contourf((z(:,:,zi,ti)+z(:,:,zi+1,ti))*0.5,20,'linestyle','none')
 %   title([expri,' geopotential height, ti=',num2str(ti),', zi=',num2str(zi)],'FontSize',15)
@@ -61,11 +65,11 @@ tsk = ncread(infile,'TSK');
 %    title([expri,'  rain  ', s_hr,minu,'Z  , zi=',num2str(zi)],'FontSize',15)
 %    colorbar
 %    
-
- figure
-   contourf(tsk',20,'linestyle','none')
-   title([expri,' Skin Temp. ', s_hr,minu,'Z'],'FontSize',15)
-   colorbar
+% 
+%  figure
+%    contourf(tsk',20,'linestyle','none')
+%    title([expri,' Skin Temp. ', s_hr,minu,'Z'],'FontSize',15)
+%    colorbar
 
 
 %  hf=figure('Position',[100 100 800 500]);  

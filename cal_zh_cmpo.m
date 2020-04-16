@@ -37,6 +37,8 @@ function zh_max=cal_zh_cmpo(infile,scheme)
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+4.26e11*(den(fin).*qs(fin)).^1.75+4.33e10*(den(fin).*qg(fin)).^1.75);       
    end % end of case
    
+   zh(zh<0)=0;
+   zh=real(zh);
    zh_max=max(zh,[],3);         
       
 end  % end of function

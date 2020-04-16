@@ -1,11 +1,11 @@
-close all
+%close all
 clear
 %---setting
-expri='test42';
-year='2018'; mon='06'; date=21;
+expri='test48';
+year='2018'; mon='06'; date=22;
 %year='2018'; mon='08'; date=18;
-sth=21; acch=6; minu='00';  
-infilenam='wrfout';  dom='02';
+sth=22; acch=1; minu='00';  
+infilenam='wrfout';  dom='01';
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
