@@ -1,11 +1,11 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test47';
+expri='test38';
 %year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='21';
+year='2018'; mon='06'; date='22'; dom='01'; 
 %year='2007'; mon='06'; date='01';
-hr=20:22; minu=[20 40]; infilenam='wrfout';  dom='02'; 
+hr=7:15; minu=0; infilenam='wrfout';  
 scheme='WSM6';
 
 
