@@ -3,8 +3,8 @@ clear;   ccc=':';
 %---setting
 expri='test43';
 %year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='21';
-hr=21:23; minu=0; infilenam='wrfout';  dom='01'; 
+year='2018'; mon='06'; date='22';
+hr=0; minu=0; infilenam='wrfout';  dom='01'; 
 
 %---
 %indir=['E:/wrfout/expri191009/',expri];
