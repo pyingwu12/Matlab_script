@@ -16,7 +16,7 @@ titnam='Zh composite';   fignam=[expri,'_zh-model_'];
 load('colormap/colormap_zh.mat')
 cmap=colormap_zh; cmap(1,:)=[1 1 1];
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
-L=[0 2 6 10 15 20 25 30 35 40 45 50 55 60 65 70];
+L=[1 3 6 10 15 20 25 30 35 40 45 50 55 60 65 70];
 %---
 %%
 for ti=hr   
@@ -34,6 +34,7 @@ for ti=hr
       %---plot---
       plotvar=zh_max';   %plotvar(plotvar<=0)=NaN;
       pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
+      fi=find(L>pmin);
        %
       hf=figure('position',[-900 200 830 600]);
     
@@ -53,7 +54,7 @@ for ti=hr
       drawnow;
       hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
       for idx = 1 : numel(hFills)
-         hFills(idx).ColorData=uint8(cmap2(idx,:)');
+         hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
       end   
 %---    
       outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min,'_m',nen];
