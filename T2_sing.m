@@ -4,10 +4,10 @@
 clear; 
 ccc=':';
 %---setting
-expri='test40';  typst='mean'; %mean/max/min
+expri='test45';  typst='mean'; %mean/max/min
 %year='2018'; mon='08'; date=18;  minu='00';
 year='2018'; mon='06';  date=21;  minu='00';
-sth=19;  lenh=26;  pridh=sth:sth+lenh-1;
+sth=22;  lenh=23;  pridh=sth:sth+lenh-1;
 infilenam='wrfout';  dom='01';    
 
 %indir=['E:/wrfout/expri191009/',expri];

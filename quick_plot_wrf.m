@@ -1,7 +1,7 @@
-%close all
+close all
 clear;  ccc=':';
 %---setting
-expri='test44';  
+expri='test43';  
 %year='2007'; mon='06'; date='01';
 year='2018'; mon='06'; s_date='21';  s_hr='21'; minu='00';
 infilenam='wrfout';  dom='01'; 
@@ -12,20 +12,20 @@ indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
 
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
-qv = ncread(infile,'QVAPOR');
-u = ncread(infile,'U');
-v = ncread(infile,'V');
-w = ncread(infile,'W');
-t = ncread(infile,'T'); t=t+300;
-max(max(t(:,:,zi)))
-min(min(t(:,:,zi)))
-
-tsk = ncread(infile,'TSK');
+% qv = ncread(infile,'QVAPOR');
+% u = ncread(infile,'U');
+% v = ncread(infile,'V');
+% w = ncread(infile,'W');
+% t = ncread(infile,'T'); t=t+300;
+% max(max(t(:,:,zi)))
+% min(min(t(:,:,zi)))
+% 
+% tsk = ncread(infile,'TSK');
 
 % ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');
 % z=(ph+phb)./9.81; 
 %ti=20; zi=3;
-%hgt= ncread(infile,'HGT');
+hgt= ncread(infile,'HGT');
 % rc = ncread(infile,'RAINC');
 % rsh = ncread(infile,'RAINSH');
 % rnc = ncread(infile,'RAINNC');
@@ -51,10 +51,10 @@ tsk = ncread(infile,'TSK');
 %    colorbar
 %    %caxis([0.015 0.0175])
 
-figure
-  contourf(t(:,:,zi)',20,'linestyle','none')
-  title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
-  colorbar  
+% figure
+%   contourf(t(:,:,zi)',20,'linestyle','none')
+%   title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
+%   colorbar  
  % caxis([301.9 302.08])
 % figure
 %   contourf((z(:,:,zi,ti)+z(:,:,zi+1,ti))*0.5,20,'linestyle','none')
@@ -64,13 +64,11 @@ figure
 %    contourf(rain(:,:)',20,'linestyle','none')
 %    title([expri,'  rain  ', s_hr,minu,'Z  , zi=',num2str(zi)],'FontSize',15)
 %    colorbar
-%    
-% 
+%     
 %  figure
 %    contourf(tsk',20,'linestyle','none')
 %    title([expri,' Skin Temp. ', s_hr,minu,'Z'],'FontSize',15)
 %    colorbar
-
 
 %  hf=figure('Position',[100 100 800 500]);  
 %    contourf(squeeze(w(:,70,:))',20,'linestyle','none')
@@ -79,3 +77,18 @@ figure
 %    %caxis([-2 2])
 %    set(gca,'Fontsize',14,'linewidth',1.2)
 %    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 
+
+%  hf=figure('Position',[100 100 750 500]);  
+%    contourf(hgt',20,'linestyle','none')
+%    title([expri,'  topography '],'FontSize',15)
+%    colorbar   
+%    caxis([0 1000])
+%    set(gca,'Fontsize',14,'linewidth',1.2)
+%    print(hf,'-dpng',[outdir,expri,'_topo.png']) 
+   
+ hf=figure('Position',[100 100 750 500]);  
+   plot(hgt(:,100),'linewidth',2.5,'color',[0.2 0.5 0.1])
+   title([expri,'  topography '],'FontSize',15)
+   set(gca,'Ylim',[0 2000],'Fontsize',14,'linewidth',1.2)
+   xlabel('(km)'); ylabel('m')
+   print(hf,'-dpng',[outdir,expri,'_topo-p.png'])    

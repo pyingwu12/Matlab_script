@@ -1,23 +1,22 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test43';
+expri='test45';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='22';
-hr=06; minu=00; infilenam='wrfout';  dom='01'; 
+hr=0:6; minu=00; infilenam='wrfout';  dom='01'; 
 %---
 xp=1; yp=100;  %start grid
 len=249;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
 
-
 %---
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
-titnam='Temperature';   fignam=[expri,'_t-prof_'];
+titnam='Temperature';   fignam=[expri,'_Tprof_'];
 
 load('colormap/colormap_zh.mat')
 cmap=colormap_zh; cmap(1,:)=[1 1 1];
@@ -26,13 +25,12 @@ L=[0 2 6 10 15 20 25 30 35 40 45 50 55 60 65 70];
 %---
 Rcp=287.43/1005; 
 g=9.81;
-zgi=[10,50,100:100:20000];    ytick=1000:2000:zgi(end); 
+zgi=[10,50,100:100:2500];    ytick=500:500:zgi(end); 
 
-nti=0;
-%for ti=hr   
+for ti=hr   
 %  for mi=minu    
-   nti=nti+1;
-   ti=hr; mi=minu;
+   %ti=hr; 
+   mi=minu;
    %---set filename---
    s_hr=num2str(ti,'%2.2d');  % start time string
    s_min=num2str(mi,'%2.2d');
@@ -60,21 +58,29 @@ nti=0;
      X=squeeze(zg(indx,indy,:));   Y=squeeze(T(indx,indy,:));   plotvar(:,i)=interp1(X,Y,zgi,'linear');
      hgtprof(i)=hgt(indx,indy);
    end 
+      
    
+   %---plot setting---   
+   if slopx>=slopy;    xtitle='Longitude';  [xi, zi]=meshgrid(linex,zgi);  xaxis=linex;
+   else;               xtitle='Latitude';   [xi, zi]=meshgrid(liney,zgi);  xaxis=liney;
+   end
    %---plot---   
    hf=figure('position',[-1100 200 900 600]);
-   contourf(plotvar,20,'linestyle','none')
-   set(gca,'fontsize',16,'LineWidth',1.2)
+   contourf(xi,zi,plotvar,20,'linestyle','none')
+   colorbar
+   caxis([285 305])
+   set(gca,'Ytick',ytick,'Yticklabel',ytick./1000,'fontsize',16,'LineWidth',1.2)
+   ylabel('km')
 
    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
    title(tit,'fontsize',18)
 %---    
    outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
-   %print(hf,'-dpng',[outfile,'.png']) 
+   print(hf,'-dpng',[outfile,'.png']) 
    
     %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
-    %system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
     %system(['rm ',[outfile,'.pdf']]);  
    
 %  end
-%end
+end
