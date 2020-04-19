@@ -1,33 +1,32 @@
-clear;  ccc='%3A';
+clear;  ccc=':';
 close all
 %---setting
-expri='ens02';   member=1:5;    lev=1:5;  
-%year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='21';  hr=21:23;  minu='00';
-dirmem='pert'; infilenam='wrfout';  dom='01';
+expri='ens02';   member=1:10;    lev=1:30; 
+year='2018'; mon='06'; date='22';  hr=2;  minu='00';  dom='01';
+dirmem='pert'; infilenam='wrfout';  
 
-%indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-indir=['E:/wrfout/expri_ens200323/',expri];
-outdir='/mnt/e/figures/ens200323/';
+indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+outdir='/mnt/e/figures/ens200323';
 
 titnam='KE spectral';   fignam=[expri,'_KE-sptrl_'];
-%%
-%tic
-%dx=1000; dy=1000;
+
+
 nti=0;    
-for ti=hr
+%for ti=hr
+  ti=hr;
   nti=nti+1;
   nmi=0;
   s_hr=num2str(ti,'%.2d');  % start time string
-  % ensemble mean
+  %---ensemble mean
   infile=[indir,'/mean/wrfmean_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,ccc,minu,ccc,'00'];
     u.stag = ncread(infile,'U');u.stag=double(u.stag);
     v.stag = ncread(infile,'V');v.stag=double(v.stag);
     %---
     u.mean=(u.stag(1:end-1,:,:)+u.stag(2:end,:,:)).*0.5;
     v.mean=(v.stag(:,1:end-1,:)+v.stag(:,2:end,:)).*0.5;
-    
-  for mi=member
+  %  
+  %for mi=member
+    mi=2;
     nmi=nmi+1;
     %---set filename---
     nen=num2str(mi,'%.2d');
@@ -80,13 +79,15 @@ for ti=hr
       KE_kh(ki,nmi)=sum(KEshi(nk2==ki));   % sum of different kx, ky to kh bin, for each member
       KE_pert_kh(ki,nmi)=sum(KE_pertshi(nk2==ki));
     end
-  end  %member
+  %end  %member
   KE_khm(:,nti)=mean(KE_kh,2);   %ensemble mean
   KE_pert_khm(:,nti)=mean(KE_pert_kh,2);
-end  %ti
+%end  %ti
 %toc
-%%
-hf=figure('position',[-1200 200 800 600]) ;
+
+
+
+hf=figure('position',[100 100 800 600]) ;
 h=plot(KE_khm,'LineWidth',1.5); hold on
 col=get(h,'Color');
 for ti=1:nti
