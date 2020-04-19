@@ -8,8 +8,8 @@ dh=0:0.1:20;
 dv=0:0.1:20;
 
 
-y2=exp(-(dh.^2+dv.^2)/(2*sigma1^2));
 y=exp(-dh.^2/(sigma1^2) -dv.^2/(sigma2^2) );
+y2=exp(-(dh.^2+dv.^2)/(2*sigma1^2));
 yh=exp(-dh.^2/(sigma1^2));
 
 dis=(dh.^2+dv.^2).^0.5;
