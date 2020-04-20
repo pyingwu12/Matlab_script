@@ -1,10 +1,10 @@
 %close all
 clear
 %---setting
-expri='test48';
-year='2018'; mon='06'; date=22;
+expri='test38';
+year='2018'; mon='06'; date=21;
 %year='2018'; mon='08'; date=18;
-sth=22; acch=1; minu='00';  
+sth=21; acch=24; minu='00';  
 infilenam='wrfout';  dom='01';
 
 %indir=['E:/wrfout/expri191009/',expri];
@@ -43,7 +43,7 @@ for ti=sth
     plotvar=rain';
     pmin=(min(min(plotvar)));  if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
 %
-    hf=figure('position',[-900 200 800 600]);
+    hf=figure('position',[100 10 800 600]);
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
     set(gca,'fontsize',16,'LineWidth',1.2)
 

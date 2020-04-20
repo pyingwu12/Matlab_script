@@ -1,9 +1,9 @@
 clear;  ccc=':';
 close all
 %---setting
-expri='ens02';   member=1:10;    lev=10;   yi=100;  xi=100;
+expri='ens02';   member=1:10;    lev=15;   yi=100;  xi=100; mmi=5;
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='22';  hr=5;  minu='00';  dom='01';
+year='2018'; mon='06'; date='22';  hr=1;  minu='00';  dom='01';
 %year='2008'; mon='06'; date='16';  hr=2;  minu='00';  dom='02';
 dirmem='pert'; infilenam='wrfout';  
 
@@ -39,9 +39,9 @@ nx=length(umean);
 upert=uunstag-repmat(umean,1,length(member));
 vpert=vunstag-repmat(vmean,1,length(member));
 
-mmi=5;
+
 %-----------------------
-%{
+%%
 figure('position',[100 100 800 500])
 subplot(3,1,1)
 h1=plot(uunstag(:,mmi),'LIneWidth',2);
@@ -59,7 +59,7 @@ title('u mean','fontsize',13)
 set(gca,'YLim',yL,'LineWidth',1.2,'fontsize',12)
 print('-dpng',[outdir,'/U_1D.png']) 
  system(['convert -trim ',[outdir,'/U_1D'],'.png ',[outdir,'/U_1D'],'.png']);
-%}
+%%
 %-----------
 %
 ufft=fft(uunstag(:,mmi));
@@ -74,7 +74,7 @@ h=plot(abs(ufft)/nx,'LineWidth',2); hold on
 col=get(h,'color');
 plot(abs(upfft)/nx,'LineWidth',2,'color',col,'Linestyle','--')
 %
-title('u-fft power','fontsize',13)
+title('u-fft power spectrum','fontsize',13)
 set(gca,'XLim',[1 nx/2-1],'XScale','log','YScale','log','LineWidth',1.2,'fontsize',12)
 %
 outfile=[outdir,'/fft_U1D_nx'];

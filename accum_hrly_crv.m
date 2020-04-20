@@ -2,9 +2,9 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='test38';  typst='max';  %mean/sum/max
+expri='test50';  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=21;   lenh=24;   pridh=sth:sth+lenh-1;
+sth=15;   lenh=9;   pridh=sth:sth+lenh-1;
 infilenam='wrfout';  dom='01';  
 
 
@@ -61,7 +61,7 @@ set(gca,'XLim',[1 lenh+1],'XTick',xi(1:tint:end),'XTickLabel',ss_hr,...
 xlabel('Time (JST)','fontsize',18);  ylabel('Rainfall (mm)','fontsize',18)
 %---
 
-tit=[titnam,'  (',upper(typst),')  '];     
+tit=[expri,'  ',titnam,'  (',upper(typst),')  '];     
 title(tit,'fontsize',19)
 
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 

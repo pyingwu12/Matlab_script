@@ -1,10 +1,12 @@
 close all
 clear;  ccc=':';
 
-% expri={'test38';'test40';'test44';'test48';'test43';'test45'};   exptext='test001';  
-% expnam={'CTRL';'03st';'per01';'per01_03st';'topo01';'topo02'};
-% lexp={'-';'-';'-';'-';'-';'-'};  
-% cexp=[0.3 0.3 0.35; 0.5 0.18 0.55; 0.85,0.325,0.098;  0.929,0.694,0.125; 0,0.447,0.741; 0.3,0.745,0.933]; 
+% expri={'test38';'test40';'test44';'test48';'test50'};   exptext='test003';  
+% expnam={'CTRL';'03st';'per01';'per01_03st';'per01_00str'};
+% dom={'01';'01';'01';'01';'01'};
+% lexp={'-';'-';'-';'-';'-'};  
+% cexp=[0  0.447  0.741; 0.3 0.745 0.93; 0.85,0.325,0.098; ...
+%     0.929,0.694,0.125; 0.95,0.89,0.05];
 
 % expri={'test38';'test40';'test44';'test48';'test37';'test36';'test35'};   exptext='test002';  
 % dom={'01';'01';'01';'01';'01';'01';'01'};
@@ -12,23 +14,24 @@ clear;  ccc=':';
 % lexp={'-';'-';'-';'-';'-';'-';'-'};  
 % cexp=[0.3 0.3 0.35; 0.5 0.18 0.55; 0.85,0.325,0.098; 0.929,0.694,0.125; 0,0.447,0.741; 0.3,0.745,0.933; 0.466,0.674,0.188]; 
 
-expri={'test38';'test40';'test44';'test48'};   exptext='notopo48';  
-dom={'01';'01';'01';'01'};
-expnam={'CTRL';'03st';'per01';'per01_03st'};
-lexp={'-';'-';'-';'-'};  
-cexp=[0  0.447  0.741; 0.3 0.745 0.93; 0.85,0.325,0.098; 0.929,0.694,0.125]; 
+% expri={'test38';'test40';'test44';'test48'};   exptext='notopo48';  
+% dom={'01';'01';'01';'01'};
+% expnam={'CTRL';'03st';'per01';'per01_03st'};
+% lexp={'-';'-';'-';'-'};  
+% cexp=[0  0.447  0.741; 0.3 0.745 0.93; 0.85,0.325,0.098; 0.929,0.694,0.125]; 
 
 % expri={'test38';'test43';'test45'};   exptext='topo';  
 % dom={'01';'01';'01'};
-% expnam={'CTRL';'topo1';'topo2'};
+% expnam={'flat';'L-topo';'S-topo'};
 % lexp={'-';'-';'-';'-'};  
 % cexp=[0  0.447  0.741; 0.466,0.674,0.188; 0.22,0.42,0.08]; 
 
-% expri={'test40';'test42';'test46';'test47'};   exptext='Nesting_d02';  
-% expnam={'CTRL';'5km';'3km_f';'3km'};
-% dom={'01';'02';'02';'02'};
-% lexp={'-';'-';'-';'-';'-';'-'};  
-% cexp=[0.3 0.3 0.35; 0.5 0.18 0.55; 0.929,0.694,0.125; 0.3,0.745,0.933]; 
+expri={'test40';'test42';'test47';'test46';'test49'};   exptext='Nesting_d02';  
+expnam={'CTRL';'5km';'3km';'3km_f';'3km_f_per01'};
+dom={'01';'02';'02';'02';'02'};
+lexp={'-';'-';'-';'-';'-';'-';'-'};  
+cexp=[0.3 0.3 0.35; 0.5 0.18 0.55; 0.85,0.325,0.098;  0.929,0.694,0.125;...
+    0.3,0.745,0.933]; 
 
 %dark blue: 0,0.447,0.741
 %light blue: 0.3,0.745,0.933
@@ -39,9 +42,9 @@ cexp=[0  0.447  0.741; 0.3 0.745 0.93; 0.85,0.325,0.098; 0.929,0.694,0.125];
 %dark red: [0.6350 0.0780 0.1840]
 
 %---setting
-typst='max';%mean/sum/max
+typst='mean';%mean/sum/max
 time='2018062100';
-sth=18;  lenh=50;  tint=3;
+sth=18;  lenh=27;  tint=2;
 nexp=size(expri,1);   
 %
 outdir='/mnt/e/figures/expri191009/';
@@ -49,7 +52,7 @@ titnam='Hourly Rainfall';   fignam=['hourlyrain_',exptext,'_'];
 
 acci=zeros(nexp,lenh);
 for i=1:nexp
-    if i==5; time='2018081800'; else; time='2018062100'; end
+    %if i==5; time='2018081800'; else; time='2018062100'; end
    acci(i,:)=cal_hrly_accum(expri{i},time,sth,lenh,dom{i},typst,ccc);
    disp([expri{i},' done'])
 end
@@ -65,14 +68,14 @@ for ti=sth:tint:sth+lenh
   nti=nti+1;  ss_hr{nti}=num2str(hr,'%2.2d');
 end
 
-%
+%%
 %---plot
-hf=figure('position',[-1200 200 1000 600]);
+hf=figure('position',[100 10 1000 600]);
 for i=1:nexp
 plot(xi+0.5,acci(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',2.2); hold on
 end
 %
-legh=legend(expnam,'Box','off','Interpreter','none');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',16);
 %
 set(gca,'XLim',[1 lenh+1],'XTick',xi(1:tint:end),'XTickLabel',ss_hr,...
     'fontsize',15,'linewidth',1.3)
