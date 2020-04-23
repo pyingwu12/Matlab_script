@@ -1,11 +1,10 @@
-
-close all
+%close all
 clear;  ccc=':';
 %---setting
-expri='test50';  typst='mean';  %mean/sum/max
+expri='test49';  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=15;   lenh=9;   pridh=sth:sth+lenh-1;
-infilenam='wrfout';  dom='01';  
+sth=18;   lenh=24;   pridh=sth:sth+lenh-1;
+infilenam='wrfout';  dom='02';  
 
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
@@ -65,7 +64,7 @@ tit=[expri,'  ',titnam,'  (',upper(typst),')  '];
 title(tit,'fontsize',19)
 
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,fignam,mon,num2str(date),'_',s_sth,minu,'_',s_lenh,'hr_',typst];
+outfile=[outdir,fignam,mon,num2str(date),'_',s_sth,minu,'_',s_lenh,'hr_d',dom,'_',typst];
 
  print(hf,'-dpng',[outfile,'.png']) 
  system(['convert -trim ',outfile,'.png ',outfile,'.png']);

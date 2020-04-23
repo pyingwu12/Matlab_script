@@ -1,7 +1,7 @@
 clear;  ccc=':';
 close all
 %---setting
-expri='ens03';      lev=41:49;  % !! 1 member, 1 level
+expri='ens03';      lev=41:49; 
 year='2018'; mon='06';  stdate=21;  sth=22;  lenh=8;
 minu='00';  dom='01';  member=1:10; 
 dirmem='pert'; infilenam='wrfout';  
