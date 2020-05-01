@@ -1,9 +1,9 @@
 clear;  ccc=':';
 close all
 %---setting
-expri='ens03';      lev=41:49; 
-year='2018'; mon='06';  stdate=21;  sth=22;  lenh=8;
-minu='00';  dom='01';  member=1:10; 
+expri='ens05';      lev=1:17; 
+year='2018'; mon='06';  stdate=21;  sth=21;  lenh=8;
+minu='00';  dom='01';  member=1:20; 
 dirmem='pert'; infilenam='wrfout';  
 %
 indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];

@@ -1,87 +1,60 @@
-%clear;  ccc=':';
-%close all
+clear;  %ccc=':';
+close all
+
+expri={'ens02';'ens03';'ens04'};   exptext='ens001';  
+% dom={'01';'01';'01'};
+expnam={'ens02';'';'ens03';'';'ens04';''};
+ %lexp={'-';'-';'-';'-'};  
+cexp=[0  0.447  0.741; 0.466,0.674,0.188; 0.85,0.325,0.098]; 
+
+
 %---setting
-expri='ens03';   xi=76:125; yi=76:125;
-year='2018'; mon='06'; stdate=21;  sth=22;  lenh=24;  minu=[00];
-dom='01';  member=1:10; 
-dirmem='pert'; infilenam='wrfout';  
-%
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir='/mnt/e/figures/ens200323';
-%
-titnam='DTE';   fignam=[expri,'_DTE_'];
+xi=81:120;  yi=81:120;
+sth=22;  lenh=24;  minu=[00];
+member=1:10; 
 
-cp=1004.9;
-Tr=270;
-
+outdir='/mnt/e/figures/ens200323/';
+titnam='RMDTE';   fignam=['RMDTE_',exptext,'_'];
+nexp=size(expri,1); 
 %----
-nti=0;
-for ti=1:lenh 
-   hr=sth+ti-1;
-   hrday=fix(hr/24);  hr=hr-24*hrday;
-   s_date=num2str(stdate+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
-   ss_hr{ti}=s_hr;
-   for tmi=minu
-     nti=nti+1;
-     s_min=num2str(tmi,'%.2d');
-     %---ensemble mean
-     infile=[indir,'/mean/wrfmean_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
-     u.stag = ncread(infile,'U');u.stag=double(u.stag);
-     v.stag = ncread(infile,'V');v.stag=double(v.stag);
-     u.mean=(u.stag(1:end-1,:,:)+u.stag(2:end,:,:)).*0.5;
-     v.mean=(v.stag(:,1:end-1,:)+v.stag(:,2:end,:)).*0.5; 
-     t.mean=ncread(infile,'T'); t.mean=double(t.mean)+300;
-     %--members
-     [nx, ny, ~]=size(u.mean); 
-     MDTE=zeros(nx,ny);
-     for mi=member
-      nen=num2str(mi,'%.2d');
-      infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
-      %------read netcdf data--------
-      u.stag = ncread(infile,'U'); u.stag=double(u.stag);
-      v.stag = ncread(infile,'V'); v.stag=double(v.stag);
-      t.mem =ncread(infile,'T'); t.mem=double(t.mem)+300;
-      p = ncread(infile,'P');p=double(p);
-      pb = ncread(infile,'PB');pb=double(pb);
-      u.unstag=(u.stag(1:end-1,:,:)+u.stag(2:end,:,:)).*0.5;
-      v.unstag=(v.stag(:,1:end-1,:)+v.stag(:,2:end,:)).*0.5;
-      %---perturbation---
-      u.pert=u.unstag - u.mean;
-      v.pert=v.unstag - v.mean;
-      t.pert=t.mem - t.mean;   
-      P=(pb+p);     dP=P(:,:,2:end)-P(:,:,1:end-1);
-      dPall=P(:,:,end)-P(:,:,1);
-      dPm=dP./repmat(dPall,1,1,size(dP,3));
-   
-      DTE=1/2*(u.pert.^2+v.pert.^2+cp/Tr*t.pert.^2);
-      MDTE=MDTE+sum(dPm.*DTE(:,:,1:end-1),3)./length(member);  
-      RMDTE=MDTE.^0.5;
-     end
-     RMDTE_t(nti)=mean(mean(RMDTE(xi,yi)));
-   end %tmi
-   disp([s_hr,' done'])
+
+RMDTE_t=zeros(nexp,lenh*length(minu));
+RMDTEcen_t=zeros(nexp,lenh*length(minu));
+for i=1:nexp
+ RMDTE=cal_DTE(expri{i},sth,lenh,minu,member);
+ disp([expri{i},' done'])
+ for ti=1:size(RMDTE,2)
+ RMDTE_t(i,ti)=mean(mean(RMDTE{ti}));
+ RMDTEcen_t(i,ti)=mean(mean(RMDTE{ti}(xi,yi)));
+ end
 end
+
 
 %%
 tint=2;
 nti=0;
 for ti=1:tint:lenh 
-    nti=nti+1;
+   nti=nti+1;
    hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;
    ss_hr{nti}=num2str(hr,'%2.2d');
 end
 
 %---plot
-% hf=figure('position',[100 50 800 600]) ;
-hold on
-plot(RMDTE_t,'LineWidth',1.55); 
+hf=figure('position',[100 50 800 550]) ;
+%hold on
+for i=1:nexp
+ plot(RMDTE_t(i,:),'LineWidth',1.55,'color',cexp(i,:)); hold on
+ plot(RMDTEcen_t(i,:),'LineWidth',1.55,'color',cexp(i,:),'linestyle','--');
+end
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',16,'location','northwest');
 set(gca,'Linewidth',1.2,'fontsize',13)
 set(gca,'Xlim',[1 lenh],'XTick',1:tint*length(minu):length(minu)*lenh,'XTickLabel',ss_hr)
-xlabel('Time(UTC)','fontsize',14); ylabel('RMTDE','fontsize',14)
+xlabel('Time(UTC)','fontsize',15); ylabel('RMTDE','fontsize',15)
 %---
-tit=[expri,'  ',titnam];     
+tit=[titnam,'  ',ss_hr{1},'00-',ss_hr{end},'00UTC'];     
 title(tit,'fontsize',18)
-%outfile=[outdir,'/',fignam,s_hr,'_lev',num2str(lev,'%.2d'),'_m',nen];
-% print(hf,'-dpng',[outfile,'.png']) 
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+
+outfile=[outdir,'/',fignam,num2str(sth),'_',num2str(lenh),'h'];
+print(hf,'-dpng',[outfile,'.png']) 
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

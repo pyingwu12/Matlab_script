@@ -1,7 +1,7 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test53';  dom='01';
+expri='test55';  dom='01';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='21'; 
 %year='2007'; mon='06'; date='01';

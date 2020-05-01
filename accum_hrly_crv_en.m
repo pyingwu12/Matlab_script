@@ -1,16 +1,16 @@
 close all
 clear
 %---setting
-expri='ens03';  member=1:10;  typst='mean';  %mean/sum/max
+expri='ens04';  member=1:20;  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=21;   lenh=24;   pridh=sth:sth+lenh-1;
+sth=15;   lenh=27;   pridh=sth:sth+lenh-1;
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
 
 indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
 %outdir=['/HDD001/Figures/ens200323/',expri,'/'];
 outdir='/mnt/e/figures/ens200323/';
-titnam='Hourly Rainfall';   fignam=[expri,'_hourlyrain-en_'];
+titnam='Hourly Rainfall';   fignam=[expri,'_hlyrain-en_'];
 
 %---
 %acci=zeros(length(pridh),length(member)+1); 
@@ -58,7 +58,7 @@ for ti=sth:tint:sth+lenh
 end
 
 %---plot
-hf=figure('position',[-1200 200 1000 600]);
+hf=figure('position',[100 10 1000 600]);
 %plot(pridh+0.5,acci,'linewidth',2,'color',[0.55 0.55 0.55])
 plot(pridh+0.5,acci,'linewidth',2,'color',[0.7 0.7 0.7])
 hold on
