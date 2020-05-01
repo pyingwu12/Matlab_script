@@ -1,18 +1,17 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test49';  dom='02';
+expri='test53';  dom='01';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='21'; 
 %year='2007'; mon='06'; date='01';
-hr=18:23; minu=[0]; infilenam='wrfout';  
+hr=19:23; minu=[0]; infilenam='wrfout';  
 scheme='WSM6';
-
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/notopo/';
+outdir='/mnt/e/figures/expri191009';
 titnam='Zh composite';   fignam=[expri,'_zh-model_d',dom,'_'];
 
 load('colormap/colormap_zh.mat')
@@ -37,7 +36,7 @@ for ti=hr
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
    fi=find(L>pmin);
     %
-   hf=figure('position',[-900 200 800 600]);
+   hf=figure('position',[100 10 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
    

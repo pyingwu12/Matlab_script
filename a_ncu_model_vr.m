@@ -1,20 +1,20 @@
-clear
+clear; ccc=':';
 close all
 
-hr=0;   minu='00';   expri='largens';  lev=12; 
+hr=0;   minu='00';   expri='test54';  lev=12; 
 
 %---DA or forecast time---
-infilenam='wrfmean';    type='mean';
+infilenam='wrfout';    type='sing';
 %infilenam='output/fcstmean';  type=infilenam(8:11);  
 
 %---experimental setting---
-dom='02'; year='2008'; mon='06'; date='16';    % time setting
-indir=['./',expri]; 
+dom='01'; year='2018'; mon='06'; date='22';    % time setting
+indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='./';   % path of the figure output
 %---set
-addpath('./m_map1.4/')
-addpath('./colorbar/');
-load './colormap_vr.mat';  cmap=colormap_vr;
+%addpath('./m_map1.4/')
+%addpath('./colorbar/');
+load 'colormap/colormap_vr.mat';  cmap=colormap_vr;
 L=[-8 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 8];
 %------
 varinam='Vr';    filenam=[expri,'_vr-model_']; 
@@ -24,10 +24,10 @@ g=9.81;  R=6.37122e6;
 xrad=120.0860; yrad=23.1467; zrad=38;
 xradd=120.0860*pi/180; yradd=23.1467*pi/180;
 %%
-   ti=hr
+   ti=hr;
 %---set filename---
    s_hr=num2str(ti,'%2.2d');  % start time string
-   infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,'%3A',minu,'%3A00'];
+   infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,ccc,minu,ccc,'00'];
 %------read netcdf data--------
    ncid = netcdf.open(infile,'NC_NOWRITE');
       varid  =netcdf.inqDimID(ncid,'bottom_top');   [~, nz]=netcdf.inqDim(ncid,varid);

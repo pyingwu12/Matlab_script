@@ -1,11 +1,11 @@
-close all
+%close all
 clear; ccc=':';
 %---setting
-expri='test46';
+expri='test54';
 %year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='21';
+year='2018'; mon='06'; date='22';
 %year='2007'; mon='06'; date='01';
-hr=22:23; minu=00; infilenam='wrfout';  dom='02'; 
+hr=3; minu=00; infilenam='wrfout';  dom='01'; 
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
@@ -45,7 +45,7 @@ for ti=hr
 %    [c, hp]=contourf(plotvar,20,'linestyle','none');
 %    colorbar
    %---    
-   hf=figure('position',[-900 200 800 600]);
+   hf=figure('position',[100 10 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
    
