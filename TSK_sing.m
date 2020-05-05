@@ -1,10 +1,10 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test43';
-%year='2018'; mon='08'; date='19';
+expri='test59';
+%year='2018'; mon='08'; date='21';
 year='2018'; mon='06'; date='22';
-hr=0; minu=0; infilenam='wrfout';  dom='01'; 
+hr=21; minu=0; infilenam='wrfout';  dom='01'; 
 
 %---
 %indir=['E:/wrfout/expri191009/',expri];
@@ -32,8 +32,7 @@ for ti=hr
  
    %---plot---
    plotvar=tsk';  
-   pmin=double(min(min(plotvar))) 
-   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
+   pmin=double(min(min(plotvar))); if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
    fi=find(L>pmin);
    %
    hf=figure('position',[-1100 200 900 600]);
@@ -41,15 +40,13 @@ for ti=hr
    %colorbar('fontsize',13,'LineWidth',1.2)
    %caxis([290 305])
    set(gca,'fontsize',16,'LineWidth',1.2)
-
    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
-   title(tit,'fontsize',18)  
+   title(tit,'fontsize',18)
    
    %---
    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
    h=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
-   colormap(cmap)
-   title(h,'K','fontsize',13)
+   colormap(cmap);   title(h,'K','fontsize',13)
    
    drawnow;
    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
@@ -58,11 +55,8 @@ for ti=hr
    end   
 %---    
    outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
-   print(hf,'-dpng',[outfile,'.png']) 
-   
-    %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-    %system(['rm ',[outfile,'.pdf']]);  
+   print(hf,'-dpng',[outfile,'.png'])   
+   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
    
  end
 end

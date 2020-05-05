@@ -1,15 +1,15 @@
 %close all
 clear;  ccc=':';
 %---setting
-expri='test49';  typst='mean';  %mean/sum/max
+expri='test60';  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=18;   lenh=24;   pridh=sth:sth+lenh-1;
+sth=12;   lenh=48;   pridh=sth:sth+lenh-1;
 infilenam='wrfout';  dom='02';  
 
 
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
-titnam='Hourly Rainfall';   fignam=[expri,'_hourlyrain_'];
+titnam='Hourly Rainfall';   fignam=[expri,'_hrlyrain_'];
 
 %---
 nti=0;  acci=size(length(pridh),1); 
@@ -52,7 +52,7 @@ end
 
 %
 %---plot
-hf=figure('position',[-1200 200 1000 600]);
+hf=figure('position',[100 10 1000 600]);
 plot(xi+0.5,acci,'LineWidth',2.2); hold on
 %
 set(gca,'XLim',[1 lenh+1],'XTick',xi(1:tint:end),'XTickLabel',ss_hr,...

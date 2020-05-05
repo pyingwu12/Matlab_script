@@ -40,6 +40,7 @@ for ti=hr
    %---plot---
    plotvar=TPW';   %plotvar(plotvar<=0)=NaN;
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
+    fi=find(L>pmin);
    %---
 %    figure('position',[-900 200 800 600]);
 %    [c, hp]=contourf(plotvar,20,'linestyle','none');
@@ -57,7 +58,7 @@ for ti=hr
    drawnow;
    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
    for idx = 1 : numel(hFills)
-      hFills(idx).ColorData=uint8(cmap2(idx,:)');
+      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
    end
 %---
    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     

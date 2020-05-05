@@ -95,7 +95,7 @@ tit=[expri,'  ',titnam,'  lev'...
     ,num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2d'),' mean'];     
 title(tit,'fontsize',18)
 outfile=[outdir,'/',fignam,num2str(sth),minu,...
-    '_',num2str(lenh),'h_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d'),'_mean'];
+    '_',num2str(lenh),'h_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 %set(hf,'PaperPositionMode','auto') 
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

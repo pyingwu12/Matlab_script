@@ -30,7 +30,7 @@ for ti=pridh
       %if mi==0
       % infile=[indir,'/mean','/wrfmean_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
       %else
-       infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
+      infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
       %end
       rc{j} = ncread(infile,'RAINC');
       rsh{j} = ncread(infile,'RAINSH');

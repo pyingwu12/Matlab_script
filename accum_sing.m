@@ -31,21 +31,27 @@ for ti=sth
       s_date=num2str(date+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
       %------read netcdf data--------
       infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
-      %infile = [indir,'/wrfout_d01_',year,'-',mon,'-',s_date,'_',s_hr,'%3A',minu,'%3A00'];
       rc{j} = ncread(infile,'RAINC');
       rsh{j} = ncread(infile,'RAINSH');
       rnc{j} = ncread(infile,'RAINNC');
     end %j=1:2
     rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
     rain(rain+1==1)=NaN;
-    
+    hgt = ncread(infile,'HGT');  
+
     %---plot--- 
     plotvar=rain';
     pmin=(min(min(plotvar)));  if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
+    fi=find(L>pmin);
 %
     hf=figure('position',[100 10 800 600]);
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
-    set(gca,'fontsize',16,'LineWidth',1.2)
+    set(gca,'fontsize',16,'LineWidth',1.2) 
+    if (max(max(hgt))~=0)
+    hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--'); 
+    end
+    tit=[expri,'  ',titnam,'  ',s_sth,minu,'-',s_edh,minu,' UTC'];
+    title(tit,'fontsize',16)
 
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
     hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
@@ -54,11 +60,9 @@ for ti=sth
     drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
-      hFills(idx).ColorData=uint8(cmap2(idx,:)');
+      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
     end
- 
-    tit=[expri,'  ',titnam,'  ',s_sth,minu,'-',s_edh,minu,' UTC'];
-    title(tit,'fontsize',16)
+
     outfile=[outdir,fignam,s_sth,s_edh];
     print(hf,'-dpng',[outfile,'.png'])
     

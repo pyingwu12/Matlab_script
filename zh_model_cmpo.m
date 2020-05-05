@@ -1,11 +1,11 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test55';  dom='01';
+expri='test60';  dom='01';
 %year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='21'; 
+year='2018'; mon='06'; date='22'; 
 %year='2007'; mon='06'; date='01';
-hr=19:23; minu=[0]; infilenam='wrfout';  
+hr=2:6; minu=[0]; infilenam='wrfout';  
 scheme='WSM6';
 
 %indir=['E:/wrfout/expri191009/',expri];

@@ -2,9 +2,9 @@
 close all
 clear
 %---setting
-expri='ens05';  member=1:20;   zhcr=30;
+expri='ens04';  member=1:20;   zhcr=30;
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='22';  hr=1:5;  minu=00; 
+year='2018'; mon='06'; date='23';  hr=1;  minu=00; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %scheme='Gaddard';
 scheme='WSM6';
@@ -18,7 +18,7 @@ for ti=hr
   s_hr=num2str(ti,'%.2d');
   for tmi=minu  
     s_min=num2str(tmi,'%.2d');        
-    hf=figure('position',[100 10 800 600]);    
+    figure('position',[100 10 800 600]);    
     for mi=member
       %---set filename---
       nen=num2str(mi,'%.2d');
@@ -45,7 +45,7 @@ for ti=hr
     tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
     title(tit,'fontsize',17)
     outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
-    print(hf,'-dpng',[outfile,'.png']) 
+    print('-dpng',[outfile,'.png']) 
     
     %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
