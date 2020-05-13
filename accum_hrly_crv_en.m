@@ -1,9 +1,9 @@
 close all
 clear
 %---setting
-expri='ens04';  member=1:20;  typst='mean';  %mean/sum/max
+expri='ens05';  member=1:20;  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=15;   lenh=27;   pridh=sth:sth+lenh-1;
+sth=15;   lenh=48;   pridh=sth:sth+lenh-1; tint=3;
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
 
@@ -50,7 +50,7 @@ end
 
 %
 %---set x tick---
-nti=0; tint=2;
+nti=0; 
 for ti=sth:tint:sth+lenh
   jti=ti+9;  
   hrday=fix(jti/24);  hr=jti-24*hrday;

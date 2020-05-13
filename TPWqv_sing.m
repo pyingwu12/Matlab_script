@@ -1,11 +1,11 @@
 %close all
 clear; ccc=':';
 %---setting
-expri='test54';
+expri='test62';
 %year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='22';
+year='2018'; mon='06'; date='21';
 %year='2007'; mon='06'; date='01';
-hr=3; minu=00; infilenam='wrfout';  dom='01'; 
+hr=15; minu=[10 20 30 40 50]; infilenam='wrfout';  dom='01'; 
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
@@ -49,8 +49,10 @@ for ti=hr
    hf=figure('position',[100 10 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
-   
-   
+   %
+   tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
+   title(tit,'fontsize',18)
+   %   
    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
    colormap(cmap)
@@ -60,12 +62,10 @@ for ti=hr
    for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
    end
-%---
-   tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
-   title(tit,'fontsize',18)
-    
+   %---    
    outfile=[outdir,fignam,mon,date,'_',s_hr,s_min];
-%    print(hf,'-dpng',[outfile,'.png']) 
+%  print(hf,'-dpng',[outfile,'.png']) 
+%  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
   end
 end
 

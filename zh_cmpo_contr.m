@@ -2,9 +2,9 @@
 close all
 clear
 %---setting
-expri='ens04';  member=1:20;   zhcr=30;
+expri='ens05';  member=1:20;   zhcr=30;
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='23';  hr=1;  minu=00; 
+year='2018'; mon='06'; date='22';  hr=14:18;  minu=00; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %scheme='Gaddard';
 scheme='WSM6';
