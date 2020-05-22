@@ -1,13 +1,28 @@
-clear;  ccc=':';
+function KE_spectral(expri,lev,stdate,sth,lenh)
+%clear;  
+ccc=':';
 close all
 %---setting
-expri='ens05';      lev=1:17; 
-year='2018'; mon='06';  stdate=21;  sth=21;  lenh=8;
+%expri='ens04';     lev=18:33;  %lev=1:17; 
+year='2018'; mon='06';  %stdate=21;  sth=21;  lenh=6;
 minu='00';  dom='01';  member=1:20; 
 dirmem='pert'; infilenam='wrfout';  
 %
 indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir='/mnt/e/figures/ens200323';
+%
+% load('colormap/colormap_parula.mat')
+% col=colormap_parula([1 3 4 5 7 8 9 10 11],:);
+col=[
+0.494, 0.184, 0.556;
+0      0.447  0.741;
+0.3,   0.745, 0.933;
+0.466, 0.674, 0.188;
+0.929  0.694  0.125;
+0.685  0.188  0.074;
+0.85,  0.325, 0.098;
+0.23   0.46   0.12;
+0.66   0.20   0.76];
 %
 titnam='KE spectral';   fignam=[expri,'_KE-sptrl_'];
 %%
@@ -78,14 +93,17 @@ for ti=1:lenh
 end %ti
 %%
 %---plot
-hf=figure('position',[100 100 950 600]) ;
-h=plot(KE.khm,'LineWidth',1.55); hold on
-col=get(h,'Color');
+hf=figure('position',[100 30 950 600]) ;
+%h=plot(KE.khm,'LineWidth',1.55); hold on
+%col=get(h,'Color');
 for ti=1:lenh
-plot(KEp.khm(:,ti),'LineWidth',1.5,'LineStyle','--','Color',col{ti})
+plot(KE.khm(:,ti),'LineWidth',1.8,'Color',col(ti,:)); hold on
 end
+for ti=1:lenh
+plot(KEp.khm(:,ti),'LineWidth',1.6,'LineStyle','--','Color',col(ti,:))
+end
+
 legend(legh,'Location','BestOutside')
-%plot(KEp.khm,'LineWidth',1.5,'LineStyle','--','Color',col)
 
 xlabel('k_h','fontsize',16)
 set(gca,'YScale','log','XScale','log','XLim',[1 150],'Linewidth',1.2,'fontsize',15)

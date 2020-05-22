@@ -1,17 +1,16 @@
-%close all
+close all
 clear; ccc=':';
 %---setting
-expri='test62';
+expri='test60';  dom='02';
 %year='2018'; mon='08'; date='19';
 year='2018'; mon='06'; date='21';
-%year='2007'; mon='06'; date='01';
-hr=15; minu=[10 20 30 40 50]; infilenam='wrfout';  dom='01'; 
+hr=23; minu=[0]; infilenam='wrfout';  
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/';
-titnam='Total-qv';   fignam=[expri,'_TPW-qv_'];
+outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+titnam='Total-qv';   fignam=[expri,'_TPW-qv_d',dom,'_',];
 
 load('colormap/colormap_qr3.mat')
 cmap=colormap_qr3; %cmap(1,:)=[1 1 1];
@@ -28,27 +27,26 @@ for ti=hr
    %------read netcdf data--------
    qv = ncread(infile,'QVAPOR');qv=double(qv);
    p = ncread(infile,'P');p=double(p);
-   pb = ncread(infile,'PB');pb=double(pb);
-   t = ncread(infile,'T');t=double(t);
+   pb = ncread(infile,'PB');pb=double(pb);  
+   hgt = ncread(infile,'HGT');
    %---
    [nz]=size(qv,3);
    P=(pb+p);  dP=P(:,:,1:nz-1,:)-P(:,:,2:nz,:);
    tpw= dP.*( (qv(:,:,2:nz,:)+qv(:,:,1:nz-1,:)).*0.5 ) ;
    TPW=squeeze(sum(tpw,3)./9.81);
 
-
    %---plot---
    plotvar=TPW';   %plotvar(plotvar<=0)=NaN;
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
-    fi=find(L>pmin);
-   %---
-%    figure('position',[-900 200 800 600]);
-%    [c, hp]=contourf(plotvar,20,'linestyle','none');
-%    colorbar
+   fi=find(L>pmin); 
    %---    
    hf=figure('position',[100 10 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
+   %
+   if (max(max(hgt))~=0)
+      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.6); 
+   end
    %
    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
    title(tit,'fontsize',18)
@@ -64,8 +62,8 @@ for ti=hr
    end
    %---    
    outfile=[outdir,fignam,mon,date,'_',s_hr,s_min];
-%  print(hf,'-dpng',[outfile,'.png']) 
-%  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+   print(hf,'-dpng',[outfile,'.png']) 
+   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
   end
 end
 

@@ -1,17 +1,17 @@
 %close all
 clear
 %---setting
-expri='test38';
+expri='test56';
 year='2018'; mon='06'; date=21;
 %year='2018'; mon='08'; date=18;
-sth=21; acch=24; minu='00';  
-infilenam='wrfout';  dom='01';
+sth=15; acch=24; minu='00';  
+infilenam='wrfout';  dom='02';
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/';
-titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
+outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+titnam='Accumulated Rainfall';   fignam=[expri,'_accum_d',dom,'_'];
 
 addpath('colorbar')
 load('colormap/colormap_rain.mat')
