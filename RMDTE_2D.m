@@ -4,6 +4,7 @@ clear;  ccc=':';
 expri='ens05';  member=1:20;
 year='2018'; mon='06';  s_date='22'; hr=0:12; minu=00;
 dom='01';  dirmem='pert'; infilenam='wrfout';  
+grids=1;%grid_spacing(km)
 %
 indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir='/mnt/e/figures/ens200323/';
@@ -76,10 +77,11 @@ for ti=hr
       pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
       fi=find(L>pmin);
        %
-      hf=figure('position',[10 20 830 600]);
-    
+      hf=figure('position',[10 20 830 600]);   
       [c, hp]=contourf(plotvar,L2,'linestyle','none');       
       set(gca,'fontsize',16,'LineWidth',1.2)
+      set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
+      xlabel('(km)'); ylabel('(km)');
       
       if (max(max(hgt))~=0)
         hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 

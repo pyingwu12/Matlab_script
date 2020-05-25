@@ -1,11 +1,9 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test52';  dom='01';
-%year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='22'; 
-%year='2007'; mon='06'; date='01';
-hr=6:12; minu=[0]; infilenam='wrfout';  
+expri='test68';  dom='01';  grids=1;%grid_spacing(km)
+year='2018'; mon='06'; s_date='22'; 
+hr=0:12; minu=[0]; infilenam='wrfout';  
 scheme='WSM6';
 
 %indir=['E:/wrfout/expri191009/',expri];
@@ -27,7 +25,7 @@ for ti=hr
    %---set filename---
    s_hr=num2str(ti,'%2.2d');  % start time string
    s_min=num2str(mi,'%2.2d');
-   infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,ccc,s_min,ccc,'00'];
+   infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
    hgt = ncread(infile,'HGT');  
    zh_max=cal_zh_cmpo(infile,scheme);         
   
@@ -39,6 +37,8 @@ for ti=hr
    hf=figure('position',[100 10 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
+   set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
+   xlabel('(km)'); ylabel('(km)');
    
    if (max(max(hgt))~=0)
     hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--'); 
@@ -58,7 +58,7 @@ for ti=hr
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
    end   
 %---    
-   outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
+   outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min];
    print(hf,'-dpng',[outfile,'.png']) 
    
     %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 

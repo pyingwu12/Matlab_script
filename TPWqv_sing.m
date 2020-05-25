@@ -1,13 +1,11 @@
 close all
 clear; ccc=':';
 %---setting
-expri='test60';  dom='02';
-%year='2018'; mon='08'; date='19';
-year='2018'; mon='06'; date='21';
-hr=23; minu=[0]; infilenam='wrfout';  
+expri='test56';  dom='01'; grids=3;%grid_spacing(km)
+year='2018'; mon='06'; date='22';
+hr=12; minu=[0]; infilenam='wrfout';  
 
-%indir=['E:/wrfout/expri191009/',expri];
-%outdir='E:/figures/expri191009/';
+
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
 outdir=['/mnt/e/figures/expri191009/',expri,'/'];
 titnam='Total-qv';   fignam=[expri,'_TPW-qv_d',dom,'_',];
@@ -40,9 +38,11 @@ for ti=hr
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
    fi=find(L>pmin); 
    %---    
-   hf=figure('position',[100 10 800 600]);
+   hf=figure('position',[100 45 800 600]);
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
+   set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
+   xlabel('(km)'); ylabel('(km)');
    %
    if (max(max(hgt))~=0)
       hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.6); 
