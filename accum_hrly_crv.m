@@ -1,12 +1,16 @@
 %close all
 clear;  ccc=':';
 %---setting
-expri='test68';  typst='mean';  %mean/sum/max
+%!!!!!!!!!!!!!!!!!
+bdy=0;   %!!!!!!!!
+expri='test82';  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=22;   lenh=24;   pridh=sth:sth+lenh-1;  tint=2;
+sth=15;   lenh=30;   pridh=sth:sth+lenh-1;  tint=2;
 infilenam='wrfout';  dom='01';  
 
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+
+
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir=['/mnt/e/figures/expri191009/',expri,'/'];
 titnam='Hourly Rainfall';   fignam=[expri,'_hrlyrain_d',dom,'_'];
 
@@ -29,11 +33,11 @@ for ti=pridh
    rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
    switch(typst)
     case('mean')
-     acci(nti)=mean(mean(rain));
+     acci(nti)=mean(mean(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     case('sum')
-     acci(nti)=sum(sum(rain));
+     acci(nti)=sum(sum(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     case('max')
-     acci(nti)=max(max(rain));
+     acci(nti)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
    end  
 end
 

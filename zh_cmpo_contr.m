@@ -9,7 +9,7 @@ dirmem='pert'; infilenam='wrfout';  dom='01';
 %scheme='Gaddard';
 scheme='WSM6';
 
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 %outdir=['/HDD001/Figures/ens200323/',expri];
 outdir='/mnt/e/figures/ens200323/';
 titnam='Zh composite';   fignam=[expri,'_zh-contr',num2str(zhcr),'_'];

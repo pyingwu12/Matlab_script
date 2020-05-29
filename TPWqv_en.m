@@ -6,8 +6,8 @@ year='2018'; mon='06'; date='22';  hr=10; minu=0;
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
 %indir=['/HDD001/expri_ens200323/',expri];
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir=['/HDD001/Figures/ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
+outdir=['/mnt/e/figures/ens200323/',expri];
 titnam='PW';   fignam=[expri,'_TPW-qv_'];
 
 load('colormap/colormap_qr3.mat')

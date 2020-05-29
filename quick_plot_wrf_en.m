@@ -8,7 +8,7 @@ dirmem='pert'; infilenam='wrfout';  dom='01';
 
 zi=9;   yi=100;
 indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir='/mnt/e/figures/ens200323/';
+outdir='/mnt/mnt/e/figures/ens200323/';
 
 infile = [indir,'/',dirmem,nen,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,':',minu,':00'];
 % qv = ncread(infile,'QVAPOR');

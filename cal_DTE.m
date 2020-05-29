@@ -5,7 +5,7 @@ year='2018'; mon='06';  stdate=21;
 dom='01';  
 dirmem='pert'; infilenam='wrfout';  
 %
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 cp=1004.9;
 Tr=270;
 

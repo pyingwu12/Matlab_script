@@ -1,14 +1,14 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test68';  dom='01';  grids=1;%grid_spacing(km)
-year='2018'; mon='06'; s_date='22'; 
-hr=0:12; minu=[0]; infilenam='wrfout';  
+expri='test76';  dom='01';  grids=1;%grid_spacing(km)
+year='2018'; mon='06'; s_date='21'; 
+hr=16:23; minu=0; infilenam='wrfout';  
 scheme='WSM6';
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir=['/mnt/e/figures/expri191009/',expri,'/'];
 titnam='Zh composite';   fignam=[expri,'_zh-model_d',dom,'_'];
 

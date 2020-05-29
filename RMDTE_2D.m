@@ -6,7 +6,7 @@ year='2018'; mon='06';  s_date='22'; hr=0:12; minu=00;
 dom='01';  dirmem='pert'; infilenam='wrfout';  
 grids=1;%grid_spacing(km)
 %
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir='/mnt/e/figures/ens200323/';
 titnam='RMDTE';   fignam=[expri,'_RMDTE_'];
 %

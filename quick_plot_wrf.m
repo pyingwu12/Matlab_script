@@ -8,7 +8,7 @@ infilenam='wrfout';  dom='01';
 
 zi=15;  
 %indir=['E:/wrfout/expri191009/',expri];
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
 
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];

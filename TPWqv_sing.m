@@ -1,12 +1,12 @@
 close all
 clear; ccc=':';
 %---setting
-expri='test56';  dom='01'; grids=3;%grid_spacing(km)
+expri='test80';  dom='01'; grids=1; %grid_spacing(km)
 year='2018'; mon='06'; date='22';
 hr=12; minu=[0]; infilenam='wrfout';  
 
 
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir=['/mnt/e/figures/expri191009/',expri,'/'];
 titnam='Total-qv';   fignam=[expri,'_TPW-qv_d',dom,'_',];
 
@@ -19,8 +19,7 @@ L=[65.5 66 66.5 67 67.5 68 69 70 71 72];
 for ti=hr
   for mi=minu    
    %---set filename---
-   s_hr=num2str(ti,'%2.2d');  
-   s_min=num2str(mi,'%2.2d');
+   s_hr=num2str(ti,'%2.2d');   s_min=num2str(mi,'%2.2d');
    infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,ccc,s_min,ccc,'00'];
    %------read netcdf data--------
    qv = ncread(infile,'QVAPOR');qv=double(qv);

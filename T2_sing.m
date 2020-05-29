@@ -12,7 +12,7 @@ infilenam='wrfout';  dom='01';
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
 titnam='T2';   fignam=[expri,'_T2-curve_'];
 

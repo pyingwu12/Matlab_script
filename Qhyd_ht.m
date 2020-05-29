@@ -1,14 +1,15 @@
-close all
+%close all
 clear;   ccc=':';
 %---setting
-expri='test61';
-sth=18;  lenh=48; minu=[00 30]; 
+expri='test75';  
+sth=12;  lenh=12; %minu=[0 10 20 30 40 50]; tint=1;
+minu=[0 30]; tint=2;
 year='2018'; mon='06'; stdate=21;
 infilenam='wrfout';  dom='01'; 
 
 %---
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/';
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
+outdir=['/mnt/e/figures/expri191009/',expri,'/'];
 titnam='Hydrometeor mean';   fignam=[expri,'_qhyd-ht_'];
 
 load('colormap/colormap_qr3.mat')
@@ -51,7 +52,7 @@ for ti=1:lenh
 end
 
 %---
-tint=3;
+
 nti=0;
 for ti=1:tint:lenh 
    nti=nti+1;
@@ -89,7 +90,7 @@ for idx = 1 : numel(hFills)
    hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
 end
 %
-intz=10; intt=tint;
+intz=10; intt=3;
 windbarbM(xi(5:intz:end,2:intt:end),zi(5:intz:end,2:intt:end),...
     uitp(5:intz:end,2:intt:end),vitp(5:intz:end,2:intt:end),0.3,10,[0.5 0.02 0.3],0.5)
 

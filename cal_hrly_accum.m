@@ -3,7 +3,7 @@ function acci=cal_hrly_accum(expri,time,sth,lenh,dom,typst,ccc)
 
 %expri='test38'; time='2018062100'; sth=18;  lenh=4;  dom='01'; typst='mean';
 
-indir=['/HDD003/pwin/Experiments/expri_test/',expri]; 
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; 
 %---setting
 if isempty(ccc); ccc=':'; end
 year=time(1:4); mon=time(5:6); date=str2double(time(7:8)); minu=time(9:10);

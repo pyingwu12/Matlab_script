@@ -6,7 +6,7 @@ sth=22;  acch=17;
 year='2018'; mon='06'; date=21; minu='00';  
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir='/mnt/e/figures/ens200323/';
 %
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
