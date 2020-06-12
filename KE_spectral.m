@@ -1,14 +1,14 @@
-function KE_spectral(expri,lev,stdate,sth,lenh)
-%clear;  
+%function KE_spectral(expri,lev,stdate,sth,lenh)
+clear;  
 ccc=':';
 close all
 %---setting
-%expri='ens04';     lev=18:33;  %lev=1:17; 
-year='2018'; mon='06';  %stdate=21;  sth=21;  lenh=6;
-minu='00';  dom='01';  member=1:20; 
+expri='ens07';     lev=1:17; 
+year='2018'; mon='06';  stdate=21;  sth=22;  lenh=8;
+minu='00';  dom='01';  member=1:10; 
 dirmem='pert'; infilenam='wrfout';  
 %
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir='/mnt/e/figures/ens200323';
 %
 % load('colormap/colormap_parula.mat')

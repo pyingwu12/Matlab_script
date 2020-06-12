@@ -1,9 +1,9 @@
 close all
 clear; ccc=':';
 %---setting
-expri='test80';  dom='01'; grids=1; %grid_spacing(km)
-year='2018'; mon='06'; date='22';
-hr=12; minu=[0]; infilenam='wrfout';  
+expri='test88';  dom='01'; grids=1; %grid_spacing(km)
+year='2018'; mon='06'; date='21';
+hr=17; minu=[0]; infilenam='wrfout';  
 
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];

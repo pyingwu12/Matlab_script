@@ -1,7 +1,7 @@
 %close all
 clear
 %---setting
-expri='test50';  grids=1; %grid_spacing(km)
+expri='test83';  grids=1; %grid_spacing(km)
 year='2018'; mon='06'; date=21;
 %year='2018'; mon='08'; date=18;
 sth=22; acch=24; minu='00';  

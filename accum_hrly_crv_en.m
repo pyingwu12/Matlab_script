@@ -1,7 +1,9 @@
 close all
 clear
 %---setting
-expri='ens05';  member=1:20;  typst='mean';  %mean/sum/max
+%!!!!!!!!!!!!!!!!!
+bdy=0;   %!!!!!!!!
+expri='ens08';  member=1:10;  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
 sth=15;   lenh=48;   pridh=sth:sth+lenh-1; tint=3;
 dirmem='pert'; infilenam='wrfout';  dom='01';  
@@ -39,11 +41,11 @@ for ti=pridh
    rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
    switch(typst)
     case('mean')
-     acci(nti,nmi)=mean(mean(rain));
+     acci(nti,nmi)=mean(mean(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     case('sum')
-     acci(nti,nmi)=sum(sum(rain));
+     acci(nti,nmi)=sum(sum(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     case('max')
-     acci(nti,nmi)=max(max(rain));
+     acci(nti,nmi)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
    end   
 end %ti
 end
@@ -59,7 +61,6 @@ end
 
 %---plot
 hf=figure('position',[100 10 1000 600]);
-%plot(pridh+0.5,acci,'linewidth',2,'color',[0.55 0.55 0.55])
 plot(pridh+0.5,acci,'linewidth',2,'color',[0.7 0.7 0.7])
 hold on
 plot(pridh+0.5,mean(acci,2),'linewidth',2,'color',[0.7 0.3 0.3])
@@ -75,7 +76,5 @@ title(tit,'fontsize',19)
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,fignam,mon,num2str(date),'_',s_sth,minu,'_',s_lenh,'hr_',typst];
 print(hf,'-dpng',[outfile,'.png']) 
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 
-    %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-    %system(['rm ',[outfile,'.pdf']]);  

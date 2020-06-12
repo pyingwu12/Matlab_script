@@ -1,13 +1,13 @@
 close all
 clear
 %---setting
-expri='ens05';  ensize=20;  plotid=[1];  % 1:mean, 2:PM, 3:PMmod
-sth=22;  acch=17;  
-year='2018'; mon='06'; date=21; minu='00';  
+expri='ens07';  ensize=10;  plotid=[1];  % 1:mean, 2:PM, 3:PMmod
+sth=0:5;  acch=1;  
+year='2018'; mon='06'; date=23; minu='00';  
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %
 indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir='/mnt/e/figures/ens200323/';
+outdir=['/mnt/e/figures/ens200323/',expri,'/'];
 %
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
 typst={'mean';'PM';'PMmod'};
@@ -16,7 +16,9 @@ addpath('colorbar')
 load('colormap/colormap_rain.mat')
 cmap=colormap_rain;
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
-L=[  1   2   4   6  10  15  20  25  30  40  50  60  70  80 100 120];
+%L=[  1   2   4   6  10  15  20  25  30  40  50  60  70  80 100 120];
+L=[ 0.5  1   2   4   6  10  15  20  25  30 35 40 45 50 55 60];
+
 
 %
 %---
@@ -69,7 +71,7 @@ for ti=sth
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
      end
      %---
-     outfile=[outdir,fignam,s_sth,s_edh,'_',typst{pi}];
+     outfile=[outdir,fignam,mon,num2str(date),'_',s_sth,s_edh,'_',typst{pi}];
      print(hf,'-dpng',[outfile,'.png'])
      system(['convert -trim ',outfile,'.png ',outfile,'.png']);        
    end %plot

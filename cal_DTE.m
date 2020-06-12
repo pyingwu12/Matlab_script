@@ -1,7 +1,7 @@
-function RMDTE_t=cal_DTE(expri,sth,lenh,minu,member)
+function RMDTE_t=cal_DTE(expri,stdate,sth,lenh,minu,member)
 
 ccc=':';
-year='2018'; mon='06';  stdate=21;  
+year='2018'; mon='06';  %stdate=21;  
 dom='01';  
 dirmem='pert'; infilenam='wrfout';  
 %

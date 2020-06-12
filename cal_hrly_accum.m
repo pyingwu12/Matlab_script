@@ -1,4 +1,4 @@
-function acci=cal_hrly_accum(expri,time,sth,lenh,dom,typst,ccc)
+function acci=cal_hrly_accum(expri,time,sth,lenh,dom,bdy,typst,ccc)
 %ccc defult ":"
 
 %expri='test38'; time='2018062100'; sth=18;  lenh=4;  dom='01'; typst='mean';
@@ -38,11 +38,11 @@ for ti=pridh
    rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
    switch(typst)
     case('mean')
-     acci(nti)=mean(mean(rain));
+     acci(nti)=mean(mean(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     case('sum')
-     acci(nti)=sum(sum(rain));
+     acci(nti)=sum(sum(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     case('max')
-     acci(nti)=max(max(rain));
+     acci(nti)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
    end  
    end
 end

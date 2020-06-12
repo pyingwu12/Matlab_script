@@ -1,13 +1,13 @@
 close all
 clear;  ccc=':';
 %---
-expri='ens05';  member=1:20;
-year='2018'; mon='06';  s_date='22'; hr=0:12; minu=00;
+expri='ens08';  member=1:10;
+year='2018'; mon='06';  s_date='23'; hr=2:9; minu=00;
 dom='01';  dirmem='pert'; infilenam='wrfout';  
 grids=1;%grid_spacing(km)
 %
 indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir='/mnt/e/figures/ens200323/';
+outdir=['/mnt/e/figures/ens200323/',expri];
 titnam='RMDTE';   fignam=[expri,'_RMDTE_'];
 %
 

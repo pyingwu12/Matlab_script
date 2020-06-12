@@ -3,12 +3,10 @@ clear;  ccc=':';
 %---setting
 %!!!!!!!!!!!!!!!!!
 bdy=0;   %!!!!!!!!
-expri='test82';  typst='mean';  %mean/sum/max
+expri='test81';  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
 sth=15;   lenh=30;   pridh=sth:sth+lenh-1;  tint=2;
 infilenam='wrfout';  dom='01';  
-
-
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir=['/mnt/e/figures/expri191009/',expri,'/'];
@@ -41,7 +39,7 @@ for ti=pridh
    end  
 end
 
-%%
+%
 %---set x tick---
 xi=(1:lenh); 
 
@@ -62,12 +60,9 @@ set(gca,'XLim',[1 lenh+1],'XTick',xi(1:tint:end),'XTickLabel',ss_hr,...
     'fontsize',15,'linewidth',1.3)
 xlabel('Time (JST)','fontsize',18);  ylabel('Rainfall (mm)','fontsize',18)
 %---
-
 tit=[expri,'  ',titnam,'  (',upper(typst),')  '];     
 title(tit,'fontsize',19)
-
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,fignam,mon,num2str(date),'_',s_sth,minu,'_',s_lenh,'hr_',typst];
-
  print(hf,'-dpng',[outfile,'.png']) 
  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
