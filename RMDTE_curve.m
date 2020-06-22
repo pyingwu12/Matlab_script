@@ -85,7 +85,8 @@ end
 %     'topo_all','topo_cen','topo_up','topo_down',...
 %     'Box','off','fontsize',16,'Interpreter','none','location','Bestoutside')
 set(gca,'Linewidth',1.2,'fontsize',13)
-set(gca,'Ylim',[0.5 1.4])
+%set(gca,'Ylim',[0.5 1.4],'YScale','log')
+set(gca,'YScale','log')
 set(gca,'Xlim',[8 size(RMDTE,2)-3],'XTick',1:tint*length(minu):length(minu)*lenh,...
     'XTickLabel',ss_hr)
 xlabel('Time(JST)','fontsize',15); ylabel('RMTDE','fontsize',15)

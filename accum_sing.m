@@ -1,14 +1,10 @@
 %close all
 clear
 %---setting
-expri='test83';  grids=1; %grid_spacing(km)
-year='2018'; mon='06'; date=21;
-%year='2018'; mon='08'; date=18;
-sth=22; acch=24; minu='00';  
-infilenam='wrfout';  dom='01';
+expri='test89';  grids=1; %grid_spacing(km)
+date=21; sth=23; acch=12; minu='00';  
+year='2018'; mon='06';  infilenam='wrfout';  dom='01';
 
-%indir=['E:/wrfout/expri191009/',expri];
-%outdir='E:/figures/expri191009/';
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir=['/mnt/e/figures/expri191009/',expri,'/'];
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_d',dom,'_'];
@@ -44,7 +40,7 @@ for ti=sth
     pmin=(min(min(plotvar)));  if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
     fi=find(L>pmin);
 %
-    hf=figure('position',[100 10 800 600]);
+    hf=figure('position',[100 10 800 630]);
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
     set(gca,'fontsize',16,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)

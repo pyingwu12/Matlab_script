@@ -1,15 +1,14 @@
 close all
 clear
 %---setting
-expri='ens07';  
-date=22; sth=6;  acch=1;  member=1:10;  
+expri='ens07';  sth=2;  acch=1;  member=1:10;   filt_len=30; dx=1;dy=1;
 %---
-year='2018'; mon='06';   minu='00'; 
+year='2018'; mon='06';  date=22;  minu='00'; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir=['/mnt/e/figures/ens200323/',expri,'/'];
-titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
+titnam='Accumulated Rainfall';   fignam=[expri,'_accum_L',num2str(filt_len),'_'];
 
 addpath('colorbar')
 load('colormap/colormap_rain.mat')
@@ -36,15 +35,17 @@ for ti=sth
         rnc{j} = ncread(infile,'RAINNC');
       end %j=1:2      
       rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
-      rain(rain+1==1)=NaN;
+      rain(rain+1==1)=0;
+      
+      rainfilt=low_pass_filter(rain,filt_len,dx,dy);  %---LOW pass filter----
       %
       hgt = ncread(infile,'HGT');
       
       %---plot--- 
-      plotvar=rain';
+      plotvar=rainfilt';
       pmin=(min(min(plotvar)));  if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
       %
-      hf=figure('position',[-1100 200 900 650]);
+      hf=figure('position',[-1100 200 800 630]);
       [c, hp]=contourf(plotvar,L2,'linestyle','none');
       set(gca,'fontsize',16,'LineWidth',1.2)
       
@@ -52,7 +53,7 @@ for ti=sth
       hold on; contour(hgt',[100 500 900],'color',[0.2 0.3 0.3],'linestyle','--'); 
       end
       
-      tit=[expri,' mem',nen,'  ',titnam,'  ',s_sth,minu,'-',s_edh,minu,' UTC'];
+      tit=[expri,' mem',nen,'  ',titnam,'  ',s_sth,minu,'-',s_edh,minu,' UTC  WL=',num2str(filt_len)];
       title(tit,'fontsize',15)
       %-----
       L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());

@@ -2,16 +2,16 @@
 clear
 close all
 %==========================================================================
-figure_name='E:/figures/shionomisaki_1908190000_modified';
-title_name='shionomisaki 20190819 0000UTC Modified';
+figure_name='/mnt/e/figures/shionomisaki_1908190000_weaken';
+title_name='shionomisaki 20190819 0000UTC weaken low level wind';
 %--------
 %upair=importdata('Taipei_20190722_0000.txt');
 %P3=upair(:,4);  WS=upair(:,9); WD=upair(:,8); 
 %P1=upair(:,4); TT=upair(:,6);
 %P2=upair(:,4); Td=upair(:,7);
 
-Wind=importdata('E:/data/sounding/shionomisaki_20190819_0000_wind_modified.txt');
-Temp=importdata('E:/data/sounding/shionomisaki_20190819_0000_temp_modified.txt');
+Wind=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_wind_weaken.txt');
+Temp=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_temp.txt');
 TT=Temp(:,3);
 Td=TT-(100-Temp(:,4))/5;
 P1=Temp(:,1);  P2=Temp(:,1); P3=Wind(:,1);

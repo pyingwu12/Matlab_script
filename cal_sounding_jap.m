@@ -5,9 +5,8 @@ year='2019';  mon='08';  date='19';  hr='00';  minu='00';
 
 %Wind=importdata(['E:/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_wind.txt']);
 %Temp=importdata(['E:/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_temp.txt']);
-Wind=importdata(['/mnt/e/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_wind.txt']);
+Wind=importdata(['/mnt/e/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_wind_weaken.txt']);
 Temp=importdata(['/mnt/e/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_temp.txt']);
-
 %-------------
 R=287.43;
 cp=1005;
@@ -39,13 +38,13 @@ out(:,5)=v_int;
 % 
 fin=find(Temp(:,1)==1000);  %for writing first line of input_sounding format
 %%
- %fid = fopen(['E:/data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu,'_weakenwind'],'wt');
- fid = fopen(['/HDD003/pwin/Data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu,'_weakenwind'],'wt');
- for i = 1:size(out,1)
-     if i==1
-          fprintf(fid,'%13.4f%13.4f%12.6f\n',Temp(fin,1),out(fin,2),out(fin,3));
-     end
-     fprintf(fid,'%13.4f%13.4f%12.6f%13.4f%13.4f\n',out(i,:));
-     %fprintf(fid,'%12.4f   %12.4f   %12.5f%9.1f  %9.1f\n',out(i,:));   %convrad
- end
- fclose(fid);
+%  %fid = fopen(['E:/data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu,'_weakenwind'],'wt');
+%  fid = fopen(['/HDD003/pwin/Data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu,'_weakenwind'],'wt');
+%  for i = 1:size(out,1)
+%      if i==1
+%           fprintf(fid,'%13.4f%13.4f%12.6f\n',Temp(fin,1),out(fin,2),out(fin,3));
+%      end
+%      fprintf(fid,'%13.4f%13.4f%12.6f%13.4f%13.4f\n',out(i,:));
+%      %fprintf(fid,'%12.4f   %12.4f   %12.5f%9.1f  %9.1f\n',out(i,:));   %convrad
+%  end
+%  fclose(fid);

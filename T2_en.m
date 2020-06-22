@@ -1,13 +1,13 @@
 close all
 clear; ccc=':';
 %---setting
-expri='ens03';  member=1:10;  typst='mean'; %mean/max/min
+expri='ens08';  member=1:10;  typst='mean'; %mean/max/min
 year='2018'; mon='06'; date=21; minu='00';
-sth=22;   lenh=23;   pridh=sth:sth+lenh-1;
+sth=16;   lenh=48;   pridh=sth:sth+lenh-1;  tint=3;
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
 
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 %outdir=['/HDD001/Figures/ens200323/',expri,'/'];
 outdir='/mnt/e/figures/ens200323/';
 titnam='T2';   fignam=[expri,'_T2-crv-en_'];
@@ -40,7 +40,7 @@ end
 
 %
 %---set x tick---
-nti=0; tint=2;
+nti=0; 
 for ti=sth:tint:sth+lenh
   jti=ti+9;  
   hrday=fix(jti/24);  hr=jti-24*hrday;

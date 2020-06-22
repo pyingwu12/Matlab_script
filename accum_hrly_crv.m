@@ -3,9 +3,9 @@ clear;  ccc=':';
 %---setting
 %!!!!!!!!!!!!!!!!!
 bdy=0;   %!!!!!!!!
-expri='test81';  typst='mean';  %mean/sum/max
+expri='test56';  typst='max';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
-sth=15;   lenh=30;   pridh=sth:sth+lenh-1;  tint=2;
+sth=15;   lenh=48;   pridh=sth:sth+lenh-1;  tint=3;
 infilenam='wrfout';  dom='01';  
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];

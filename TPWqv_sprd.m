@@ -1,10 +1,12 @@
+% plot spread of TPW_qv (shaded) with ensembble mean of rainfall (contour)
+
 close all
 clear;  ccc=':';
 %---
 expri='ens07';  
 year='2018'; mon='06';  s_date='22'; hr=7; minu=00;
 dom='01';  dirmem='pert'; infilenam='wrfout'; 
-memsize=10;  grids=1;%grid_spacing(km)
+ensize=10;  grids=1;%grid_spacing(km)
 %
 indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 outdir=['/mnt/e/figures/ens200323/',expri];
@@ -36,17 +38,16 @@ for ti=hr
    s_hr=num2str(ti,'%2.2d'); 
    for tmi=minu
      s_min=num2str(tmi,'%.2d');
-     for mi=1:memsize
+     for mi=1:ensize
       nen=num2str(mi,'%.2d');
       infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %------read netcdf data--------
       qv =ncread(infile,'QVAPOR');
       p = ncread(infile,'P');  pb = ncread(infile,'PB');
       if mi==1
-        [nx,ny,~]=size(qv);  
-        TPWmem=zeros(nx,ny,memsize);  
+        [nx,ny,~]=size(qv);     TPWmem=zeros(nx,ny,ensize);  
         hgt=ncread(infile,'HGT'); 
-        %---
+        %--------read rainfall of ensemble mean--------------------
         for j=1:2
          hrr=ti+j-1;   hrday=fix(hrr/24);  hrr=hrr-24*hrday;
          s_dater=num2str(str2double(s_date)+hrday,'%2.2d');   s_hrr=num2str(hrr,'%2.2d');
@@ -59,16 +60,16 @@ for ti=hr
         rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
         rain(rain+1==1)=NaN;
       end
-      %---
+      %-------------------------------
       P=(pb+p);        dP=P(:,:,1:end-1)-P(:,:,2:end);    
       tpw= dP.*( (qv(:,:,2:end)+qv(:,:,1:end-1)).*0.5 ) ;   
       TPWmem(:,:,mi)=sum(tpw,3)./g;   
      end
-     %---
-     A=reshape(TPWmem,nx*ny,memsize);     
-     am=mean(A,2);     Am=repmat(am,1,memsize);
+     %---calculte spread---
+     A=reshape(TPWmem,nx*ny,ensize);     
+     am=mean(A,2);     Am=repmat(am,1,ensize);
      Ap=A-Am; 
-     varae=sum(Ap.^2,2)./(memsize-1);    
+     varae=sum(Ap.^2,2)./(ensize-1);    
      sprd=reshape(sqrt(varae),nx,ny);
      
      %---plot---

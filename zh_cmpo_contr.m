@@ -2,8 +2,8 @@
 close all
 clear
 %---setting
-expri='ens07';  member=1:10;   zhcr=30;
-year='2018'; mon='06'; date='23';  hr=0:1;  minu=00; 
+expri='ens08';  member=1:10;   zhcr=30;
+year='2018'; mon='06'; date='21';  hr=15:16;  minu=00; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 scheme='WSM6'; %scheme='Gaddard';
 
@@ -15,7 +15,8 @@ for ti=hr
   s_hr=num2str(ti,'%.2d');
   for tmi=minu  
     s_min=num2str(tmi,'%.2d');        
-    figure('position',[100 10 800 630]);    
+    %figure('position',[100 10 780 630]);    
+    figure('position',[-1200 100 780 640]);  
     for mi=member
       %---set filename---
       nen=num2str(mi,'%.2d');
@@ -39,8 +40,9 @@ for ti=hr
       end
     %----    
     set(gca,'fontsize',16,'LineWidth',1.2)
-    tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
-    title(tit,'fontsize',17)
+      jhr=ti+9;  jhr=jhr-24*fix(jhr/24);  s_jhr=num2str(jhr,'%.2d');
+      tit=[expri,'  ',titnam,'  ',s_jhr,s_min,' JST'];     
+      title(tit,'fontsize',17)
     outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min];
     print('-dpng',[outfile,'.png']) 
     
