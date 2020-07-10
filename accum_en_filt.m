@@ -1,7 +1,7 @@
 close all
 clear
 %---setting
-expri='ens07';  sth=2;  acch=1;  member=1:10;   filt_len=30; dx=1;dy=1;
+expri='ens08';  sth=5;  acch=1;  member=5;   filt_len=10; dx=1;dy=1;
 %---
 year='2018'; mon='06';  date=22;  minu='00'; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  

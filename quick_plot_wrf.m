@@ -1,7 +1,7 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='test43';  
+expri='test88';  
 %year='2007'; mon='06'; date='01';
 year='2018'; mon='06'; s_date='21';  s_hr='21'; minu='00';
 infilenam='wrfout';  dom='01'; 
@@ -78,17 +78,22 @@ hgt= ncread(infile,'HGT');
 %    set(gca,'Fontsize',14,'linewidth',1.2)
 %    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 
 
-%  hf=figure('Position',[100 100 750 500]);  
+%  hf=figure('Position',[100 100 800 630]);  
 %    contourf(hgt',20,'linestyle','none')
-%    title([expri,'  topography '],'FontSize',15)
-%    colorbar   
-%    caxis([0 1000])
-%    set(gca,'Fontsize',14,'linewidth',1.2)
-%    print(hf,'-dpng',[outdir,expri,'_topo.png']) 
+%    %title([expri,'  topography '],'FontSize',16)
+%    hc=colorbar; caxis([0 1000])
+%    set(hc,'Fontsize',15,'linewidth',1.2);   title(hc,'(m)','Fontsize',15)
+%    set(gca,'Fontsize',15,'linewidth',1.2,'TickDir','out')
+%    xlabel('km','Fontsize',15); ylabel('km','Fontsize',15)
+%    outfile=[outdir,expri,'_topo'];
+%    print(hf,'-dpng',[outfile,'.png'])
+%    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
    
  hf=figure('Position',[100 100 750 500]);  
-   plot(hgt(:,100),'linewidth',2.5,'color',[0.2 0.5 0.1])
-   title([expri,'  topography '],'FontSize',15)
-   set(gca,'Ylim',[0 2000],'Fontsize',14,'linewidth',1.2)
-   xlabel('(km)'); ylabel('m')
-   print(hf,'-dpng',[outdir,expri,'_topo-p.png'])    
+   plot(hgt(:,100),'linewidth',2.8,'color',[0.2 0.4 0.1])
+   %title([expri,'  topography '],'FontSize',15)
+   set(gca,'Ylim',[0 1500],'Fontsize',14,'linewidth',1.2)
+   xlabel('(km)','Fontsize',18); ylabel('(m)','Fontsize',18)
+   outfile=[outdir,expri,'_topo-prof'];
+   print(hf,'-dpng',[outfile,'.png'])
+   system(['convert -trim ',outfile,'.png ',outfile,'.png']);

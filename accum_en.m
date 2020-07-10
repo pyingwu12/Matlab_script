@@ -1,8 +1,8 @@
 close all
 clear
 %---setting
-expri='ens07';  
-date=22; sth=6;  acch=1;  member=1:10;  
+expri='ens09';  
+date=23; sth=13;  acch=1;  member=9;  
 %---
 year='2018'; mon='06';   minu='00'; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
@@ -44,7 +44,7 @@ for ti=sth
       plotvar=rain';
       pmin=(min(min(plotvar)));  if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
       %
-      hf=figure('position',[-1100 200 900 650]);
+      hf=figure('position',[100 200 800 630]);
       [c, hp]=contourf(plotvar,L2,'linestyle','none');
       set(gca,'fontsize',16,'LineWidth',1.2)
       

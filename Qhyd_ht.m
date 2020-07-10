@@ -1,15 +1,19 @@
 %close all
 clear;   ccc=':';
 %---setting
-expri='test75';  
-sth=12;  lenh=12; %minu=[0 10 20 30 40 50]; tint=1;
-minu=[0 30]; tint=2;
+expri='ens08';  
+sth=15;  lenh=48; %minu=[0 10 20 30 40 50]; tint=1;
+minu=[0]; tint=3;
 year='2018'; mon='06'; stdate=21;
-infilenam='wrfout';  dom='01'; 
+infilenam='mean/wrfmean';  dom='01'; 
 
 %---
-indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
+% outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
+outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+
+
 titnam='Hydrometeor mean';   fignam=[expri,'_qhyd-ht_'];
 
 load('colormap/colormap_qr3.mat')
@@ -39,7 +43,7 @@ for ti=1:lenh
     ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');  PH0=(phb+ph); 
     %----  
     qhyd=qr+qc+qs+qi+qg;  
-    um=squeeze(mean(mean(u,1),2));   vm=squeeze(mean(mean(v,1),2));              
+    um=squeeze(mean(mean(u,1),2));   vm=ssqueeze(mean(mean(v,1),2));              
     qm=squeeze(mean(mean(qhyd,1),2));  qm(qm+0.01==0.01)=0;
     PHm=squeeze(mean(mean(PH0,1),2));
     PH=(PHm(1:end-1)+PHm(2:end)).*0.5;   zg=PH/g; 

@@ -1,7 +1,7 @@
 close all
 clear
 %---setting
-expri='ens07';  ensize=10;  plotid=[1];  % 1:mean, 2:PM, 3:PMmod
+expri='ens09';  ensize=10;  plotid=[1];  % 1:mean, 2:PM, 3:PMmod
 date=21;  sth=21;  acch=21;  
 year='2018'; mon='06';  minu='00';  
 dirmem='pert'; infilenam='wrfout';  dom='01';  

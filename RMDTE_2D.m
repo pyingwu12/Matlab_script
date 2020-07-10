@@ -1,8 +1,12 @@
+%function RMDTE_2D(expri,s_date,hr)
 close all
-clear;  ccc=':';
+clear;  
+ccc=':';
 %---
-expri='ens08';  member=1:10;
-year='2018'; mon='06';  s_date='23'; hr=2:9; minu=00;
+expri='ens08';  
+member=1:10;
+year='2018'; mon='06';  s_date='23'; hr=0:23; 
+minu=00;
 dom='01';  dirmem='pert'; infilenam='wrfout';  
 grids=1;%grid_spacing(km)
 %
@@ -77,16 +81,17 @@ for ti=hr
       pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
       fi=find(L>pmin);
        %
-      hf=figure('position',[10 20 830 600]);   
+      hf=figure('position',[10 20 800 630]);   
       [c, hp]=contourf(plotvar,L2,'linestyle','none');       
       set(gca,'fontsize',16,'LineWidth',1.2)
       set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
       xlabel('(km)'); ylabel('(km)');
       
       if (max(max(hgt))~=0)
-        hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
+        hold on; contour(hgt',[100 500 900],'color',[0.35 0.35 0.35],'linestyle','--','linewidth',2); 
       end
-      tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
+      s_hrj=num2str(mod(ti+9,24),'%2.2d'); 
+      tit=[expri,'  ',titnam,'  ',s_hrj,s_min,' JST'];     
       title(tit,'fontsize',17)
 % %---
       L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
