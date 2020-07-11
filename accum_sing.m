@@ -1,7 +1,7 @@
 %close all
 clear
 %---setting
-expri='test89';  grids=1; %grid_spacing(km)
+expri='test91';  grids=1; %grid_spacing(km)
 date=21; sth=23; acch=12; minu='00';  
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';
 

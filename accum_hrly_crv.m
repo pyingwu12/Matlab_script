@@ -3,7 +3,7 @@ clear;  ccc=':';
 %---setting
 %!!!!!!!!!!!!!!!!!
 bdy=0;   %!!!!!!!!
-expri='test56';  typst='max';  %mean/sum/max
+expri='test91';  typst='mean';  %mean/sum/max
 year='2018'; mon='06'; date=21; minu='00';
 sth=15;   lenh=48;   pridh=sth:sth+lenh-1;  tint=3;
 infilenam='wrfout';  dom='01';  
@@ -53,7 +53,7 @@ end
 
 %
 %---plot
-hf=figure('position',[100 45 985 590]);
+hf=figure('position',[100 50 985 590]);
 plot(xi+0.5,acci,'LineWidth',2.2); hold on
 %
 set(gca,'XLim',[1 lenh+1],'XTick',xi(1:tint:end),'XTickLabel',ss_hr,...

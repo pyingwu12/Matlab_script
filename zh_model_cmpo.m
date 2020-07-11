@@ -1,9 +1,9 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test50';  dom='01';  grids=1;%grid_spacing(km)
-year='2018'; mon='06'; s_date='22'; 
-hr=0:23; minu=00; infilenam='wrfout';  
+expri='test91';  dom='01';  grids=1;%grid_spacing(km)
+year='2018'; mon='06'; s_date='21'; 
+hr=16:23; minu=[00 30]; infilenam='wrfout';  
 scheme='WSM6';
 
 %indir=['E:/wrfout/expri191009/',expri];
@@ -34,8 +34,7 @@ for ti=hr
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
    fi=find(L>pmin);
     %
-%    hf=figure('position',[100 10 800 600]);
-  hf=figure('position',[-1100 100 800 600]);
+   hf=figure('position',[100 45 800 600]);  
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
    set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)

@@ -3,7 +3,7 @@ clear;  ccc=':';
 %---setting
 expri='test88';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='21';  s_hr='21'; minu='00';
+year='2018'; mon='06'; s_date='22';  s_hr='05'; minu='00';
 infilenam='wrfout';  dom='01'; 
 
 zi=15;  
@@ -19,18 +19,22 @@ infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,
 % t = ncread(infile,'T'); t=t+300;
 % max(max(t(:,:,zi)))
 % min(min(t(:,:,zi)))
-% 
-% tsk = ncread(infile,'TSK');
 
 % ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');
 % z=(ph+phb)./9.81; 
-%ti=20; zi=3;
-hgt= ncread(infile,'HGT');
+%hgt= ncread(infile,'HGT');
 % rc = ncread(infile,'RAINC');
 % rsh = ncread(infile,'RAINSH');
 % rnc = ncread(infile,'RAINNC');
 % rain=rc+rsh+rnc;
-%%
+ tsk = ncread(infile,'TSK');
+ hfx = ncread(infile,'HFX');
+ qfx = ncread(infile,'QFX'); 
+ lhfx = ncread(infile,'LH');
+ ust = ncread(infile,'UST');
+
+%
+close all
 %---plot different variables
 %  figure
 %    contourf(u(:,:,zi)',20,'linestyle','none')
@@ -50,7 +54,6 @@ hgt= ncread(infile,'HGT');
 %    title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
 %    colorbar
 %    %caxis([0.015 0.0175])
-
 % figure
 %   contourf(t(:,:,zi)',20,'linestyle','none')
 %   title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
@@ -62,14 +65,31 @@ hgt= ncread(infile,'HGT');
 %   colorbar  
 %  figure('Position',[100 100 600 400])
 %    contourf(rain(:,:)',20,'linestyle','none')
-%    title([expri,'  rain  ', s_hr,minu,'Z  , zi=',num2str(zi)],'FontSize',15)
-%    colorbar
-%     
-%  figure
+%    title([expri,'  rain  ', s_hr,minu,'Z  ,],'FontSize',15)
+%    colorbar     
+%----
+%  figure('Position',[100 100 800 630]);
 %    contourf(tsk',20,'linestyle','none')
 %    title([expri,' Skin Temp. ', s_hr,minu,'Z'],'FontSize',15)
 %    colorbar
+%  figure('Position',[100 100 800 630]);
+%    contourf(hfx',20,'linestyle','none')
+%    title([expri,'  sfc heat flux  ', s_hr,minu,' UTC'],'FontSize',15)
+%    colorbar
+%  figure('Position',[100 100 800 630]);
+%    contourf(qfx'*1000,20,'linestyle','none')
+%    title([expri,'  sfc moisture flux  ', s_hr,minu,' UTC'],'FontSize',15)
+%    colorbar
+%  figure('Position',[100 100 800 630]);
+%    contourf(lhfx',20,'linestyle','none')
+%    title([expri,'  sfc latent heat flux  ', s_hr,minu,' UTC'],'FontSize',15)
+%    colorbar   
+ figure('Position',[100 100 800 630]);
+   contourf(ust',20,'linestyle','none')
+   title([expri,'  sfc latent heat flux  ', s_hr,minu,' UTC'],'FontSize',15)
+   colorbar   
 
+%-----profile
 %  hf=figure('Position',[100 100 800 500]);  
 %    contourf(squeeze(w(:,70,:))',20,'linestyle','none')
 %    title([expri,' W wind ', s_hr,minu,'Z '],'FontSize',15)
@@ -78,6 +98,7 @@ hgt= ncread(infile,'HGT');
 %    set(gca,'Fontsize',14,'linewidth',1.2)
 %    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 
 
+%---HGT---
 %  hf=figure('Position',[100 100 800 630]);  
 %    contourf(hgt',20,'linestyle','none')
 %    %title([expri,'  topography '],'FontSize',16)
@@ -87,13 +108,12 @@ hgt= ncread(infile,'HGT');
 %    xlabel('km','Fontsize',15); ylabel('km','Fontsize',15)
 %    outfile=[outdir,expri,'_topo'];
 %    print(hf,'-dpng',[outfile,'.png'])
+%    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
+%  hf=figure('Position',[100 100 750 500]);  
+%    plot(hgt(:,100),'linewidth',2.8,'color',[0.2 0.4 0.1])
+%    %title([expri,'  topography '],'FontSize',15)
+%    set(gca,'Ylim',[0 1500],'Fontsize',14,'linewidth',1.2)
+%    xlabel('(km)','Fontsize',18); ylabel('(m)','Fontsize',18)
+%    outfile=[outdir,expri,'_topo-prof'];
+%    print(hf,'-dpng',[outfile,'.png'])
 %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-   
- hf=figure('Position',[100 100 750 500]);  
-   plot(hgt(:,100),'linewidth',2.8,'color',[0.2 0.4 0.1])
-   %title([expri,'  topography '],'FontSize',15)
-   set(gca,'Ylim',[0 1500],'Fontsize',14,'linewidth',1.2)
-   xlabel('(km)','Fontsize',18); ylabel('(m)','Fontsize',18)
-   outfile=[outdir,expri,'_topo-prof'];
-   print(hf,'-dpng',[outfile,'.png'])
-   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
