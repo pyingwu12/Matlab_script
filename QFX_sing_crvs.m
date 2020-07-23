@@ -7,11 +7,11 @@ clear;  ccc=':';
 %green: 0.466,0.674,0.188
 %-------------------------------
 % 
-expri={'test88';'test91'};   exptext='LSM';   bdy=0;  
-expnam={'5-layer';'NOAH'};
-dom={'01';'01';};  
-lexp={'-';'-'};  
-cexp=[0  0.447  0.741; 0.929,0.694,0.125];
+expri={'test88';'test91';'test92'};   exptext='LSM-PBL';   bdy=0;  
+expnam={'5-layer';'NOAH';'MYJ'};
+dom={'01';'01';'01';};  
+lexp={'-';'-';'-'};  
+cexp=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098];
 
 %---setting
 sth=16;  lenh=48;  tint=3;

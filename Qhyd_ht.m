@@ -1,9 +1,9 @@
 %close all
 clear;   ccc=':';
 %---setting
-expri='test91';  
-sth=15;  lenh=48; %minu=[0 10 20 30 40 50]; tint=1;
-minu=[0]; tint=3;
+expri='test94';  
+sth=15;  lenh=24; minu=[0 30]; tint=2;
+%minu=[0]; tint=3;
 year='2018'; mon='06'; stdate=21;
 %infilenam='mean/wrfmean';  dom='01'; 
 infilenam='wrfout';  dom='01'; 
@@ -11,7 +11,7 @@ infilenam='wrfout';  dom='01';
 
 %---
  indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
- outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+ outdir=['/mnt/e/figures/expri_test/',expri,'/'];
 %indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
 %outdir=['/mnt/e/figures/ens200323/',expri,'/'];
 
@@ -79,9 +79,9 @@ hf=figure('position',[100 45 985 590]);
 set(gca,'fontsize',16,'LineWidth',1.2)
 set(gca,'Xlim',[1 lenh*length(minu)],'XTick',1:tint*length(minu):length(minu)*lenh,...
     'XTickLabel',ss_hr)
-set(gca,'Ylim',[1 5000])
+set(gca,'Ylim',[1 12000])
 set(gca,'Ytick',ytick,'Yticklabel',ytick./1000)
-xlabel('Time(JST)','fontsize',15); ylabel('Height(km)','fontsize',15)
+xlabel('Time (JST)','fontsize',15); ylabel('Height (km)','fontsize',15)
 
 tit=[expri,'  ',titnam];     
 title(tit,'fontsize',18)

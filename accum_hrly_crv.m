@@ -3,13 +3,13 @@ clear;  ccc=':';
 %---setting
 %!!!!!!!!!!!!!!!!!
 bdy=0;   %!!!!!!!!
-expri='test91';  typst='mean';  %mean/sum/max
-year='2018'; mon='06'; date=21; minu='00';
-sth=15;   lenh=48;   pridh=sth:sth+lenh-1;  tint=3;
+expri='twin02';  typst='mean';  %mean/sum/max
+date=21;   sth=21;   lenh=16;  
+year='2018'; mon='06';  minu='00'; pridh=sth:sth+lenh-1;  tint=2;
 infilenam='wrfout';  dom='01';  
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+outdir=['/mnt/e/figures/expri_test/',expri,'/'];
 titnam='Hourly Rainfall';   fignam=[expri,'_hrlyrain_d',dom,'_'];
 
 %---
@@ -58,6 +58,7 @@ plot(xi+0.5,acci,'LineWidth',2.2); hold on
 %
 set(gca,'XLim',[1 lenh+1],'XTick',xi(1:tint:end),'XTickLabel',ss_hr,...
     'fontsize',15,'linewidth',1.3)
+%set(gca,'YLim',[0 0.6])
 xlabel('Time (JST)','fontsize',18);  ylabel('Rainfall (mm)','fontsize',18)
 %---
 tit=[expri,'  ',titnam,'  (',upper(typst),')  '];     

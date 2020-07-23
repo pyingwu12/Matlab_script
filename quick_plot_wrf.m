@@ -1,12 +1,12 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='test88';  
+expri='test99';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='22';  s_hr='05'; minu='00';
+year='2018'; mon='06'; s_date='21';  s_hr='23'; minu='00';
 infilenam='wrfout';  dom='01'; 
 
-zi=15;  
+zi=7;  
 %indir=['E:/wrfout/expri191009/',expri];
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='/mnt/e/figures/expri191009/';
@@ -16,10 +16,10 @@ infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,
 % u = ncread(infile,'U');
 % v = ncread(infile,'V');
 % w = ncread(infile,'W');
-% t = ncread(infile,'T'); t=t+300;
+t = ncread(infile,'T'); t=t+300;
+thm = ncread(infile,'THM'); thm=thm+300;
 % max(max(t(:,:,zi)))
 % min(min(t(:,:,zi)))
-
 % ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');
 % z=(ph+phb)./9.81; 
 %hgt= ncread(infile,'HGT');
@@ -27,12 +27,12 @@ infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,
 % rsh = ncread(infile,'RAINSH');
 % rnc = ncread(infile,'RAINNC');
 % rain=rc+rsh+rnc;
- tsk = ncread(infile,'TSK');
- hfx = ncread(infile,'HFX');
- qfx = ncread(infile,'QFX'); 
- lhfx = ncread(infile,'LH');
- ust = ncread(infile,'UST');
-
+%  tsk = ncread(infile,'TSK');
+%  hfx = ncread(infile,'HFX');
+%  qfx = ncread(infile,'QFX'); 
+%  lhfx = ncread(infile,'LH');
+%  ust = ncread(infile,'UST');
+%%
 %
 close all
 %---plot different variables
@@ -54,10 +54,10 @@ close all
 %    title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
 %    colorbar
 %    %caxis([0.015 0.0175])
-% figure
-%   contourf(t(:,:,zi)',20,'linestyle','none')
-%   title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
-%   colorbar  
+figure('Position',[100 100 800 630])
+  contourf(t(:,:,zi)',20,'linestyle','none')
+  title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
+  colorbar  
  % caxis([301.9 302.08])
 % figure
 %   contourf((z(:,:,zi,ti)+z(:,:,zi+1,ti))*0.5,20,'linestyle','none')
@@ -67,6 +67,11 @@ close all
 %    contourf(rain(:,:)',20,'linestyle','none')
 %    title([expri,'  rain  ', s_hr,minu,'Z  ,],'FontSize',15)
 %    colorbar     
+figure('Position',[100 45 800 630])
+  contourf(thm(:,:,zi)',20,'linestyle','none')
+  title([expri,' potential temp  ', s_hr,minu,', zi=',num2str(zi)],'FontSize',15)
+  colorbar  
+
 %----
 %  figure('Position',[100 100 800 630]);
 %    contourf(tsk',20,'linestyle','none')
@@ -84,10 +89,10 @@ close all
 %    contourf(lhfx',20,'linestyle','none')
 %    title([expri,'  sfc latent heat flux  ', s_hr,minu,' UTC'],'FontSize',15)
 %    colorbar   
- figure('Position',[100 100 800 630]);
-   contourf(ust',20,'linestyle','none')
-   title([expri,'  sfc latent heat flux  ', s_hr,minu,' UTC'],'FontSize',15)
-   colorbar   
+%  figure('Position',[100 100 800 630]);
+%    contourf(ust',20,'linestyle','none')
+%    title([expri,'  sfc latent heat flux  ', s_hr,minu,' UTC'],'FontSize',15)
+%    colorbar   
 
 %-----profile
 %  hf=figure('Position',[100 100 800 500]);  

@@ -6,20 +6,26 @@ clear;  ccc=':';
 %purple: 0.494,0.184,0.556;  %dark red: [0.6350 0.0780 0.1840]
 %green: 0.466,0.674,0.188
 %-------------------------------
-% 
-expri={'test88';'test91'};   exptext='LSM';   bdy=0;  
-expnam={'5-layer';'NOAH'};
-dom={'01';'01';};  
-lexp={'-';'-'};  
-cexp=[0  0.447  0.741; 0.929,0.694,0.125];
+% % 
+% expri={'test88';'test91';'test92'};   exptext='LSM-PBL';   bdy=0;  
+% expnam={'5-layer';'NOAH';'MYJ'};
+% dom={'01';'01';'01';};  
+% lexp={'-';'-';'-'};  
+% cexp=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098];
+
+expri={'test101';'test99';'test96'};   exptext='PBLSM';   bdy=0;  
+expnam={'111';'121';'222'};
+dom={'01';'01';'01';'01'};
+lexp={'-';'-';'-'};  
+cexp=[ 0,0.447,0.741; 0.85,0.325,0.098; 0.466,0.674,0.188];
 
 %---setting
-sth=16;  lenh=48;  tint=3;
+sth=15;  lenh=24;  tint=2;
 typst='mean';%mean/sum/max
-time='2018062100';
+time='2018062110';
 nexp=size(expri,1);   
 %
-outdir='/mnt/e/figures/expri191009/';
+outdir='/mnt/e/figures/expri_test/';
 titnam='T2';   fignam=['T2_',exptext,'_'];
 
 acci=zeros(nexp,lenh);
@@ -42,7 +48,7 @@ for i=1:nexp
 plot(t2(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',2.2); hold on
 end
 %
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','best');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','nw');
 %
 set(gca,'XLim',[1 lenh],'XTick',1:tint:lenh,'XTickLabel',ss_hr,'fontsize',15,'linewidth',1.3)
 xlabel('Time (JST)','fontsize',18);  ylabel('2-m Temperature (K)','fontsize',18)

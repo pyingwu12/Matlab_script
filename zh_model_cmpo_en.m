@@ -1,9 +1,9 @@
 close all
 clear
 %---setting
-expri='ens07';  member=1;
+expri='ens10';  member=3;
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='21';  hr=16:23; minu=00; 
+year='2018'; mon='06'; date='22';  hr=4:10; minu=[00]; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %scheme='Gaddard';
 scheme='WSM6';
@@ -36,7 +36,7 @@ for ti=hr
       pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
       fi=find(L>pmin);
        %
-      hf=figure('position',[-900 200 800 600]);
+      hf=figure('position',[100 45 800 600]);
     
       [c, hp]=contourf(plotvar,L2,'linestyle','none');  
       set(gca,'fontsize',16,'LineWidth',1.2)

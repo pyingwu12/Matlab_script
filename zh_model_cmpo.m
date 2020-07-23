@@ -1,15 +1,15 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test91';  dom='01';  grids=1;%grid_spacing(km)
-year='2018'; mon='06'; s_date='21'; 
-hr=16:23; minu=[00 30]; infilenam='wrfout';  
+expri='test96';  dom='01';  grids=1;%grid_spacing(km)
+s_date='22'; hr=0:5; minu=[00]; 
+year='2018'; mon='06';  infilenam='wrfout';  
 scheme='WSM6';
 
 %indir=['E:/wrfout/expri191009/',expri];
 %outdir='E:/figures/expri191009/';
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+outdir=['/mnt/e/figures/expri_test/',expri,'/'];
 titnam='Zh composite';   fignam=[expri,'_zh-model_d',dom,'_'];
 
 load('colormap/colormap_zh.mat')

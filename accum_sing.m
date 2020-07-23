@@ -1,20 +1,19 @@
-%close all
+close all
 clear
 %---setting
-expri='test91';  grids=1; %grid_spacing(km)
-date=21; sth=23; acch=12; minu='00';  
+expri='test101';  grids=1; %grid_spacing(km)
+date=21; sth=15; acch=24; minu='00';  
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+outdir=['/mnt/e/figures/expri_test/',expri,'/'];
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_d',dom,'_'];
 
-addpath('colorbar')
 load('colormap/colormap_rain.mat')
 cmap=colormap_rain;
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 %L=[  1   2   6  10  15  20  30  40  50  70  90 110 130 150 200 300]; %CWB
-L=[  1   2   4   6  10  15  20  25  30  40  50  60  70  80 100 120];
+L=[  0.1   2   4   6  10  15  20  25  30  40  50  60  70  80 100 120];
 
 %---
 for ti=sth
@@ -40,7 +39,7 @@ for ti=sth
     pmin=(min(min(plotvar)));  if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
     fi=find(L>pmin);
 %
-    hf=figure('position',[100 10 800 630]);
+    hf=figure('position',[100 45 800 630]);
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
     set(gca,'fontsize',16,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
