@@ -1,15 +1,17 @@
 %function KE_spectral(expri,lev,stdate,sth,lenh)
-clear;  
-ccc=':';
-close all
+clear;  ccc=':';
+%close all
 %---setting
-expri1='twin02';    expri2='test94';
+expri1='TWIN004Pr001THM21';    expri2='TWIN004B';
 lev=1:17;   grids=1;
-year='2018'; mon='06';  stdate=21;  sth=21;  lenh=12;
+year='2018'; mon='06';  stdate=21;  sth=22;  lenh=16;
 s_min='00';  dom='01';  infilenam='wrfout';  
 %
-indir='/mnt/HDD003/pwin/Experiments/expri_test/';
-outdir='/mnt/e/figures/expri191009/';
+% indir='/mnt/HDD003/pwin/Experiments/expri_test/';
+% outdir='/mnt/e/figures/expri191009/';
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/'];
+outdir=['/mnt/e/figures/expri_twin/',expri1(1:7),'/'];
+
 
 col_ncl_WBGYR254;
 col=color_map([36 49  70 81 97 114 129 147 151 155 160 166 172 179 186 ...
@@ -52,7 +54,6 @@ for ti=1:lenh
      KE.kh=zeros(max(max(nk2)),lenh); 
      KEp.kh=zeros(max(max(nk2)),lenh);
    end %if ti==1 
- 
    %---calculate---
    for li=1:nzi
      %---2D fft 
@@ -70,7 +71,6 @@ for ti=1:lenh
      KE.kh(ki,ti)=sum(KE.shi(nk2==ki));   % sum of different kx, ky to kh bin
      KEp.kh(ki,ti)=sum(KEp.shi(nk2==ki));
    end
-
    %disp([s_hr,' done'])
 end %ti
 %%

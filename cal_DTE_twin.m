@@ -1,4 +1,4 @@
-function mdte=cal_DTE_twin(expri1,expri2,stdate,sth,lenh,minu)
+function mdte=cal_DTE_twin(expri1,expri2,cal_area,stdate,sth,lenh,minu)
 %clear;  
 ccc=':';
 %---
@@ -7,7 +7,8 @@ ccc=':';
 year='2018'; mon='06'; 
 dom='01';  infilenam='wrfout';  
 %
-indir=['/mnt/HDD003/pwin/Experiments/expri_test/'];
+%indir=['/mnt/HDD003/pwin/Experiments/expri_test/'];
+indir='/mnt/HDD008/pwin/Experiments/expri_twin/';
 %
 cp=1004.9;
 Tr=270;
@@ -42,7 +43,7 @@ for ti=1:lenh
      t.diff=t.f1-t.f2;
      %---Different Total Energy----
      dte=1/2*(u.diff.^2+v.diff.^2+cp/Tr*t.diff.^2);
-     mdte(nti)=mean(mean(mean(dte)));  
+     mdte(nti)=mean(mean(mean(dte(cal_area))));  
    end %tmi
-  % if mod(ti,5)==0; disp([s_hr,' done']); end
+   if mod(ti,5)==0; disp([s_hr,' done']); end
 end

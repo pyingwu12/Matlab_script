@@ -1,12 +1,14 @@
 close all
 clear
 %---setting
-expri='test101';  grids=1; %grid_spacing(km)
-date=21; sth=15; acch=24; minu='00';  
+expri='sing006';  grids=1; %grid_spacing(km)
+date=21; sth=21; acch=24; minu='00';  
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';
 
-indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/mnt/e/figures/expri_test/',expri,'/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
+% outdir=['/mnt/e/figures/expri_test/',expri,'/'];
+indir=['/mnt/HDD009/pwin/Experiments/expri_single/',expri];
+outdir=['/mnt/e/figures/expri_single/',expri,'/'];
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_d',dom,'_'];
 
 load('colormap/colormap_rain.mat')

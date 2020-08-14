@@ -3,13 +3,15 @@ clear;  ccc=':';
 %---setting
 %!!!!!!!!!!!!!!!!!
 bdy=0;   %!!!!!!!!
-expri='twin02';  typst='mean';  %mean/sum/max
-date=21;   sth=21;   lenh=16;  
-year='2018'; mon='06';  minu='00'; pridh=sth:sth+lenh-1;  tint=2;
+expri='sing004';  typst='mean';  %mean/sum/max
+date=21;   sth=15;   lenh=48;  
+year='2018'; mon='06';  minu='00'; pridh=sth:sth+lenh-1;  tint=3;
 infilenam='wrfout';  dom='01';  
 
-indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir=['/mnt/e/figures/expri_test/',expri,'/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
+% outdir=['/mnt/e/figures/expri_test/',expri,'/'];
+indir=['/mnt/HDD003/pwin/Experiments/expri_single/',expri];
+outdir=['/mnt/e/figures/expri_single/',expri,'/'];
 titnam='Hourly Rainfall';   fignam=[expri,'_hrlyrain_d',dom,'_'];
 
 %---
