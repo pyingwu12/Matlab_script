@@ -22,7 +22,7 @@ for ti=1:lenh
    hr=sth+ti-1;
    hrday=fix(hr/24);  hr=hr-24*hrday;
    s_date=num2str(stdate+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
-   legh{ti}=[num2str(mod(hr+9,24),'%2.2d'),minu,' JST'];
+   lgnd{ti}=[num2str(mod(hr+9,24),'%2.2d'),minu,' JST'];
    %---ensemble mean
    %infile=[indir,'/mean/wrfmean_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
    %u.stag = ncread(infile,'U');u.stag=double(u.stag);
@@ -98,7 +98,7 @@ end
 % for ti=1:lenh
 % plot(KEp.khm(:,ti),'LineWidth',1.6,'LineStyle','--','Color',col(ti,:))
 % end
-legend(legh,'Location','BestOutside','box','off')
+legend(lgnd,'Location','BestOutside','box','off')
 %--- -3/5 line---
 x53=-5:0.1:4; y53=7.35+(-5/3*x53);
 plot(10.^x53,10.^y53,'k','linewidth',2.2,'linestyle','--');

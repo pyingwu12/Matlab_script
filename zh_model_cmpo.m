@@ -1,15 +1,16 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='TWIN004Pr001THM21';  dom='01';  grids=1;%grid_spacing(km)
-s_date='22'; hr=0; minu=[00]; 
+expri='TWIN001B';  dom='01';  grids=1;%grid_spacing(km)
+s_date='22'; hr=0:5; minu=[00]; 
 year='2018'; mon='06';  infilenam='wrfout';  scheme='WSM6';
 
 %indir=['E:/wrfout/expri191009/',expri]; %outdir='E:/figures/expri191009/';
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-% outdir=['/mnt/e/figures/expri_test/',expri,'/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; % outdir=['/mnt/e/figures/expri_test/',expri,'/'];
 indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri];
 outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
+% indir=['/mnt/HDD008/pwin/Experiments/expri_twin/rstest/',expri];
+% outdir=['/mnt/e/figures/expri_twin/'];
 
 titnam='Zh composite';   fignam=[expri,'_zh-model_d',dom,'_'];
 
@@ -34,7 +35,7 @@ for ti=hr
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
    fi=find(L>pmin);
     %
-   hf=figure('position',[100 45 800 650]);  
+   hf=figure('position',[100 45 800 680]);  
    [c, hp]=contourf(plotvar,L2,'linestyle','none');
    set(gca,'fontsize',16,'LineWidth',1.2)
    set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
@@ -45,7 +46,7 @@ for ti=hr
    end
 
    tit={expri,[titnam,'  ',s_hr,s_min,' UTC']};     
-   title(tit,'fontsize',18)
+   title(tit,'fontsize',18,'Interpreter','none')
 %---
    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis);
    h=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);

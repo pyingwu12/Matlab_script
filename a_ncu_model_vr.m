@@ -5,15 +5,12 @@ hr=0;   minu='00';   expri='test54';  lev=12;
 
 %---DA or forecast time---
 infilenam='wrfout';    type='sing';
-%infilenam='output/fcstmean';  type=infilenam(8:11);  
 
 %---experimental setting---
 dom='01'; year='2018'; mon='06'; date='22';    % time setting
-indir=['/HDD003/pwin/Experiments/expri_test/',expri];
+indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
 outdir='./';   % path of the figure output
 %---set
-%addpath('./m_map1.4/')
-%addpath('./colorbar/');
 load 'colormap/colormap_vr.mat';  cmap=colormap_vr;
 L=[-8 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 8];
 %------
@@ -49,10 +46,9 @@ xradd=120.0860*pi/180; yradd=23.1467*pi/180;
    netcdf.close(ncid)
 %--------
 %%
-
-      u.unstag=(u.stag(1,:)+u.stag(2,:)).*0.5;
-      v.unstag=(v.stag(:,1)+v.stag(:,2)).*0.5;
-      w.unstag=(  (w.stag(:,:,1)+w.stag(:,:,2)).*0.5);
+   u.unstag=(u.stag(1,:)+u.stag(2,:)).*0.5;
+   v.unstag=(v.stag(:,1)+v.stag(:,2)).*0.5;
+   w.unstag=(w.stag(:,:,1)+w.stag(:,:,2)).*0.5;
    P0=phb+ph;  PH=(P0(:,:,1)+P0(:,:,2)).*0.5;
    zg=PH/g;
    %
@@ -69,25 +65,16 @@ xradd=120.0860*pi/180; yradd=23.1467*pi/180;
    vr=(u.unstag.*(xdis)+v.unstag.*(ydis)+(w.unstag-vt).*(zg-zrad))./dis;
 %%
    %---plot---
-   plotvar=vr;   %plotvar(plotvar<=0)=NaN;
+   plotvar=vr;   
    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
     %
    figure('position',[-800 500 600 500])
    m_proj('Lambert','lon',plon,'lat',plat,'clongitude',121,'parallels',[33.65 13.65],'rectbox','on')
    [c ,hp ]=m_contourf(x,y,plotvar);   set(hp,'linestyle','none');
    %
-   %
    m_grid('fontsize',12,'LineStyle','-.','LineWidth',1,'xtick',115:130,'ytick',17:45);
    m_coast('color','k');
-   %m_gshhs_h('color','k','LineWidth',0.8);
-   %cm=colormap(cmap);
-   %hc=Recolor_contourf(hp,cm,L,'vert');  set(hc,'fontsize',13,'LineWidth',1)
 %---
    tit=[expri,'  ',varinam,'  ',s_hr,'z  (',type,' lev',num2str(lev),')'];
-   outfile=[outdir,filenam,s_hr,'_',type,'_lev',num2str(lev)];
    title(tit,'fontsize',15)
    
-   %print('-dpng',outfile,'-r400')
-%    set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf'])
-%    system(['convert -trim -density 250 ',outfile,'.pdf ',outfile,'.png']);
-%    system(['rm ',[outfile,'.pdf']]);

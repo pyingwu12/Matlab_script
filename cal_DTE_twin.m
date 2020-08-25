@@ -43,7 +43,7 @@ for ti=1:lenh
      t.diff=t.f1-t.f2;
      %---Different Total Energy----
      dte=1/2*(u.diff.^2+v.diff.^2+cp/Tr*t.diff.^2);
-     mdte(nti)=mean(mean(mean(dte(cal_area))));  
+     mdte(nti)=mean(mean(mean(dte(cal_area,:))));  
    end %tmi
    if mod(ti,5)==0; disp([s_hr,' done']); end
 end
