@@ -79,7 +79,7 @@ for ti=hr
      %---plot---
       plotvar=RMDTE';   %plotvar(plotvar<=0)=NaN;
       pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
-      fi=find(L>pmin);
+      
        %
       hf=figure('position',[10 20 800 630]);   
       [c, hp]=contourf(plotvar,L2,'linestyle','none');       
@@ -88,22 +88,24 @@ for ti=hr
       xlabel('(km)'); ylabel('(km)');
       
       if (max(max(hgt))~=0)
-        hold on; contour(hgt',[100 500 900],'color',[0.35 0.35 0.35],'linestyle','--','linewidth',2); 
+        hold on; contour(hgt',[100 500 900],'color',[0.35 0.35 0.35],'linestyle','--','linewidth',1.8); 
       end
       s_hrj=num2str(mod(ti+9,24),'%2.2d'); 
       tit=[expri,'  ',titnam,'  ',s_hrj,s_min,' JST'];     
       title(tit,'fontsize',17)
-% %---
-      L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-      h=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.1);
-      colormap(cmap)
-   
-      drawnow;
-      hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
-      for idx = 1 : numel(hFills)
-         hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
-      end   
-%---    
+      
+    %---colorbar---
+    fi=find(L>pmin);
+    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
+    colormap(cmap);  %title(hc,'mm','fontsize',13);  
+    drawnow;
+    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
+    for idx = 1 : numel(hFills)
+      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+    end
+    %---
+    
       outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min];
       print(hf,'-dpng',[outfile,'.png']) 
       system(['convert -trim ',outfile,'.png ',outfile,'.png']);     

@@ -87,23 +87,24 @@ for ti=hr
       contour(rain',[1 1],'color',[0.2 0.2 0.2],'linewidth',1.5)
       
       if (max(max(hgt))~=0)
-        hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
+       hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
       end
       %      
       jhr=ti+9;  jhr=jhr-24*fix(jhr/24);  s_jhr=num2str(jhr,'%.2d');
       tit=[expri,'  ',titnam,'  ',s_jhr,s_min,' JST'];     
       title(tit,'fontsize',17)
-% %---
-      L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-      h=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.1);
-      colormap(cmap)
-   
-      drawnow;
-      hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
-      for idx = 1 : numel(hFills)
-         hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
-      end   
-%---    
+      
+    %---colorbar---
+    fi=find(L>pmin);
+    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
+    colormap(cmap);  title(hc,'Kg/m^2','fontsize',13);  drawnow;
+    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
+    for idx = 1 : numel(hFills)
+      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+    end
+    %---
+    
        outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min];
        print(hf,'-dpng',[outfile,'.png']) 
        system(['convert -trim ',outfile,'.png ',outfile,'.png']);     

@@ -87,7 +87,7 @@ tit=[expri,'  ',titnam];
 title(tit,'fontsize',18)
 %
 L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1);
+hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
 title(hc,'g/Kg')
 colormap(cmap)
 

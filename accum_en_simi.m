@@ -7,27 +7,13 @@ year='2018'; mon='06';  minu='00';  dom='01';  ensize=10;
 dirmem='pert'; infilenam='wrfout';  
 tint=1;
 
-indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
+indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri];
 outdir=['/mnt/e/figures/ens200323/',expri,'/'];
 %
 titnam='Ensemble similarity of hourly rainfall';   fignam=[expri,'_accum-simi_'];
-a_col;
-col=color_map([36 49  70 81 97 114 129 147 151 155 160 166 172 179 186 191 197 202 206 210 216 222 225 230 234 236 241 246 251 254],:)/255;
-
-% col=[
-% 0.1    0.2    0.2;   0 0  0;
-% 0      0.447  0.701; 0 0  0;
-% 0.184, 0.284, 0.356; 0 0  0;
-% 0.3,   0.745, 0.933;   0 0  0;
-% 
-% 0.1    0.4   0.10;  0 0  0;
-% 0.466, 0.674, 0.188;  0 0  0;
-% 
-% 0.685  0.188  0.074; 0 0  0;
-% 0.85,  0.325, 0.098; 0 0  0;
-% 0.929  0.694  0.125; 0 0  0;
-% 0.98   0.88   0.01; 0 0  0;];
-
+col_ncl_WBGYR254;
+col=color_map([36 49  70 81 97 114 129 147 151 155 160 166 172 179 186 ...
+    191 197 202 206 210 216 222 225 230 234 236 241 246 251 254],:)/255;
 
 simi=zeros(length(filt_len),lenh);
 for ti=1:tint:lenh   

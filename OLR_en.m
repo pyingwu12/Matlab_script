@@ -2,8 +2,7 @@ close all
 clear
 %---setting
 expri='ens02';  member=2;
-%year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; date='22';  hr=2:15; minu=0; 
+year='2018'; mon='06'; s_date='22';  hr=2:15; minu=0; 
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 
 %indir=['/HDD001/expri_ens200323/',expri];
@@ -18,14 +17,12 @@ L=[130 145 160 175 190 205 220 235 250 265];
 %---
 %%
 for ti=hr   
+  s_hr=num2str(ti,'%.2d');  % start time string
   for tmi=minu    
+    s_min=num2str(tmi,'%.2d');   
     for mi=member
-      %ti=hr; mi=minu;
-      %---set filename---
-      s_hr=num2str(ti,'%.2d');  % start time string
-      s_min=num2str(tmi,'%.2d');
       nen=num2str(mi,'%.2d');
-      infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',date,'_',s_hr,':',s_min,':00'];
+      infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',s_min,':00'];
       %------read netcdf data--------
       OLR = ncread(infile,'OLR');      
 %     end
@@ -52,7 +49,7 @@ for ti=hr
          hFills(idx).ColorData=uint8(cmap2(idx,:)');
       end   
 %---    
-      outfile=[outdir,'/',fignam,mon,date,'_',s_hr,s_min,'_m',nen];
+      outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_m',nen];
       print(hf,'-dpng',[outfile,'.png']) 
       
       %set(gcf,'PaperPositionMode','auto');  print('-dpdf',[outfile,'.pdf']) 

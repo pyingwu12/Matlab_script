@@ -1,4 +1,4 @@
-%close all
+close all
 clear;  ccc=':';
 
 %dark blue: 0,0.447,0.741;   %light blue: 0.3,0.745,0.933
