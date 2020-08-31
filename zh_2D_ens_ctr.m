@@ -9,7 +9,7 @@ dirmem='pert'; infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 scheme='WSM6'; %scheme='Gaddard';
 
 indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri];
-outdir=['/mnt/e/figures/ens200323/',expri];
+outdir=['/mnt/e/figures/ens200323/',expri,'/'];
 titnam='Zh composite';   fignam=[expri,'_zh',num2str(zhcr),'_'];
 
 for ti=hr  
@@ -48,7 +48,7 @@ for ti=hr
     tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
     title(tit,'fontsize',18)
     
-    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+    outfile=[outdir,fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     print('-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
     

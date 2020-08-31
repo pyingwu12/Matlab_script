@@ -6,9 +6,9 @@ expri='TWIN004B';  stday=21;  sth=23;  acch=12;
 year='2018'; mon='06';  s_min='00';  
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri,'/'];
-%  indir=['/mnt/HDD003/pwin/Experiments/expri_single/',expri]; outdir=['/mnt/e/figures/expri_single/',expri,'/'];
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri];
+%  indir=['/mnt/HDD003/pwin/Experiments/expri_single/',expri]; outdir=['/mnt/e/figures/expri_single/',expri];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %---
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
 %
@@ -62,7 +62,7 @@ for ti=sth
     end
     %---
 
-    outfile=[outdir,fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h'];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h'];
     print(hf,'-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

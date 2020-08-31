@@ -8,7 +8,7 @@ year='2018'; mon='06';  s_min='00';
 dirmem='pert'; infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %
 indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri];
-outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+outdir=['/mnt/e/figures/ens200323/',expri];
 %
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
 typst={'mean';'PM';'PMmod'};
@@ -71,7 +71,7 @@ for ti=sth
      end
      %---  
       
-     outfile=[outdir,fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h_',typst{pi}];
+     outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h_',typst{pi}];
      print(hf,'-dpng',[outfile,'.png'])
      system(['convert -trim ',outfile,'.png ',outfile,'.png']);  
      

@@ -8,7 +8,7 @@ year='2018'; mon='06';   s_min='00';
 dirmem='pert';  infilenam='wrfout';  dom='01'; 
 %
 indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri]; 
-outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+outdir=['/mnt/e/figures/ens200323/',expri];
 %
 titnam='Filtered Rainfall spread';   fignam=[expri,'_accum-sprd_'];
 %
@@ -71,7 +71,7 @@ for ti=sth
     end
     %---
     
-    outfile=[outdir,fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h_L',num2str(filt_len)];    
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h_L',num2str(filt_len)];    
     print(hf,'-dpng',[outfile,'.png']) 
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);            
 

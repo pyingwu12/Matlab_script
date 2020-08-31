@@ -10,7 +10,7 @@ infilenam='wrfout';  dom='01';
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir='/mnt/e/figures/expri191009/';
 indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
 %
-titnam='2-m Water vapor';   fignam=[expri,'_Q2-t_'];
+titnam='2-m Temp.';   fignam=[expri,'_T2-t_'];
 
 %---
 plotvar=size(lenh,1); ss_hr=cell(length(tint:tint:lenh),1); nti=0;
@@ -24,14 +24,14 @@ for ti=1:lenh
   end
   %------read netcdf data--------
   infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
-  q2 = ncread(infile,'Q2'); q2=q2*1e3;
+  t2 = ncread(infile,'T2');
   switch(typst)
   case('mean')
-    plotvar(ti)=mean(mean(q2(bdy+1:end-bdy,bdy+1:end-bdy)));
+    plotvar(ti)=mean(mean(t2(bdy+1:end-bdy,bdy+1:end-bdy)));
   case('max')
-    plotvar(ti)=max(max(q2(bdy+1:end-bdy,bdy+1:end-bdy)));
+    plotvar(ti)=max(max(t2(bdy+1:end-bdy,bdy+1:end-bdy)));
   case('min')
-    plotvar(ti)=min(min(q2(bdy+1:end-bdy,bdy+1:end-bdy)));
+    plotvar(ti)=min(min(t2(bdy+1:end-bdy,bdy+1:end-bdy)));
   end   
 end
 
@@ -40,7 +40,7 @@ hf=figure('position',[200 200 1000 600]);
 plot(plotvar,'linewidth',2.5)
 %
 set(gca,'XLim',[1 lenh],'XTick',tint:tint:lenh,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
-xlabel('Time (JST)');  ylabel('Mixing ratio (g/Kg)')
+xlabel('Time (JST)');  ylabel('2-m Temperature (K)')
 %---
 tit=[expri,'  ',titnam,'  (domain ',typst,')'];     
 title(tit,'fontsize',18)

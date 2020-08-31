@@ -8,7 +8,7 @@ dirmem='pert'; infilenam='wrfout';
 tint=1;
 
 indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri];
-outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+outdir=['/mnt/e/figures/ens200323/',expri];
 %
 titnam='Ensemble similarity of hourly rainfall';   fignam=[expri,'_accum-simi_'];
 col_ncl_WBGYR254;
@@ -68,7 +68,7 @@ xlabel('wave length (km)','fontsize',16)
 %---
 tit=[expri,'  ',titnam];     
 title(tit,'fontsize',18)
-outfile=[outdir,fignam,num2str(sth),minu,'_',num2str(lenh),'h'];
+outfile=[outdir,'/',fignam,num2str(sth),minu,'_',num2str(lenh),'h'];
  print(hf,'-dpng',[outfile,'.png']) 
  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
  
