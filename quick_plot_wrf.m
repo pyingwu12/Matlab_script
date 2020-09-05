@@ -9,7 +9,7 @@ infilenam='wrfout';  dom='01';
 zi=7;  
 %indir=['E:/wrfout/expri191009/',expri];
 indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/';
+outdir='/mnt/e/figures/expri191009';
 
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
 % qv = ncread(infile,'QVAPOR');
@@ -111,7 +111,7 @@ figure('Position',[100 45 800 630])
 %    set(hc,'Fontsize',15,'linewidth',1.2);   title(hc,'(m)','Fontsize',15)
 %    set(gca,'Fontsize',15,'linewidth',1.2,'TickDir','out')
 %    xlabel('km','Fontsize',15); ylabel('km','Fontsize',15)
-%    outfile=[outdir,expri,'_topo'];
+%    outfile=[outdir,'/',expri,'_topo'];
 %    print(hf,'-dpng',[outfile,'.png'])
 %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
 %  hf=figure('Position',[100 100 750 500]);  
@@ -119,6 +119,6 @@ figure('Position',[100 45 800 630])
 %    %title([expri,'  topography '],'FontSize',15)
 %    set(gca,'Ylim',[0 1500],'Fontsize',14,'linewidth',1.2)
 %    xlabel('(km)','Fontsize',18); ylabel('(m)','Fontsize',18)
-%    outfile=[outdir,expri,'_topo-prof'];
+%    outfile=[outdir,'/',expri,'_topo-prof'];
 %    print(hf,'-dpng',[outfile,'.png'])
 %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);

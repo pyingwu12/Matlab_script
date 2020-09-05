@@ -10,8 +10,8 @@ dirmem='pert'; infilenam='wrfout';  dom='01';
 
 
 indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
-%outdir=['/HDD001/Figures/ens200323/',expri,'/'];
-outdir='/mnt/e/figures/ens200323/';
+%outdir=['/HDD001/Figures/ens200323/',expri];
+outdir='/mnt/e/figures/ens200323';
 titnam='Hourly Rainfall';   fignam=[expri,'_hlyrain-en_'];
 
 %---
@@ -75,7 +75,7 @@ tit=[expri,'  ',titnam,'  (',upper(typst),')  ',ss_hr{1},minu,'-',ss_hr{end},min
 title(tit,'fontsize',19)
 
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,fignam,mon,num2str(date),'_',s_sth,minu,'_',s_lenh,'hr_',typst];
+outfile=[outdir,'/',fignam,mon,num2str(date),'_',s_sth,minu,'_',s_lenh,'hr_',typst];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

@@ -6,8 +6,8 @@ expri='TWIN008B';  s_date='22'; hr=6; minu=[00];
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir=['/mnt/e/figures/expri191009/',expri,'/'];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir=['/mnt/e/figures/expri191009/',expri];
 %---
 titnam='Total-qv';   fignam=[expri,'_TPWqv_'];
 %
@@ -59,7 +59,7 @@ for ti=hr
     end
     %---
    
-    outfile=[outdir,fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     print(hf,'-dpng',[outfile,'.png']) 
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
    

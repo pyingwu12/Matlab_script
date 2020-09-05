@@ -17,7 +17,7 @@ expnam={'ens08';'ens07'};
 stdate=21; sth=15;  lenh=48;  minu=[00 30];
 member=1:10; 
 
-outdir='/mnt/e/figures/ens200323/';
+outdir='/mnt/e/figures/ens200323';
 titnam='RMDTE';   fignam=['RMDTE_',exptext,'_'];
 nexp=size(expri,1);
 
@@ -73,7 +73,7 @@ for iarea=1:size(RMDTE_m,2)
   end
 end
 
-%legh=legend(expnam,'Box','off','Interpreter','none','fontsize',16,'location','northwest');
+%legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','northwest');
  legend('FLAT_all','TOPO_all','FLAT_L','TOPO_L','FLAT_R','TOPO_R',...
      'Box','off','fontsize',16,'Interpreter','none','location','Bestoutside')
 set(gca,'Linewidth',1.2,'fontsize',13)

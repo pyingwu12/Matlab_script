@@ -7,8 +7,8 @@ typst='mean'; %mean/max/min
 year='2018';  mon='06';  minu='00';
 infilenam='wrfout';  dom='01';    
 %
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir='/mnt/e/figures/expri191009/';
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir='/mnt/e/figures/expri191009';
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %
 titnam='2-m Temp.';   fignam=[expri,'_T2-t_'];
 
@@ -46,6 +46,6 @@ tit=[expri,'  ',titnam,'  (domain ',typst,')'];
 title(tit,'fontsize',18)
 %--
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',typst];
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',typst];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

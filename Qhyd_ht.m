@@ -11,9 +11,9 @@ infilenam='wrfout';  dom='01';
 
 %---
  indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
- outdir=['/mnt/e/figures/expri_test/',expri,'/'];
+ outdir=['/mnt/e/figures/expri_test/',expri];
 %indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
-%outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+%outdir=['/mnt/e/figures/ens200323/',expri];
 
 
 titnam='Hydrometeor mean';   fignam=[expri,'_qhyd-ht_'];

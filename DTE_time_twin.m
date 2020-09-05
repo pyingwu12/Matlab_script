@@ -33,12 +33,12 @@ clear;  %ccc=':';
 % col=[0.85,0.325,0.098; 0  0.447  0.741; 0.466,0.674,0.188];
 % cal_area=[1:300,1:300];
 
- expri1={'TWIN001Pr001THM21';'TWIN001Pr001qv21';'TWIN003Pr001THM21';'TWIN003Pr001qv21';'TWIN004Pr001THM21';'TWIN004Pr001qv21';}; 
- exptext='TWINoriTHMqv';
- expri2={'TWIN001B';'TWIN001B';'TWIN003B';'TWIN003B';'TWIN004B';'TWIN004B';};
- expnam={'TWIN001_THM';'TWIN001_qv';'TWIN003_THM';'TWIN003_qv';'TWIN004_THM';'TWIN004_qv';};
- col=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.466,0.874,0.188];
- cal_area=[1:300,1:300];
+%  expri1={'TWIN001Pr001THM21';'TWIN001Pr001qv21';'TWIN003Pr001THM21';'TWIN003Pr001qv21';'TWIN004Pr001THM21';'TWIN004Pr001qv21';}; 
+%  exptext='TWINoriTHMqv';
+%  expri2={'TWIN001B';'TWIN001B';'TWIN003B';'TWIN003B';'TWIN004B';'TWIN004B';};
+%  expnam={'TWIN001_THM';'TWIN001_qv';'TWIN003_THM';'TWIN003_qv';'TWIN004_THM';'TWIN004_qv';};
+%  col=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.466,0.874,0.188];
+%  cal_area=[1:300,1:300];
 %  cal_area=[50:200,50:250];
 
 %  expri1={'TWIN005Pr001THM21';'TWIN005Pr001qv21';'TWIN006Pr001THM21';'TWIN006Pr001qv21';'TWIN007Pr001THM21';'TWIN007Pr001qv21';}; 
@@ -56,11 +56,18 @@ clear;  %ccc=':';
 %  %cal_area=[50:200,50:250];
 %  cal_area=[1:300,1:300];
 
+ expri1={'test_wrfinput_ori'}; 
+ exptext='test_wrfinput_ori';
+ expri2={'original'};
+ expnam={'test_wrfinput_ori'};
+ col=[0,0.447,0.741];
+ cal_area=[1:100,1:100];
+
 %---setting---
-stdate=21; sth=21;  lenh=42;  minu=[10];  tint=3;
+stdate=21; sth=21;  lenh=13;  minu=[00];  tint=3;
 
 %outdir='/mnt/e/figures/expri_test/';
-outdir='/mnt/e/figures/expri_twin/';
+outdir='/mnt/e/figures/expri_twin';
 titnam='DTE';   fignam=['DTE_',exptext,'_'];
 nexp=size(expri1,1);
 
@@ -85,7 +92,7 @@ for i=1:nexp
   plot(MDTE(:,i),'color',col(i,:),'LineWidth',2.2); hold on
 end
 
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',16,'location','nw');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','nw');
 
 % set(gca,'YScale','log')
 set(gca,'Xlim',[1 lenh*length(minu)],'XTick',1:tint*length(minu):length(minu)*lenh,'XTickLabel',ss_hr,'Linewidth',1.2,'fontsize',13)

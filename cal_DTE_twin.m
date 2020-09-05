@@ -8,7 +8,8 @@ year='2018'; mon='06';
 dom='01';  infilenam='wrfout';  
 %
 %indir=['/mnt/HDD003/pwin/Experiments/expri_test/'];
-indir='/mnt/HDD008/pwin/Experiments/expri_twin/';
+% indir='/mnt/HDD008/pwin/Experiments/expri_twin/';
+indir='/mnt/HDD008/pwin/Experiments/expri_twin/rstest/';
 %
 cp=1004.9;
 Tr=270;

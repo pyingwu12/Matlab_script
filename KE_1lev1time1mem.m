@@ -1,12 +1,12 @@
 clear;  ccc=':';
 close all
 %---setting
-expri='ens02';   member=3;    lev=20;  % !! 1 member, 1 level
+expri='ens09';   member=3;    lev=20;  % !! 1 member, 1 level
 year='2018'; mon='06'; date='22';  hr=0;  minu='00';  dom='01';
 dirmem='pert'; infilenam='wrfout';  
 %
-indir=['/HDD003/pwin/Experiments/expri_ens200323/',expri];
-outdir='/mnt/e/figures/ens200323';
+indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri]; outdir=['/mnt/e/figures/ens200323/',expri];
+
 %
 titnam='KE spectral';   fignam=[expri,'_KE-sptrl_'];
 
@@ -73,6 +73,6 @@ set(gca,'YScale','log','XScale','log','XLim',[1 125],'Linewidth',1.2,'fontsize',
 tit=[expri,'  ',titnam,'  ',s_hr,'00UTC, mem',nen,', lev',num2str(lev,'%.2d')];     
 title(tit,'fontsize',18)
 outfile=[outdir,'/',fignam,s_hr,'_lev',num2str(lev,'%.2d'),'_m',nen];
-print(hf,'-dpng',[outfile,'.png']) 
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png']) 
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

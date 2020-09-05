@@ -59,7 +59,7 @@ hf=figure('position',[100 30 1000 600]) ;
 for ti=1:tint:lenh
 plot(filt_len,simi(:,ti),'LineWidth',2.5,'Color',col(ti,:)); hold on
 end
-legend(ss_hr,'Location','BestOutside','box','off')
+legend(ss_hr,'Location','BestOutside','Box','off','Interpreter','none','fontsize',18)
 
 xlabel('wave length (km)','fontsize',16)
  set(gca,'YDir','reverse','Linewidth',1.2,'fontsize',15)

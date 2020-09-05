@@ -1,15 +1,15 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='TWIN008B';  s_date='22'; hr=8:9; minu=[00]; 
+expri='test_wrfinput_ori';  s_date='22'; hr=3; minu=[00]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 scheme='WSM6';
 %---
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; % outdir=['/mnt/e/figures/expri_test/',expri,'/'];
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
-% indir=['/mnt/HDD008/pwin/Experiments/expri_twin/rstest/',expri]; outdir=['/mnt/e/figures/expri_twin/'];
+% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; % outdir=['/mnt/e/figures/expri_test/',expri];
+% indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/rstest/',expri]; outdir=['/mnt/e/figures/expri_twin'];
 %---
 titnam='Zh composite';   fignam=[expri,'_zh_'];
 %
@@ -43,7 +43,7 @@ for ti=hr
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
     tit={expri,[titnam,'  ',s_hr,s_min,' UTC']}; 
-    title(tit,'fontsize',18)
+    title(tit,'fontsize',18,'Interpreter','none')
 
     %---colorbar---
     fi=find(L>pmin);
@@ -56,7 +56,7 @@ for ti=hr
     end    
     %---    
     
-    outfile=[outdir,fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     print(hf,'-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
    

@@ -13,9 +13,9 @@ slopy=0; %integer and >= 0
 
 %---
 %indir=['E:/wrfout/expri191009/',expri];
-%outdir='E:/figures/expri191009/';
+%outdir='E:/figures/expri191009';
 indir=['/HDD003/pwin/Experiments/expri_test/',expri];
-outdir='/mnt/e/figures/expri191009/';
+outdir='/mnt/e/figures/expri191009';
 titnam='Temperature';   fignam=[expri,'_Tprof_'];
 
 load('colormap/colormap_zh.mat')

@@ -8,7 +8,7 @@ year='2018';  mon='06'; s_min='00';
 dirmem='pert'; infilenam='wrfout';  dom='01';  
 %
 indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri]; 
-outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+outdir=['/mnt/e/figures/ens200323/',expri];
 %
 titnam='2-m Temp.';    fignam=[expri,'_T2-t_'];
 %
@@ -53,6 +53,6 @@ tit=[expri,'  ',titnam,'  (domain ',typst,')'];
 title(tit,'fontsize',18)
 
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',typst];
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',typst];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

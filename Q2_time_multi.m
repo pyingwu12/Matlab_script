@@ -16,8 +16,8 @@ cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098; 0.929,0.694,0.125];
 sth=16;  lenh=48;  tint=3;  typst='mean';%mean/sum/max
 ymdm='2018062100';  
 %
-% indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test/';
-indir='/mnt/HDD008/pwin/Experiments/expri_twin/'; outdir='/mnt/e/figures/expri_twin/';
+% indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test';
+indir='/mnt/HDD008/pwin/Experiments/expri_twin/'; outdir='/mnt/e/figures/expri_twin';
 titnam='Water vapor';    fignam=['Q2_',exptext,'_'];
 nexp=size(expri,1);
 
@@ -49,6 +49,6 @@ tit=[titnam,'  (domain ',typst,')  '];
 title(tit,'fontsize',18)
 %
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,fignam,ymdm(5:6),ymdm(7:8),'_',s_sth,ymdm(9:10),'_',s_lenh,'hr_',typst];
+outfile=[outdir,'/',fignam,ymdm(5:6),ymdm(7:8),'_',s_sth,ymdm(9:10),'_',s_lenh,'hr_',typst];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

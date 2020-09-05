@@ -64,7 +64,6 @@ print('-dpng',[outdir,'/U_1D.png'])
 %
 ufft=fft(uunstag(:,mmi));
 vfft=fft(vunstag(:,mmi));
-
 %
 upfft=fft(upert(:,mmi));
 vpfft=fft(vpert(:,mmi));

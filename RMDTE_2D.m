@@ -84,7 +84,7 @@ for ti=hr
     end
     %---
     
-     outfile=[outdir,fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
      print(hf,'-dpng',[outfile,'.png']) 
      system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
      

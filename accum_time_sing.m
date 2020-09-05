@@ -1,7 +1,7 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='TWIN004B';  stday=22;  sthrs=0:2:36;  acch=3;  bdy=0;  tint=2;
+expri='TWIN004B';  stday=22;  sths=0:2:36;  acch=3;  bdy=0;  tint=2;
 typst='mean';  %mean/sum/max
 %---
 year='2018'; mon='06';  s_min='00';  
@@ -9,14 +9,14 @@ infilenam='wrfout';  dom='01';
 %---
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri,'/'];
 %  indir=['/mnt/HDD003/pwin/Experiments/expri_single/',expri]; outdir=['/mnt/e/figures/expri_single/',expri,'/'];
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7),'/'];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %---
 titnam=[num2str(acch),'-h Accumulated Rainfall time series'];   fignam=[expri,'_accum_'];
 
 %---
-% ss_hr=cell(length(sthrs:tint:sthrs+lenh),1);
-nti=0;  nnti=0; acci=size(length(sthrs),1); 
-for ti=sthrs
+%ss_hr=cell(length(sthrs:tint:sthrs+lenh),1);
+nti=0;  nnti=0; acci=size(length(sths),1); 
+for ti=sths
    nti=nti+1;
    if mod(nti-1,tint)==0
        nnti=nnti+1;
@@ -49,14 +49,14 @@ end
 hf=figure('position',[100 50 985 590]);
 plot(acci,'LineWidth',2.5); hold on
 %
-set(gca,'XLim',[1 length(sthrs)],'XTick',1:tint:length(sthrs),'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
+set(gca,'XLim',[1 length(sths)],'XTick',1:tint:length(sths),'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 %set(gca,'YLim',[0 0.6])
 xlabel('Time (JST)');  ylabel('Rainfall (mm)')
 %---
 tit={[expri,'  (domain ',upper(typst),')'];titnam};     
 title(tit,'fontsize',18)
 
-s_sth=num2str(sthrs(1),'%2.2d');
-outfile=[outdir,fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(acch),'h_',num2str(length(sthrs)),'step_',typst];
+s_sth=num2str(sths(1),'%2.2d');
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(acch),'h_',num2str(length(sths)),'step_',typst];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

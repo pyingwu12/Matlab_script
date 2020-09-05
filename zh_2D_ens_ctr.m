@@ -9,7 +9,7 @@ dirmem='pert'; infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 scheme='WSM6'; %scheme='Gaddard';
 
 indir=['/mnt/HDD007/pwin/Experiments/expri_ens200323/',expri];
-outdir=['/mnt/e/figures/ens200323/',expri,'/'];
+outdir=['/mnt/e/figures/ens200323/',expri];
 titnam='Zh composite';   fignam=[expri,'_zh',num2str(zhcr),'_'];
 
 for ti=hr  
@@ -25,7 +25,7 @@ for ti=hr
       zh_max=cal_zh_cmpo(infile,scheme);  
       %---plot members---
       plotvar=zh_max';   
-      contour(plotvar,[zhcr zhcr],'color',[0.6 0.6 0.6],'linewidth',1.8); hold on 
+      contour(plotvar,[zhcr zhcr],'color',[0.6 0.6 0.6],'linewidth',2); hold on 
       %disp(['member ',nen,' done'])
     end  % member    
     %
@@ -35,7 +35,7 @@ for ti=hr
     zh_max=cal_zh_cmpo(infile,scheme);
     %---plot mean---
     plotvar=zh_max';     
-    contour(plotvar,[zhcr zhcr],'color',[0.9 0.05 0.1],'linewidth',2.4); 
+    contour(plotvar,[zhcr zhcr],'color',[0.9 0.05 0.1],'linewidth',2.5); 
     if (max(max(hgt))~=0)
      hold on; contour(hgt',[100 500 900],'color',[0.2 0.65 0.3],'linestyle','--','LineWidth',1.8); 
     end
@@ -48,7 +48,7 @@ for ti=hr
     tit=[expri,'  ',titnam,'  ',s_hr,s_min,' UTC'];     
     title(tit,'fontsize',18)
     
-    outfile=[outdir,fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     print('-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
     

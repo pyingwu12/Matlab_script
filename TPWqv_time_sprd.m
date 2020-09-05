@@ -70,7 +70,7 @@ hf=figure('position',[10 25 900 590]);
 plot(sprd_m(:,1),'color',[0.3 0.64 0.05],'LineWidth',2.2); hold on
 plot(sprd_m(:,2),'color',[0.01 0.38 0.64],'LineWidth',2.2);
 %
-legend('mountain','plain','Location','northeast','fontsize',20,'box','off')
+legend('mountain','plain','Location','northeast','fontsize',18,'box','off')
 set(gca,'Linewidth',1.2,'fontsize',17)
 set(gca,'Xlim',[1 lenh*length(minu)],'XTick',1:tint*length(minu):length(minu)*lenh,...
     'XTickLabel',ss_hr)
