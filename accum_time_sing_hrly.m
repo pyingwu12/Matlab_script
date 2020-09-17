@@ -1,7 +1,7 @@
 close all
 clear;  ccc=':';
 %---setting
-expri='TWIN001B';  stday=21;  sth=16;  lenh=24;  bdy=0;  tint=2;
+expri='TWIN003B';  stday=21;  sth=15;  lenh=72;  tint=4;  bdy=0;
 typst='mean';  %mean/sum/max
 %---
 year='2018'; mon='06';  s_min='00';  
@@ -14,12 +14,12 @@ indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figure
 titnam='Hourly rainfall time series';   fignam=[expri,'_accum-hrly_'];
 
 %---
-acci=size(lenh,1); ss_hr=cell(length(tint:tint:lenh),1); nti=0;
+plotvar=size(lenh,1); ss_hr=cell(length(tint:tint:lenh),1); nti=0;
 for ti=1:lenh
   rc=cell(1,2); rsh=cell(1,2);  rnc=cell(1,2); 
   if mod(ti,tint)==0 
     nti=nti+1;
-    ss_hr{nti}=num2str(mod(sth+ti-1,24),'%2.2d');
+    ss_hr{nti}=num2str(mod(sth+ti-1+9,24),'%2.2d');
   end  
   for j=1:2
     hr=(j-1)*1+ti+sth-1;
@@ -34,17 +34,17 @@ for ti=1:lenh
   rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
   switch(typst)
   case('mean')
-    acci(ti)=mean(mean(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
+    plotvar(ti)=mean(mean(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
   case('sum')
-    acci(ti)=sum(sum(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
+    plotvar(ti)=sum(sum(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
   case('max')
-    acci(ti)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
+    plotvar(ti)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
   end  
 end
 %
 %---plot
 hf=figure('position',[200 200 1000 600]);
-plot(1.5:lenh+0.5,acci,'LineWidth',2.5); 
+plot(1.5:lenh+0.5,plotvar,'LineWidth',2.5); 
 %
 set(gca,'XLim',[1 lenh+1],'XTick',tint:tint:lenh,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 xlabel('Time (JST)');  ylabel('Rainfall (mm)')

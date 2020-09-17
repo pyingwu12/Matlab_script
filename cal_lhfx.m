@@ -1,10 +1,9 @@
 function lhfxall=cal_lhfx(dir,expri,ymdm,sth,lenh,dom,bdy,typst,ccc)
 %ccc=':';
 
-%expri='test88'; time='2018062100'; sth=16;  lenh=48;  dom='01';
-%typst='mean';  bdy=0;
+%expri='test88'; time='2018062100'; sth=16;  lenh=48;  dom='01';typst='mean';  bdy=0;
 
-indir=[dir,expri]; 
+indir=[dir,'/',expri]; 
 %---setting
 if isempty(ccc); ccc=':'; end
 year=ymdm(1:4); mon=ymdm(5:6); stday=str2double(ymdm(7:8)); s_min=ymdm(9:10);

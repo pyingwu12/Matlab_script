@@ -1,9 +1,10 @@
-%function RMDTE_2D(expri,s_date,hr)
+%------------------------------------------
+% calculate root mean different total engergy 
+%------------------------------------------
 close all
-clear;  
-ccc=':';
+clear;  ccc=':';
 %---
-expri='ens07';  s_date='22'; hr=2; minu=00;  member=1:10;
+expri='ens09';  s_date='22'; hr=2; minu=00;  member=1:10;
 year='2018'; mon='06';  
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
@@ -23,39 +24,35 @@ for ti=hr
     s_min=num2str(tmi,'%.2d');
     %---ensemble mean
     infile=[indir,'/mean/wrfmean_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
-    u.stag = ncread(infile,'U');%u.stag=double(u.stag);
-    v.stag = ncread(infile,'V');%v.stag=double(v.stag);
+    u.stag = ncread(infile,'U');   v.stag = ncread(infile,'V');
     u.mean=(u.stag(1:end-1,:,:)+u.stag(2:end,:,:)).*0.5;
     v.mean=(v.stag(:,1:end-1,:)+v.stag(:,2:end,:)).*0.5; 
     t.mean=ncread(infile,'T')+300; %t.mean=double(t.mean)+300;
     hgt=ncread(infile,'HGT');
-    %--members
+    %---members
     [nx, ny, ~]=size(u.mean);
     MDTE=zeros(nx,ny);
     for mi=member
       nen=num2str(mi,'%.2d');
       infile=[indir,'/',dirmem,nen,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %------read netcdf data--------
-      u.stag = ncread(infile,'U'); %u.stag=double(u.stag);
-      v.stag = ncread(infile,'V'); %v.stag=double(v.stag);
-      t.mem =ncread(infile,'T')+300; %t.mem=double(t.mem)+300;
-      p = ncread(infile,'P');%p=double(p);
-      pb = ncread(infile,'PB');%pb=double(pb);
+      u.stag = ncread(infile,'U');  v.stag = ncread(infile,'V');
       u.unstag=(u.stag(1:end-1,:,:)+u.stag(2:end,:,:)).*0.5;
       v.unstag=(v.stag(:,1:end-1,:)+v.stag(:,2:end,:)).*0.5;
+      t.mem =ncread(infile,'T')+300; 
+      p =ncread(infile,'P');  pb = ncread(infile,'PB');
       %---perturbation---
-      u.pert=u.unstag - u.mean;
-      v.pert=v.unstag - v.mean;
-      t.pert=t.mem - t.mean;   
-      P=(pb+p);     dP=P(:,:,2:end)-P(:,:,1:end-1);
-      dPall=P(:,:,end)-P(:,:,1);
-      dPm=dP./repmat(dPall,1,1,size(dP,3));
+      u.pert = u.unstag - u.mean;
+      v.pert = v.unstag - v.mean;
+      t.pert = t.mem - t.mean;   
+      P = (pb+p);    dP = P(:,:,2:end)-P(:,:,1:end-1);
+      dPall = P(:,:,end)-P(:,:,1);
+      dPm = dP./repmat(dPall,1,1,size(dP,3));
       %
-      DTE=1/2*(u.pert.^2+v.pert.^2+cp/Tr*t.pert.^2);
-      MDTE=MDTE+sum(dPm.*DTE(:,:,1:end-1),3)./length(member);  
-      RMDTE=MDTE.^0.5;
-    end
-     
+      DTE = 1/2*(u.pert.^2 + v.pert.^2 + cp/Tr*t.pert.^2);
+      MDTE = MDTE + sum(dPm.*DTE(:,:,1:end-1),3) ./length(member);  % ensemble mean and vertical weighting average
+      RMDTE = MDTE.^0.5;
+    end     
     %---plot---
     plotvar=RMDTE';   %plotvar(plotvar<=0)=NaN;
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end      
@@ -82,11 +79,9 @@ for ti=hr
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
     end
-    %---
-    
-     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
-     print(hf,'-dpng',[outfile,'.png']) 
-     system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
-     
-   end %tmi
+    %---    
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+    print(hf,'-dpng',[outfile,'.png']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
+  end %tmi
 end

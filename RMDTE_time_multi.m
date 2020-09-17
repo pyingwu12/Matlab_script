@@ -1,97 +1,82 @@
-clear;  %ccc=':';
+clear;  ccc=':';
 close all
 
-% expri={'ens02';'ens03';'ens04'};   exptext='ens001';  
-% expnam={'ens02';'';'ens03';'';'ens04';''};
+%dark blue: 0,0.447,0.741;   %light blue: 0.3,0.745,0.933
+%yellow: 0.929,0.694,0.125;  %orange: 0.85,0.325,0.098;   
+%purple: 0.494,0.184,0.556;  %dark red: [0.6350 0.0780 0.1840]
+%green: 0.466,0.674,0.188
+%-------------------------------
+%---set experiments---
+expri={'ens04';'ens05'};     exptext='ens078';  
+expnam={'FLAT';'TOPO'};
+col=[0 0.447 0.741;  0.85,0.325,0.098]; 
 
-expri={'ens08';'ens07'};   exptext='ens078';  
-expnam={'ens08';'ens07'};
+%---set areas---
+%x1=51:150;    x2=201:300;  y1=76:175;    y2=76:175;  
+x1=51:150; y1=76:175;    x2=151:250; y2=76:175;  
+xarea=[x1; x2];  yarea=[y1; y2];
+arenam={'all','L','R'};
+linestyl={'--',':'};  markersty={'none','none'};  
 
-
-% expri={'ens07'};   exptext='ens07';  
-% expnam={'ens07'};
-% cexp=[0  0.38  0.641]; 
-
-
-%---setting---
-stdate=21; sth=15;  lenh=48;  minu=[00 30];
-member=1:10; 
-
-outdir='/mnt/e/figures/ens200323';
-titnam='RMDTE';   fignam=['RMDTE_',exptext,'_'];
+%---other settings---
+sth=16;  lenh=24;  minu=[00 30];  member=1:10;  tint=2; 
+ymd='20180621';  
+%
+indir='/mnt/HDD003/pwin/Experiments/expri_ens200323'; outdir='/mnt/e/figures/ens200323';
+titnam='RMDTE area mean';    fignam=['RMDTE_',exptext,'_'];
+%
 nexp=size(expri,1);
+nminu=length(minu);  ntime=lenh*nminu;
+narea=size(xarea,1);
 
-%----
-% for i=1:nexp
-%  RMDTE=cal_DTE(expri{i},stdate,sth,lenh,minu,member);
-% end
-
-x1=51:150;    x2=201:300;  
-y1=76:175;    y2=76:175;  
-
-xi=[x1; x2];
-yi=[y1; y2];
-
-for i=1:nexp
-  load(['RMDTE_',expri{i},'_1500_48h_0030min.mat']) 
-  eval(['RMDTE=RMDTE_',expri{i},';'])
-%   disp([expri{i},' started'])
-%   RMDTE=cal_DTE(expri{i},stdate,sth,lenh,minu,member);
-  for ti=1:size(RMDTE,2)
-    for ai=0:size(xi,1)
-      if ai==0
-       RMDTE_m(ti,ai+1,i)=mean(mean(RMDTE{ti}));
-      else
-       RMDTE_m(ti,ai+1,i)=mean(mean(RMDTE{ti}(xi(ai,:),yi(ai,:))));
-      end
+%---
+RMDTE_dm=zeros(nexp,ntime); RMDTE_am=zeros(nexp,ntime,narea);
+for ei=1:nexp
+  RMDTE=cal_RMDTE(indir,expri{ei},ymd,sth,lenh,minu,member,ccc); 
+  save(['RMDTE_',expri{ei},'_',ymd(5:8),'_',num2str(sth),'_',num2str(lenh),'hr_',num2str(nminu),'min'],'RMDTE')  
+  %load(['RMDTE_',expri{ei},'_',ymd,num2str(sth),'_l',num2str(lenh),'_m',num2str(length(minu))])   
+  for ti=1:ntime
+    RMDTE_dm(ei,ti) = mean(mean(RMDTE{ti}));
+    for ai=1:narea
+      RMDTE_am(ei,ti,ai)=mean(mean(RMDTE{ti}(xarea(ai,:),yarea(ai,:))));
     end
   end    
 end
-%%
 %---
-tint=2;
-nti=0;
-for ti=1:tint:lenh 
-   nti=nti+1;
-   hr=sth+ti-1+9;  ss_hr{nti}=num2str(mod(hr,24),'%2.2d');
+%
+%---set x tick---
+nti=0; ss_hr=cell(length(tint:tint:lenh),1);
+for ti=tint:tint:lenh
+  nti=nti+1;  
+  ss_hr{nti}=num2str(mod(sth+ti-1+9,24),'%2.2d');
 end
-%%
-linestyl={'-','--',':'};
-markersty={'none','none','none'};
-linewid=[3 2.5 2.5];
-col=[0 0.447 0.741;  0.85,0.325,0.098]; 
 
-%---plot
-hf=figure('position',[100 50 1000 550]) ;
-%hold on
-
-for iarea=1:size(RMDTE_m,2)
-  for expi=1:nexp
-    plot(RMDTE_m(:,iarea,expi),'LineWidth',linewid(iarea),'color',col(expi,:),...
-        'linestyle',linestyl{iarea},'marker',markersty{iarea},...
-        'MarkerSize',5,'MarkerFaceColor',col(expi,:));hold on
+%---set legend---
+ni=0;  lgnd=cell(nexp*(narea+1),1);
+for ei=1:nexp    
+  for ai=0:narea
+    ni=ni+1;
+    lgnd{ni}=[expnam{ei},'_',arenam{ai+1}];
   end
 end
 
-%legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','northwest');
- legend('FLAT_all','TOPO_all','FLAT_L','TOPO_L','FLAT_R','TOPO_R',...
-     'Box','off','fontsize',16,'Interpreter','none','location','Bestoutside')
-set(gca,'Linewidth',1.2,'fontsize',13)
-%set(gca,'Ylim',[0.5 1.4],'YScale','log')
+%---plot
+hf=figure('position',[100 45 1000 600]);
+for ei=1:nexp
+  plot(RMDTE_dm(ei,:),'LineWidth',2.5,'color',col(ei,:)); hold on
+  for ai=1:narea
+    plot(RMDTE_am(ei,:,ai),'LineWidth',2.2,'color',col(ei,:),'linestyle',linestyl{ai},...
+        'marker',markersty{ai},'MarkerSize',5,'MarkerFaceColor',col(ei,:));
+  end
+end
+legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','nw');
+%
+set(gca,'Linewidth',1.2,'fontsize',16)
 %set(gca,'YScale','log')
-%  set(gca,'Xlim',[0+8*2 7*2+20*2],'XTick',1:tint*length(minu):length(minu)*lenh,...
-%      'XTickLabel',ss_hr)
-%  set(gca,'Xlim',[0+8*2 7*2+20*2])
- set(gca,'XTick',1:tint*length(minu):length(minu)*lenh,...
-     'XTickLabel',ss_hr)
-% set(gca,'Xlim',[1 size(RMDTE,2)],'XTick',1:tint*length(minu):length(minu)*lenh,...
-%     'XTickLabel',ss_hr)
-xlabel('Time(JST)','fontsize',15); ylabel('RMTDE','fontsize',15)
-%---
-tit=[titnam,'  ',ss_hr{1},'00-',ss_hr{end},'00 JST'];     
-title(tit,'fontsize',18)
+set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
+xlabel('Time(JST)'); ylabel('RMTDE')  
+title(titnam,'fontsize',18)
 
-outfile=[outdir,'/',fignam,num2str(sth),'_',num2str(lenh),'h_firstday'];
+outfile=[outdir,'/',fignam,ymd(5:8),'_',num2str(sth),'_',num2str(lenh),'hr_',num2str(nminu),'min_',num2str(narea),'area'];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-

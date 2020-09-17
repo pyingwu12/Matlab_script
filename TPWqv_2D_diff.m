@@ -19,9 +19,9 @@ L=[-11 -9 -7 -5 -3 -1 1 3 5 7 9 11];
 %---
 %
 for ti=hr
-  for mi=minu    
-    %---set filename---
-    s_hr=num2str(ti,'%2.2d');   s_min=num2str(mi,'%2.2d');
+  s_hr=num2str(ti,'%2.2d');
+  for mi=minu        
+    s_min=num2str(mi,'%2.2d');
     %------infile 1--------
     infile=[indir,expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];   
     qv = ncread(infile,'QVAPOR');qv=double(qv); 
