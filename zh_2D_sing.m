@@ -1,7 +1,7 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='TWIN009B';  s_date='21'; hr=16:23; minu=0; 
+expri='TWIN003B';  s_date='23'; hr=00; minu=20; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -42,7 +42,7 @@ for ti=hr
     set(gca,'fontsize',16,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
-    tit={expri,[titnam,'  ',s_hr,s_min,' UTC']}; 
+    tit={expri,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
     title(tit,'fontsize',18,'Interpreter','none')
 
     %---colorbar---

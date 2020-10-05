@@ -1,9 +1,9 @@
 close all
 clear; ccc=':';
 %---setting
-expri='TWIN004';
-expri1=[expri,'Pr001qv21'];   expri2=[expri,'B'];  
-s_date='22';   hr=3;   minu=0; 
+expri='TWIN003';
+expri1=[expri,'Pr001qv062221'];   expri2=[expri,'B'];  
+s_date='23';   hr=6;   minu=[00]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -11,11 +11,12 @@ infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/']; outdir=['/mnt/e/figures/expri191009/',expri1];
 indir='/mnt/HDD008/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 %---
-titnam='Total-qv different';   fignam=[expri1(8:end),'_TPWqv-diff_',];
+titnam='PW difference';   fignam=[expri1(8:end),'_TPWqv-diff_',];
 %
 load('colormap/colormap_br3.mat')
 cmap=colormap_br3(2:14,:);  cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[-11 -9 -7 -5 -3 -1 1 3 5 7 9 11];
+% L=[-7 -5 -3 -1 -0.5 -0.1 0.1 0.5 1 3 5 7]*0.1;
 %---
 %
 for ti=hr
@@ -43,7 +44,7 @@ for ti=hr
     TPW2=squeeze(sum(tpw,3)./9.81);
     %---
     diff_qv=TPW1-TPW2;
-    %
+    %%
     %---plot---
     plotvar=diff_qv';   %plotvar(plotvar<=0)=NaN;
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end

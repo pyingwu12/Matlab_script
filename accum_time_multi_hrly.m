@@ -6,10 +6,10 @@ clear;  ccc=':';
 %purple: 0.494,0.184,0.556;  %dark red: [0.6350 0.0780 0.1840]
 %green: 0.466,0.674,0.188
 %-------------------------------
-expri={'TWIN001B';'TWIN001Pr1THM21'};   exptext='TWIN001Pr1THM21';   bdy=0;  
-expnam={'TWIN001B';'Pr1THM21'};
+expri={'TWIN001B';'TWIN001Pr001qv062221';'TWIN003B';'TWIN003Pr001qv062221'};   exptext='zemi13BnP';   bdy=0;  
+expnam={'cntl-FLAT';'pert-FLAT';'cntl-TOPO';'pert-TOPO'};
 dom={'01';'01';'01';'01'};
-lexp={'-';'-';'-';'-'};  
+lexp={'-';'--';'-';'--'};  
 cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098; 0.929,0.694,0.125];
 
 %---setting
@@ -45,6 +45,7 @@ end
 legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','nw');
 %
 set(gca,'XLim',[1 lenh+1],'XTick',tint:tint:lenh,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
+set(gca,'Ylim',[0 1])
 xlabel('Time (JST)');  ylabel('Rainfall (mm)')
 tit=[titnam,'  (domain ',typst,')  '];   
 title(tit,'fontsize',18)

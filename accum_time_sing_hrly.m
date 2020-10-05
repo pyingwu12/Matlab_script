@@ -1,7 +1,7 @@
-close all
+% close all
 clear;  ccc=':';
 %---setting
-expri='TWIN003B';  stday=21;  sth=15;  lenh=72;  tint=4;  bdy=0;
+expri='TWIN010B2';  stday=21;  sth=15;  lenh=72;  tint=4;  bdy=0;
 typst='mean';  %mean/sum/max
 %---
 year='2018'; mon='06';  s_min='00';  
@@ -54,5 +54,5 @@ title(tit,'fontsize',18)
 
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_min,'_',s_lenh,'hr_',typst];
-print(hf,'-dpng',[outfile,'.png']) 
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png']) 
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);

@@ -1,5 +1,5 @@
 function acci=cal_accum_hrly(dir,expri,ymdm,sth,lenh,dom,bdy,typst,ccc)
-%ccc defult ":"  dir,expri,ymdm,sth,lenh,dom,bdy,typst,ccc
+%ccc defult ":"  
 
 %expri='test38'; time='2018062100'; sth=18;  lenh=4;  dom='01'; typst='mean';
 

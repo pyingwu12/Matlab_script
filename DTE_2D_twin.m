@@ -4,8 +4,8 @@
 % close all
 clear;  ccc=':';
 %---
-expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=2;  minu=[00 30];  
+expri='TWIN001';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=2;  minu=[0 20 30 40 50];  
 year='2018'; mon='06';  
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
@@ -14,11 +14,12 @@ titnam='DTE vertical weighted average';   fignam=[expri1(8:end),'_DTE_',];
 %
 load('colormap/colormap_dte.mat')
 cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
-L=[0.005 0.01 0.05 0.1 0.5 1 2 3 4 5];
+% L=[0.1 0.5 1 1.5 2 2.5 3 3.5 4 4.5]*0.001;
+ L=[0.005 0.01 0.05 0.1 0.5 1 2 3 4 5];
 %  L=[0.5 2 4 6 8 10 15 20 25 30];
 %
 cp=1004.9;
-Tr=270;
+Tr=287;
 %
 for ti=hr
   s_hr=num2str(ti,'%2.2d');

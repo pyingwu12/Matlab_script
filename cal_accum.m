@@ -1,10 +1,12 @@
 function rain=cal_accum(expri,ymdm,sthrs,acch,dom,bdy,typst,ccc)
-%ccc defult ":"
-%ymdm: year, month, date, minute
-% calculate <acch> hour accum. rainfall from <sth> 
-
-
-%expri='test38'; time='2018062100'; sth=18;  lenh=4;  dom='01'; typst='mean';
+%---------------
+% calculate <acch> hour accum. rainfall from <sthrs> 
+%---------------
+% expri: experiment directory name
+% ymdm: year, month, date, and minute
+% sthrs: staring times of accumulation rainfall (vector)
+% acch: accumulated period length
+% ccc defult ":"
 
 %---setting
 year=ymdm(1:4); mon=ymdm(5:6); stday=str2double(ymdm(7:8)); minu=ymdm(9:10);

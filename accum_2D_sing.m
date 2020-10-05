@@ -1,7 +1,7 @@
-close all
+% close all
 clear
 %---setting
-expri='TWIN009B';  stday=22;  sth=0:3;  acch=1; 
+expri='TWIN003Pr001qv062221';  stday=23;  sth=0;  acch=6; 
 %---
 year='2018'; mon='06';  s_min='00';  
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -27,11 +27,15 @@ for ti=sth
       s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
       %------read netcdf data--------
       infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',s_min,':00'];
-      rc{j} = ncread(infile,'RAINC');
-      rsh{j} = ncread(infile,'RAINSH');
-      rnc{j} = ncread(infile,'RAINNC');
+      rall{j} = ncread(infile,'RAINC');
+      rall{j} = rall{j} + ncread(infile,'RAINSH');
+      rall{j} = rall{j} + ncread(infile,'RAINNC');
+%       rc{j} = ncread(infile,'RAINC');
+%       rsh{j} = ncread(infile,'RAINSH');
+%       rnc{j} = ncread(infile,'RAINNC');
     end %j=1:2
-    rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
+    rain=double(rall{2}-rall{1});
+%     rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
     rain(rain+1==1)=NaN;
     hgt = ncread(infile,'HGT');  
     %

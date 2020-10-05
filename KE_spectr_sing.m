@@ -1,7 +1,7 @@
 clear;  ccc=':';
-%close all
+close all
 %---setting
-expri='TWIN004B';  stday=21;  hrs=[15 18 21 24 27 30 34 37];  lev=1:17;  
+expri='TWIN008B';  stday=22;  hrs=[15 18 21 24 27 30 34 37];  lev=1:17;  
 %--
 year='2018';  mon='06'; s_min='30';  
 infilenam='wrfout';   dom='01';   grids=1;

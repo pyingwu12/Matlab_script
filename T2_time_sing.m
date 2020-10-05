@@ -4,7 +4,7 @@ clear; ccc=':';
 expri='TWIN001B'; stday=21;  sth=16;  lenh=24;  tint=2;  bdy=0;
 typst='mean'; %mean/max/min
 %
-year='2018';  mon='06';  minu='00';
+year='2018';  mon='06';  s_min='00';
 infilenam='wrfout';  dom='01';    
 %
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir='/mnt/e/figures/expri191009';
@@ -23,7 +23,7 @@ for ti=1:lenh
    ss_hr{nti}=num2str(mod(hr+9,24),'%2.2d');
   end
   %------read netcdf data--------
-  infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
+  infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
   t2 = ncread(infile,'T2');
   switch(typst)
   case('mean')

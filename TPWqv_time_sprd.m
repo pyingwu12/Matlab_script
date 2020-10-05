@@ -2,7 +2,7 @@ close all
 clear;  ccc=':';
 %---
 expri='ens07';  
-stdate=21; sth=22;  lenh=24;  minu=[00 30];
+stday=21; sth=22;  lenh=24;  minu=[00 30];
 year='2018'; mon='06'; 
 dom='01';  dirmem='pert'; infilenam='wrfout'; 
 ensize=10; 
@@ -17,7 +17,7 @@ nti=0;
 for ti=1:lenh 
    hr=sth+ti-1;
    hrday=fix(hr/24);  hr=hr-24*hrday;
-   s_date=num2str(stdate+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+   s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
    for tmi=minu
      nti=nti+1;
      s_min=num2str(tmi,'%.2d');
@@ -79,6 +79,6 @@ xlabel('Time(JST)','fontsize',20); ylabel('Spread (Kg/m^2)','fontsize',20)
 tit=[expri,'  ',titnam,ss_hr{1},'00-',ss_hr{end},'00JST'];     
 title(tit,'fontsize',17)
   
-outfile=[outdir,'/',fignam,mon,num2str(stdate),'_',num2str(sth),'00_',num2str(lenh),'h'];
+outfile=[outdir,'/',fignam,mon,num2str(stday),'_',num2str(sth),'00_',num2str(lenh),'h'];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);  

@@ -4,8 +4,8 @@
 clear;  ccc=':';
 close all
 %---setting
-expri='TWIN001';  expri1=[expri,'Pr001qv21'];  expri2=[expri,'B']; 
-stday=21;  hrs=[21 23 25 27 29 31 34 37]; 
+expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+stday=22;  hrs=[21 23 25 27 29 31 34 37]; 
 %--
 year='2018';  mon='06'; s_min='00';  
 infilenam='wrfout';   dom='01';   grids=1;
