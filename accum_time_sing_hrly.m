@@ -1,7 +1,10 @@
+%---
+% plot time series of hourly rainfall
+%----
 % close all
 clear;  ccc=':';
 %---setting
-expri='TWIN010B2';  stday=21;  sth=15;  lenh=72;  tint=4;  bdy=0;
+expri='test001';  stday=22;  sth=0;  lenh=72;  tint=4;  bdy=0;
 typst='mean';  %mean/sum/max
 %---
 year='2018'; mon='06';  s_min='00';  
@@ -9,7 +12,8 @@ infilenam='wrfout';  dom='01';
 %---
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri];
 %  indir=['/mnt/HDD003/pwin/Experiments/expri_single/',expri]; outdir=['/mnt/e/figures/expri_single/',expri];
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+% indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/',expri];
 %---
 titnam='Hourly rainfall time series';   fignam=[expri,'_accum-hrly_'];
 
@@ -43,7 +47,7 @@ for ti=1:lenh
 end
 %
 %---plot
-hf=figure('position',[200 200 1000 600]);
+hf=figure('position',[200 45 1000 600]);
 plot(1.5:lenh+0.5,plotvar,'LineWidth',2.5); 
 %
 set(gca,'XLim',[1 lenh+1],'XTick',tint:tint:lenh,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
