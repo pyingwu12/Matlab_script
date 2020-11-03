@@ -2,8 +2,8 @@
 clear
 %close all
 
-x=1:250;
-y=1:200;
+x=1:300;
+y=1:300;
 
 [xi, yi]=meshgrid(x,y);
 
@@ -11,12 +11,12 @@ y=1:200;
 ide=length(xi);
 
 hm=1000;  
-xa=10;  %helf height radius (gird)
-ya=10;
-icmx=length(x)/2; %center of hill
-icmy=length(y)/2;
+xa=5;  %helf height radius (gird)
+ya=5;
+icmx=100; %center of hill
+icmy=100;
 
-Vol=624000;
+Vol=156000;
       
    %ht = hm./(  1  +  ((xi-icmx).^2 + (yi-icmy).^2)/xa^2 );   
    

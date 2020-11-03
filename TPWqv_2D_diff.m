@@ -1,9 +1,9 @@
-close all
+% close all
 clear; ccc=':';
 %---setting
 expri='TWIN003';
 expri1=[expri,'Pr001qv062221'];   expri2=[expri,'B'];  
-s_date='23';   hr=0:5;   minu=[00]; 
+s_date='23';   hr=3;   minu=0;    zhid=1; % for zhid~=0, plot contour of zh composite
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -12,6 +12,7 @@ infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 indir='/mnt/HDD008/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 %---
 titnam='PW difference';   fignam=[expri1(8:end),'_TPWqv-diff_',];
+if zhid~=0; fignam=[fignam,'zh_'];  end
 %
 load('colormap/colormap_br3.mat')
 cmap=colormap_br3(2:14,:);  cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
@@ -26,7 +27,8 @@ for ti=hr
     %------infile 1--------
     infile=[indir,expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];   
     qv = ncread(infile,'QVAPOR');qv=double(qv); 
-    p = ncread(infile,'P');p=double(p);   pb = ncread(infile,'PB');pb=double(pb);  
+    p = ncread(infile,'P');p=double(p);   pb = ncread(infile,'PB');pb=double(pb);
+    if zhid~=0; zh_max=cal_zh_cmpo(infile,'WSM6'); end  % zh of perturbed state    
     hgt = ncread(infile,'HGT');
     %---
     [nz]=size(qv,3);
@@ -53,6 +55,9 @@ for ti=hr
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
     if (max(max(hgt))~=0)
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
+    end
+    if zhid~=0
+     hold on; contour(zh_max',[30 30],'color',[0.1 0.1 0.1],'linewidth',1.2); 
     end
     %
     set(gca,'fontsize',16,'LineWidth',1.2) 

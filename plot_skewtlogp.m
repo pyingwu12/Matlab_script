@@ -13,7 +13,7 @@ title_name='shionomisaki 20190819 0000UTC';
 Wind=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_wind.txt');
 Temp=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_temp.txt');
 TT=Temp(:,3);
-Td=TT-(100-Temp(:,4))/5;
+Td=TT-(100-Temp(:,4))/5;  % calculate Td from T and RH
 P1=Temp(:,1);  P2=Temp(:,1); P3=Wind(:,1);
 WS=Wind(:,3); WD=Wind(:,4);
 

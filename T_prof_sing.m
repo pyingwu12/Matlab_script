@@ -1,7 +1,7 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='TWIN003B';  s_date='22'; hr=22:23; minu=00; 
+expri='TWIN003B';  s_date='22'; hr=21; minu=00; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -24,6 +24,8 @@ L=[286 288 290 292 294 296 298 300 302 304];
 %---
 Rcp=287.43/1005; 
 g=9.81;
+epsilon=0.622; % esp=Rd/Rv=Mv/Md
+%
 zgi=[10:10:1500,1550:50:2000,2100:100:5000];    ytick=500:500:zgi(end); 
 
 for ti=hr
@@ -32,17 +34,28 @@ for ti=hr
     s_hr=num2str(ti,'%2.2d');   s_min=num2str(mi,'%2.2d');
     infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %------read netcdf data--------
-    t = ncread(infile,'T');   t=t+300;   
+    t = ncread(infile,'T');   t=t+300;    
+    qv = ncread(infile,'QVAPOR');  qv=double(qv); 
+    
     ph = ncread(infile,'PH'); phb = ncread(infile,'PHB');
-    p = ncread(infile,'P');   pb = ncread(infile,'PB');
+    p = ncread(infile,'P');   pb = ncread(infile,'PB'); %pa
     hgt = ncread(infile,'HGT');
     %----   
-    P=p+pb;
+    P=p+pb; %pa
     T=t.*(1e5./P).^(-Rcp); %temperature
     PH0=double(phb+ph);    PH=(PH0(:,:,1:end-1)+PH0(:,:,2:end)).*0.5;   zg=double(PH)/g;   
    
     [nx, ny, nz]=size(t);
     [y, x]=meshgrid(1:ny,1:nx);
+    
+    
+    hP=P/100; %pressure in hap
+    ev=qv./epsilon.*hP;   %partial pressure of water vapor
+    Td=-5417./(log(ev./6.11)-19.83);    %caculate Tdew by C-C equation and partial pressure of water vapor
+    
+    Zlcl=( zg(:,:,1)*1e-3+(T(:,:,1)-Td(:,:,1))/8 )*1e3;
+    
+    %%
  
 %---interpoltion---    
     i=0;  lonB=0; latB=0;
@@ -54,6 +67,7 @@ for ti=hr
       X=squeeze(zg(indx,indy,:));   Y=squeeze(T(indx,indy,:));   
       plotvar(:,i)=interp1(X,Y,zgi,'linear');
       hgtprof(i)=hgt(indx,indy);
+      zlclprof(i)=Zlcl(indx,indy);
     end       
    
     %---plot setting---   
@@ -70,6 +84,9 @@ for ti=hr
     if (max(max(hgtprof))~=0)
      hold on;      plot(hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.8)
     end
+    
+     hold on;      plot(zlclprof,'color',[1 0 0],'LineWidth',1.8)
+    
     
     set(gca,'fontsize',16,'LineWidth',1.2)
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Ytick',ytick,'Yticklabel',ytick./1000)
