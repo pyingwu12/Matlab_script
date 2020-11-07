@@ -12,14 +12,20 @@ expri2={'TWIN001B';'TWIN001B062221noMP';'TWIN003B';'TWIN003B062221noMP'};
 expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP'};
 col=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125]; 
 
+% expri1={'TWIN012B'};   exptext='TWIN012';
+% expri2={'TWIN001B3'};
+% expnam={'TWIN012'};
+% col=[0,0.447,0.741];
+
 %---setting---
 stday=22;  sth=21;  lenh=20;  minu=[00 20 40];  tint=2;
+% stday=21;  sth=15;  lenh=48;  minu=00;  tint=3;
 ylogid=1;  plotarea=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
 indir='/mnt/HDD008/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
-titnam='DTE (area mean of vertical weighted average)';   fignam=['MDTE_',exptext,'_'];
+titnam='DTE (area mean of vertical weighted average)';   fignam=['2DTE_',exptext,'_'];
 
 %---set area
 x1=1:150; y1=76:175;    x2=151:300; y2=201:300;  

@@ -4,8 +4,8 @@
 % close all
 clear;  ccc=':';
 %---
-expri='TWIN003';  expri1=[expri,'Pr001qv062221noMP'];  expri2=[expri,'B062221noMP']; 
-s_date='23';  hr=[5 9];  minu=[00];  zhid=0; % for zhid~=0, plot contour of zh composite
+expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=1;  minu=[00];  zhid=20; % for zhid~=0, plot contour of zh composite
 %
 year='2018'; mon='06';  
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
@@ -17,8 +17,8 @@ if zhid~=0; fignam=[fignam,'zh_'];  end
 load('colormap/colormap_dte.mat')
 cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 % L=0.001*[0.1 0.5 1 1.5 2 2.5 3 3.5 4 4.5];
-L=[0.001 0.003 0.005 0.007 0.009 0.01 0.02 0.03 0.04 0.05];
-%  L=[0.005 0.01 0.05 0.1 0.5 1 2 3 4 5];
+% L=[0.001 0.003 0.005 0.007 0.009 0.01 0.02 0.03 0.04 0.05];
+ L=[0.005 0.01 0.05 0.1 0.5 1 2 3 4 5];
 %  L=[0.5 2 4 6 8 10 15 20 25 30];
 %
 for ti=hr
@@ -34,7 +34,7 @@ for ti=hr
     if zhid~=0; zh_max=cal_zh_cmpo(infile1,'WSM6'); end  % zh of perturbed state    
     MDTE = cal_DTE_2D(infile1,infile2) ;  % vertical weighted average (dPm=dP/dPall)  
     
-%     w = ncread(infile2,'W');
+    w = ncread(infile2,'W');
     
     %---plot---
     plotvar=MDTE';   %plotvar(plotvar<=0)=NaN;
@@ -46,9 +46,9 @@ for ti=hr
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
     end
     if zhid~=0
-     hold on; contour(zh_max',[30 30],'color',[0.1 0.1 0.1],'linewidth',1.2); 
+     hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',1.2); 
     end
-%     hold on; contour(w(:,:,20),[ 0.1 0.1],'r')
+%     hold on; contour(abs(w(:,:,11))',[ 0.1 0.1],'r')
     %
     set(gca,'fontsize',16,'LineWidth',1.2)
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
@@ -68,7 +68,7 @@ for ti=hr
     end
     %---    
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
-%     print(hf,'-dpng',[outfile,'.png']) 
-%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
+    print(hf,'-dpng',[outfile,'.png']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
   end %tmi
 end

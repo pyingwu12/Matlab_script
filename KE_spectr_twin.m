@@ -5,7 +5,7 @@ clear;  ccc=':';
 % close all
 %---setting
 expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-stday=22;  hrs=[21 23 24 25 26 27 29];  ensize=3;  lev=1:17;  
+stday=22;  hrs=[21 23 24 25 26 27 29];   lev=1:17;  
 %--
 year='2018';  mon='06'; s_min='30';  
 infilenam='wrfout';   dom='01';   grids=1;

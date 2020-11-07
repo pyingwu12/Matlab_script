@@ -1,20 +1,13 @@
 %close all
 clear;   ccc=':';
 %---setting
-expri='test94';  
-sth=15;  lenh=24; minu=[0 30]; tint=2;
-%minu=[0]; tint=3;
-year='2018'; mon='06'; stdate=21;
-%infilenam='mean/wrfmean';  dom='01'; 
+expri='TWIN003B';  stday=21; sth=15;  lenh=72;  minu=[00 30];  tint=4;
+%
+year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01'; 
 
-
 %---
- indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];
- outdir=['/mnt/e/figures/expri_test/',expri];
-%indir=['/mnt/HDD003/pwin/Experiments/expri_ens200323/',expri];
-%outdir=['/mnt/e/figures/ens200323/',expri];
-
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir='/mnt/e/figures/expri_twin';
 
 titnam='Hydrometeor mean';   fignam=[expri,'_qhyd-ht_'];
 
@@ -33,7 +26,7 @@ for ti=1:lenh
     nti=nti+1;
     s_min=num2str(tmi,'%.2d'); 
     hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;
-    s_date=num2str(stdate+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
+    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
    %---read filename---
     infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     u = ncread(infile,'U');         v = ncread(infile,'V');
@@ -102,7 +95,7 @@ windbarbM(xi(5:intz:end,2:intt:end),zi(5:intz:end,2:intt:end),...
     uitp(5:intz:end,2:intt:end),vitp(5:intz:end,2:intt:end),0.3,10,[0.5 0.02 0.3],0.5)
 
 %---    
-outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stdate),'_'...
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_'...
       ,num2str(sth),'00_',num2str(lenh),'h'];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

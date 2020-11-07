@@ -1,14 +1,14 @@
 % close all
 clear; ccc=':';
 %---setting
-expri='test003';  s_date='22'; hr=4; minu=[00]; 
+expri='TWIN001B';  s_date='22'; hr=20; minu=[00]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-% indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir=['/mnt/e/figures/expri191009/',expri];
-indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002'];
+% indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002'];
 %---
 titnam='PW';   fignam=[expri,'_TPWqv_'];
 %

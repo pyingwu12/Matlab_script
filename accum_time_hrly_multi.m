@@ -6,14 +6,14 @@ clear;  ccc=':';
 %purple: 0.494,0.184,0.556;  %dark red: [0.6350 0.0780 0.1840]
 %green: 0.466,0.674,0.188
 %-------------------------------
-expri={'TWIN001B';'TWIN001Pr001qv062221';'TWIN003B';'TWIN003Pr001qv062221'};   exptext='zemi13BnP';   bdy=0;  
-expnam={'cntl-FLAT';'pert-FLAT';'cntl-TOPO';'pert-TOPO'};
+expri={'TWIN001B';'TWIN001Pr001qv062221';'TWIN003B';'TWIN003Pr001qv062221'};   exptext='NHMwspert';   bdy=0;  
+expnam={'FLAT_cntl';'FLAT_pert';'TOPO_cntl';'TOPO_pert'};
 dom={'01';'01';'01';'01'};
-lexp={'-';'--';'-';'--'};  
+lexp={'-';'-';'-';'-'};  
 cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098; 0.929,0.694,0.125];
 
 %---setting
-sth=15;  lenh=48;  tint=3;  typst='mean';%mean/sum/max
+sth=18;  lenh=54;  tint=4;  typst='mean';%mean/sum/max
 ymdm='2018062100';  
 %
 % indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test';

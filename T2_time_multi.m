@@ -1,25 +1,20 @@
 close all
 clear;  ccc=':';
-
-%dark blue: 0,0.447,0.741;   %light blue: 0.3,0.745,0.933
-%yellow: 0.929,0.694,0.125;  %orange: 0.85,0.325,0.098;   
-%purple: 0.494,0.184,0.556;  %dark red: [0.6350 0.0780 0.1840]
-%green: 0.466,0.674,0.188
-%-------------------------------
+%----------------
 %
-expri={'TWIN005B';'TWIN005Pr001qv21';'TWIN006B';'TWIN006Pr001qv21'};   exptext='TWINweak';   bdy=0;  
-expnam={'TWIN005B';'5Pr001qv21';'TWIN006B';'6Pr001qv21'};
+expri={'TWIN001B';'TWIN001Pr001qv062221';'TWIN003B';'TWIN003Pr001qv062221'};   exptext='NHMwspert';   bdy=0;  
+expnam={'FLAT_cntl';'FLAT_pert';'TOPO_cntl';'TOPO_pert'};
 dom={'01';'01';'01';'01'};
 lexp={'-';'-';'-';'-'};  
-cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098; 0.929,0.694,0.125];
+cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125];
 
 %---setting
-sth=16;  lenh=48;  tint=3;  typst='mean';%mean/sum/max
+sth=18;  lenh=54;  tint=4;  typst='mean';%mean/sum/max
 ymdm='2018062100';  
 %
 % indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test';
-indir='/mnt/HDD008/pwin/Experiments/expri_twin/'; outdir='/mnt/e/figures/expri_twin';
-titnam='2-m Temp.';    fignam=['T2_',exptext,'_'];
+indir='/mnt/HDD008/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+titnam='2-m Temparature';    fignam=['T2_',exptext,'_'];
 nexp=size(expri,1);
 
 %---
@@ -42,7 +37,7 @@ for i=1:nexp
   plot(plotvar(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',2.5); hold on
 end
 %
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','nw');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','se','FontName','Monospaced');
 %
 set(gca,'XLim',[1 lenh],'XTick',tint:tint:lenh,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 xlabel('Time (JST)');  ylabel('2-m Temperature (K)')
