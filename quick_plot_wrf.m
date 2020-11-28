@@ -1,23 +1,23 @@
-close all
-clear;  ccc=':';
+ %close all
+ clear;  ccc=':';
 %---setting
-expri='test003';  
+expri='TWIN013B';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='22';  s_hr='02'; minu='00';
+year='2018'; mon='06'; s_date='22';  s_hr='21'; minu='00';
 infilenam='wrfout';  dom='01'; 
 
 zi=10;  
 %indir=['E:/wrfout/expri191009/',expri];
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir='/mnt/e/figures/expri191009';
-% indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
-indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/'];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+% indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/'];
 
 
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
 % qv = ncread(infile,'QVAPOR');
 % u = ncread(infile,'U');
 % v = ncread(infile,'V');
- w = ncread(infile,'W');
+ %w = ncread(infile,'W');
 % t = ncread(infile,'T'); t=t+300;
 % thm = ncread(infile,'THM'); thm=thm+300;
 % max(max(t(:,:,zi)))
@@ -35,7 +35,30 @@ hgt= ncread(infile,'HGT');
 %  lhfx = ncread(infile,'LH');
 %  ust = ncread(infile,'UST');
 %%
+epsilon=0.622;
+Rd=287.04; % Specific gas constant
+cvd=719;   % specific heat capacity at constant volume
+cpd=Rd+cvd;  % Isobaric specific heat
 %
+p = ncread(infile,'P');        pb = ncread(infile,'PB');   
+qv = ncread(infile,'QVAPOR');     
+t = ncread(infile,'T');    t=t+300;
+P  = double(p+pb); 
+
+ev=qv./(epsilon+qv) .* P/100; 
+T  = t.*(1e5./P).^(-Rd/cpd);
+esw = 6.11*exp(53.49-6808./T-5.09*log(T));
+
+RH=ev./esw*100;
+
+ figure('Position',[100 100 800 650]);
+   contourf(RH(:,:,1)',20,'linestyle','none')
+   caxis([70 100])
+   hold on
+   contour(hgt',[100 500 900],'color',[0.6 0.6 0.6],'linewidth',2,'linestyle','--')
+   title([expri,' RH ', s_hr,minu,'UTC'],'FontSize',15)
+   colorbar
+%%
 % close all
 %---plot different variables
 %  figure
@@ -47,10 +70,10 @@ hgt= ncread(infile,'HGT');
 %    contourf(v(:,:,zi)',20,'linestyle','none')
 %    title([expri,' V wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
 %    colorbar
- figure
-   contourf(w(:,:,zi)',20,'linestyle','none')
-   title([expri,' W wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
-   colorbar     
+%  figure
+%    contourf(w(:,:,zi)',20,'linestyle','none')
+%    title([expri,' W wind ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)
+%    colorbar     
 %  figure
 %    contourf(qv(:,:,zi)',20,'linestyle','none')
 %    title([expri,' qv ', s_hr,minu,'Z , zi=',num2str(zi)],'FontSize',15)

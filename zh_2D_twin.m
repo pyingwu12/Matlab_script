@@ -1,37 +1,38 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='TWIN024B';  s_date='23'; hr=0; minu=[0]; 
+expri='TWIN015';
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
+s_date='23'; hr=6;  minu=[00]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 scheme='WSM6';
 %---
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
-%indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/',expri];
-
+indir='/mnt/HDD016/pwin/Experiments/expri_twin'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 %---
-
-titnam='Zh composite';   fignam=[expri,'_zh_'];
+titnam='Zh composite';   fignam=[expri1(8:end),'_zh-twin_'];
 %
 load('colormap/colormap_zh.mat')
 cmap=colormap_zh; cmap(1,:)=[1 1 1];
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[1 3 6 10 15 20 25 30 35 40 45 50 55 60 65 70];
 %---
-
+%
 for ti=hr   
   for mi=minu    
     %ti=hr; mi=minu;
     %---set filename---
     s_hr=num2str(ti,'%2.2d');  % start time string
     s_min=num2str(mi,'%2.2d');
-    infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
-    zh_max=cal_zh_cmpo(infile,scheme);         
-    hgt = ncread(infile,'HGT');  
+    infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
+    zh_max1=cal_zh_cmpo(infile1,scheme);         
+    hgt = ncread(infile1,'HGT');  
+    infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
+    zh_max2=cal_zh_cmpo(infile2,scheme);   
     %
 %---plot----------
-    plotvar=zh_max';   %plotvar(plotvar<=0)=NaN;
+    plotvar=zh_max2';   %plotvar(plotvar<=0)=NaN;
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
     %
     hf=figure('position',[100 45 800 680]);  
@@ -39,11 +40,13 @@ for ti=hr
     if (max(max(hgt))~=0)
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
     end
+    hold on
+    contour(zh_max1',[25 25],'color','k','linestyle','-','linewidth',2.5)
     %
     set(gca,'fontsize',16,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
-    tit={expri,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
+    tit={expri1,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
     title(tit,'fontsize',18,'Interpreter','none')
 
     %---colorbar---

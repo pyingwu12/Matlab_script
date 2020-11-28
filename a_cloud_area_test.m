@@ -110,7 +110,9 @@ for ti=hr
 %     text(aaax,aaay+0.5,num2str(conv.scc(i2)))
 %     end
 
-
+% for i=1:length(fin)
+% rectangle('Position',[bounds(fin(i),2) bounds(fin(i),1) bounds(fin(i),4) bounds(fin(i),3)])
+% end
     
 %     figure('Position',[100 65 800 600])
 %     plot(conv.size,conv.scc,'ro')

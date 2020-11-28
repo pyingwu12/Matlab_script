@@ -1,6 +1,6 @@
 
 clear
-%close all
+ close all
 
 x=1:300;
 y=1:300;
@@ -10,13 +10,13 @@ y=1:300;
 
 ide=length(xi);
 
-hm=1000;  
-xa=5;  %helf height radius (gird)
-ya=5;
-icmx=100; %center of hill
+%hm=250;  
+xa=8.14;  %helf height radius (gird)
+ya=8.14;
+icmx=75; %center of hill
 icmy=100;
 
-Vol=156000;
+Vol=312000;
       
    %ht = hm./(  1  +  ((xi-icmx).^2 + (yi-icmy).^2)/xa^2 );   
    
@@ -26,7 +26,7 @@ Vol=156000;
   % figure
 %    plot(ht_g(:,icmx)) ; hold on
 %    sum(ht_g(:,icmx))
-   
+   %
 %    sigm=5;
 %    ht_g1 =  1/(2*pi*sigm^2)^0.5 * exp(- (  (x-icmx)/(2^0.5*sigm)  ).^2) ; 
 %    plot(ht_g1)
@@ -34,7 +34,7 @@ Vol=156000;
    
    %ht_g2 =  hm * exp(- ((xi-icmx).^2 + (yi-icmy).^2) ./ (2*xa^2) ) ;
      
-%    
+%%    
 %    figure('position',[-1000 200 700 500])
 %      contour(xi,yi,ht,30)
 
@@ -47,6 +47,6 @@ Vol=156000;
      figure('position',[100 200 800 500])
 % %      plot(ht(icmy,:));  hold on
 %       plot(ht_g(icmy,:));hold on
-       plot(ht_g(:,icmx))
-%      plot(ht_g2(icmy,:))
+%        plot(ht_g(:,icmx))
+     plot(ht_g(icmy,:))
 %      legend('ht','ht_g','ht_g2')
