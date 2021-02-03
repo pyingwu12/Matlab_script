@@ -4,14 +4,16 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN003';  expri1=[expri,'Pr001qv062221diffphy1117'];  expri2=[expri,'B']; 
-s_date='23';  hr=0:3;  minu=[00 20 40];  zhid=25; % for zhid~=0, plot contour of zh composite
+expri='TWIN001';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=3;  minu=0;  zhid=25; % for zhid~=0, plot contour of zh composite
 %
 year='2018'; mon='06';  
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD008/pwin/Experiments/expri_twin/';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-titnam='moist DTE vertical weighted average';  fignam=[expri1(8:end),'_moDTE_',];
+indir='/mnt/HDD008/pwin/Experiments/expri_twin/';  
+outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+% titnam='moist DTE vertical weighted average';  
+titnam='moist DTE';  fignam=[expri1(8:end),'_moDTE_',];
 if zhid~=0; fignam=[fignam,'zh_'];  end
 %
 load('colormap/colormap_dte.mat')
@@ -31,16 +33,16 @@ for ti=hr
     infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     hgt = ncread(infile2,'HGT');
     %
-    if zhid~=0; zh_max=cal_zh_cmpo(infile2,'WSM6'); end  % zh of perturbed state    
-    MDTE = cal_DTEmo_2D(infile1,infile2) ;  % vertical weighted average (dPm=dP/dPall)  
-    
-    w = ncread(infile2,'W');
-    
+    if zhid~=0; zh_max=cal_zh_cmpo(infile2,'WSM6'); end  % zh of perturbed state
+    MDTE = cal_DTEmo_2D_temp(infile1,infile2) ;  % vertical weighted average (dPm=dP/dPall)      
+%     w = ncread(infile2,'W');
+
     %---plot---
-    plotvar=MDTE';   %plotvar(plotvar<=0)=NaN;
+    plotvar=MDTE';   
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end      
     %
-    hf=figure('position',[100 45 800 680]);  
+%     hf=figure('position',[100 45 800 680]);  
+    hf=figure('position',[100 75 800 700]); 
     [c, hp]=contourf(plotvar,L2,'linestyle','none');    
     if (max(max(hgt))~=0)
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
@@ -53,9 +55,13 @@ for ti=hr
     set(gca,'fontsize',16,'LineWidth',1.2)
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
-    %s_hrj=num2str(mod(ti+9,24),'%2.2d'); 
-    tit={[expri1,'  ',s_hr,s_min,' UTC'],titnam};     
-    title(tit,'fontsize',18)
+%     tit={[expri1,'  ',s_hr,s_min,' UTC'],titnam};     
+%     title(tit,'fontsize',18)
+    
+    s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
+    if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
+    tit={expri1,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']}; 
+    title(tit,'fontsize',20,'Interpreter','none')
     
     %---colorbar---
     fi=find(L>pmin);
@@ -68,7 +74,7 @@ for ti=hr
     end
     %---    
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
-    print(hf,'-dpng',[outfile,'.png']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
+%     print(hf,'-dpng',[outfile,'.png']) 
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);     
   end %tmi
 end
