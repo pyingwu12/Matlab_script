@@ -1,15 +1,15 @@
-close all
+% close all
 clear;   ccc=':';
 %---setting
-expri='TWIN015';
+expri='TWIN020';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-s_date='23'; hr=6;  minu=[00]; 
+s_date='23'; hr=1;  minu=[40]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 scheme='WSM6';
 %---
-indir='/mnt/HDD016/pwin/Experiments/expri_twin'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='/mnt/HDD008/pwin/Experiments/expri_twin'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 %---
 titnam='Zh composite';   fignam=[expri1(8:end),'_zh-twin_'];
 %
@@ -35,7 +35,8 @@ for ti=hr
     plotvar=zh_max2';   %plotvar(plotvar<=0)=NaN;
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
     %
-    hf=figure('position',[100 45 800 680]);  
+%     hf=figure('position',[100 45 800 680]);  
+    hf=figure('position',[100 45 800 700]); 
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
     if (max(max(hgt))~=0)
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
@@ -46,8 +47,13 @@ for ti=hr
     set(gca,'fontsize',16,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
-    tit={expri1,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
-    title(tit,'fontsize',18,'Interpreter','none')
+%     tit={expri1,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
+%     title(tit,'fontsize',18,'Interpreter','none')
+
+    s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
+    if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
+    tit={expri1,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']}; 
+    title(tit,'fontsize',20,'Interpreter','none')
 
     %---colorbar---
     fi=find(L>pmin);

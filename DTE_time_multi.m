@@ -2,23 +2,24 @@ clear;  ccc=':';
 close all
 
 %---experiments
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='TWIN0103';
-expri2={'TWIN001B';'TWIN003B'};
-expnam={'FLAT';'TOPO'};
-col=[  0,0.447,0.741; 0.85,0.325,0.098; 0.466,0.874,0.188]; 
+% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='TWIN0103';
+% expri2={'TWIN001B';'TWIN003B'};
+% expnam={'FLAT';'TOPO'};
+% col=[  0,0.447,0.741; 0.85,0.325,0.098; 0.466,0.874,0.188]; 
 
 % expri1={'TWIN001Pr001qv062221';'TWIN001Pr001qv062221noMP';'TWIN003Pr001qv062221';'TWIN003Pr001qv062221noMP'};   exptext='noMP';
 % expri2={'TWIN001B';'TWIN001B062221noMP';'TWIN003B';'TWIN003B062221noMP'};
 % expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP'};
 % col=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125]; 
 
-% expri1={'TWIN003Pr001qv062221';'TWIN017Pr001qv062221';'TWIN018Pr001qv062221'};   
-% expri2={'TWIN003B';'TWIN017B';'TWIN018B'}; exptext='mountainsW1';
-% expnam={'TOPO';'TOPOV05H05';'TOPOV2H2'};
-% col=[0.85,0.325,0.098; 0.3,0.745,0.933; 0.494,0.184,0.556]; 
+expri1={'TWIN001Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};   
+expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'}; exptext='h1000';
+expnam={'FLAT';'v05h10';'v10h10';'v20h10'};
+col=[0.3 0.3 0.3; 0.49 0.8 0.22; 0.466,0.674,0.188; 0.3 0.45 0.01]; 
 
 %---setting---
-stday=22;  sth=21;  lenh=20;  minu=[00 20 40];  tint=2;
+% stday=22;  sth=21;  lenh=20;  minu=[00 20 40];  tint=2;
+stday=22;  sth=21;  lenh=15;  minu=[00 20 40];  tint=2;
 % stday=21;  sth=15;  lenh=48;  minu=00;  tint=3;
 plotarea=1; %if ~=0, plot sub-domain average set below
 %

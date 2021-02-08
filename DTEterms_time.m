@@ -2,12 +2,19 @@ clear;  ccc=':';
 % close all
 
 %---experiments
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='exp0103';
-expri2={'TWIN001B';'TWIN003B'};
-expnam={'FLAT';'TOPO'};
+% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='exp0103';
+% expri2={'TWIN001B';'TWIN003B'};
+% expnam={'FLAT';'TOPO'};
+
+expri1={'TWIN001Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};   
+expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'}; exptext='h1000';
+expnam={'FLAT';'v05h10';'v10h10';'v20h10'};
+linestyl={':';'-';'--';'-.'};
+
+
 %---set sub-domain average range---
-% xarea=1:150;  yarea=76:175; areatext='moun';
-xarea=1:300;  yarea=1:300; areatext='whole';
+xarea=1:150;  yarea=76:175; areatext='moun';
+% xarea=1:300;  yarea=1:300; areatext='whole';
 
 %---setting---
 stday=22;  sth=21;  lenh=20;  minu=[00 20 40];  tint=2;
@@ -57,7 +64,6 @@ end % expri
 %---plot
 % hf=figure('position',[100 55 1200 600]);
 hf=figure('position',[100 55 1000 600]);
-linestyl={'-';'--'};
 
 for ei=1:nexp  
   plot(KE2D_m(ei,:),'LineWidth',2.5,'color',[0.929,0.694,0.125],'linestyle',linestyl{ei}); hold on
