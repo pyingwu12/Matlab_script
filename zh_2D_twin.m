@@ -1,9 +1,9 @@
-% close all
+close all
 clear;   ccc=':';
 %---setting
-expri='TWIN020';
+expri='TWIN001';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-s_date='23'; hr=1;  minu=[40]; 
+s_date='23'; hr=6:9;  minu=0:10:50; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)

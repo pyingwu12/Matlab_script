@@ -1,13 +1,13 @@
-close all
+% close all
 clear;   ccc=':';
 %---setting
-expri='TWIN003B062218noSW';  s_date='23'; hr=5; minu=0; 
+expri='TWIN008Pr001qv062221';  s_date='23'; hr=3; minu=[20 50]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 scheme='WSM6';
 %---
-indir=['/mnt/HDD016/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/',expri];
 
 %---
@@ -65,8 +65,8 @@ for ti=hr
     %---    
     
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
-%     print(hf,'-dpng',[outfile,'.png'])    
-%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    print(hf,'-dpng',[outfile,'.png'])    
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
    
   end
 end

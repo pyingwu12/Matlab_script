@@ -4,7 +4,7 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN004';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN001';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 stday=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00;
 % stday=23; hrs=[0 1 2];
 minu=[00 20 40];
@@ -149,6 +149,7 @@ xlim=[1 min(nx,ny)]; ylim=[3e-2 1e6];
 set(gca,'YScale','log','XScale','log','XLim',xlim,'Linewidth',1.2,'fontsize',16)
 set(gca,'Ylim',ylim)
 xlabel('wavenumber')
+ylabel('J kg^-^1')
 %---second axis---
 ax1=gca; ax1_pos = ax1.Position; set(ax1,'Position',ax1_pos-[0 0 0 0.075])
 box off
@@ -167,6 +168,7 @@ outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,s_edh,'_',nu
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %%
+%{
 col=col0;
 %---plot
 hf=figure('position',[100 45 930 660]) ;
@@ -205,3 +207,4 @@ outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,s_edh,'_',nu
     ,num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%}

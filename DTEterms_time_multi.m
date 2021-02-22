@@ -6,11 +6,15 @@ clear;  ccc=':';
 % expri2={'TWIN001B';'TWIN003B'};
 % expnam={'FLAT';'TOPO'};
 
-expri1={'TWIN001Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};   
-expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'}; exptext='h1000';
-expnam={'FLAT';'v05h10';'v10h10';'v20h10'};
-linestyl={':';'-';'--';'-.'};
+% expri1={'TWIN001Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};   
+% expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'}; exptext='h1000';
+% expnam={'FLAT';'v05h10';'v10h10';'v20h10'};
+% linestyl={':';'-';'--';'-.'};
 
+expri1={'TWIN001Pr001qv062221';'TWIN013Pr001qv062221';'TWIN003Pr001qv062221';'TWIN016Pr001qv062221'};   
+expri2={'TWIN001B';'TWIN013B';'TWIN003B';'TWIN016B'}; exptext='vol10';
+expnam={'FLAT';'v10h05';'v10h10';'v10h20'};
+linestyl={':';'-';'--';'-.'};
 
 %---set sub-domain average range---
 xarea=1:150;  yarea=76:175; areatext='moun';
@@ -68,12 +72,13 @@ hf=figure('position',[100 55 1000 600]);
 for ei=1:nexp  
   plot(KE2D_m(ei,:),'LineWidth',2.5,'color',[0.929,0.694,0.125],'linestyle',linestyl{ei}); hold on
   plot(ThE2D_m(ei,:),'LineWidth',2.5,'color',[0.466,0.674,0.188],'linestyle',linestyl{ei});
-   plot(LH2D_m(ei,:),'LineWidth',2.5,'color',[0.494,0.184,0.556],'linestyle',linestyl{ei});
+  plot(LH2D_m(ei,:),'LineWidth',2.5,'color',[0.494,0.184,0.556],'linestyle',linestyl{ei});
+  line([35 38],[10^(-3-0.5*ei) 10^(-3-0.5*ei)],'color','k','LineWidth',2.5,'linestyle',linestyl{ei})
+  text(39,10^(-3-0.5*ei),expnam{ei},'fontsize',18)
 end
-legh=legend({'KE','ThE','LH'},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+legh=legend({'KE','ThE','LH'},'Box','off','Interpreter','none','fontsize',20,'Location','se','FontName','Monospaced');
 %---
-set(gca,'Linewidth',1.2,'fontsize',16)
-set(gca,'YScale','log');
+set(gca,'YScale','log','Linewidth',1.2,'fontsize',16)
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 xlabel('Time(JST)'); ylabel('JKg^-^1')  
 title([titnam,'  (area:',areatext,')'],'fontsize',18)
