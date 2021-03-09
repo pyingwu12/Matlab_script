@@ -1,9 +1,9 @@
 % close all
 clear
 %---setting
-expri='TWIN003B';  stday=23;  sth=0;  acch=10; 
+expri='TWIN003B';  stday=23;  sth=0;  acch=1; 
 %---
-year='2018'; mon='06';  s_min='00';  
+year='2018'; mon='06';  s_minu='20';  
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri];
@@ -26,7 +26,7 @@ for ti=sth
       hrday=fix(hr/24);  hr=hr-24*hrday;
       s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
       %------read netcdf data--------
-      infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',s_min,':00'];
+      infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',s_minu,':00'];
       rall{j} = ncread(infile,'RAINC');
       rall{j} = rall{j} + ncread(infile,'RAINSH');
       rall{j} = rall{j} + ncread(infile,'RAINNC');
@@ -52,7 +52,7 @@ for ti=sth
     set(gca,'fontsize',16,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
-    tit={expri;[titnam,'  ',s_sth,s_min,'-',s_edh,s_min,' UTC']};
+    tit={expri;[titnam,'  ',s_sth,s_minu,'-',s_edh,s_minu,' UTC']};
     title(tit,'fontsize',18)
 
     %---colorbar---
@@ -66,7 +66,7 @@ for ti=sth
     end
     %---
 
-    outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h'];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,s_minu,'_',num2str(ai),'h'];
     print(hf,'-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

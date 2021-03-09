@@ -8,8 +8,8 @@ close all;  clear;
 ccc=':';
 %---setting 
 ploterm='DTE'; % option: DTE, KE, ThE, LH
-expri='TWIN001'; 
-expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
+expri='TWIN0';
+expri1=[expri,'Pr001THM062221'];  expri2=[expri,'B'];  
 stday=22;   hrs=[22 23 24 25 26 27];  minu=[20 50];  
 %
 cloudhyd=0.005;  % threshold of definition of cloud area (Kg/Kg)
@@ -57,7 +57,7 @@ set(gca,'Xscale','log','Yscale','log')
 set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 2e2])
 xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 
 ylabel({'(Mean of first 10 maximum)',[ploterm,' J kg^-^1']});
-ylabel({'(Mean of first 10 maximum)','moist DTE (J kg^-^1)'});
+% ylabel({'(Mean of first 10 maximum)','moist DTE (J kg^-^1)'});
 title({expri1,titnam},'fontsize',18)
 %
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');

@@ -1,7 +1,7 @@
 % close all
 clear;   ccc=':';
 %---setting
-expri='TWIN008Pr001qv062221';  s_date='23'; hr=3; minu=[20 50]; 
+expri='TWIN016B';  s_date='23'; hr=0;  minu=30; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -9,9 +9,7 @@ scheme='WSM6';
 %---
 indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/',expri];
-
 %---
-
 titnam='Zh composite';   fignam=[expri,'_zh_'];
 %
 load('colormap/colormap_zh.mat')
@@ -46,12 +44,10 @@ for ti=hr
     xlabel('(km)'); ylabel('(km)');
 %     tit={expri,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
 %     title(tit,'fontsize',18,'Interpreter','none')
-
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
     if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
     tit={expri,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']}; 
-    title(tit,'fontsize',20,'Interpreter','none')
-
+    title(tit,'fontsize',20,'Interpreter','none')    
     
     %---colorbar---
     fi=find(L>pmin);
@@ -62,8 +58,7 @@ for ti=hr
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
     end    
-    %---    
-    
+    %---        
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     print(hf,'-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);

@@ -4,8 +4,8 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN020';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=0:1;  minu=[00 20 40];  zhid=25; % for zhid~=0, plot contour of zh composite
+expri='TWIN001';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=2:3;  minu=[20 50];  zhid=100; % for zhid~=0, plot contour of zh composite
 %
 year='2018'; mon='06';  
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
@@ -14,11 +14,11 @@ indir='/mnt/HDD008/pwin/Experiments/expri_twin/';
 outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 % titnam='moist DTE vertical weighted average';  
 titnam='moist DTE';  fignam=[expri1(8:end),'_moDTE_',];
-if zhid~=0; fignam=[fignam,'zh_'];  end
-%
+if zhid~=0; fignam=[fignam,'zh',num2str(zhid),'_'];  end
+
 load('colormap/colormap_dte.mat')
 cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
- L=[0.5 2 4 6 8 10 15 20 25 30];
+ L=[0.5 2 4 6 8 10 15 20 25 35];
 %
 for ti=hr
   s_hr=num2str(ti,'%2.2d');
@@ -30,7 +30,17 @@ for ti=hr
     infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     hgt = ncread(infile2,'HGT');
     %
-    if zhid~=0; zh_max=cal_zh_cmpo(infile2,'WSM6'); end  % zh of perturbed state
+    if zhid~=0
+    zh_max=cal_zh_cmpo(infile2,'WSM6'); 
+    
+    qr = double(ncread(infile2,'QRAIN'));   
+    qc = double(ncread(infile2,'QCLOUD'));
+    qg = double(ncread(infile2,'QGRAUP'));  
+    qs = double(ncread(infile2,'QSNOW'));
+    qi = double(ncread(infile2,'QICE')); 
+    hyd = sum(qr+qc+qg+qs+qi,3);    
+    
+    end  % zh of perturbed state
   %  tic
     MDTE = cal_DTE_2D(infile1,infile2) ;  % vertical weighted average (dPm=dP/dPall)      
    % toc
@@ -46,9 +56,15 @@ for ti=hr
     if (max(max(hgt))~=0)
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
     end
-    if zhid~=0
-     hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',2.5); 
-    end
+    
+    if zhid==100
+      hold on; contour(hyd',[0.005 0.005],'color',[0.1 0.1 0.1],'linewidth',2.2); 
+    elseif zhid~=0 
+      hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',2.2); 
+    end   
+%     if zhid~=0
+%      hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',2.5); 
+%     end
 %     hold on; contour(abs(w(:,:,11))',[ 0.1 0.1],'r')
     %
     set(gca,'fontsize',16,'LineWidth',1.2)
