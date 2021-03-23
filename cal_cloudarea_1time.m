@@ -14,7 +14,7 @@ function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm)
 % 2021/02/10: modified the input from <expri1 and expri2> to <infile1 an infile2>
 % 2021/02/11: add <ploterm> option for calculating different terms in the DTE
 
-% topo_locx=375; topo_locy=400;  % center of topography
+topo_locx=75; topo_locy=100;  % center of topography
 %---
 scheme='WSM6';
 
@@ -71,10 +71,10 @@ if ~isempty(stats)
       cloud.maxdte(i) = mean( maxk(repDTE(L==fin(i)),areasize)  ); % calculate mean of first X maximum value, X=areasize
       
       %%---calculate distance between center of mountain and cloud area----
-%       disx=centers(fin(i),2)-topo_locx; disy=centers(fin(i),1)-topo_locy; 
-%       if disx>150; disx=300-disx; end
-%       if disy>150; disy=300-disy; end
-%       cloud.todis(i)= sqrt(disx^2 + disy^2);
+      disx=centers(fin(i),2)-(topo_locx+nx); disy=centers(fin(i),1)-(topo_locy+ny); 
+      if disx>150; disx=300-disx; end
+      if disy>150; disy=300-disy; end
+      cloud.todis(i)= sqrt(disx^2 + disy^2);
       %---calculate SCC of zh for each box of cloud area----
 %       bounds=stats.BoundingBox;      
 %       y1=floor(bounds(fin(i),1))+1; y2=floor(bounds(fin(i),1))+bounds(fin(i),3);

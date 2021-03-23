@@ -25,14 +25,14 @@ plotarea=1; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-indir='/mnt/HDD008/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
 titnam='moist DTE';   fignam=['2DMoDTE_',exptext,'_'];
 
 %---set sub-domain average range---
 x1=1:150; y1=76:175;    x2=151:300; y2=201:300;  
 %x1=1:150; y1=51:200;    x2=151:300; y2=[1:50, 201:300];  
 xarea=[x1; x2];  yarea=[y1; y2];
-arenam={'all';'Mou';'Fla'};
+arenam={'whole';'moun';'flat'};
 linestyl={'--',':'};   markersty={'none','none'};  
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -93,12 +93,12 @@ for ei=1:nexp
   end
 end
 % legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
-legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','se','FontName','Monospaced');
+legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',23,'Location','southeast','FontName','Monospaced');
 % legh=legend(expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log');
-  set(gca,'Ylim',[1e-4 2e1])
+  set(gca,'Ylim',[2e-4 2e1])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 xlabel('Time(JST)'); ylabel('J kg^-^1')  
 % title(titnam,'fontsize',18)

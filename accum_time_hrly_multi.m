@@ -12,7 +12,7 @@ sth=18;  lenh=54;  tint=4;  typst='mean';%mean/sum/max
 ymdm='2018062100';  
 %
 % indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test';
-indir='/mnt/HDD008/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 titnam='Hourly rainfall';   fignam=['accum-hrly_',exptext,'_'];
 nexp=size(expri,1);
 %---
