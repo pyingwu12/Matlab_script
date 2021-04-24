@@ -37,7 +37,7 @@ zh_max2 = cal_zh_cmpo(infile2,scheme);
  dPall = P.f2(:,:,end)-P.f2(:,:,1);
  dPm = dP./repmat(dPall,1,1,size(dP,3)); 
 
- if strcmp(ploterm,'DTE')==1
+ if strcmp(ploterm,'MDTE')==1
     DTE3D = KE + ThE + LH ;
     DiffE2D = sum(dPm.*DTE3D(:,:,1:end-1),3) + Ps;
  else
@@ -69,6 +69,7 @@ if ~isempty(stats)
       cloud.scale(i)= (stats.Area(fin(i))/pi)^0.5*2; %Diameter of circle with the same area
       cloud.maxzh(i)= max(repzh2(L==fin(i)));
       cloud.maxdte(i) = mean( maxk(repDTE(L==fin(i)),areasize)  ); % calculate mean of first X maximum value, X=areasize
+      cloud.meandte(i) = mean(repDTE(L==fin(i)));
       
       %%---calculate distance between center of mountain and cloud area----
       disx=centers(fin(i),2)-(topo_locx+nx); disy=centers(fin(i),1)-(topo_locy+ny); 

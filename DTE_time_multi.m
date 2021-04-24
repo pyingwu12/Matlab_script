@@ -2,20 +2,20 @@ clear;  ccc=':';
 close all
 
 %---experiments
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='paper0103';
-expri2={'TWIN001B';'TWIN003B'};
-expnam={'FLAT';'TOPO'};
-col=[  0,0.447,0.741; 0.85,0.325,0.098; 0.466,0.874,0.188]; 
+% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='paper0103';
+% expri2={'TWIN001B';'TWIN003B'};
+% expnam={'FLAT';'TOPO'};
+% col=[  0,0.447,0.741; 0.85,0.325,0.098; 0.466,0.874,0.188]; 
 
 % expri1={'TWIN001Pr001qv062221';'TWIN001Pr001qv062221noMP';'TWIN003Pr001qv062221';'TWIN003Pr001qv062221noMP'};   exptext='noMP';
 % expri2={'TWIN001B';'TWIN001B062221noMP';'TWIN003B';'TWIN003B062221noMP'};
 % expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP'};
 % col=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125]; 
 
-% expri1={'TWIN001Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};   
-% expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'}; exptext='h1000';
-% expnam={'FLAT';'v05h10';'v10h10';'v20h10'};
-% col=[0.3 0.3 0.3; 0.49 0.8 0.22; 0.466,0.674,0.188; 0.3 0.45 0.01]; 
+expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr001THM062221';'TWIN003Pr001THM062221'};   
+expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; exptext='THM';
+expnam={'FLAT';'TOPO';'FLAT_THM';'TOPO_THM'};
+col=[ 0,0.447,0.741; 0.85,0.325,0.098;  0.3,0.745,0.933; 0.929,0.694,0.125]; 
 
 %---setting---
 stday=22;  sth=21;  lenh=20;  minu=[00 20 40];  tint=2;
@@ -32,7 +32,7 @@ titnam='moist DTE';   fignam=['2DMoDTE_',exptext,'_'];
 x1=1:150; y1=76:175;    x2=151:300; y2=201:300;  
 %x1=1:150; y1=51:200;    x2=151:300; y2=[1:50, 201:300];  
 xarea=[x1; x2];  yarea=[y1; y2];
-arenam={'whole';'moun';'flat'};
+arenam={'whole';'mount';'plain'};
 linestyl={'--',':'};   markersty={'none','none'};  
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -98,7 +98,7 @@ legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',23,'Location','sout
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log');
-  set(gca,'Ylim',[2e-4 2e1])
+  set(gca,'Ylim',[2e-5 2e1])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 xlabel('Time(JST)'); ylabel('J kg^-^1')  
 % title(titnam,'fontsize',18)

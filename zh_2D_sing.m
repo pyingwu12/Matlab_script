@@ -1,14 +1,14 @@
-% close all
+close all
 clear;   ccc=':';
 %---setting
-expri='TWIN016B';  s_date='23'; hr=0;  minu=30; 
+expri='test007';  s_date='23'; hr=0:4;  minu=[00 10 20 30 40 50]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
+% scheme='Gaddard'; %!!!!!!!!!!!!!!!
 scheme='WSM6';
 %---
-indir=['/mnt/HDD008/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
-%indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/',expri];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %---
 titnam='Zh composite';   fignam=[expri,'_zh_'];
 %

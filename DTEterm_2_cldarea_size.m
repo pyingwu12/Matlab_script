@@ -1,27 +1,32 @@
-% function cldarea_scatter_size2DTEterms(expri,ploterm)
+% function DTEterm_2_cldarea_size(expri,ploterm)
 % plot scatter plot of cloud size to moist DTE over the cloud area
 % the cloud area is detected by the funtion <cal_cloudarea_1time>
 % P.Y. Wu @ 2021.02.05
 % 2021/02/11: add <ploterm> option for calculating different terms in the DTE
 
-close all;  clear; 
+close all; 
+clear; 
 ccc=':';
 %---setting 
-ploterm='DTE'; % option: DTE, KE, ThE, LH
-expri='TWIN0';
-expri1=[expri,'Pr001THM062221'];  expri2=[expri,'B'];  
+ploterm='MDTE'; % option: DTE, KE, ThE, LH
+expri='TWIN003';
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 stday=22;   hrs=[22 23 24 25 26 27];  minu=[20 50];  
+% stday=22;   hrs=[23 24 25 26];  minu=0:10:50;  
+
 %
 cloudhyd=0.005;  % threshold of definition of cloud area (Kg/Kg)
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD008/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7),'/SOLA2021_revision'];
 titnam=['size of cloud area to ',ploterm];  
 fignam=[expri1(8:end),'_cloud-',ploterm,'_'];
 %
 fload=load('colormap/colormap_ncl.mat');
 col=fload.colormap_ncl([3 8 17 32 58 81 99 126 147 160 179 203],:);
+% col=fload.colormap_ncl(13:10:end,:);
+
 %
 %---
 hf=figure('Position',[100 65 900 480]);
@@ -38,11 +43,15 @@ for ti=hrs
     %---    
     cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);    
     if ~isempty(cloud) 
+      neartopo=find(cloud.todis<=75);
+      fartopo=find(cloud.todis>75);
       if nti<=3
-       plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',[0.1 0.1 0.1]); hold on   
+       plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',[0.1 0.1 0.1],'linewidth',1.3); hold on   
       else
-       plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on         
+%       plot(cloud.scale(neartopo),cloud.maxdte(neartopo),'^','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on  
+       plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on   
       end
+%       plot(cloud.scale(neartopo),cloud.maxdte(neartopo),'o','MarkerSize',8,'MarkerFaceColor','none','MarkerEdgeColor',[0.1 0.1 0.1],'linewidth',1.3); 
       ntii=ntii+1;
       lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST']; 
       %----
@@ -56,8 +65,7 @@ set(gca,'fontsize',16,'LineWidth',1.2)
 set(gca,'Xscale','log','Yscale','log')
 set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 2e2])
 xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 
-ylabel({'(Mean of first 10 maximum)',[ploterm,' J kg^-^1']});
-% ylabel({'(Mean of first 10 maximum)','moist DTE (J kg^-^1)'});
+ylabel({'(Mean of first 10 maximum)',[ploterm,' ( J kg^-^1)']});
 title({expri1,titnam},'fontsize',18)
 %
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');

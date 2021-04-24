@@ -4,7 +4,7 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN001';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN001';  expri1=[expri,'Pr001qv062221noMP'];  expri2=[expri,'B062221noMP']; 
 stday=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00;
 % stday=23; hrs=[0 1 2];
 minu=[00 20 40];
@@ -13,7 +13,7 @@ lev=1:33;
 year='2018';  mon='06';
 infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD008/pwin/Experiments/expri_twin/';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 titnam='moist DTE spectra';   fignam=[expri1(8:end),'_moDTE_',];
 %
 load('colormap/colormap_ncl.mat')
@@ -136,11 +136,13 @@ n=n+1;
 plot(KEp.kh(:,ti),'LineWidth',2.5,'LineStyle','--','color',col(n,:)); hold on
 lgnd2{n}=lgnd{ti};
 end
+%
 lgnd2{n+1}='-5/3 line';
-lgnd2{n+2}='1300 JST';
+% lgnd2{n+2}='1300 JST';
 x53=-5:0.1:4;  y53=7.35+(-5/3*x53);
-plot(10.^x53,10.^y53,'k','linewidth',2.2,'linestyle','--');
+% plot(10.^x53,10.^y53,'k','linewidth',2.2,'linestyle','--');
 plot(KE.kh(:,21),'color',[0.3 0 0],'LineWidth',2.5,'LineStyle','-')
+%}
 legend(lgnd2,'Box','off','Interpreter','none','fontsize',18,'Location','BestOutside')
 %
 %---
@@ -168,7 +170,7 @@ outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,s_edh,'_',nu
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %%
-%{
+%
 col=col0;
 %---plot
 hf=figure('position',[100 45 930 660]) ;

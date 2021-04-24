@@ -65,8 +65,8 @@ for ti=sth
     %---
 
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h_L',num2str(filt_len)];
-    print(hf,'-dpng',[outfile,'.png'])    
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%     print(hf,'-dpng',[outfile,'.png'])    
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 
   end %acch
 end %ti

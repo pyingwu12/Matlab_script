@@ -3,7 +3,7 @@ clear
 close all
 %==========================================================================
 figure_name='/mnt/e/figures/shionomisaki_1908190000';
-title_name='shionomisaki 20190819 0000UTC';
+title_name='Shionomisaki 20190819 0000UTC';
 %--------
 %upair=importdata('Taipei_20190722_0000.txt');
 %P3=upair(:,4);  WS=upair(:,9); WD=upair(:,8); 
@@ -16,8 +16,6 @@ TT=Temp(:,3);
 Td=TT-(100-Temp(:,4))/5;  % calculate Td from T and RH
 P1=Temp(:,1);  P2=Temp(:,1); P3=Wind(:,1);
 WS=Wind(:,3); WD=Wind(:,4);
-
-
 
 %--------------
 xlim=40;
@@ -406,8 +404,8 @@ plot(linspace(wbarx0,wbarx0,length(P3)),-log(P3),'LineStyle','none','Marker','o'
 % plot([ 60, 60],[min(min(y_coor)),max(max(y_coor))],'-k')
 
 axis([-10 55 -log(1050) -log(40)])
-set(gca,'XTick',[-40 -35 -30 -25 -20 -15 -10 -5 0 5 10 15 20 25 30 35 40],'fontsize',12)
-set(gca,'YTick',ptick,'YTickLabel',{'1000','850','700','600','500','400','300','250','200','150','100','50'},'fontsize',12)
+set(gca,'XTick',[-40 -35 -30 -25 -20 -15 -10 -5 0 5 10 15 20 25 30 35 40],'fontsize',13)
+set(gca,'YTick',ptick,'YTickLabel',{'1000','850','700','600','500','400','300','250','200','150','100','50'},'fontsize',13)
 set(gca,'TickDir','out')
 set(gca,'box','on','LineWidth',0.5)
 gca_pos = get(gca,'Position');
@@ -426,7 +424,7 @@ text(-05.4,-4.7875, '-80','FontSize',8,'Color',[189/255 094/255 000/255],'Rotati
 % text(-25.4,-4.7875,'-100','FontSize',8,'Color',[189/255 094/255 000/255],'Rotation',40)
 %text(-35.4,-4.7875,'-110','FontSize',8,'Color',[189/255 094/255 000/255],'Rotation',40)
 text( 12.5,-5.3845, '0.5','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
-text( 19.5,-5.3845, '1.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
+text( 19.5,-5.3845, '1.0','FontSize',8,'Color',[000/255 143/255 8/255],'Rotation',50)
 text( 26.5,-5.3845, '2.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
 text( 34.5,-5.3845, '4.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
 text( 40.5,-5.5535, '8.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
@@ -437,11 +435,12 @@ text( 40.5,-6.2944,'24.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotati
 % text( 40.5,-6.4236,'28.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
 text( 40.5,-6.5396,'32.0','FontSize',8,'Color',[000/255 143/255 000/255],'Rotation',50)
 
-title(title_name,'position',[22.5 -3.64],'fontsize',16)
-xlabel('Temperature')
-ylabel('Pressure')
+title(title_name,'position',[22.5 -3.64],'fontsize',18)
+xlabel('Temperature (°C)','fontsize',18)
+ylabel('Pressure (hPa)','fontsize',26)
 
 print('-dpng',[figure_name,'.png'])
+system(['convert -trim ',figure_name,'.png ',figure_name,'.png']);
 %saveas(h,figure_name)
 %output = h;
 %end

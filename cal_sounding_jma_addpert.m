@@ -5,6 +5,8 @@ year='2019';  mon='08';  date='19';  hr='00';  minu='00';
 Wind=importdata(['/mnt/e/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_wind.txt']);
 Temp=importdata(['/mnt/e/data/sounding/shionomisaki_',year,mon,date,'_',hr,minu,'_temp.txt']);
 %-------------
+outfilenam=['/mnt/HDD003/pwin/Data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu];
+%------------
 R=287.43;
 cp=1005;
 eps=0.622;
@@ -17,20 +19,39 @@ es=6.1094*exp(17.625.*Temp(:,3)./(Temp(:,3)+243.04));
 ew=es.*Temp(:,4)/100;
 qv=eps*ew./(Temp(:,1)-ew)*1000;
 
-
 %%
-%add perturbation
-
+% add perturbation
+%{
 pertb=0.1;
-
 ws_pert=Wind(:,3)+ pertb * randn(1,length(Wind(:,3)))';
 wd_pert=Wind(:,4)+ pertb * randn(1,length(Wind(:,4)))';
-
 % qv_pert=qv+ pertb * randn(1,length(qv))';
 qv_pert=qv;
-
 % theta_pert=theta+ pertb * randn(1,length(theta))';
 theta_pert=theta;
+%}
+%%
+% set wind to zero
+%{
+ws_pert=zeros(length(Wind(:,3)),1);
+wd_pert=Wind(:,4);
+qv_pert=qv;
+theta_pert=theta;
+
+outfilenam=[outfilenam,'_noWind']
+%}
+%%
+% idealized wind profile
+
+z=Wind(:,2)./1000;
+z0=3; %km
+Us=25;  outfilenam=[outfilenam,'_U25'];
+
+ws_pert=Us*tanh(z./z0);
+wd_pert=zeros(length(Wind(:,3)),1)+270;  % westly wind
+qv_pert=qv;
+theta_pert=theta;
+
 
 %%
 
@@ -54,7 +75,7 @@ out(:,5)=v_int;
 fin=find(Temp(:,1)==1000);  %for writing first line of input_sounding format
 %%
 %  fid = fopen(['E:/data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu,'_weakenwind'],'wt');
- fid = fopen(['/mnt/HDD003/pwin/Data/sounding/sounding_shionomisaki_',year,mon,date,hr,minu,'_pertWin'],'wt');
+ fid = fopen(outfilenam,'wt');
  for i = 1:size(out,1)
      if i==1
           fprintf(fid,'%13.4f%13.4f%12.6f\n',Temp(fin,1),out(fin,2),out(fin,3));

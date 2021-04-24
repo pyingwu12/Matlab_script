@@ -1,18 +1,18 @@
 %------------------------------------------
 % calculate vertical weighted average difference total engergy (DTE) of two experiments
 %------------------------------------------
-close all
+% close all
 clear;  ccc=':';
 %---
-expri='TWIN001';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=1:3;  minu=0:10:50; 
+expri='TWIN022'; expri1=[expri,'Pr001THM062221'];  expri2=[expri,'B'];  
+s_date='23';  hr=0;  minu=40; 
 zhid=100; % for zhid~=0, plot contour of zh composite; %
 %for zhid=100, plot hydrometeor=criteria
 %
 year='2018'; mon='06';  
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD008/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 titnam='moist DTE';  fignam=[expri1(8:end),'_moDTEcloud_',];
 if zhid~=0; fignam=[fignam,'zh',num2str(zhid),'_'];  end
 %
@@ -20,9 +20,10 @@ load('colormap/colormap_dte.mat')
 cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 % L=0.001*[0.1 0.5 1 1.5 2 2.5 3 3.5 4 4.5];
 % L=[0.001 0.003 0.005 0.007 0.009 0.01 0.02 0.03 0.04 0.05];
-% L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
+L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
 %   L=[0.5 2 4 6 8 10 15 20 25 30];
-    L=[0.5 2 4 6 8 10 15 20 25 35];
+
+%     L=[0.5 2 4 6 8 10 15 20 25 35];
 %
 %   L=[1 4 7 10 15 20 25 30 45 60];
 
