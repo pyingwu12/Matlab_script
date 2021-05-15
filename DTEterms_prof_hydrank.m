@@ -1,8 +1,13 @@
+% function DTEterms_prof_hydrank(expri,s_date,hr,minu)
+
 close all
-clear;   ccc=':';
+clear;
+ccc=':';
 %---setting
-expri='TWIN027';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='22';  hr=23;  minu=50;
+expri='TWIN001'; 
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=1;  minu=[40];
+saveid=true;
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01'; 
@@ -16,15 +21,10 @@ zgi=10:50:9000;   ytick=1000:1000:zgi(end);
 terraincol=[0.466,0.574,0.188];
 
 LHcol=[0.494,0.184,0.556]; KEcol=[0.3,0.745,0.933]; ThEcol=[0.95,0.75,0.125]; 
-dhydcol=[0.2 0.2 0.2];
-hydcol=[0.85 0.85 0.9]; 
-wdiffcol=[1 0.3 0.4];
+dhydcol=[0.2 0.2 0.2]; hydcol=[0.85 0.85 0.9]; wdiffcol=[1 0.3 0.4];
 
-DTEcon=0.5; DTElw=3;
-dhydcon=0.3; otherlw=2.5;
-hydcon=0.1;
-wcon=0.5;
-
+DTEcon=0.5; dhydcon=0.3; hydcon=0.1; wcon=0.5; %value of contours
+DTElw=3;  otherlw=2.5; %linewidth
 %---
 for ti=hr
   s_hr=num2str(ti,'%2.2d'); 
@@ -61,16 +61,17 @@ for ti=hr
     [~, hyd_rank]=sort(reshape(hyd2D,nx*ny,1),'descend'); 
     
     %
-    [KE, ThE, LH, Ps, P]=cal_DTEterms(infile1,infile2);
+%     [KE, ThE, LH, Ps, P]=cal_DTEterms(infile1,infile2);
+    [DTE, ~]=cal_DTEterms(infile1,infile2);
     %
     wdiff=w1.unstag-w2.unstag;
     %    
 %     cloud_len=length(find(hyd_sort>0.1));
     cloud_len=300;
     
-    KE_vector=reshape(KE,nx*ny,nz);
-    ThE_vector=reshape(ThE,nx*ny,nz);
-    LH_vector=reshape(LH,nx*ny,nz);
+    KE_vector=reshape(DTE.KE,nx*ny,nz);
+    SH_vector=reshape(DTE.SH,nx*ny,nz);
+    LH_vector=reshape(DTE.LH,nx*ny,nz);
     hyd2_vector=reshape(hyd2,nx*ny,nz);
     hyd1_vector=reshape(hyd1,nx*ny,nz);
     
@@ -79,7 +80,7 @@ for ti=hr
     hgt_vector=reshape(hgt,nx*ny,1);
 
     KE_cloud=KE_vector(hyd_rank(1:cloud_len),:);
-    ThE_cloud=ThE_vector(hyd_rank(1:cloud_len),:);
+    ThE_cloud=SH_vector(hyd_rank(1:cloud_len),:);
     LH_cloud=LH_vector(hyd_rank(1:cloud_len),:);
     hyd2_cloud=hyd2_vector(hyd_rank(1:cloud_len),:);
     hyd1_cloud=hyd1_vector(hyd_rank(1:cloud_len),:);
@@ -89,8 +90,7 @@ for ti=hr
     zg_cloud=zg_vector(hyd_rank(1:cloud_len),:);
     hgt_cloud=hgt_vector(hyd_rank(1:cloud_len));
     
-%---interpoltion---
-    
+%---interpoltion---    
     for i=1:cloud_len
         X=squeeze(zg_cloud(i,:));    
         Y=squeeze(hyd2_cloud(i,:));     hyd2_iso(i,:)=interp1(X,Y,zgi,'linear');    
@@ -99,11 +99,11 @@ for ti=hr
         Y=squeeze(ThE_cloud(i,:));     ThE_iso(i,:)=interp1(X,Y,zgi,'linear');  
         Y=squeeze(KE_cloud(i,:));      KE_iso(i,:)=interp1(X,Y,zgi,'linear');   
         Y=squeeze(wdiff_cloud(i,:));      wdiff_iso(i,:)=interp1(X,Y,zgi,'linear'); 
-    end
-    
+    end    
     %---
     [zi, xi]=meshgrid(zgi,1:cloud_len);
-    %%
+    
+    %{
     %---plot---          
     hf=figure('position',[100 200 1200 500]);
     %---cloud shaded---
@@ -179,8 +179,99 @@ for ti=hr
 %     text(5,11000,['3-D accumulated hydrometeors: ',num2str( sum(sum(hyd2D)) ),' (g Kg^-^1)'] )
 
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+%     print(hf,'-dpng',[outfile,'.png'])    
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    %}
+    
+    hf=figure('position',[80 350 1200 600]);
+
+ax1=subplot('position',[0.1300 0.43  0.7750 0.47]);
+    %---cloud shaded---
+    contourf(xi,zi,hyd2_iso,[hydcon hydcon],'linestyle','none'); hold on  
+    colormap(hydcol)
+    %---
+    contour(xi,zi,wdiff_iso,[wcon wcon],'color',wdiffcol,'linewidth',otherlw)
+    contour(xi,zi,wdiff_iso,[-wcon -wcon],'color',wdiffcol,'Linestyle','--','linewidth',otherlw)  
+    
+    %---cloud diff---
+    contour(xi,zi,hyd1_iso-hyd2_iso,[dhydcon dhydcon],'color',dhydcol,'linewidth',otherlw,'Linestyle','-'); 
+    contour(xi,zi,hyd1_iso-hyd2_iso,[-dhydcon -dhydcon],'color',dhydcol,'linewidth',otherlw,'Linestyle','--'); 
+    %---DTE contours---
+%     DTEcon=0.02*max(max(LH_iso));
+    contour(xi,zi,KE_iso,[DTEcon DTEcon],'color',KEcol,'linewidth',DTElw);     
+    contour(xi,zi,ThE_iso,[DTEcon DTEcon],'color',ThEcol,'linewidth',DTElw);       
+    contour(xi,zi,LH_iso,[DTEcon DTEcon],'color',LHcol,'linewidth',DTElw);   
+    
+    xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
+    %---cloud area dash line---
+    cld_loc=find(sum(hyd2_cloud,2)<5,1);
+    if cld_loc<=xlimit(2)
+      line([cld_loc cld_loc],ylimit,'Linestyle','--','color','k','Linewidth',1.5)
+    end
+    
+%----legend---    
+    line_wid=4; font_size=15;
+    xdiff=xlimit(2)-xlimit(1);  ydiff=ylimit(2)-ylimit(1);
+
+    shift_x=0.27; % The smaller the value (0~1), the more right of legent 
+    shift_y=0.07; 
+
+    st_idx=shift_x*xlimit(1)+(1-shift_x)*xlimit(2); 
+    ed_idx=(shift_x-0.035)*xlimit(1)+(1.035-shift_x)*xlimit(2); 
+
+    st_idy=shift_y*ylimit(1)+(1-shift_y)*ylimit(2);
+
+    y_int=0.07*ydiff;
+    
+    rectangle('position',[st_idx-xdiff*0.01, st_idy-y_int*6.90,  xdiff*(shift_x*1.02), y_int*7.84],'FaceColor','w','Linewidth',1.2)    
+    line([st_idx, ed_idx],[st_idy, st_idy],'color',KEcol,'linewidth',line_wid); 
+       text(st_idx+0.05*xdiff, st_idy+0.015*ydiff ,['KE''= ',num2str(DTEcon),' J kg^-^1'],'fontsize',font_size)       
+    line([st_idx, ed_idx],[st_idy-y_int,  st_idy-y_int],'color',ThEcol,'linewidth',line_wid); 
+       text(st_idx+0.05*xdiff, st_idy-y_int ,'ThE''','fontsize',font_size)       
+    line([st_idx, ed_idx],[st_idy-y_int*2,  st_idy-y_int*2],'color',LHcol,'linewidth',line_wid); 
+       text(st_idx+0.05*xdiff, st_idy-y_int*2,'LH''','fontsize',font_size)       
+    line([st_idx, ed_idx],[st_idy-y_int*3,  st_idy-y_int*3],'color',dhydcol,'linewidth',line_wid); 
+       text(st_idx+0.05*xdiff, st_idy-y_int*3,['hyd.''= ',char(177),num2str(dhydcon),' g kg^-^1'],'fontsize',font_size)  
+    line([st_idx, ed_idx],[st_idy-y_int*4.05,  st_idy-y_int*4.05],'color',wdiffcol,'linewidth',line_wid); 
+       text(st_idx+0.05*xdiff, st_idy-y_int*4.05,['w''= ',char(177),num2str(wcon,'%.1f'),' m s^-^1'],'fontsize',font_size)  
+       
+    rectangle('position',[st_idx, st_idy-y_int*5.4, xdiff*0.035, ydiff*0.035],'FaceColor',hydcol,'EdgeColor','none');
+       text(st_idx+0.05*xdiff, st_idy-y_int*5.2, ['hyd.= ',num2str(hydcon),' g kg^-^1'],'fontsize',font_size) 
+    if max(max(hgt))~=0
+    rectangle('position',[st_idx, st_idy-y_int*6.45, xdiff*0.035, ydiff*0.03],'FaceColor',terraincol,'EdgeColor','none');
+       text(st_idx+0.05*xdiff, st_idy-y_int*6.35, 'Terrain','fontsize',font_size) 
+    end
+    
+%     text(5,11000,['3-D accumulated hydrometeors: ',num2str( sum(sum(hyd2D)) ),' (g Kg^-^1)'] )
+
+%---Terrain---
+    ax2=subplot('position',[0.13 0.1657 0.7750 0.125]);
+    if max(max(hgt))~=0
+    hb=bar(hgt_cloud);    set(hb,'FaceColor',terraincol)
+    end
+%----------    
+    set(ax1,'fontsize',16,'LineWidth',1.2,'TickDir','out');       
+    set(ax1,'xlim',[1 100],'Ytick',ytick,'Yticklabel',ytick./1000)    
+    ylabel(ax1,'Height (km)')
+    xlabel(ax1,'Rank of vertical accumulated hydrometeor','fontsize',16);
+    
+    s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
+    if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
+    tit={expri1;[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']};     
+    title(ax1,tit,'fontsize',18)   
+
+    set(ax2,'xlim',[1 100],'xticklabel',[ ],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 
+%     set(ax2,'Ylim',[0 1000])
+%     ylimit2=get(ax2,'Ylim');    
+%     set(ax2,'Ytick',0:floor(ylimit2(2)/3):2000,'Yticklabel',0:floor(ylimit2(2)/3):2000)
+    xlabel(ax2,'Terrain height (m)','fontsize',16);     
+%-------  
+
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
+    if saveid==1
     print(hf,'-dpng',[outfile,'.png'])    
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-    %}
+    end
+    
   end
 end

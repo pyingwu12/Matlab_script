@@ -8,9 +8,10 @@ close all;
 clear; 
 ccc=':';
 %---setting 
-ploterm='MDTE'; % option: DTE, KE, ThE, LH
-expri='TWIN003';
+ploterm='MDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
+expri='TWIN038';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
+% expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
 stday=22;   hrs=[22 23 24 25 26 27];  minu=[20 50];  
 % stday=22;   hrs=[23 24 25 26];  minu=0:10:50;  
 
@@ -19,7 +20,7 @@ cloudhyd=0.005;  % threshold of definition of cloud area (Kg/Kg)
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7),'/SOLA2021_revision'];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 titnam=['size of cloud area to ',ploterm];  
 fignam=[expri1(8:end),'_cloud-',ploterm,'_'];
 %
@@ -64,11 +65,12 @@ legend(lgnd,'Interpreter','none','fontsize',18,'Location','bestoutside');
 set(gca,'fontsize',16,'LineWidth',1.2) 
 set(gca,'Xscale','log','Yscale','log')
 set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 2e2])
+% set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 6e2])
 xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 
 ylabel({'(Mean of first 10 maximum)',[ploterm,' ( J kg^-^1)']});
 title({expri1,titnam},'fontsize',18)
 %
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(length(hrs)),'hrs','min',num2str(minu(1)),num2str(minu(2))];
+outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(length(hrs)),'hrs',num2str(length(minu)),'min',num2str(minu(1)),num2str(minu(end))];
 print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

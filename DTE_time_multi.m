@@ -12,9 +12,9 @@ close all
 % expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP'};
 % col=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125]; 
 
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr001THM062221';'TWIN003Pr001THM062221'};   
-expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; exptext='THM';
-expnam={'FLAT';'TOPO';'FLAT_THM';'TOPO_THM'};
+expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221'};   
+expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; exptext='THM25';
+expnam={'FLAT';'TOPO';'FLAT_THM25';'TOPO_THM25'};
 col=[ 0,0.447,0.741; 0.85,0.325,0.098;  0.3,0.745,0.933; 0.929,0.694,0.125]; 
 
 %---setting---
@@ -39,8 +39,8 @@ nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
 if plotarea~=0; narea=size(xarea,1); else; narea=0; end
 %
 %---------------------------------------------------
-DTEmo_dm=zeros(nexp,ntime); 
-if plotarea~=0; DTEmo_am=zeros(nexp,ntime,narea); end
+MDTE_dm=zeros(nexp,ntime); 
+if plotarea~=0; MDTE_am=zeros(nexp,ntime,narea); end
 ss_hr=cell(length(tint:tint:lenh),1); ntint=0;
 for ei=1:nexp  
   nti=0;
@@ -58,11 +58,11 @@ for ei=1:nexp
       %---infile 2---
       infile2=[indir,'/',expri2{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %---
-      MDTEmo=cal_DTE_2D(infile1,infile2);      
-      DTEmo_dm(ei,nti) = mean(mean(MDTEmo));  % domain mean of 2D DTE      
+      [MDTE, ~]=cal_DTE_2D(infile1,infile2);      
+      MDTE_dm(ei,nti) = mean(mean(MDTE));  % domain mean of 2D DTE      
       if plotarea~=0  % area mean of 2D DTE
         for ai=1:narea
-        DTEmo_am(ei,nti,ai) = mean(mean( MDTEmo(xarea(ai,:),yarea(ai,:)) ));
+        MDTE_am(ei,nti,ai) = mean(mean( MDTE(xarea(ai,:),yarea(ai,:)) ));
         end
       end      
     end %minu
@@ -84,10 +84,10 @@ end
 % hf=figure('position',[100 55 1200 600]);
 hf=figure('position',[100 55 1000 600]);
 for ei=1:nexp
-  plot(DTEmo_dm(ei,:),'LineWidth',2.5,'color',col(ei,:)); hold on
+  plot(MDTE_dm(ei,:),'LineWidth',2.5,'color',col(ei,:)); hold on
   if plotarea~=0
     for ai=1:narea
-      plot(DTEmo_am(ei,:,ai),'LineWidth',2.5,'color',col(ei,:),'linestyle',linestyl{ai},...
+      plot(MDTE_am(ei,:,ai),'LineWidth',2.5,'color',col(ei,:),'linestyle',linestyl{ai},...
         'marker',markersty{ai},'MarkerSize',5,'MarkerFaceColor',col(ei,:));hold on
     end
   end

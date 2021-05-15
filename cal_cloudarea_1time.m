@@ -32,16 +32,19 @@ scheme='WSM6';
 hyd     = sum(qr+qc+qg+qs+qi,3);      % vertical sumation of hydrometeor
 zh_max2 = cal_zh_cmpo(infile2,scheme);
 
-[KE, ThE, LH, Ps, P]=cal_DTEterms(infile1,infile2);
+[DTE, P]=cal_DTEterms(infile1,infile2);
  dP = P.f2(:,:,2:end)-P.f2(:,:,1:end-1);
  dPall = P.f2(:,:,end)-P.f2(:,:,1);
  dPm = dP./repmat(dPall,1,1,size(dP,3)); 
 
  if strcmp(ploterm,'MDTE')==1
-    DTE3D = KE + ThE + LH ;
-    DiffE2D = sum(dPm.*DTE3D(:,:,1:end-1),3) + Ps;
+    DTE3D = DTE.KE + DTE.SH + DTE.LH ;
+    DiffE2D = sum(dPm.*DTE3D(:,:,1:end-1),3) + DTE.Ps;
+ elseif strcmp(ploterm,'CMDTE')==1
+    DTE3D = DTE.KE3D + DTE.SH + DTE.LH ; 
+    DiffE2D = sum(dPm.*DTE3D(:,:,1:end-1),3) + DTE.Ps;
  else
-    eval(['DiffE2D = sum(dPm.*',ploterm,'(:,:,1:end-1),3);'])
+    eval(['DiffE2D = sum(dPm.*DTE.',ploterm,'(:,:,1:end-1),3);'])
  end
     
 %---extend period boundary of domain---

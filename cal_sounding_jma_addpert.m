@@ -42,12 +42,12 @@ outfilenam=[outfilenam,'_noWind']
 %}
 %%
 % idealized wind profile
-
 z=Wind(:,2)./1000;
 z0=3; %km
-Us=25;  outfilenam=[outfilenam,'_U25'];
+% Us=25;  outfilenam=[outfilenam,'_U25'];
+% ws_pert=Us*tanh(z./z0);
+ws_pert=zeros(length(Wind(:,3)),1)+5;  outfilenam=[outfilenam,'_noshear5'];
 
-ws_pert=Us*tanh(z./z0);
 wd_pert=zeros(length(Wind(:,3)),1)+270;  % westly wind
 qv_pert=qv;
 theta_pert=theta;

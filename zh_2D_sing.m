@@ -1,7 +1,7 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test007';  s_date='23'; hr=0:4;  minu=[00 10 20 30 40 50]; 
+expri='test012';  s_date='22'; hr=23;  minu=[0 10 20 30 40 50]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -39,7 +39,7 @@ for ti=hr
      hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
     end
     %
-    set(gca,'fontsize',16,'LineWidth',1.2) 
+    set(gca,'fontsize',18,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
 %     tit={expri,[titnam,'  ',mon,s_date,'  ',s_hr,s_min,' UTC']}; 
@@ -52,8 +52,8 @@ for ti=hr
     %---colorbar---
     fi=find(L>pmin);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
-    colormap(cmap); title(hc,'dBZ','fontsize',13);  drawnow;
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
+    colormap(cmap); title(hc,'dBZ','fontsize',14);  drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');

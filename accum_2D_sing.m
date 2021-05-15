@@ -49,7 +49,7 @@ for ti=sth
     hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
     end
     %
-    set(gca,'fontsize',16,'LineWidth',1.2) 
+    set(gca,'fontsize',18,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
     tit={expri;[titnam,'  ',s_sth,s_minu,'-',s_edh,s_minu,' UTC']};
@@ -58,8 +58,8 @@ for ti=sth
     %---colorbar---
     fi=find(L>pmin);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
-    colormap(cmap);  title(hc,'mm','fontsize',13);  drawnow;
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
+    colormap(cmap);  title(hc,'mm','fontsize',14);  drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
