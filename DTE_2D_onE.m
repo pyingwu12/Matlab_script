@@ -3,11 +3,10 @@
 % plot vertical weighted average MDTE or CMDTE between two simulations
 %------------------------------------------
 close all
-clear;  
-ccc=':';
+clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 %---
-plotid='MDTE'; %optioni: MDTE or CMDTE
+plotid='MDTE';  %optioni: MDTE or CMDTE
 expri='TWIN003'; 
 % expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  

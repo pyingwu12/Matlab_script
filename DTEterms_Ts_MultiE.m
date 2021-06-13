@@ -26,20 +26,18 @@ stday=22;  sth=21;  lenh=20;  minu=[00 20 40];  tint=2;
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
 indir='/mnt/HDD008/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
-titnam='Terms of moist DTE';   fignam=['DTEterms_',exptext,'_'];
+titnam='Terms of MDTE';   fignam=['DTEterms_',exptext,'_'];
 %
-nexp=size(expri1,1); 
-nminu=length(minu);  ntime=lenh*nminu;
+nexp=size(expri1,1);  nminu=length(minu);  ntime=lenh*nminu;
 %---
-ss_hr=cell(length(tint:tint:lenh),1); ntint=0;
+ss_hr=cell(length(tint:tint:lenh),1); ntii=0;
 KE2D_m=zeros(nexp,ntime); ThE2D_m=zeros(nexp,ntime); LH2D_m=zeros(nexp,ntime);
 for ei=1:nexp  
   nti=0;
   for ti=1:lenh    
-    hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;
-    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+    hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
     if ei==1 && mod(ti,tint)==0
-      ntint=ntint+1; ss_hr{ntint}=num2str(mod(hr+9,24),'%2.2d'); %xticks
+      ntii=ntii+1; ss_hr{ntii}=num2str(mod(hr+9,24),'%2.2d'); %xticks
     end
     for tmi=minu
       nti=nti+1;   s_min=num2str(tmi,'%.2d');
@@ -84,6 +82,7 @@ xlabel('Time(JST)'); ylabel('JKg^-^1')
 title([titnam,'  (area:',areatext,')'],'fontsize',18)
 
 %---
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',num2str(sth),'_',num2str(lenh),'hr_',num2str(nminu),'min_',areatext];
+s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
+outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',areatext];
 print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

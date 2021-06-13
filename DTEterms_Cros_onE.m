@@ -5,7 +5,7 @@ close all
 clear;  ccc=':';
 %---
 expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='22';  hr=23;  minu=[00 10 20];
+s_date='23';  hr=0;  minu=[50];
 %---
 maxid=2; %0: define by <xp>, <yp>; 1:max of DTE; 2: max of hyd
 xp=1;  yp=87;  %start grid
@@ -64,9 +64,10 @@ for ti=hr
      qi = double(ncread(infile2,'QICE')); 
      hyd2 = (qr+qs+qg+qi+qc)*1e3; 
      
-         %u.stag = ncread(infile2,'U');
+    u2.stag = ncread(infile2,'U');
+      u2.unstag=(u2.stag(1:end-1,:,:)+u2.stag(2:end,:,:)).*0.5;
     w2.stag = ncread(infile2,'W'); 
-    w2.unstag=(w2.stag(:,:,1:end-1)+w2.stag(:,:,2:end)).*0.5;  
+      w2.unstag=(w2.stag(:,:,1:end-1)+w2.stag(:,:,2:end)).*0.5;  
     %---
     hgt = ncread(infile2,'HGT');
     ph = ncread(infile2,'PH');  phb = ncread(infile2,'PHB');        
@@ -74,19 +75,18 @@ for ti=hr
     zg=double(PH)/g;     
     
     %---calculate DTE---
-    [KE, ThE, LH, Ps, P]=cal_DTEterms(infile1,infile2);
+    [DTE, P]=cal_DTEterms(infile1,infile2);
     
     wdiff=w1.unstag-w2.unstag;
     
     %---find xp or yp for maximum hyd or DTE if necessary
     if maxid==1      % max DTE    
-      A=sum(KE+ThE+LH,3);     [xx,yy]=find(A == max(A(:)));    
+      A=sum(DTE.KE + DTE.SH + DTE.LH ,3);     [xx,yy]=find(A == max(A(:)));    
       if slopx>=slopy; yp=yy; else;  xp=xx; end
     elseif maxid==2  % max hyd
       A=sum(hyd2,3);     [xx,yy]=find(A == max(A(:)));   
       if slopx>=slopy; yp=yy; else;  xp=xx; end
     end    
-
  
     %---interpoltion--- 
     [nx, ny, ~]=size(qr);    [y, x]=meshgrid(1:ny,1:nx);  
@@ -97,13 +97,14 @@ for ti=hr
       linex(i)=x(indx,indy);  xB=linex(i);     
       liney(i)=y(indx,indy);  yB=liney(i);       
       X=squeeze(zg(indx,indy,:));         
-      KEprof(:,i)=interp1(X,squeeze(KE(indx,indy,:)),zgi,'linear');  
-      ThEprof(:,i)=interp1(X,squeeze(ThE(indx,indy,:)),zgi,'linear');     
-      LHprof(:,i)=interp1(X,squeeze(LH(indx,indy,:)),zgi,'linear');  
+      KEprof(:,i)=interp1(X,squeeze(DTE.KE(indx,indy,:)),zgi,'linear');  
+      ThEprof(:,i)=interp1(X,squeeze(DTE.SH(indx,indy,:)),zgi,'linear');     
+      LHprof(:,i)=interp1(X,squeeze(DTE.LH(indx,indy,:)),zgi,'linear');  
       hyd1prof(:,i)=interp1(X,squeeze(hyd1(indx,indy,:)),zgi,'linear');  
       hyd2prof(:,i)=interp1(X,squeeze(hyd2(indx,indy,:)),zgi,'linear');  
       hgtprof(i)=hgt(indx,indy);            
-      w2.prof(:,i)=interp1(X,squeeze(w2.unstag(indx,indy,:)),zgi,'linear');  
+%       w2.prof(:,i)=interp1(X,squeeze(w2.unstag(indx,indy,:)),zgi,'linear');  
+%       u2.prof(:,i)=interp1(X,squeeze(u2.unstag(indx,indy,:)),zgi,'linear');  
       wdiffprof(:,i)=interp1(X,squeeze(wdiff(indx,indy,:)),zgi,'linear');  
     end     
     %%
@@ -128,11 +129,9 @@ for ti=hr
     hK=contour(xi,zi,KEprof,[DTEcon DTEcon],'color',KEcol,'linewidth',DTElw);     
     hT=contour(xi,zi,ThEprof,[DTEcon DTEcon],'color',ThEcol,'linewidth',DTElw);    
    
-    
     if (max(max(hgtprof))~=0)
      plot(hgtprof,'color',terraincol,'LineWidth',DTElw+0.5)
-    end  
-
+    end      
    
     set(gca,'fontsize',16,'LineWidth',1.2)
     if exist('xx','var')==1; set(gca,'Xlim',[xx-20 xx+40]);  else; set(gca,'Xlim',x_lim); end
@@ -145,7 +144,6 @@ for ti=hr
     tit={expri1;[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']};     
     title(tit,'fontsize',18)  
         
-    
     %------LEGEND--------
     line_wid=4; font_size=15;
     
@@ -176,13 +174,18 @@ for ti=hr
     rectangle('position',[st_idx, st_idy-ydiff*0.3, xdiff*0.04, ydiff*0.025],'FaceColor',hydcol,'EdgeColor','none');
        text(st_idx+0.05*xdiff, st_idy-ydiff*0.28, ['hyd.= ',num2str(hydcon),' g kg^-^1'],'fontsize',font_size) 
     %----------------------
-    text(0.2*xlimit(1)+0.8*xlimit(2),ylimit(1)-0.1*(ylimit(2)-ylimit(1)),['xp=',num2str(xp),', yp=',num2str(yp)])
-   
+    text(0.2*xlimit(1)+0.8*xlimit(2),ylimit(1)-0.1*(ylimit(2)-ylimit(1)),['xp=',num2str(xp),', yp=',num2str(yp)])    
     drawnow
     %---    
+   
+%     intz=10; intt=10;
+%     windbarbM(xi(5:intz:end,2:intt:end),zi(5:intz:end,2:intt:end),...
+%     u2.prof(5:intz:end,2:intt:end),w2.prof(5:intz:end,2:intt:end),0.5,10,[0.1 0.1 0.1],3)
+
+
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope)];
-    print(hf,'-dpng',[outfile,'.png']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
+%     print(hf,'-dpng',[outfile,'.png']) 
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
 
   end %tmi
 end

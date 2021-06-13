@@ -1,14 +1,14 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='test012';  s_date='22'; hr=23;  minu=[0 10 20 30 40 50]; 
+expri='TWIN020B';  s_date='22'; hr=22;  minu=10; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % scheme='Gaddard'; %!!!!!!!!!!!!!!!
 scheme='WSM6';
 %---
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri];  outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %---
 titnam='Zh composite';   fignam=[expri,'_zh_'];
 %

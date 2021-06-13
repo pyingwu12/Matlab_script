@@ -3,7 +3,7 @@ close all
 clear;   
 ccc=':';
 %---setting
-expri='TWIN031';
+expri='TWIN020';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 s_date='22'; hr=23;  minu=[0]; 
 %---
