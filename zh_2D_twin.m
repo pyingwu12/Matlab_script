@@ -1,11 +1,11 @@
 % function zh_2D_twin(expri,s_date,hr,minu)
-close all
+% close all
 clear;   
 ccc=':';
 %---setting
-expri='TWIN020';
+expri='TWIN013';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-s_date='22'; hr=23;  minu=[0]; 
+s_date='23'; hr=3;  minu=[0 20 40]; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
