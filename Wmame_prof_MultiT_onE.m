@@ -1,9 +1,9 @@
-close all
+% close all
 clear;   ccc=':';
 %---setting
 plotid='max';
 %
-expri='TWIN014B';  stday=22;   hrs=[23 24];  minu=0:10:50;  
+expri='TWIN024B';  stday=22;   hrs=[23 24];  minu=0:10:50;  
 rangx=1:150; rangy=26:175;
 
 % stday=23;   hrs=[1 2];  minu=0:10:50;  

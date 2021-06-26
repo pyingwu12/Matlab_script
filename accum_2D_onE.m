@@ -1,9 +1,9 @@
 % close all
 clear
 %---setting
-expri='TWIN003B';  stday=23;  sth=0;  acch=1; 
+expri='TWIN024B';  stday=22;  sth=23;  acch=1; 
 %---
-year='2018'; mon='06';  s_minu='20';  
+year='2018'; mon='06';  s_minu='00';  
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri];
@@ -30,9 +30,6 @@ for ti=sth
       rall{j} = ncread(infile,'RAINC');
       rall{j} = rall{j} + ncread(infile,'RAINSH');
       rall{j} = rall{j} + ncread(infile,'RAINNC');
-%       rc{j} = ncread(infile,'RAINC');
-%       rsh{j} = ncread(infile,'RAINSH');
-%       rnc{j} = ncread(infile,'RAINNC');
     end %j=1:2
     rain=double(rall{2}-rall{1});
 %     rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
