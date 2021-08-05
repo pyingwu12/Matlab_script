@@ -6,7 +6,7 @@
 %----------------------------------------------------
 
 
-close all;  
+% close all;  
 clear;   ccc=':';
 %
 % expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221'};
@@ -31,13 +31,13 @@ clear;   ccc=':';
 % expmark={'s';'o';'^';'p'};     
 % cexp=[ 0.1 0.1 0.1;    0.3 0.3 0.3;  0.5 0.5 0.5;  0.7 0.7 0.7];
 % 
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};
-expri2={'TWIN001B';'TWIN003B'};    
-expnam={ 'FLAT';'TOPO'};
-expmark={'s';'^'};     
-cexp=[ 0.1 0.1 0.1;  0.55 0.55 0.55];
-% cexp=[0,0.447,0.741;  0.85,0.325,0.098]; 
-exptext='FALTOPO';
+% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};
+% expri2={'TWIN001B';'TWIN003B'};    
+% expnam={ 'FLAT';'TOPO'};
+% expmark={'s';'^'};     
+% cexp=[ 0.1 0.1 0.1;  0.55 0.55 0.55];
+% % cexp=[0,0.447,0.741;  0.85,0.325,0.098]; 
+% exptext='FALTOPO';
 
 % expri1={'TWIN003Pr001qv062221'};
 % expri2={'TWIN003B'};    
@@ -46,6 +46,13 @@ exptext='FALTOPO';
 % cexp=[ 0.5 0.5 0.5];
 % exptext='TOPO';
 
+
+expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221'};   
+expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; 
+expnam={'FLAT';'TOPO';'FLAT_THM25';'TOPO_THM25'};
+cexp=[ 0,0.447,0.741; 0.85,0.325,0.098;  0.3,0.745,0.933; 0.929,0.694,0.125]; 
+expmark={'s';'^';'s';'^'};     
+exptext='THM25';
 %--------------------------------
 %   subx1=1; subx2=150; suby1=76; suby2=225;
 %   xsub=1:150;  ysub=76:225;
@@ -82,8 +89,8 @@ exptext='FALTOPO';
 % cloudhyd=0.005;
 cloudhyd=0.003;
 %---
-% stday=22;   sth=22;   lenh=6;  minu=0:10:50;   tint=1;
-stday=22;   sth=23;   lenh=5;  minu=0:10:50;   tint=1;
+stday=22;   sth=21;   lenh=7;  minu=0:10:50;   tint=1;
+% stday=22;   sth=23;   lenh=5;  minu=0:10:50;   tint=1;
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
@@ -271,7 +278,7 @@ for ploti=[2 4 5 6]
   %----
   set(gca,'yscale','log','fontsize',16,'LineWidth',1.2,'box','on')
   set(gca,'Xlim',[0 ntime-2],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
-   set(gca,'Ylim',[1e-4  2e1])
+%    set(gca,'Ylim',[1e-4  2e1])
   xlabel('Time (JST)');   ylabel([ploterm,' (J kg^-^1)']);
   title([titnam,'  (',exptext,')'],'fontsize',18,'Interpreter','none')
 

@@ -12,13 +12,13 @@
 clear; ccc=':';
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-expri='TWIN001';
+expri='TWIN040';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
 % stday=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
-% stday=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
+stday=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
 % stday=23;   hrs=2;  minu=0;
-stday=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
+% stday=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
 
 %
 cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
@@ -41,7 +41,8 @@ col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);
 alp=0.8;
 %
 %---
-hf=figure('Position',[100 65 900 580]);
+hf=figure('Position',[100 65 900 480]);
+% hf=figure('Position',[100 65 900 580]);
 nti=0;  ntii=0; 
 for ti=hrs 
   hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;
@@ -53,7 +54,10 @@ for ti=hrs
     %---infile 2---
     infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %---    
+    
     cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);    
+%      cloud=cal_cloudarea_1time_subdom(infile1,infile2,areasize,cloudhyd,ploterm,1,300,76,225);
+     
     if ~isempty(cloud) 
       ntii=ntii+1;   lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST']; 
 %       neartopo=find(cloud.todis<=75);
@@ -64,7 +68,9 @@ for ti=hrs
 %       plot(cloud.scale(neartopo),cloud.maxdte(neartopo),'^','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on 
 
 %        plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on   
-         scatter(cloud.scale,cloud.maxdte,120,'o','MarkerEdgeColor',col(nti,:),'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
+
+%          scatter(cloud.scale,cloud.maxdte,120,'o','MarkerEdgeColor',col(nti,:),'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
+         scatter(cloud.scale,cloud.maxdte,180,'o','MarkerEdgeColor',col(nti,:),'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
 
 %       end
 %       plot(cloud.scale(neartopo),cloud.maxdte(neartopo),'o','MarkerSize',8,'MarkerFaceColor','none','MarkerEdgeColor',[0.1 0.1 0.1],'linewidth',1.3); 
@@ -78,7 +84,8 @@ legend(lgnd,'Interpreter','none','fontsize',18,'Location','bestoutside');
 set(gca,'fontsize',16,'LineWidth',1.2,'box','on') 
 set(gca,'Xscale','log','Yscale','log')
 % set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 2e2])
-set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 4e2])
+% set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 4e2])
+ set(gca,'XLim',[3.5 1e2],'YLim',[1e-3 4e2])
 xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 
 ylabel({'(Mean of first 10 maximum)',[ploterm,' ( J kg^-^1)']});
 title({expri1,titnam},'fontsize',18)

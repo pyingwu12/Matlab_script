@@ -77,12 +77,12 @@ expmsize=[19 24 24 29];
 % expmsize=[11 16];
 % exptext='exp0103';
 %-------------------------------------------------------------
-% 
-% expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
-% exptext='NS5';
-% expri2={'TWIN030B';'TWIN032B';'TWIN031B'};    
-% expnam={ 'NS5_FLAT';'NS5_H05';'NS5_H10'};
-% expmark={'s';'o';'^'};  
+
+expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
+exptext='NS5';
+expri2={'TWIN030B';'TWIN032B';'TWIN031B'};    
+expnam={ 'NS5_FLAT';'NS5_H05';'NS5_H10'};
+expmark={'s';'o';'^'};  
 
 % expri1={'TWIN033Pr001qv062221';'TWIN035Pr001qv062221';'TWIN034Pr001qv062221'};
 % exptext='U05';
@@ -102,11 +102,11 @@ expmsize=[19 24 24 29];
 % expnam={ 'U25_FLAT';'U25_H05';'U25_H10'};
 % expmark={'s';'o';'^'}; 
 
-expri1={'TWIN042Pr001qv062221';'TWIN044Pr001qv062221';'TWIN043Pr001qv062221'};
-exptext='noW';
-expri2={'TWIN042B';'TWIN044B';'TWIN043B'};    
-expnam={ 'noW_FLAT';'noW_H05';'noW_H10'};
-expmark={'s';'o';'^'}; 
+% expri1={'TWIN042Pr001qv062221';'TWIN044Pr001qv062221';'TWIN043Pr001qv062221'};
+% exptext='noW';
+% expri2={'TWIN042B';'TWIN044B';'TWIN043B'};    
+% expnam={ 'noW_FLAT';'noW_H05';'noW_H10'};
+% expmark={'s';'o';'^'}; 
 
 
 %---setting 

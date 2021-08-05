@@ -1,7 +1,7 @@
  %close all
  clear;  ccc=':';
 %---setting
-expri='TWIN013B';  
+expri='TWIN031B';  
 %year='2007'; mon='06'; date='01';
 year='2018'; mon='06'; s_date='22';  s_hr='23'; minu='30';
 infilenam='wrfout';  dom='01'; 
@@ -64,30 +64,30 @@ RH=ev./esw*100;
    %colormap(10)
 %}
 %%
-max(max(qv(:,:,1)))
- figure('Position',[100 100 800 670]);
-   [c,h]=contourf(qv(:,:,1)'*1e3,10,'LineStyle','none');
-   clabel(c,h)
-   hold on
-   contour(hgt',[100 500 900],'color',[0.6 0.6 0.6],'linewidth',2,'linestyle','--')
-   
-   contour(t(:,:,1)',[304 304.2 304.4],'color','k','linewidth',2.5)
-   
-   title([expri,' qv ', s_hr,minu,'UTC'],'FontSize',15)
-   
-   caxis([18 21])
-   colorbar
+% max(max(qv(:,:,1)))
+%  figure('Position',[100 100 800 670]);
+%    [c,h]=contourf(qv(:,:,1)'*1e3,10,'LineStyle','none');
+%    clabel(c,h)
+%    hold on
+%    contour(hgt',[100 500 900],'color',[0.6 0.6 0.6],'linewidth',2,'linestyle','--')
+%    
+%    contour(t(:,:,1)',[304 304.2 304.4],'color','k','linewidth',2.5)
+%    
+%    title([expri,' qv ', s_hr,minu,'UTC'],'FontSize',15)
+%    
+%    caxis([18 21])
+%    colorbar
  %%
-min(min(t(:,:,1)))
- figure('Position',[100 100 800 670]);
-   [c,h]=contourf(t(:,:,1)',10,'LineStyle','none');
-   %clabel(c,h)
-   %hold on
-   %contour(hgt',[100 500 900],'color',[0.6 0.6 0.6],'linewidth',2,'linestyle','--')
-   title([expri,' t ', s_hr,minu,'UTC'],'FontSize',15)
-   
-   %caxis([18 21])
-   colorbar
+% min(min(t(:,:,1)))
+%  figure('Position',[100 100 800 670]);
+%    [c,h]=contourf(t(:,:,1)',10,'LineStyle','none');
+%    %clabel(c,h)
+%    %hold on
+%    %contour(hgt',[100 500 900],'color',[0.6 0.6 0.6],'linewidth',2,'linestyle','--')
+%    title([expri,' t ', s_hr,minu,'UTC'],'FontSize',15)
+%    
+%    %caxis([18 21])
+%    colorbar
 %%
 % close all
 %---plot different variables
@@ -159,21 +159,21 @@ min(min(t(:,:,1)))
 %    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 
 
 %---HGT---
-%  hf=figure('Position',[100 100 800 650]);  
-%    contour(hgt',20,'LineWidth',1.5)
-%    %title([expri,'  topography '],'FontSize',16)
-%    hc=colorbar; caxis([0 1000])
-%    set(hc,'Fontsize',16,'linewidth',1.4);   title(hc,'(m)','Fontsize',16)
-%    set(gca,'Fontsize',16,'linewidth',1.4)
-%    xlabel('km'); ylabel('km')
-%    outfile=[outdir,'/',expri,'_topo'];
-% %    print(hf,'-dpng',[outfile,'.png'])
-% %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
+ hf=figure('Position',[100 100 800 650]);  
+   contour(hgt',20,'LineWidth',1.5)
+   %title([expri,'  topography '],'FontSize',16)
+   hc=colorbar; caxis([0 1000])
+   set(hc,'Fontsize',16,'linewidth',1.4);   title(hc,'(m)','Fontsize',16)
+   set(gca,'Fontsize',16,'linewidth',1.4)
+   xlabel('km'); ylabel('km')
+   outfile=[outdir,'/',expri,'_topo'];
+   print(hf,'-dpng',[outfile,'.png'])
+   system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
 %  hf=figure('Position',[100 100 900 600]);  
 %    plot(hgt(:,100),'linewidth',2.8,'color',[0.85,0.325,0.098])
 %    %title([expri,'  topography '],'FontSize',15)
 %    set(gca,'Ylim',[0 1500],'Fontsize',16,'linewidth',1.4)
 %    xlabel('km'); ylabel('height (m)')
 %    outfile=[outdir,'/',expri,'_topo-prof'];
-% %    print(hf,'-dpng',[outfile,'.png'])
-% %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%    print(hf,'-dpng',[outfile,'.png'])
+%    system(['convert -trim ',outfile,'.png ',outfile,'.png']);

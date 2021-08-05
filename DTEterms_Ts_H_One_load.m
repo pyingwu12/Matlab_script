@@ -5,18 +5,20 @@
 % One experiments; x-axis: time; y-axis: Height
 % PY WU @2021/06/22
 %----------------------------------------------------
-% close all;
+close all;
 clear; ccc=':';
 
 %---setting 
-expri='TWIN001';   hrs=[24 25 26 27];
-% expri='TWIN025';   hrs=[22 23 24 25];
+% expri='TWIN001';   hrs=[24 25 26 27];
+expri='TWIN003';   hrs=[22 23 24 25];
 stday=22;    minu=0:10:50;   tint=2; 
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='./matfile/isoh_subdom';  outdir=['/mnt/e/figures/expri_twin/',expri];
-titnam=[expri,'  height-time'];   fignam=[expri,'_DTEterms-ht_'];
+% indir='./matfile/isoh_subdom';     fignam=[expri,'_DTEterms-ht_'];  titnam=[expri,'  height-time'];  
+indir='./matfile/isoh_subdom_THM'; fignam=[expri,'_DTEterms-ht_THM_'];   titnam=[expri,'_THM  height-time'];  
+outdir=['/mnt/e/figures/expri_twin/',expri];
+
 %
 nhr=length(hrs);  nminu=length(minu);  ntime=nhr*nminu;
 %
@@ -53,13 +55,13 @@ for ti=hrs
     qg_m(:,nti)= max(LF.qg_sub2,[],[1 2]);      
 
     %---mean of errors---
-    KE3D_m(:,nti)=mean(LF.KE3D_sub,[1 2]);
+    KE3D_m(:,nti)=mean(LF.KE3D_sub,[1 2],'omitnan');
 %     KE_m(:,nti)=mean(LF.KE_sub,[1 2]);
-    SH_m(:,nti)=mean(LF.SH_sub,[1 2]);
-    LH_m(:,nti)=mean(LF.LH_sub,[1 2]);
+    SH_m(:,nti)=mean(LF.SH_sub,[1 2],'omitnan');
+    LH_m(:,nti)=mean(LF.LH_sub,[1 2],'omitnan');
 %     DiW_m(:,nti)=mean(DiW,[1 2]);
         
-    w_m(:,nti)= max(LF.w_sub2,[],[1 2]);
+    w_m(:,nti)= max(LF.w_sub2,[],[1 2],'omitnan');
 %   wdiff_n(:,nti)=min(wdiff,[],[1 2]);
                
 %   KE3D_m(:,nti)= squeeze(quantile(LF.KE3D_sub,0.9,[1 2]));
@@ -70,6 +72,9 @@ for ti=hrs
   disp([s_hr,s_min,' done'])
 end %ti    
 %%
+KE3D_m(1:2,:)=NaN;
+SH_m(1:2,:)=NaN;
+LH_m(1:2,:)=NaN;
 %---colormap of cloud---
 cmap=[1 1 1; 0.95 0.95 0.95; .9 .9 .9; 0.85 0.85 0.85; 0.8 0.8 0.8; 0.75 0.75 0.75; 0.65 0.65 0.65];
 cmap2=cmap*255;  cmap2(:,4)= (zeros(1,size(cmap2,1))+255)*0.5;
@@ -87,33 +92,35 @@ plotvar=(qr_m+qc_m+qc_m+qs_m+qg_m)*1e3;
 pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
 
 %---
- hf=figure('position',[80 350 1100 550]);
+ hf=figure('position',[80 350 1100 600]);
 [~, hp]=contourf(xi,zgi,plotvar,L2,'linestyle','none');   hold on
 % contour(xi,zgi,qc_m*1e3,[0.1 0.1],'color',[0.1 0.1 0.1],'linewidth',2,'linestyle','--');
 
+
+LSpac=500; Lfs=15;
 %---horizontal mean of root mean square difference of hydrometeor---
 [c,hdis]=contour(xi,zgi,rmsd_hyd*1e3,[0.01 0.1],'color',dhydcol,'linewidth',3,'linestyle','-'); 
-clabel(c,hdis,[0.01 0.1],'fontsize',16,'color',dhydcol,'LabelSpacing',400)   
+clabel(c,hdis,[0.01 0.1],'fontsize',Lfs,'color',dhydcol,'LabelSpacing',LSpac)   
 %---horizontal mean errors---
 ctr_int=[0.005  0.5];
 [c,hdis]=contour(xi,zgi,LH_m,ctr_int,'color',LHcol,'linewidth',DTElw,'linestyle','-'); 
-clabel(c,hdis,ctr_int,'fontsize',16,'color',LHcol,'LabelSpacing',400)   
+clabel(c,hdis,ctr_int,'fontsize',Lfs,'color',LHcol,'LabelSpacing',LSpac)   
 [c,hdis]=contour(xi,zgi,KE3D_m,ctr_int,'color',KEcol,'linewidth',DTElw,'linestyle','-'); 
-clabel(c,hdis,ctr_int,'fontsize',16,'color',KEcol,'LabelSpacing',400)  
+clabel(c,hdis,ctr_int,'fontsize',Lfs,'color',KEcol,'LabelSpacing',LSpac)  
 [c,hdis]=contour(xi,zgi,SH_m,ctr_int,'color',SHcol,'linewidth',DTElw,'linestyle','-'); 
-clabel(c,hdis,ctr_int,'fontsize',16,'color',SHcol,'LabelSpacing',400)   
+clabel(c,hdis,ctr_int,'fontsize',Lfs,'color',SHcol,'LabelSpacing',LSpac)   
 
 %---horizontal max updraft of cntl simulation
 [c,hdis]=contour(xi,zgi,w_m,[2 10],'color',wcol,'linewidth',2.5,'linestyle','--'); 
-clabel(c,hdis,[2 10],'fontsize',16,'color',wcol,'LabelSpacing',400)   
+clabel(c,hdis,[2 10],'fontsize',Lfs,'color',wcol,'LabelSpacing',LSpac)   
 
 set(gca,'fontsize',16,'LineWidth',1.2)
-set(gca,'Ylim',[0 15000],'Ytick',ytick,'Yticklabel',ytick./1000)
+set(gca,'Ylim',[0 14000],'Ytick',ytick,'Yticklabel',ytick./1000)
 set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 % set(gca,'Xlim',[3 ntime-3],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 
 xlabel('Time (JST)'); ylabel('Height (km)')
-title(titnam)
+title(titnam,'Interpreter','none')
 
 %---colorbar---
 fi=find(L>0);

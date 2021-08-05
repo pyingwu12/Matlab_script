@@ -1,35 +1,16 @@
 clear;  ccc=':';
 close all
-%---setting
+%---setting      
 
-exptext='h2000'; 
-expri1={'TWIN001Pr001qv062223';...
-%        'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221';
-%       'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221';
-%         'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221';
-        'TWIN023Pr001qv062221';'TWIN016Pr001qv062221';'TWIN018Pr001qv062221';
-        };
-         
-expri2={'TWIN001B';...
-%        'TWIN017B';'TWIN013B';'TWIN022B';
-%         'TWIN025B';'TWIN019B';'TWIN024B';
-%        'TWIN021B';'TWIN003B';'TWIN020B';       
-        'TWIN023B';'TWIN016B';'TWIN018B';
-        };   
-expnam={'FLAT';
-%        'v05h05';'v10h05';'v20h05';
-%     'v05h07';'v10h07';'v20h07';
-%        'v05h10';'v10h10';'v20h10';
-        'v05h20';'v10h20';'v20h20'
-        };
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 
-col=[0.1 0.1 0.1; 
-%     0.3,0.745,0.933; 0  0.447  0.741;  0 0.3 0.55; 
-%   0.85,0.1,0.9; 0.494,0.184,0.556; 0.4 0.01 0.35;  
-%    0.49 0.8 0.22; 0.466,0.674,0.188; 0.3 0.45 0.01;  
-    0.929,0.694,0.125; 0.85,0.325,0.098;  0.65,0.125,0.008;
-    ];
+exptext='temp0730';   
+expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';...
+    'TWIN013Pr001qv062221';'TWIN017Pr001qv062221';'TWIN017Pr0025THM062221'};   
+expri2={'TWIN001B';'TWIN003B';'TWIN013B';'TWIN017B';'TWIN017B'};   
+expnam={'FLAT';'TOPO';'LOW_TOPO';'SMALL_TOPO_qv';'SMALL_TOPO_THM'};
+explin={'-';'-';'-';'-';'--'};
+cexp=[0.3 0.3 0.3; 0.85,0.325,0.098;  0.466,0.674,0.188; 0.3,0.745,0.933; 0.3,0.745,0.933 ];
 
 % 
 % exptext='vol1';   

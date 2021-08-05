@@ -4,7 +4,7 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN031';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 stday=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00;
 % stday=23; hrs=[0 1 2];
 minu=[00 20 40];
@@ -162,8 +162,8 @@ title(tit,'fontsize',18)
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d'),'_2'];
-% print(hf,'-dpng',[outfile,'.png']) 
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+print(hf,'-dpng',[outfile,'.png']) 
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %%
 %
 col=col0;
@@ -202,6 +202,6 @@ title(tit,'fontsize',18)
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
-% print(hf,'-dpng',[outfile,'.png']) 
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+print(hf,'-dpng',[outfile,'.png']) 
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %}

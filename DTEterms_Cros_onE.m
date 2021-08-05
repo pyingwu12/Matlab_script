@@ -4,8 +4,8 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=0;  minu=[50];
+expri='TWIN013';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=0;  minu=[30];
 %---
 maxid=2; %0: define by <xp>, <yp>; 1:max of DTE; 2: max of hyd
 xp=1;  yp=87;  %start grid
@@ -19,13 +19,13 @@ year='2018'; mon='06';
 dirmem='pert'; infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  
-%outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-outdir=['/mnt/e/figures/expri_twin/cloud_cross_section_DTEterms'];
+outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+% outdir=['/mnt/e/figures/expri_twin/cloud_cross_section_DTEterms'];
 titnam='DTE terms';  %fignam=[expri1(8:end),'_DTEterms_',];
 fignam=[expri1,'_DTEterms_',];
 %
 g=9.81; 
-zgi=10:50:12000;  ytick=1000:1000:zgi(end);
+zgi=10:50:10000;  ytick=1000:1000:zgi(end);
 %---
 LHcol=[0.494,0.184,0.556]; KEcol=[0.3,0.745,0.933]; ThEcol=[0.95,0.75,0.125]; 
 dhydcol=[0.2 0.2 0.2];
@@ -33,10 +33,10 @@ hydcol=[0.85 0.85 0.9];
 wdiffcol=[1 0.3 0.4];
 terraincol=[0.466,0.574,0.188];
 
-DTEcon=0.1; DTElw=3;
-dhydcon=0.1; otherlw=2.5;
-wdiffcon=0.3;
-hydcon=0.05;
+DTEcon=1; DTElw=3;
+dhydcon=0.3; otherlw=2.5;
+wdiffcon=0.5;
+hydcon=0.1;
 
 %
 for ti=hr
@@ -134,8 +134,9 @@ for ti=hr
     end      
    
     set(gca,'fontsize',16,'LineWidth',1.2)
-    if exist('xx','var')==1; set(gca,'Xlim',[xx-20 xx+40]);  else; set(gca,'Xlim',x_lim); end
-    set(gca,'Ylim',[0 5000])
+%     if exist('xx','var')==1; set(gca,'Xlim',[xx-20 xx+40]);  else; set(gca,'Xlim',x_lim); end
+    set(gca,'Xlim',[0 151])
+%     set(gca,'Ylim',[0 5000])
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Ytick',ytick,'Yticklabel',ytick./1000)
     xlabel(xtitle); ylabel('Height (km)')
     
@@ -184,8 +185,8 @@ for ti=hr
 
 
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope)];
-%     print(hf,'-dpng',[outfile,'.png']) 
-%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
+    print(hf,'-dpng',[outfile,'.png']) 
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
 
   end %tmi
 end

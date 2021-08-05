@@ -3,7 +3,7 @@ close all
 clear;  
 ccc=':';
 %---setting
-expri='TWIN025B';  
+expri='TWIN021B';  
 stday=22;  sthr=22;  stmin=00;  lenm=121;
 % int_xps=[55  55  55  60  60  60  65   70  70  70   75  75  80  80   95  95 95];
 % int_yps=[80 100 120  90 100 110 100   90 100 110  120  80  90 110  120 100 80];

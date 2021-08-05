@@ -37,19 +37,19 @@ figure('position',[400 100 700 600])
 plot(spd,h,'linewidth',2.5,'color',[0.4 0.4 0.4]);
 hold on
 plot(U05,h,'linewidth',2.8)
-plot(U10,h,'linewidth',2.8)
+% plot(U10,h,'linewidth',2.8)
 plot(U15,h,'linewidth',2.8)
-plot(U20,h,'linewidth',2.8)
+% plot(U20,h,'linewidth',2.8)
 plot(U25,h,'linewidth',2.8)
 
-
-legend('sounding','U05','U10','U15','U20','U25','location','bestout','fontsize',20)
+% legend('sounding','U05','U10','U15','U20','U25','location','bestout','fontsize',20)
+legend('sounding','U05','U15','U25','location','bestout','fontsize',20)
 
 set(gca,'linewidth',1.2,'fontsize',15)
 %title(['Us= ',num2str(Us20)],'fontsize',20)
 
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
-print('-dpng','/mnt/e/figures/idealized_wind_profile_WeismanKlemp.png')
+print('-dpng','/mnt/e/figures/idealized_wind_profile_WeismanKlemp2.png')
 
 %%
 %---idealized wind profile-------
@@ -84,4 +84,4 @@ set(gca,'linewidth',1.2,'fontsize',15)
 %title(['Us= ',num2str(Us20)],'fontsize',20)
 
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
-print('-dpng','/mnt/e/figures/idealized_wind_profile_eq.png')
+% print('-dpng','/mnt/e/figures/idealized_wind_profile_eq.png')

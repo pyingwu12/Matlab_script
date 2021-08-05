@@ -2,37 +2,39 @@ close all
 clear;  ccc=':';
 %-------------------------------
 
-exptext='all';  
+% exptext='all';  
+% expri={'TWIN001B';...
+%         'TWIN017B';'TWIN013B';'TWIN022B';
+%         'TWIN025B';'TWIN019B';'TWIN024B';
+%         'TWIN021B';'TWIN003B';'TWIN020B';       
+%         'TWIN023B';'TWIN016B';'TWIN018B'
+%         };      
+%     expnam={'FLAT';
+%         'V05H05';'V10H05';'V20H05';
+%         'V05H075';'V10H075';'V20H075';
+%         'V05H10';'TOPO';'V20H10';
+%         'V05H20';'V10H20';'V20H20'
+%         };
+%     cexp=[ 20 20 20;
+%         75 190 237 ; 0  114  189;  5 55 160 ; 
+%        245 153 202; 200 50 170; 140 30 135 
+%        235 175 32 ;  220 85 25;  160 20 45;  
+%        143 204 128;  97 153  48; 35 120 35 
+%        ]/255;   
+% lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
+% dom={'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01'};
 
-expri={'TWIN001B';...
-        'TWIN017B';'TWIN013B';'TWIN022B';
-        'TWIN025B';'TWIN019B';'TWIN024B';
-        'TWIN021B';'TWIN003B';'TWIN020B';       
-        'TWIN023B';'TWIN016B';'TWIN018B'
-        };  
-    
-    expnam={'FLAT';
-        'V05H05';'V10H05';'V20H05';
-        'V05H075';'V10H075';'V20H075';
-        'V05H10';'TOPO';'V20H10';
-        'V05H20';'V10H20';'V20H20'
-        };
-
-    cexp=[ 20 20 20;
-        75 190 237 ; 0  114  189;  5 55 160 ; 
-       245 153 202; 200 50 170; 140 30 135 
-       235 175 32 ;  220 85 25;  160 20 45;  
-       143 204 128;  97 153  48; 35 120 35 
-       ]/255;
-   
+exptext='temp0730';  
+expri={'TWIN001B';'TWIN003B'};      
+    expnam={'FLAT';'TOPO'};
+    cexp=[ 0,0.447,0.741; 0.85,0.325,0.098  ] ;  
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 dom={'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01'};
 
-
 %---setting
-sth=18;   lenh=24;     minu=[00 10 20 30 40 50];  tint=2; 
+sth=15;   lenh=48;     minu=00;  tint=4; 
 typst='mean';%mean/sum/max
-ymd='20180622';   bdy=0;  
+ymd='20180621';   bdy=0;  
 %
 % indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test';
 indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
@@ -56,17 +58,17 @@ end
 %---plot
 hf=figure('position',[100 45 1000 600]);
 for i=1:nexp
-plot(1.5:ntime+0.5,plotvar(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',2.5); hold on
+plot(1.5:ntime+0.5,plotvar(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',4); hold on
 end
 %
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','nw','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',25,'location','nw','FontName','Monospaced');
 %
 set(gca,'XLim',[1 ntime+1],'XTick',(tint-1)*nminu+1 : tint*nminu : ntime ,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 % set(gca,'XLim',[20 ntime-26])
 % set(gca,'Ylim',[0 1])
-xlabel('Time (JST)');  ylabel('Rain rate (mm/hr)')
+xlabel('Time (JST)');  ylabel('mm')
 tit=[titnam,'  (domain ',typst,')  '];   
-title(tit,'fontsize',18)
+title(tit,'fontsize',25)
 %
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,ymd(5:6),ymd(7:8),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',typst];

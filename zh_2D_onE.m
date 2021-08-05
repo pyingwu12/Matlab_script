@@ -1,7 +1,7 @@
 close all
 clear;   ccc=':';
 %---setting
-expri='TWIN020B';  s_date='22'; hr=22;  minu=10; 
+expri='TWIN001B';  s_date='23'; hr=3;  minu=0; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)

@@ -1,21 +1,27 @@
 clear;  ccc=':';
-close all
+% close all
 
 %---set experiments---
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='exp0103';
-expri2={'TWIN001B';'TWIN003B'};
-expnam={'FLAT';'TOPO'};
-col=[0,0.447,0.741; 0.85,0.325,0.098]; 
-% 
-% expri1={'TWIN001Pr001qv062221noMP';'TWIN003Pr001qv062221noMP'};   exptext='onlynoMP';
-% expri2={'TWIN001B062221noMP';'TWIN003B062221noMP'};
-% expnam={'FLATnoMP';'TOPOnoMP'};
-% col=[ 0.3,0.745,0.933;  0.929,0.694,0.125]; 
+% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221'};   exptext='exp0103';
+% expri2={'TWIN001B';'TWIN003B';'TWIN013B'};
+% expnam={'FLAT';'TOPO';'V10H05'};
+% cexp=[0.1 0.1 0.1;  0.85,0.325,0.098;  0  0.45 0.74;]; 
+
+expri1={'TWIN001Pr001qv062221';'TWIN001Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr01qv062221'};   
+expri2={'TWIN001B';'TWIN001B';'TWIN003B';'TWIN003B'}; 
+exptext='qv01';
+expnam={'FLAT_qv001';'FLAT_qv01';'TOPO_qv001';'TOPO_qv01'};
+cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.85,0.325,0.098; 0.929,0.694,0.125]; 
+
 
 %---setting---
-variplot='QVAPOR';  unit='g/kg';
-stday=22;  sth=21;  lenh=20;  minu=[0 20 40];  tint=2;   lev=[]; %[]=all levels, xx:xx for specific levels
-ylogid=1;  plotarea=1;
+variplot='QVAPOR';  tit_unit='g/kg';
+
+stday=22;  sth=21;  lenh=13;  minu=0:10:50;  tint=1;  
+
+lev=[]; %[]=all levels, xx:xx for specific levels
+
+plotarea=0;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
@@ -24,9 +30,10 @@ if variplot(1)=='Q'; varinam=lower(variplot(1:2)); else; varinam=lower(variplot)
 titnam=[variplot,'  RMSD'];   fignam=['RMSD-',varinam,'_',exptext,'_'];
 
 %---set area
-x1=1:150; y1=76:175;    x2=151:300; y2=201:300;  
+% x1=1:150; y1=76:175;    x2=151:300; y2=201:300;  
+x1=1:150; y1=51:200;    x2=151:300; y2=51:200;  
 xarea=[x1; x2];  yarea=[y1; y2];
-arenam={'all';'Mon';'Fla'};
+arenam={'Whole';'Mount';'Plain'};
 linestyl={'--',':'};   markersty={'none','none'};  
 %
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -57,7 +64,7 @@ for ei=1:nexp
       %---difference square---
       diff2 = (vari1-vari2).^2;
       %---root mean---
-      rmsd_d(ei,nti) =  sqrt(mean(mean(mean(diff2))));   % domain mean
+      rmsd_d(ei,nti) =  sqrt( mean(diff2(:)) );   % domain mean
       if plotarea~=0
         for ai=1:narea
         rmsd_a(ei,nti,ai) = sqrt (mean(mean(mean(  diff2(xarea(ai,:),yarea(ai,:),:) ))) );  % area mean
@@ -83,22 +90,21 @@ end
 hf=figure('position',[100 45 1000 600]);
 % hf=figure('position',[100 45 1200 600]);
 for ei=1:nexp
-  plot(rmsd_d(ei,:),'LineWidth',2.5,'color',col(ei,:)); hold on
+  plot(rmsd_d(ei,:),'LineWidth',3,'color',cexp(ei,:)); hold on
   if plotarea~=0
     for ai=1:narea
-      plot(rmsd_a(ei,:,ai),'LineWidth',2.2,'color',col(ei,:),'linestyle',linestyl{ai},...
-        'marker',markersty{ai},'MarkerSize',5,'MarkerFaceColor',col(ei,:));
+      plot(rmsd_a(ei,:,ai),'LineWidth',2.5,'color',cexp(ei,:),'linestyle',linestyl{ai},...
+        'marker',markersty{ai},'MarkerSize',5,'MarkerFaceColor',cexp(ei,:));
     end
   end
 end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
-legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','se','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
-if ylogid~=0; set(gca,'YScale','log'); end
+set(gca,'YScale','log')
 % set(gca,'Ylim',[3e-3 1.1e0])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
-xlabel('Time  (JST)'); ylabel(['RMSD  (',unit,')'])  
+xlabel('Time  (JST)'); ylabel(['RMSD  (',tit_unit,')'])  
 if isempty(lev); s_lev='all levels'; else; s_lev=['lev',num2str(lev(1)),'-',num2str(lev(end))]; end
 title([titnam,'  (',s_lev,')'],'fontsize',18)
 %---
@@ -106,6 +112,5 @@ s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min'];
 if ~isempty(lev);  outfile=[outfile,'_lev',num2str(lev(1),'%.2d'),num2str(lev(end))]; end
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
-if ylogid~=0; outfile=[outfile,'_log']; end
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
