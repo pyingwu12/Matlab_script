@@ -108,7 +108,7 @@ for ei=1:nexp
     for tmi=minu
       nti=nti+1;   s_min=num2str(tmi,'%.2d'); clear DTE
       if ei==1
-          ntii=ntii+1;    lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST'];  
+          ntii=ntii+1;    lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT'];  
       end      
       %---infile 1---
       infile1=[indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];

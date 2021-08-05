@@ -66,7 +66,7 @@ legh=legend(expnam,'Box','off','Interpreter','none','fontsize',25,'location','nw
 set(gca,'XLim',[1 ntime+1],'XTick',(tint-1)*nminu+1 : tint*nminu : ntime ,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 % set(gca,'XLim',[20 ntime-26])
 % set(gca,'Ylim',[0 1])
-xlabel('Time (JST)');  ylabel('mm')
+xlabel('Local time');  ylabel('mm')
 tit=[titnam,'  (domain ',typst,')  '];   
 title(tit,'fontsize',25)
 %

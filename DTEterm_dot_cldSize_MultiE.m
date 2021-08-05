@@ -140,7 +140,7 @@ for ei=1:nexp
     for mi=minu
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
       if ei==1
-        lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST']; 
+        lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
       end
       if ei==1 && ti<25; continue; end
       %---infile 1---

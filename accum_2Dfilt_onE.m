@@ -54,13 +54,13 @@ for ti=sth
     title(tit,'fontsize',18)
 
     %---colorbar---
-    fi=find(L>pmin);
+    fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
     hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
     colormap(cmap);  title(hc,'mm','fontsize',14);  drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
-      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+      hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
     end
     %---
 

@@ -104,7 +104,7 @@ set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log')
 % set(gca,'Ylim',[3e-3 1.1e0])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
-xlabel('Time  (JST)'); ylabel(['RMSD  (',tit_unit,')'])  
+xlabel('Local time'); ylabel(['RMSD  (',tit_unit,')'])  
 if isempty(lev); s_lev='all levels'; else; s_lev=['lev',num2str(lev(1)),'-',num2str(lev(end))]; end
 title([titnam,'  (',s_lev,')'],'fontsize',18)
 %---

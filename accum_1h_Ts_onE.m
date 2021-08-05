@@ -53,7 +53,7 @@ hf=figure('position',[200 45 1000 600]);
 plot(1.5:ntime+0.5,plotvar,'LineWidth',2.5); 
 %
 set(gca,'XLim',[1 ntime+1],'XTick',(tint-1)*nminu+1 : tint*nminu : ntime ,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
-xlabel('Time (JST)');  ylabel('Rainfall (mm)')
+xlabel('Local time');  ylabel('Rainfall (mm)')
 %---
 tit={[expri,'  (domain ',typst,')'];titnam};     
 title(tit,'fontsize',18)

@@ -60,7 +60,6 @@ end
 %---plot---
 plotvar=qitp;   %plotvar(plotvar<=0)=NaN;
 pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
-fi=find(L>pmin); 
 %---    
 hf=figure('position',[100 45 985 590]);
 %
@@ -70,22 +69,22 @@ set(gca,'fontsize',16,'LineWidth',1.2)
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 set(gca,'Ylim',[1 12000])
 set(gca,'Ytick',ytick,'Yticklabel',ytick./1000)
-xlabel('Time (JST)','fontsize',15); ylabel('Height (km)','fontsize',15)
+xlabel('Local time','fontsize',15); ylabel('Height (km)','fontsize',15)
 
 tit=[expri,'  ',titnam];     
 title(tit,'fontsize',18)
-%
-L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
-title(hc,'g/Kg')
-colormap(cmap)
 
-drawnow;
+%---colorbar---
+fi=find(L>pmin,1);
+L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
+hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
+colormap(cmap); title(hc,'g kg^-^1','fontsize',14);  drawnow;
 hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
 for idx = 1 : numel(hFills)
-   hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+   hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
 end
 %
+
 intz=10; intt=3;
 windbarbM(xi(5:intz:end,2:intt:end),zi(5:intz:end,2:intt:end),...
     uitp(5:intz:end,2:intt:end),vitp(5:intz:end,2:intt:end),0.3,10,[0.5 0.02 0.3],0.5)

@@ -34,7 +34,7 @@ for ti=hrs
   hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;  s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');   
   for mi=minu 
     nti=nti+1;    s_min=num2str(mi,'%2.2d'); 
-    lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST']; 
+    lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
     %---infile 1, perturbed state---
     infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
      u.stag = ncread(infile1,'U');    v.stag = ncread(infile1,'V');
@@ -133,7 +133,7 @@ plot(KEp.kh(:,ti),'LineWidth',2.5,'LineStyle','--','color',col(n,:)); hold on
 lgnd2{n}=lgnd{ti};
 end
 %
-lgnd2{n+1}='1300 JST';
+lgnd2{n+1}='1300 LT';
 plot(KE.kh(:,21),'color',[0.3 0 0],'LineWidth',2.5,'LineStyle','-')
 % lgnd2{n+2}='-5/3 line';
 % x53=-5:0.1:4;  y53=7.35+(-5/3*x53);

@@ -92,18 +92,18 @@ for ti=hr
     xlabel('(km)'); ylabel('(km)');
     
     s_hrj=num2str(mod(ti+9,24),'%2.2d');
-    tit={[expri,'  ',s_hrj,s_min,' JST'];[titnam,'  ','(lev1-',num2str(lev),')']};     
+    tit={[expri,'  ',s_hrj,s_min,' LT'];[titnam,'  ','(lev1-',num2str(lev),')']};     
     title(tit,'fontsize',18)
 %     
 %     %---colorbar---
-    fi=find(L>pmin);
+    fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
     hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
     colormap(cmap); title(hc,'kg m^-^2 s^-^1','fontsize',14); 
 drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
-      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+      hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
     end    
 %     %---    
 %  

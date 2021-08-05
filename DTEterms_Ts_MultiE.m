@@ -102,7 +102,7 @@ legh=legend({'KE','ThE','LH'},'Box','off','Interpreter','none','fontsize',20,'Lo
 %---
 set(gca,'YScale','log','Linewidth',1.2,'fontsize',16)
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
-xlabel('Time(JST)'); ylabel('JKg^-^1')  
+xlabel('Local time'); ylabel('JKg^-^1')  
 % title([titnam,'  (area:',areatext,')'],'fontsize',18)
 
 %---

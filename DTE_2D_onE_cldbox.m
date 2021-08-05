@@ -100,17 +100,17 @@ for ti=hr
     xlabel('(km)'); ylabel('(km)');
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
     if ti+9>24; s_datej=num2str(str2double(s_date2)+fix((ti+9)/24)); else; s_datej=s_date2; end
-    tit={expri1,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']}; 
+    tit={expri1,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' LT']}; 
     title(tit,'fontsize',20,'Interpreter','none')
 
     %---colorbar---
-    fi=find(L>pmin);
+    fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
     hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
     colormap(cmap);     drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
-      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+      hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
     end
     %---    
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date2,'_',s_hr,s_min];

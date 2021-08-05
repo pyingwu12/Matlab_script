@@ -123,7 +123,7 @@ for ploti=2
   set(gca,'yscale','log','fontsize',16,'LineWidth',1.2,'box','on')
    set(gca,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 %    set(gca,'Ylim',[1e-4  2e1])
-  xlabel('Time (JST)');   ylabel([ploterm,' (J kg^-^1)']);
+  xlabel('Local time');   ylabel([ploterm,' (J kg^-^1)']);
   title([titnam,'  (',exptext,')'],'fontsize',18,'Interpreter','none')
 
 %---colorbar---
@@ -155,7 +155,7 @@ for ti=hrs
   hr=ti;
   for tmi=minu
     nti=nti+1;  s_min=num2str(tmi,'%.2d');
-    lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST'];
+    lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT'];
   end
 end
 %

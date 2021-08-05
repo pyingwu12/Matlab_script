@@ -207,7 +207,7 @@ for ploti=[2]
   set(gca,'yscale','log','fontsize',16,'LineWidth',1.2,'box','on')
   set(gca,'Xlim',[1 ntime-2],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
    set(gca,'Ylim',[1e-4  2e1])
-  xlabel('Time (JST)');   ylabel([ploterm,' (J kg^-^1)']);
+  xlabel('Local time');   ylabel([ploterm,' (J kg^-^1)']);
   title([titnam,'  (',exptext,')'],'fontsize',18,'Interpreter','none')
   %
   s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
@@ -279,7 +279,7 @@ for ploti=[2 4 5 6]
   set(gca,'yscale','log','fontsize',16,'LineWidth',1.2,'box','on')
   set(gca,'Xlim',[0 ntime-2],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 %    set(gca,'Ylim',[1e-4  2e1])
-  xlabel('Time (JST)');   ylabel([ploterm,' (J kg^-^1)']);
+  xlabel('Local time');   ylabel([ploterm,' (J kg^-^1)']);
   title([titnam,'  (',exptext,')'],'fontsize',18,'Interpreter','none')
 
 %---colorbar---
@@ -357,7 +357,7 @@ for ploti=[2 ]
   set(gca,'yscale','log','fontsize',16,'LineWidth',1.2,'box','on')
   set(gca,'Xlim',[0 ntime-2],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
    set(gca,'Ylim',[1e-4  2e1])
-  xlabel('Time (JST)');   ylabel([ploterm,' (J kg^-^1)']);
+  xlabel('Local time');   ylabel([ploterm,' (J kg^-^1)']);
   title([titnam,'  (',exptext,')'],'fontsize',18,'Interpreter','none')
 
 %---colorbar---

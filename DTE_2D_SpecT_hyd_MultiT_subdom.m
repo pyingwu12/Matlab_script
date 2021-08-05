@@ -98,12 +98,12 @@ for ei=2:nexp
 %           [~,CMDTE{2}] = cal_DTE_2D(infile1,infile2) ; 
           hyd2D_plt{2} = hyd2D;
           idx=idx+1; 
-          time_tick2=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST'];
+          time_tick2=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT'];
         elseif idx==2 && max_cldarea > plt_area(3) 
           disp(['3: ',s_hr,s_min]);
 %           [~,CMDTE{3}] = cal_DTE_2D(infile1,infile2) ; 
           hyd2D_plt{3} = hyd2D;
-          time_tick3=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST'];
+          time_tick3=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT'];
            idx=idx+1; 
            break
         end
@@ -131,10 +131,10 @@ for ei=2:nexp
    contour(hyd2D_plt{2}',[cloudhyd cloudhyd],'color',[0.4 0.4 0.4],'linewidth',3.5);  
    contour(hyd2D_plt{1}',[cloudhyd cloudhyd],'color',[0.1 0.1 0.1],'linewidth',3.5);    
 % %         
-   text(subx1+5,suby2-5,[s_hrj,s_min1,' JST'],'color',[0.1 0.1 0.1],'fontsize',13)
+   text(subx1+5,suby2-5,[s_hrj,s_min1,' LT'],'color',[0.1 0.1 0.1],'fontsize',13)
    text(subx1+5,suby2-12,time_tick2,'color',[0.4 0.4 0.4],'fontsize',13)
    text(subx1+5,suby2-19,time_tick3,'color',[0.7 0.7 0.7],'fontsize',13)
-%    text(subx2-25,suby2-5,[s_hrj,s_min1,' JST'],'color',[0.1 0.1 0.1],'fontsize',13)
+%    text(subx2-25,suby2-5,[s_hrj,s_min1,' LT'],'color',[0.1 0.1 0.1],'fontsize',13)
 %    text(subx2-25,suby2-12,time_tick2,'color',[0.4 0.4 0.4],'fontsize',13)
 %    text(subx2-25,suby2-19,time_tick3,'color',[0.7 0.7 0.7],'fontsize',13)
 
@@ -144,17 +144,17 @@ for ei=2:nexp
    set(gca,'xlim',[subx1-1 subx2],'ylim',[suby1-1 suby2])
    xlabel('(km)'); ylabel('(km)');
 % 
-   tit={expri1{ei},[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min1,' JST']}; 
+   tit={expri1{ei},[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min1,' LT']}; 
    title(tit,'fontsize',20,'Interpreter','none')
 %     
    %---colorbar---
-   fi=find(L>pmin);
+   fi=find(L>pmin,1);
    L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
    colormap(cmap); title(hc,'J kg^-^1','fontsize',14);  drawnow;
    hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
    for idx = 1 : numel(hFills)
-      hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+      hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
    end
    drawnow
 %---        

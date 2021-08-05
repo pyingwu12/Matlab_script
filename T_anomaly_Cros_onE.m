@@ -156,7 +156,7 @@ for ti=hr
 
     xlabel(xtitle); ylabel('Height (km)')
     s_hrj=num2str(mod(ti+9,24),'%.2d');
-    tit=[expri,'  ',titnam,'  ',s_hrj,s_min,' JST'];     
+    tit=[expri,'  ',titnam,'  ',s_hrj,s_min,' LT'];     
     title(tit,'fontsize',18)  
     
     %---colorbar---

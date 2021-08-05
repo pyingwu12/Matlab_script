@@ -59,7 +59,7 @@ for ti=hrs
 %      cloud=cal_cloudarea_1time_subdom(infile1,infile2,areasize,cloudhyd,ploterm,1,300,76,225);
      
     if ~isempty(cloud) 
-      ntii=ntii+1;   lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST']; 
+      ntii=ntii+1;   lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
 %       neartopo=find(cloud.todis<=75);
 %       fartopo=find(cloud.todis>75);
 %       if nti<=3

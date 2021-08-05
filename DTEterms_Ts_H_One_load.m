@@ -119,7 +119,7 @@ set(gca,'Ylim',[0 14000],'Ytick',ytick,'Yticklabel',ytick./1000)
 set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 % set(gca,'Xlim',[3 ntime-3],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 
-xlabel('Time (JST)'); ylabel('Height (km)')
+xlabel('Local time'); ylabel('Height (km)')
 title(titnam,'Interpreter','none')
 
 %---colorbar---

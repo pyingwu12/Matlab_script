@@ -124,7 +124,7 @@ set(gca,'Linewidth',1.2,'fontsize',16)
 % set(gca,'YScale','log');  set(gca,'Ylim',[2e-4 3e1])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 
-xlabel('Time(JST)'); ylabel('J kg^-^1')  
+xlabel('Local time'); ylabel('J kg^-^1')  
 title(titnam,'fontsize',18)
 %---
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 

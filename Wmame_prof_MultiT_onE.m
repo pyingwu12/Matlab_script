@@ -32,7 +32,7 @@ for ti=hrs
   s_date=num2str(stday+hrday,'%2.2d');     s_hr=num2str(hr,'%2.2d'); 
   for mi=minu    
     nti=nti+1;    s_min=num2str(mi,'%2.2d');
-    lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' JST']; 
+    lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
     %---
     infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %---

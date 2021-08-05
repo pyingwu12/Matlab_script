@@ -133,7 +133,7 @@ for ti=hr
     xlabel('Rank of vertical accumulated hydrometeor'); ylabel('Height (km)')
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
     if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
-    tit={expri1;[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']};     
+    tit={expri1;[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' LT']};     
     title(tit,'fontsize',18)   
     
     xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
@@ -257,7 +257,7 @@ ax1=subplot('position',[0.1300 0.43  0.7750 0.47]);
     
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
     if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
-    tit={expri1;[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' JST']};     
+    tit={expri1;[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' LT']};     
     title(ax1,tit,'fontsize',18)   
 
     set(ax2,'xlim',[1 100],'xticklabel',[ ],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 

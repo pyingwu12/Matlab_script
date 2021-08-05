@@ -111,13 +111,13 @@ end
 
 %---set title and filename text
 if length(sthrs)<length(acch)     
-  titext=['accumulated from ',num2str(mod(sthrs+9,24),'%2.2d'),' JST'];
+  titext=['accumulated from ',num2str(mod(sthrs+9,24),'%2.2d'),' LT'];
   fitext=['from',num2str(sthrs,'%2.2d'),'_',num2str(length(acch)),'acch'];
   xtit='Accumulated period';
 elseif length(sthrs)>length(acch)
   titext=['every ',num2str(ai),'h'];
   fitext=[num2str(length(sthrs)),'steps_',num2str(acch),'h'];
-  xtit='Time (JST)';
+  xtit='Local time';
 end
 %%
 %---plot
