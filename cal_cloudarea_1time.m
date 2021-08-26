@@ -1,4 +1,6 @@
-function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm)
+function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm)
+% function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm)
+
 
 % Criteria of find cloud area:
 %---input---
@@ -27,9 +29,17 @@ scheme='WSM6';
   qs = double(ncread(infile2,'QSNOW'));
   qi = double(ncread(infile2,'QICE')); 
   hgt = ncread(infile2,'HGT'); 
+  
+  P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
+  
+  hyd  = qr+qc+qg+qs+qi;   
+  dP=P(:,:,1:end-1,:)-P(:,:,2:end,:);
+  tpw= dP.*( (hyd(:,:,2:end,:)+hyd(:,:,1:end-1,:)).*0.5 ) ;
+  TPW=squeeze(sum(tpw,3)./9.81);
+
 %---
 [nx ,ny]=size(hgt);  
-hyd     = sum(qr+qc+qg+qs+qi,3);      % vertical sumation of hydrometeor
+% hyd2D     = sum(qr+qc+qg+qs+qi,3);      % vertical sumation of hydrometeor
 zh_max2 = cal_zh_cmpo(infile2,scheme);
 
 [DTE, P]=cal_DTEterms(infile1,infile2);
@@ -50,11 +60,13 @@ zh_max2 = cal_zh_cmpo(infile2,scheme);
 %---extend period boundary of domain---
 %repzh1=repmat(zh_max1,3,3);
 repzh2 =repmat(zh_max2,3,3);
-rephyd =repmat(hyd,3,3);  
+% rephyd =repmat(hyd2D,3,3);  
 repDTE=repmat(DiffE2D,3,3); 
+repTPW =repmat(TPW,3,3);  
   
 %----definition of cloud area ---  
-BW = rephyd > cloudhyd;  
+% BW = rephyd > cloudhyd;  
+BW = repTPW > cloudtpw;  
 %---find individual cloud---
 CC = bwconncomp(BW,8);     
 L = labelmatrix(CC);    

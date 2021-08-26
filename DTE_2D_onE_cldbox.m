@@ -4,15 +4,17 @@
 %------------------------------------------
 % close all
 clear;   ccc=':';
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
 expri='TWIN003'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-s_date='23';  hr=1;  minu=30;  
+s_date='23';  hr=1;  minu=[0 30];  
 %
-cloudhyd=0.003;   areasize=10;
+cloudhyd=0.003;
+cloudtpw=0.75;
+areasize=10;
 %
 hydid=3;  % for hydid~=0, plot contour of hydemeteros = <hydid> (g/kg)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
@@ -61,10 +63,22 @@ for ti=hr
     qg = double(ncread(infile2,'QGRAUP'));  
     qs = double(ncread(infile2,'QSNOW'));
     qi = double(ncread(infile2,'QICE')); 
-    hyd = sum(qr+qc+qg+qs+qi,3); 
-    rephyd=repmat(hyd,3,3);  
+    hyd2D = sum(qr+qc+qg+qs+qi,3); 
+    
+    
+    P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
+  
+    hyd  = qr+qc+qg+qs+qi;   
+    dP=P(:,:,1:end-1,:)-P(:,:,2:end,:);
+    tpw= dP.*( (hyd(:,:,2:end,:)+hyd(:,:,1:end-1,:)).*0.5 ) ;
+    TPW=squeeze(sum(tpw,3)./9.81);
+
+    repTPW =repmat(TPW,3,3);  
+    
+    rephyd=repmat(hyd2D,3,3);  
     
     BW = rephyd > cloudhyd;  
+%     BW = repTPW > cloudtpw;  
     CC = bwconncomp(BW,8);    
     LL = labelmatrix(CC);    
     stats = regionprops('table',BW,'BoundingBox','Area','Centroid','MajorAxisLength','MinorAxisLength','PixelList');

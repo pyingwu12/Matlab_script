@@ -4,9 +4,9 @@
 % close all
 clear;  ccc=':';
 %---setting
-expri='TWIN027B';  stday=22;   sth=21;  lenh=10;  tint=2;  bdy=0;
-minu=[00 30];  
-typst='mean';  %mean/sum/max
+expri='TWIN001B';  stday=22;   sth=14;  lenh=48;  tint=3;  bdy=0;
+minu=0:10:50;  
+typst='max';  %mean/sum/max
 %---
 year='2018'; mon='06';   infilenam='wrfout';  dom='01';  
 %---

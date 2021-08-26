@@ -7,12 +7,29 @@ clear;  ccc=':';
 % expnam={'FLAT';'TOPO'};
 % cexp=[  0,0.447,0.741; 0.85,0.325,0.098]; 
 
-expri1={'TWIN001Pr001qv062221';'TWIN001Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr01qv062221'};   
-expri2={'TWIN001B';'TWIN001B';'TWIN003B';'TWIN003B'}; 
-exptext='qv01';
-expnam={'FLAT_qv001';'FLAT_qv01';'TOPO_qv001';'TOPO_qv01'};
-cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.85,0.325,0.098; 0.929,0.694,0.125]; 
+% expri1={'TWIN001Pr001qv062221';'TWIN001Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr01qv062221'};   
+% expri2={'TWIN001B';'TWIN001B';'TWIN003B';'TWIN003B'}; 
+% exptext='qv01';
+% expnam={'FLAT_qv001';'FLAT_qv01';'TOPO_qv001';'TOPO_qv01'};
+% cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.85,0.325,0.098; 0.929,0.694,0.125]; 
+% 
+% expri1={'TWIN001Pr001qv062221';'TWIN001Pr01qv062221';'TWIN001Pr001qv062223';'TWIN101Prl001qv062221'};   
+% expri2={'TWIN001B';'TWIN001B';'TWIN001B';'TWIN101B'}; 
+% exptext='101rl';
+% expnam={'FLAT_qv001';'FLAT_qv01';'FLAT_08LT';'kuFLAT_rl'};
+% cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.466,0.674,0.188;  0.494,0.184,0.556]; 
 
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301';'TWIN201Pr01qv062221';'TWIN201Pr0001qv062221'};   
+expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
+exptext='TWIN201';
+expnam={'cntl';'08LT';'10LT';'M0.1';'M0.0001'};
+cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.494,0.184,0.556]; 
+% 
+% expri1={'TWIN001Pr001qv062221';'TWIN101Pr001qv062221';'TWIN201Pr001qv062221';'TWIN301Pr001qv062221'};   
+% expri2={'TWIN001B';'TWIN101B';'TWIN201B';'TWIN301B062221'}; 
+% exptext='kudpcdifftest';
+% expnam={'001';'101';'201';'301'};
+% cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188]; 
 
 % expri1={'TWIN001Pr001qv062221';'TWIN001Pr001qv062221noMP';'TWIN003Pr001qv062221';'TWIN003Pr001qv062221noMP'};   exptext='noMP';
 % expri2={'TWIN001B';'TWIN001B062221noMP';'TWIN003B';'TWIN003B062221noMP'};
@@ -42,9 +59,7 @@ cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.85,0.325,0.098; 0.929,0.694,0.125];
 
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
-stday=22;  sth=21;  lenh=15;  minu=[00 20 40];  tint=2;
-% stday=22;  sth=21;  lenh=7;  minu=0:10:50;  tint=1;
-% stday=21;  sth=15;  lenh=48;  minu=00;  tint=3;
+stday=22;  sth=21;  lenh=10;  minu=[0 20 40];  tint=1;
 plotarea=0; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
@@ -82,6 +97,10 @@ for ei=1:nexp
       %---infile 2---
       infile2=[indir,'/',expri2{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %---
+      if exist([indir,'/',expri1{ei}],'dir') && ~exist(infile1,'file') 
+        DTE_dm(ei,nti)=NaN;
+        continue
+      end
       [MDTE, CMDTE]=cal_DTE_2D(infile1,infile2);  
       eval(['DiffE=',plotid,';'])
       DTE_dm(ei,nti) = mean(mean(DiffE));  % domain mean of 2D DTE      
@@ -89,9 +108,9 @@ for ei=1:nexp
         for ai=1:narea
         DTE_am(ei,nti,ai) = mean(mean( DiffE(xarea(ai,:),yarea(ai,:)) ));
         end
-      end      
-    end %minu
-    if mod(nti,5)==0; disp([s_hr,s_min,' done']); end
+      end    
+      if mod(nti,5)==0; disp([s_hr,s_min,' done']); end
+    end %minu    
   end %ti
   disp([expri1{ei},' done'])
 end % expri
@@ -106,10 +125,11 @@ for ei=1:nexp
 end
 %%
 %---plot
+linexp={'-';'-';'-';'-';'-'};
 hf=figure('position',[100 55 1200 600]);
 % hf=figure('position',[100 55 1000 600]);
-for ei=1:nexp
-  plot(DTE_dm(ei,:),'LineWidth',3,'color',cexp(ei,:)); hold on
+for ei=1:nexp    
+  plot(DTE_dm(ei,:),linexp{ei},'LineWidth',3,'color',cexp(ei,:)); hold on
   if plotarea~=0
     for ai=1:narea
       plot(DTE_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
@@ -121,7 +141,7 @@ legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','best
 % legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',28,'Location','nw','FontName','Monospaced');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
-% set(gca,'YScale','log');  set(gca,'Ylim',[2e-4 3e1])
+% set(gca,'YScale','log'); % set(gca,'Ylim',[2e-4 3e1])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 
 xlabel('Local time'); ylabel('J kg^-^1')  
