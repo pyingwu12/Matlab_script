@@ -1,7 +1,7 @@
 % close all
 clear; ccc=':';
 %---setting
-expri='TWIN001B';  s_date='22'; hr=20; minu=[00]; 
+expri='TWIN001B';   day=22;  hr=23:26;  minu=00;  
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
@@ -16,10 +16,11 @@ L=[65.5 66 66.5 67 67.5 68 69 70 71 72];
 % L=[50 55 60 65 67  68 69 70 71 72];
 %---
 
-for ti=hr
+for ti=hr   
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
   for mi=minu    
-    %---set filename---
-    s_hr=num2str(ti,'%2.2d');   s_min=num2str(mi,'%2.2d');
+    s_min=num2str(mi,'%2.2d');
+    %----infile------    
     infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %------read netcdf data--------
     qv = ncread(infile,'QVAPOR');qv=double(qv);

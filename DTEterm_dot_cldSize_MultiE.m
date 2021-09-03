@@ -111,7 +111,7 @@ expmark={'s';'o';'^'};
 
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-stday=22;   hrs=[22 23 24 25 26];   minu=[0 20 40]; 
+day=22;   hrs=[22 23 24 25 26];   minu=[0 20 40]; 
 % stday=22;   hrs=[23 24 25 26 27];   minu=[0 20 40];  
 %
 cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
@@ -136,7 +136,7 @@ for ei=1:nexp
   for ti=hrs 
 %     if ei~=1 && ti>25; break; end
     if ei~=1 && ti>24; break; end
-      hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;  s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+      hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     for mi=minu
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
       if ei==1
@@ -183,6 +183,6 @@ for ei=1:nexp
 end
  %--
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_cld',num2str(cloudhyd*1000)];
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_cld',num2str(cloudhyd*1000)];
 print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

@@ -9,8 +9,8 @@ lexp={'-';'--';'-';'--'};
 cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125];
 
 %---setting
-sth=18;  lenh=54; minu=[00 30]; tint=4;  typst='mean';%mean/sum/max
-ymd='20180621';  
+stday=21;  sth=18;  lenh=54; minu=[00 30]; tint=4;  typst='mean';%mean/sum/max
+ym='201806';  
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 titnam='2-m Temparature';    fignam=['T2_Ts',exptext,'_'];
@@ -20,7 +20,7 @@ nexp=size(expri,1); nminu=length(minu);  ntime=lenh*nminu;
 %---
 plotvar=zeros(nexp,ntime);
 for i=1:nexp
-  plotvar(i,:)=cal_t2(indir,expri{i},ymd,sth,lenh,minu,dom{i},bdy,typst,ccc);
+  plotvar(i,:)=cal_t2(indir,expri{i},ym,stday,sth,lenh,minu,dom{i},bdy,typst,ccc);
   disp([expri{i},' done'])
 end
 
@@ -45,7 +45,7 @@ tit=[titnam,'  (domain ',typst,')  '];
 title(tit,'fontsize',18)
 %
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,'/',fignam,ymd(5:6),ymd(7:8),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',typst];
+outfile=[outdir,'/',fignam,ym(5:6),ym(7:8),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',typst];
 % print(hf,'-dpng',[outfile,'.png']) 
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);
  

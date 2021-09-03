@@ -1,4 +1,4 @@
-function t2all=cal_t2(dir,expri,ymd,sth,lenh,minu,dom,bdy,typst,ccc)
+function t2all=cal_t2(dir,expri,ym,stday,sth,lenh,minu,dom,bdy,typst,ccc)
 %ccc=':';
 
 %expri='test88'; time='2018062100'; sth=16;  lenh=48;  dom='01';
@@ -7,7 +7,7 @@ function t2all=cal_t2(dir,expri,ymd,sth,lenh,minu,dom,bdy,typst,ccc)
 indir=[dir,'/',expri]; 
 %---setting
 if isempty(ccc); ccc=':'; end
-year=ymd(1:4); mon=ymd(5:6); stday=str2double(ymd(7:8)); 
+year=ym(1:4); mon=ym(5:6); 
 infilenam='wrfout'; 
 %---
 t2all=size(lenh*length(minu),1);  nti=0;

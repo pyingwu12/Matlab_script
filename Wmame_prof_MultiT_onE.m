@@ -3,7 +3,7 @@ clear;   ccc=':';
 %---setting
 plotid='max';
 %
-expri='TWIN024B';  stday=22;   hrs=[23 24];  minu=0:10:50;  
+expri='TWIN024B';  day=22;   hrs=[23 24];  minu=0:10:50;  
 rangx=1:150; rangy=26:175;
 
 % stday=23;   hrs=[1 2];  minu=0:10:50;  
@@ -28,9 +28,7 @@ load('colormap/colormap_ncl.mat'); col=colormap_ncl(25:floor(254/ntime)-1:end,:)
 %---
 nti=0;   lgnd=cell(length(ntime),1);
 for ti=hrs
-  hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;
-  s_date=num2str(stday+hrday,'%2.2d');     s_hr=num2str(hr,'%2.2d'); 
-  for mi=minu    
+    hr=ti;   s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');   for mi=minu    
     nti=nti+1;    s_min=num2str(mi,'%2.2d');
     lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
     %---
@@ -87,6 +85,6 @@ tit={[expri,'  ',titnam,];['(x:',num2str(rangx(1)),'-',num2str(rangx(end)),', y:
 title(tit,'fontsize',18)
 %
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_',subdomid];
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_',subdomid];
  print(hf,'-dpng',[outfile,'.png']) 
  system(['convert -trim ',outfile,'.png ',outfile,'.png']);

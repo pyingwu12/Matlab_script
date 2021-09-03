@@ -2,9 +2,8 @@
 clear;   ccc=':';
 
 %---setting
-expri='TWIN020B';  s_date='23';  hr=[0];  minu=50; 
-% expri='TWIN021B';  s_date='23';  hr=[0];  minu=30; 
-
+expri='TWIN020B';  day=22;  hr=23:26;  minu=00;  
+% expri='TWIN021B';  day=22;  hr=23:26;  minu=00;  
 
 %---
 year='2018'; mon='06'; 
@@ -28,10 +27,10 @@ g=9.81;
 
 %---
 for ti=hr
-  s_hr=num2str(ti,'%2.2d');  
-  for mi=minu    
-    %---set filename---
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
+  for mi=minu        
     s_min=num2str(mi,'%2.2d');
+    %---infile---
     infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %------read netcdf data--------
     dx=ncreadatt(infile,'/','DX') ;  dy=ncreadatt(infile,'/','DY') ; 

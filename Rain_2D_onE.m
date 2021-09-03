@@ -1,13 +1,11 @@
 % close all
 clear
 %---setting
-expri='TWIN024B';  stday=22;  sth=23;  acch=1; 
+expri='TWIN013B';  stday=23;  sth=5;  acch=1; 
 %---
-year='2018'; mon='06';  s_minu='00';  
+year='2018'; mon='06';  s_minu='30';  
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri];
-%  indir=['/mnt/HDD003/pwin/Experiments/expri_single/',expri]; outdir=['/mnt/e/figures/expri_single/',expri];
 indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %---
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
@@ -18,13 +16,12 @@ L=[  0.1   2   4   6  10  15  20  25  30  40  50  60  70  80 100 120];
 
 %---
 for ti=sth
+  s_sthj=num2str(mod(ti+9,24),'%2.2d');
   s_sth=num2str(ti,'%2.2d');
   for ai=acch
-    s_edh=num2str(mod(ti+ai,24),'%2.2d'); 
+    s_edhj=num2str(mod(ti+ai+9,24),'%2.2d'); 
     for j=1:2
-      hr=(j-1)*ai+ti;
-      hrday=fix(hr/24);  hr=hr-24*hrday;
-      s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
+      hr=(j-1)*ai+ti;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
       %------read netcdf data--------
       infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',s_minu,':00'];
       rall{j} = ncread(infile,'RAINC');
@@ -49,7 +46,8 @@ for ti=sth
     set(gca,'fontsize',18,'LineWidth',1.2) 
     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
     xlabel('(km)'); ylabel('(km)');
-    tit={expri;[titnam,'  ',s_sth,s_minu,'-',s_edh,s_minu,' UTC']};
+    
+    tit={expri;[titnam,'  ',s_sthj,s_minu,'-',s_edhj,s_minu,' LT']};
     title(tit,'fontsize',18)
 
     %---colorbar---

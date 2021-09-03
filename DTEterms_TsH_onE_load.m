@@ -27,8 +27,7 @@ g=9.81;
 %---
 nti=0;  ntii=0;
 for ti=hrs 
-  hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;
-  s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+  hr=ti;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
   for mi=minu
     nti=nti+1;      s_min=num2str(mi,'%2.2d');  
     if mod(nti,tint)==0

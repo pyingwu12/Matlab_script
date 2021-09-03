@@ -1,14 +1,14 @@
 % function zh_2D_twin(expri,s_date,hr,minu)
 close all
-clear;   
-ccc=':';
+clear;   ccc=':';
+saveid=0; % save figure (1) or not (0)
+
 %---setting
 expri='TWIN001';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-s_date='23'; hr=3;  minu=0; 
+day=22;  hr=23:26;  minu=00;  
 %---
-year='2018'; mon='06'; 
-infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
+year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % scheme='Gaddard'; %!!!!!!!!!!!!!!!
 scheme='WSM6';
 %---
@@ -23,11 +23,10 @@ L=[1 3 6 10 15 20 25 30 35 40 45 50 55 60 65 70];
 %---
 %
 for ti=hr   
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
   for mi=minu    
-    %ti=hr; mi=minu;
-    %---set filename---
-    s_hr=num2str(ti,'%2.2d');  % start time string
     s_min=num2str(mi,'%2.2d');
+    %----infile------    
     infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     zh_max1=cal_zh_cmpo(infile1,scheme);         
     hgt = ncread(infile1,'HGT');  
@@ -70,8 +69,10 @@ for ti=hr
     %---    
     
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
-    print(hf,'-dpng',[outfile,'.png'])    
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-%    
+    if saveid==1
+      print(hf,'-dpng',[outfile,'.png']) 
+      system(['convert -trim ',outfile,'.png ',outfile,'.png']);         
+    end
+    %
   end
 end

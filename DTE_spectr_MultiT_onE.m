@@ -5,7 +5,7 @@ close all
 clear;  ccc=':';
 %---
 expri='TWIN031';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-stday=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00;
+day=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00;
 % stday=23; hrs=[0 1 2];
 minu=[00 20 40];
 lev=1:33;  
@@ -31,7 +31,7 @@ Pr=1000;
 %---
 lgnd=cell(ntime,1);   nti=0;
 for ti=hrs
-  hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;  s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');   
+  hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;  s_date=num2str(day+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');   
   for mi=minu 
     nti=nti+1;    s_min=num2str(mi,'%2.2d'); 
     lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
@@ -150,7 +150,6 @@ ylabel('J kg^-^1')
 %---second axis---
 ax1=gca; ax1_pos = ax1.Position; set(ax1,'Position',ax1_pos-[0 0 0 0.075])
 box off
- ax1=gca; ax1_pos = ax1.Position;  %ax1_label=get(ax1,'XTick');  ax1_ylabel=get(ax1,'YTick');
  ax2 = axes('Position',ax1_pos,'XAxisLocation','top','YAxisLocation','right','Color','none','TickLength',[0.015 0.015]);
  set(ax2,'YScale','log','XScale','log','XLim',[1 min(nx,ny)]*grids,'XDir','reverse','Linewidth',1.2,'fontsize',15)
  set(ax2,'Ylim',ylim,'Yticklabel',[])
@@ -160,7 +159,7 @@ tit=[expri1,'  ',titnam,'  lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2
 title(tit,'fontsize',18)
 %---
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d'),'_2'];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
@@ -190,7 +189,6 @@ xlabel('wavenumber')
 %---second axis---
 ax1=gca; ax1_pos = ax1.Position; set(ax1,'Position',ax1_pos-[0 0 0 0.075])
 box off
- ax1=gca; ax1_pos = ax1.Position;  %ax1_label=get(ax1,'XTick');  ax1_ylabel=get(ax1,'YTick');
  ax2 = axes('Position',ax1_pos,'XAxisLocation','top','YAxisLocation','right','Color','none','TickLength',[0.015 0.015]);
  set(ax2,'YScale','log','XScale','log','XLim',[1 min(nx,ny)]*grids,'XDir','reverse','Linewidth',1.2,'fontsize',15)
  set(ax2,'Ylim',ylim,'Yticklabel',[])
@@ -200,7 +198,7 @@ tit=[expri1,'  ',titnam,'  lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2
 title(tit,'fontsize',18)
 %---
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

@@ -23,7 +23,6 @@ expnam={'FLAT_qv001';'FLAT_qv01';'TOPO_qv001';'TOPO_qv01'};
 cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.85,0.325,0.098; 0.929,0.694,0.125]; 
 
 
-
 %---setting
 stday=22;   sth=21;   lenh=13;  minu=[0 20 40];   tint=2;  thres=5;  plotarea=0;
 %---
@@ -52,8 +51,7 @@ ntii=0;
 for ei=1:nexp
   nti=0;
   for ti=1:lenh 
-    hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;
-    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+    hr=sth+ti-1;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     if mod(ti,tint)==0 
       ntii=ntii+1;    ss_hr{ntii}=num2str(mod(hr+9,24),'%2.2d');
     end   

@@ -2,7 +2,7 @@
 % close all
 clear;   ccc=':';
 %---setting
-expri='TWIN043B';  s_date='22'; hr=23;  minu=[20 30 40 50]; 
+expri='TWIN043B';  day=22;  hr=23:26;  minu=00;  
 %---
 maxid=1; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
 xp=1; yp=156;  %start grid
@@ -21,10 +21,10 @@ zlim=10000; ytick=1000:2000:zlim;
 % zlim=5000; ytick=500:500:zlim; 
 
 for ti=hr
-  s_hr=num2str(ti,'%2.2d'); 
-  for mi=minu   
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
+  for mi=minu        
     s_min=num2str(mi,'%2.2d');
-%     %---
+
 %     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
 %     LFC=readNPY(LFC_infile);
 %     LCL_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LCL.npy'];

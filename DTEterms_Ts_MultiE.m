@@ -42,7 +42,7 @@ for ei=1:nexp
   end       
   nti=0;
   for ti=1:lenh    
-    hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+    hr=sth+ti-1;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     if ei==1 && mod(ti,tint)==0
       ntii=ntii+1; ss_hr{ntii}=num2str(mod(hr+9,24),'%2.2d'); %xticks
     end

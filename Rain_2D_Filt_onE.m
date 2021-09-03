@@ -1,7 +1,7 @@
 % close all
 clear
 %---setting
-expri='TWIN001Pr001qv062221';  stday=23;  sth=0;  acch=10; 
+expri='TWIN001Pr001qv062221';  day=23;  sth=0;  acch=10; 
 filt_len=50;  dx=1; dy=1;
 %---
 year='2018'; mon='06';  s_min='00';  
@@ -23,9 +23,7 @@ for ti=sth
   for ai=acch
     s_edh=num2str(mod(ti+ai,24),'%2.2d'); 
     for j=1:2
-      hr=(j-1)*ai+ti;
-      hrday=fix(hr/24);  hr=hr-24*hrday;
-      s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
+      hr=(j-1)*ai+ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
       %------read netcdf data--------
       infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,':',s_min,':00'];
       rall{j} = ncread(infile,'RAINC');
@@ -64,7 +62,7 @@ for ti=sth
     end
     %---
 
-    outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',num2str(ai),'h_L',num2str(filt_len)];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(day),'_',s_sth,'_',num2str(ai),'h_L',num2str(filt_len)];
 %     print(hf,'-dpng',[outfile,'.png'])    
 %     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

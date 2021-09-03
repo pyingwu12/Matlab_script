@@ -27,9 +27,7 @@ for ti=1:lenh
     nti=nti+1;    rc=cell(1,2); rsh=cell(1,2);  rnc=cell(1,2); 
     s_min=num2str(tmi,'%2.2d');
     for j=1:2
-      hr=(j-1)*1+ti+sth-1;
-      hrday=fix(hr/24);  hr=hr-24*hrday;
-      s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
+      hr=(j-1)*1+ti+sth-1;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
       %------read netcdf data--------
       infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       rc{j} = ncread(infile,'RAINC');

@@ -80,7 +80,7 @@ exptext='U15';
 
 cloudhyd=0.003;
 %---
-stday=22;   hrs=[23 24 25 26 27];  minu=0:10:50;  
+day=22;   hrs=[23 24 25 26 27];  minu=0:10:50;  
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
@@ -104,7 +104,7 @@ for ei=1:nexp
 %   end    
   nti=0; 
   for ti=hrs       
-    hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');   
+    hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;    s_date=num2str(day+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');   
     for tmi=minu
       nti=nti+1;   s_min=num2str(tmi,'%.2d'); clear DTE
       if ei==1
@@ -213,7 +213,7 @@ for ploti=[2]
   end
  
   s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
-  outfile=[outdir,'/',fignam,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end))];
+  outfile=[outdir,'/',fignam,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end))];
   print(hf,'-dpng',[outfile,'.png'])
   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
@@ -260,7 +260,7 @@ for ploti=[2 ]
   end
  
   s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
-  outfile=[outdir,'/',fignam,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end))];
+  outfile=[outdir,'/',fignam,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end))];
   print(hf,'-dpng',[outfile,'.png'])
   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

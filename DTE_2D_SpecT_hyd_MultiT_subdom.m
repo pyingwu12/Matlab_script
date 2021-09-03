@@ -23,7 +23,7 @@ expri2={'TWIN001B';...
 cloudhyd=0.003; 
 plt_area=[10 40 65];
 %---
-stday=22;   hrs=[23 24 25 26 27 28];  minu=0:10:50; 
+day=22;   hrs=[23 24 25 26 27 28];  minu=0:10:50; 
 
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
@@ -52,7 +52,7 @@ for ei=2:nexp
   %
   nti=0;  idx=0;  
   for ti=hrs       
-    hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');    
+    hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');  
     for tmi=minu
       nti=nti+1;      s_min=num2str(tmi,'%.2d');
       %---infile 1---

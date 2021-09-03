@@ -5,7 +5,7 @@ close all
 clear;  ccc=':';
 %---
 expri='TWIN013';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=0;  minu=[30];
+day=22;  hr=23:26;  minu=00;  
 %---
 maxid=2; %0: define by <xp>, <yp>; 1:max of DTE; 2: max of hyd
 xp=1;  yp=87;  %start grid
@@ -40,7 +40,7 @@ hydcon=0.1;
 
 %
 for ti=hr
-  s_hr=num2str(ti,'%2.2d');
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
   for mi=minu        
     s_min=num2str(mi,'%2.2d');
     %---infile 1, perturbed state---

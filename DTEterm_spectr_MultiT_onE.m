@@ -8,7 +8,7 @@ clear;  ccc=':';
 plotid='UV';  % present option: 'W', 'UV'
 %
 expri='TWIN024';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-stday=22;  hrs=[21 22 23 24 25 26 27]; minu=0:10:50;
+day=22;  hrs=[21 22 23 24 25 26 27]; minu=0:10:50;
 % lev=1:33;  
 lev=16:33;  
 %--
@@ -29,7 +29,7 @@ Pr=1000;
 %---
 lgnd=cell(ntime,1);   nti=0;
 for ti=hrs
-  hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;  s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');   
+  hr=ti;   s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
   for mi=minu 
     nti=nti+1;    s_min=num2str(mi,'%2.2d'); 
     lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
@@ -165,7 +165,7 @@ tit=[expri1,'  ',titnam,'  lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2
 title(tit,'fontsize',18)
 %---
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
@@ -201,7 +201,7 @@ tit=[expri1,'  ',titnam,'  lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2
 title(tit,'fontsize',18)
 %---
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

@@ -1,16 +1,28 @@
 clear;  ccc=':';
-close all
+% close all
 %---setting      
 
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 
-exptext='temp0730';   
-expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';...
-    'TWIN013Pr001qv062221';'TWIN017Pr001qv062221';'TWIN017Pr0025THM062221'};   
-expri2={'TWIN001B';'TWIN003B';'TWIN013B';'TWIN017B';'TWIN017B'};   
-expnam={'FLAT';'TOPO';'LOW_TOPO';'SMALL_TOPO_qv';'SMALL_TOPO_THM'};
-explin={'-';'-';'-';'-';'--'};
-cexp=[0.3 0.3 0.3; 0.85,0.325,0.098;  0.466,0.674,0.188; 0.3,0.745,0.933; 0.3,0.745,0.933 ];
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr01qv062221';'TWIN201Pr0001qv062221'};   
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B'}; 
+% exptext='TWIN201_diffp';
+% expnam={'cntl';'M0.1';'M0.001'};
+% cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.494,0.184,0.556]; 
+
+
+% expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0025THM062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN003B'}; 
+% exptext='THM';
+% expnam={'FLAT';'TOPO';'TOPO_THM'};
+% cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.494,0.184,0.556];
+
+exptext='M01';
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr01qv062221'};
+expri2={'TWIN201B';'TWIN201B';'TWIN003B';'TWIN003B'};    
+expnam={ 'FLAT';'FLAT01';'TOPO';'TOPO01'};
+cexp=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;0.929,0.694,0.125];
+
 
 % 
 % exptext='vol1';   
@@ -18,23 +30,23 @@ cexp=[0.3 0.3 0.3; 0.85,0.325,0.098;  0.466,0.674,0.188; 0.3,0.745,0.933; 0.3,0.
 % expri2={'TWIN001B';'TWIN013B';'TWIN003B';'TWIN016B'};   
 % expnam={'FLAT';'TOPO500';'TOPO1000';'TOPO2000'};
 % lexp={'-';'-';'-';'-';'-'};  
-% col=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098;  0.65,0.125,0.008;  ];
+% cexp=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098;  0.65,0.125,0.008;  ];
 
 % exptext='h500';   
 % expri1={'TWIN001Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};   
 % expri2={'TWIN001B';'TWIN017B';'TWIN013B';'TWIN022B'};   
 % expnam={'FLAT';'vol05';'vol10';'vol20'};
 % %lexp={'-';'-';'-';'-';'-'};  
-% col=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098;  0.65,0.125,0.008;  ];
+% cexp=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098;  0.65,0.125,0.008;  ];
 
 plotarea=0;
 %---setting
-% sthrs=0:10;  acch=3;  thres=1;
-sthrs=0;  acch=1:10;  thres=1;  
-year='2018'; mon='06'; stday=23; minu='00';
+% stday=22;  sthrs=0:10;  acch=1;  thres=1;
+stday=22;  sthrs=23;  acch=1:10;  thres=1;  
+year='2018'; mon='06';  minu='00';
 dom='01';  infilenam='wrfout'; 
 %
-indir='/mnt/HDD008/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 titnam='Rainfall score';   fignam=['accum_score_',exptext,'_'];
 
 %---set area
@@ -56,11 +68,9 @@ for ei=1:nexp
     for ai=acch
       nti=nti+1;  rall1=cell(1,2); rall2=cell(1,2); 
       for j=1:2
-      hr=(j-1)*ai+ti;
-      hrday=fix(hr/24);  hr=hr-24*hrday;
-      s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d');
+      hr=(j-1)*ai+ti;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
       %------read netcdf data--------
-      infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
+      infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];      
       rall1{j} = ncread(infile1,'RAINC');
       rall1{j} = rall1{j} + ncread(infile1,'RAINSH');
       rall1{j} = rall1{j} + ncread(infile1,'RAINNC');
@@ -127,11 +137,11 @@ hf=figure('position',[100 45 1000 600]);
 % end
 
 for ei=1:nexp
-  plot(scc(ei,:),'LineWidth',2.5,'color',col(ei,:)); hold on
+  plot(scc(ei,:),'LineWidth',2.5,'color',cexp(ei,:)); hold on
   if plotarea~=0
     for ari=1:narea
-      plot(scc_area(ei,:,ari),'LineWidth',2.2,'color',col(ei,:),'linestyle',linestyl{ari},...
-        'marker',markersty{ari},'MarkerSize',5,'MarkerFaceColor',col(ei,:));
+      plot(scc_area(ei,:,ari),'LineWidth',2.2,'color',cexp(ei,:),'linestyle',linestyl{ari},...
+        'marker',markersty{ari},'MarkerSize',5,'MarkerFaceColor',cexp(ei,:));
     end
   end
 end

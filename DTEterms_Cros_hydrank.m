@@ -6,7 +6,7 @@ ccc=':';
 %---setting
 expri='TWIN001'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=1;  minu=[40];
+day=22;  hr=23:26;  minu=00;  
 saveid=true;
 %---
 year='2018'; mon='06'; 
@@ -27,10 +27,10 @@ DTEcon=0.5; dhydcon=0.3; hydcon=0.1; wcon=0.5; %value of contours
 DTElw=3;  otherlw=2.5; %linewidth
 %---
 for ti=hr
-  s_hr=num2str(ti,'%2.2d'); 
-  for mi=minu   
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
+  for mi=minu        
     s_min=num2str(mi,'%2.2d');
-    %
+    %---infile---
     infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
      qr = ncread(infile1,'QRAIN');  qr=double(qr);   
      qs = ncread(infile1,'QSNOW');  qs=double(qs);    

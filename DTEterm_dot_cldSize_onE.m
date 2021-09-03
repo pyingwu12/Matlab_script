@@ -16,7 +16,7 @@ ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
 expri='TWIN020';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-stday=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
+day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
 % stday=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
 % stday=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
 % stday=23;   hrs=2;  minu=0;
@@ -48,8 +48,7 @@ hf=figure('Position',[100 65 900 480]);
 % hf=figure('Position',[100 65 900 580]);
 nti=0;  ntii=0; 
 for ti=hrs 
-  hr=ti;  hrday=fix(hr/24);  hr=hr-24*hrday;
-  s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+  hr=ti;   s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
   for mi=minu
     nti=nti+1;      s_min=num2str(mi,'%2.2d');     
     %---infile 1---
@@ -97,7 +96,7 @@ title({expri1,titnam},'fontsize',18)
 %
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 % outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_hyd',num2str(cloudhyd*1e3)];
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*100,'%.3d')];
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*100,'%.3d')];
 
 print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
