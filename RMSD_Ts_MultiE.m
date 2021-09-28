@@ -1,6 +1,6 @@
 clear;  ccc=':';
 % close all
-
+saveid=0; % save figure (1) or not (0)
 %---set experiments---
 % expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221'};   exptext='exp0103';
 % expri2={'TWIN001B';'TWIN003B';'TWIN013B'};
@@ -112,5 +112,7 @@ s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min'];
 if ~isempty(lev);  outfile=[outfile,'_lev',num2str(lev(1),'%.2d'),num2str(lev(end))]; end
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
+if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

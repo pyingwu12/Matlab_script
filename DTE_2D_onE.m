@@ -2,22 +2,22 @@
 %------------------------------------------
 % plot vertical weighted average MDTE or CMDTE between two simulations
 %------------------------------------------
-close all
+% close all
 clear;   ccc=':';
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN001'; 
-expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN003'; %TWIN003Pr0001qv062221
+expri1=[expri,'Pr0001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-s_date='23';  hr=1:3;  minu=[20 50];  
+s_date='23';  hr=3;  minu=50;  
 %
 hydid=3;  % for hydid~=0, plot contour of hydemeteros = <hydid> (g/kg)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin/';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 titnam=plotid;   fignam=[expri1(8:end),'_',plotid,'_',];
 if hydid~=0; fignam=[fignam,'hyd',num2str(hydid),'_'];  end
 if zhid~=0; fignam=[fignam,'zh',num2str(zhid),'_'];  end

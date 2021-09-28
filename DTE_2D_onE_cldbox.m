@@ -2,42 +2,39 @@
 % plot vertical weighted average MDTE or CMDTE between two simulations with
 % cloud boxes
 %------------------------------------------
-% close all
+close all
 clear;   ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN003'; 
+expri='TWIN046'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-s_date='23';  hr=1;  minu=[0 30];  
+s_date='22';  hr=23;  minu=[30];  
 %
-cloudhyd=0.003;
-cloudtpw=0.75;
+% cloudhyd=0.003;
+cloudtpw=0.7;
 areasize=10;
-%
-hydid=3;  % for hydid~=0, plot contour of hydemeteros = <hydid> (g/kg)
-zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 titnam=plotid;   fignam=[expri1(8:end),'_',plotid,'-cloud_',];
-if hydid~=0; fignam=[fignam,'hyd',num2str(hydid),'_'];  end
-if zhid~=0; fignam=[fignam,'zh',num2str(zhid),'_'];  end
+
 %
 load('colormap/colormap_dte.mat')
 cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 % L=0.001*[0.1 0.5 1 1.5 2 2.5 3 3.5 4 4.5];
 % L=[0.001 0.003 0.005 0.007 0.009 0.01 0.02 0.03 0.04 0.05];
-% L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
-%   L=[0.5 2 4 6 8 10 15 20 25 30];
-%     L=[0.5 2 4 6 8 10 15 20 25 35];
-% L=10.^[-1.5 -1 -0.5 -0.25 0 0.25 0.5 1 1.5 2];
-% L=[0.03 0.1 0.32 0.56 1 1.78 3.16 5.62 10 31.6];
-  L=[0.5 2 4 6 10 15 20 30 40 60];
-%  L=[0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 4 ];
 
+L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
+
+%   L=[0.5 2 4 6 8 10 15 20 25 30];
+
+%     L=[0.5 2 4 6 8 10 15 20 25 35];
+
+%   L=[0.5 2 4 6 10 15 20 30 40 60];
+%  L=[0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 4 ];
 
 
 for ti=hr
@@ -54,17 +51,12 @@ for ti=hr
     [MDTE, CMDTE] = cal_DTE_2D(infile1,infile2) ;        % vertical weighted average (dPm=dP/dPall)      
     
     [nx ,ny]=size(hgt);
-    if zhid~=0
-%     zh_max=cal_zh_cmpo(infile2,'WSM6');  % zh of perturbed state   
-%     repzh1=repmat(zh_max,3,3);
-    end
     qr = double(ncread(infile2,'QRAIN'));   
     qc = double(ncread(infile2,'QCLOUD'));
     qg = double(ncread(infile2,'QGRAUP'));  
     qs = double(ncread(infile2,'QSNOW'));
     qi = double(ncread(infile2,'QICE')); 
-    hyd2D = sum(qr+qc+qg+qs+qi,3); 
-    
+    hyd2D = sum(qr+qc+qg+qs+qi,3);     
     
     P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
   
@@ -73,12 +65,11 @@ for ti=hr
     tpw= dP.*( (hyd(:,:,2:end,:)+hyd(:,:,1:end-1,:)).*0.5 ) ;
     TPW=squeeze(sum(tpw,3)./9.81);
 
-    repTPW =repmat(TPW,3,3);  
-    
+    repTPW =repmat(TPW,3,3);      
     rephyd=repmat(hyd2D,3,3);  
-    
-    BW = rephyd > cloudhyd;  
-%     BW = repTPW > cloudtpw;  
+
+    BW = repTPW > cloudtpw;  
+%     BW = rephyd > cloudhyd;  
     CC = bwconncomp(BW,8);    
     LL = labelmatrix(CC);    
     stats = regionprops('table',BW,'BoundingBox','Area','Centroid','MajorAxisLength','MinorAxisLength','PixelList');
@@ -97,8 +88,8 @@ for ti=hr
     if (max(max(hgt))~=0)
      hold on; contour(repmat(hgt',3,3),[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
     end
-    if hydid~=0;  hold on; contour(rephyd'*1e3,[hydid hydid],'color',[0.1 0.1 0.1],'linewidth',3);     end
-    if zhid~=0;   hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',3);    end    
+    hold on;
+    contour(repTPW',[cloudtpw cloudtpw],'color',[0.1 0.1 0.1],'linewidth',3); 
 
     hold on
     for i=1:length(fin)
@@ -109,6 +100,7 @@ for ti=hr
     %
     set(gca,'fontsize',18,'LineWidth',1.2)
     set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
+%     set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+26 ny+175]) 
     set(gca,'Xtick',nx+50:50:nx+nx,'Xticklabel',50:50:nx,'Ytick',ny+50:50:ny+ny,'Yticklabel',50:50:ny)
 
     xlabel('(km)'); ylabel('(km)');
@@ -127,7 +119,7 @@ for ti=hr
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
     end
     %---    
-    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date2,'_',s_hr,s_min];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date2,'_',s_hr,s_min,'_cld',num2str(cloudtpw)];
     if saveid==1
       print(hf,'-dpng',[outfile,'.png']) 
       system(['convert -trim ',outfile,'.png ',outfile,'.png']);         

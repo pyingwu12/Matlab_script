@@ -3,6 +3,7 @@ close all
 
 
 %--- setting ----
+%
 year='2019';  mon='08';  date='19';  hr='00';  minu='00';
 figname='wind_prof_shionomisaki';
 Wind=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_wind.txt');
@@ -14,6 +15,7 @@ Wind=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_wind.txt');
 spd=Wind(:,3);
 h=Wind(:,2)./1000;
 
+%{
 figure('Position',[100 100 300 600],'color','w');
 plot(spd,h,'linewidth',2.2);
 %hold on; line([0 0],[0 30],'color','k','linestyle','--')
@@ -21,7 +23,7 @@ set(gca,'linewidth',1.2,'fontsize',15)
 %title('Shionomisaki')
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
 %print('-dpng',['/mnt/e/figures/',figname,'.png'])
-
+%}
 %%
 %---idealized wind profile-------
 z=h; %km
@@ -33,25 +35,34 @@ Us15=15; U15=Us15*tanh(z./z0);
 Us20=20; U20=Us20*tanh(z./z0);
 Us25=25; U25=Us25*tanh(z./z0);
 
-figure('position',[400 100 700 600])
-plot(spd,h,'linewidth',2.5,'color',[0.4 0.4 0.4]);
+% 0.32 0.8  0.95; 0    0.45 0.74; 0.01 0.11 0.63;
+
+close all
+hf=figure('position',[400 100 500 600]);
+plot(spd,h,'linewidth',3,'color',[183 179 162]/255);
 hold on
-plot(U05,h,'linewidth',2.8)
+plot(U05,h,'linewidth',3.5,'color',[109 119 67]/255)
 % plot(U10,h,'linewidth',2.8)
-plot(U15,h,'linewidth',2.8)
+plot(U15,h,'linewidth',3.5,'color',[77 191 216]/255)
 % plot(U20,h,'linewidth',2.8)
-plot(U25,h,'linewidth',2.8)
+% plot(U25,h,'linewidth',2.8)
+
+plot([5 5],[0 h(end)],'linewidth',3.5,'linestyle',':','color',[80 156 156]/255)
 
 % legend('sounding','U05','U10','U15','U20','U25','location','bestout','fontsize',20)
-legend('sounding','U05','U15','U25','location','bestout','fontsize',20)
+% legend('sounding','U05','U15','U25','location','bestout','fontsize',20)
+legend('sounding','U05','U15','NS5','location','se','fontsize',16)
 
-set(gca,'linewidth',1.2,'fontsize',15)
+set(gca,'linewidth',1.2,'fontsize',15,'Ylim',[0 27])
 %title(['Us= ',num2str(Us20)],'fontsize',20)
 
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
-print('-dpng','/mnt/e/figures/idealized_wind_profile_WeismanKlemp2.png')
+outfile='/mnt/e/figures/idealized_wind_profile_WeismanKlemp_210906';
+print(hf,'-dpng',[outfile,'.png'])
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 
 %%
+%{
 %---idealized wind profile-------
 z=h; %km
 z0=0.00003; %km
@@ -85,3 +96,4 @@ set(gca,'linewidth',1.2,'fontsize',15)
 
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
 % print('-dpng','/mnt/e/figures/idealized_wind_profile_eq.png')
+%}

@@ -1,29 +1,38 @@
 
 % close all
 clear;   ccc=':';
+saveid=0; % save figure (1) or not (0)
+
 %---setting
-expri='TWIN043B';  day=22;  hr=23:26;  minu=00;  
+expri='TWIN043B';  day=22;  hr=23;  minu=50;  
 %---
-maxid=1; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-xp=1; yp=156;  %start grid
-len=150;   %length of the line (grid)
+maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
+xp=1; yp=150;  %start grid
+len=180;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
 indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+titnam='Theta anomaly';   fignam=[expri,'_cros-theta-anomaly_'];
 %---
 LFC_indir='/mnt/HDDA/Python_script/LFC_data';
 %---
+    load('colormap/colormap_br3.mat'); 
+    cmap=colormap_br3([3:12,14],:);
+    cmap2=cmap*255; cmap2(:,4)=zeros(1,size(cmap2,1))+255;
+    L=[-2 -1.5 -1 -0.5 -0.1   0.1 0.5 1 1.5 2];
+%----
 g=9.81;
-zlim=10000; ytick=1000:2000:zlim; 
+zlim=9000; ytick=1000:2000:zlim; 
 % zlim=5000; ytick=500:500:zlim; 
 
 for ti=hr
   s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
   for mi=minu        
     s_min=num2str(mi,'%2.2d');
+    clear zgi u v w theta_prof  hyd_prof
 
 %     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
 %     LFC=readNPY(LFC_infile);
@@ -58,9 +67,8 @@ for ti=hr
     zg0=PH0/g;
     
     zg_1D=squeeze(zg0(150,150,:));     
-    nz=length(zg_1D); nzgi=nz*2-1; 
-    zgi0(1:2:nzgi,1)= zg_1D;   
-    zgi0(2:2:nzgi,1)= ( zg_1D(1:end-1) + zg_1D(2:end) )/2;   
+    nz=length(zg_1D); nzgi=nz*2-1;  zgi0=zeros(nzgi,1);
+    zgi0(1:2:nzgi,1)= zg_1D;  zgi0(2:2:nzgi,1)= ( zg_1D(1:end-1) + zg_1D(2:end) )/2;   
     zgi=zgi0(zgi0<zlim);
 
     [nx,ny,nz]=size(theta);
@@ -91,8 +99,10 @@ for ti=hr
 %       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
 %       LCLprof(i)=LCL(indy,indx)+hgt(indx,indy);
     end    
-    theda_lapse=(theta_prof(1:end-1,:)-theta_prof(2:end,:)) ./ (repmat(zgi(2:end)-zgi(1:end-1),1,i)*1e-3); 
-    zgi2 = (zgi(1:end-1)+zgi(2:end))/2;
+    
+    theta_hm=mean(theta_prof,2,'omitnan');
+    theta_ano=theta_prof-repmat(theta_hm,1,size(theta_prof,2));    
+
 
 %---plot setting---   
     if slopx>=slopy;    xtitle='X (km)';    xaxis=linex;  
@@ -100,18 +110,7 @@ for ti=hr
     end   
     if slopx==0; slope='Inf'; else; slope=num2str(slopy/slopx,2); end
     
- %---T anomaly
-%%
-    titnam='Theta anomaly';   fignam=[expri,'_cros-theta-anomaly_'];
-    load('colormap/colormap_br3.mat'); clear cmap
-    cmap=colormap_br3([3:12,14],:);
-    cmap2=cmap*255; cmap2(:,4)=zeros(1,size(cmap2,1))+255;
-    L=[-2 -1.5 -1 -0.5 -0.1   0.1 0.5 1 1.5 2];
-    %---
-    theta_hm=mean(theta_prof,2,'omitnan');
-    theta_ano=theta_prof-repmat(theta_hm,1,size(theta_prof,2));    
     %---plot---   
-    [xi2, zi2]=meshgrid(xaxis*1e3,zgi2);
     [xi, zi]=meshgrid(xaxis*1e3,zgi);
     pmin=double(min(min(theta_ano)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
     %
@@ -122,7 +121,6 @@ for ti=hr
     %---theta---
     [c,hdis]= contour(xi,zi,theta_prof,298:4:360,'color',[0.6 0.6 0.6],'linewidth',2.2); 
     clabel(c,hdis,hdis.TextList,'fontsize',14,'color',[0.6 0.6 0.6],'LabelSpacing',500)   
-
     
 %     LFC_h=LFC+hgt';
 %     LCL_h=LCL+hgt';
@@ -135,19 +133,27 @@ for ti=hr
 %     contour(xi2,zi2,theda_lapse,[0 0],'color',[0.9 0.5 1],'linewidth',2.5,'linestyle','--'); 
 
     %---updraft---
-    [c,hdis]= contour(xi,zi,w.prof,[0.1  2],'color',[0.95 0.1 0.05],'linewidth',2); 
-    clabel(c,hdis,hdis.TextList,'fontsize',10,'color',[0.95 0.1 0.05],'LabelSpacing',500) 
+%     [c,hdis]= contour(xi,zi,w.prof,[0.1  2],'color',[0.95 0.1 0.05],'linewidth',2); 
+%     clabel(c,hdis,hdis.TextList,'fontsize',10,'color',[0.95 0.1 0.05],'LabelSpacing',500) 
 
     %---hydrometeor---
     [c,hdis]= contour(xi,zi,hyd_prof*1e3,[0.1 0.1],'color',[0.05 0.1 0.95],'linewidth',2); 
     clabel(c,hdis,hdis.TextList,'fontsize',10,'color',[0.05 0.1 0.95],'LabelSpacing',500) 
 
-    
     %
     if (max(max(hgtprof))~=0)
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)
     end   
-    
+            %---wind vector----
+    intu=4000;  intw=1;        
+    [xi2, zi2]=meshgrid(1:intu:xaxis(end)*1e3,zgi(1:intw:end));
+    w.plot= w.prof(1:intw:end,1:intu/1000:end);  
+    u.plot=u.prof(1:intw:end,1:intu/1000:end);
+    h1 = quiver(xi2,zi2,u.plot,w.plot,1,'k','MaxHeadSize',0.002) ; % the '0' turns off auto-scaling
+%     hU = get(h1,'UData');   hV = get(h1,'VData') ;
+%     qscale=500;
+%     set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1);   
+   
     set(gca,'fontsize',16,'LineWidth',1.2,'box','on')
     set(gca,'Xticklabel',get(gca,'Xtick')*grids/dx,'Ytick',ytick,'Yticklabel',ytick./1000)
 
@@ -170,8 +176,10 @@ for ti=hr
     end          
     %---
     outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope),'_z',num2str(zlim)];
+    if saveid~=0
     print(hf,'-dpng',[outfile,'.png']) 
     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    end
 % }
  
   end

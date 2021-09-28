@@ -1,7 +1,7 @@
 
 clear;  ccc=':';
 close all
-
+aveid=0; % save figure (1) or not (0)
 
 % exptext='twin015';   
 % expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN015Pr001qv062221'};   
@@ -109,5 +109,8 @@ title(tit,'fontsize',19)
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min'];
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
+
+if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

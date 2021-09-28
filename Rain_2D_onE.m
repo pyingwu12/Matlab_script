@@ -1,5 +1,6 @@
 % close all
 clear
+saveid=0; % save figure (1) or not (0)
 %---setting
 expri='TWIN013B';  stday=23;  sth=5;  acch=1; 
 %---
@@ -62,8 +63,10 @@ for ti=sth
     %---
 
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,s_minu,'_',num2str(ai),'h'];
-    print(hf,'-dpng',[outfile,'.png'])    
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    if saveid==1
+     print(hf,'-dpng',[outfile,'.png'])
+     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    end
 
   end %acch
 end %ti

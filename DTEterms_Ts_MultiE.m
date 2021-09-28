@@ -1,5 +1,6 @@
 clear;  ccc=':';
 % close all
+saveid=0; % save figure (1) or not (0)
 
 %---experiments
 % expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='exp0103';
@@ -108,5 +109,7 @@ xlabel('Local time'); ylabel('JKg^-^1')
 %---
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 % outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',areatext];
+if saveid~=0
 % print(hf,'-dpng',[outfile,'.png'])
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

@@ -64,8 +64,10 @@ for ti=hr
     %---
    
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
-    print(hf,'-dpng',[outfile,'.png']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-   
+    if saveid==1
+     print(hf,'-dpng',[outfile,'.png'])
+     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    end
+
   end
 end

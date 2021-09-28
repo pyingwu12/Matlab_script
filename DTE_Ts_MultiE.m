@@ -1,36 +1,41 @@
 clear;  ccc=':';
-% close all
+close all
+
+saveid=1; % save figure (1) or not (0)
 
 %---experiments
-% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};   exptext='0103';
-% expri2={'TWIN001B';'TWIN003B'};
-% expnam={'FLAT';'TOPO'};
-% cexp=[  0,0.447,0.741; 0.85,0.325,0.098]; 
-
-% expri1={'TWIN001Pr001qv062221';'TWIN001Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr01qv062221'};   
-% expri2={'TWIN001B';'TWIN001B';'TWIN003B';'TWIN003B'}; 
-% exptext='qv01';
-% expnam={'FLAT_qv001';'FLAT_qv01';'TOPO_qv001';'TOPO_qv01'};
-% cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.85,0.325,0.098; 0.929,0.694,0.125]; 
 % 
-% expri1={'TWIN001Pr001qv062221';'TWIN001Pr01qv062221';'TWIN001Pr001qv062223';'TWIN101Prl001qv062221'};   
-% expri2={'TWIN001B';'TWIN001B';'TWIN001B';'TWIN101B'}; 
-% exptext='101rl';
-% expnam={'FLAT_qv001';'FLAT_qv01';'FLAT_08LT';'kuFLAT_rl'};
-% cexp=[ 0 0.447 0.741; 0.3 0.745 0.933;  0.466,0.674,0.188;  0.494,0.184,0.556]; 
+% expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';
+%     'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221'; 'TWIN201Pr001qv062223'; 'TWIN201Pr001qv062301'};   
+% expri2={  'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'; 'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
+% exptext='diffpert';
+% expnam={ 'TOPO_01';'TOPO_001';'TOPO_0001';'TOPO_08LT'; 'FLAT_01';'FLAT_001';'FLAT_0001';'FLAT_08LT';'FALT_10LT'};
+% cexp=[199 42 50;  227 128 29;  244 199 2;  220 219 147;
+%     113 122 145;  67 141 199; 99 197 222; 122 170 43; 159 196 92]/255;
 
-expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301';'TWIN201Pr01qv062221';'TWIN201Pr0001qv062221'};   
-expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
-exptext='TWIN201';
-expnam={'cntl';'08LT';'10LT';'M0.1';'M0.0001'};
-cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.494,0.184,0.556]; 
-% 
-% expri1={'TWIN001Pr001qv062221';'TWIN101Pr001qv062221';'TWIN201Pr001qv062221';'TWIN301Pr001qv062221'};   
-% expri2={'TWIN001B';'TWIN101B';'TWIN201B';'TWIN301B062221'}; 
-% exptext='kudpcdifftest';
-% expnam={'001';'101';'201';'301'};
-% cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188]; 
+% expri1={'TWIN042Pr001qv062221'; 'TWIN033Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN036Pr001qv062221';'TWIN201Pr001qv062221'; 
+%    'TWIN043Pr001qv062221'; 'TWIN003Pr001qv062221';  };   
+% expri2={'TWIN042B';'TWIN033B';'TWIN030B'; 'TWIN036B'; 'TWIN201B';
+%     'TWIN043B'; 'TWIN003B'}; 
+% exptext='FLATOPOU15';
+% % cexp=[183 179 162;  109 119 67; 77 191 216; 80 156 156]/255;
+% expnam={'U00_FLAT';'U05_FLAT';'NS5_FLAT';'U15_FLAT';'FLAT';'U00_TOPO';'TOPO'};
+% cexp=[109 191 230;  109 119 67; 80 156 156; 77 191 216;  183 179 162;  244 199 2 ;227 128 29]/255; 
 
+% expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223'};   
+% expri2={  'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
+% exptext='TOPOdiffpert';
+% expnam={ 'TOPO_01';'TOPO_001';'TOPO_0001';'TOPO_08LT'};
+% cexp=[199 42 50;  227 128 29;  244 199 2;  220 219 147;
+%     113 122 145;  67 141 199; 99 197 222; 122 170 43; 159 196 92]/255;
+
+expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+exptext='diffTOPO';
+expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+cexp=[87 198 229; 242 135 0; 146 200 101; 230 84 80; 239 144 185]/255; 
+
+ 
 % expri1={'TWIN001Pr001qv062221';'TWIN001Pr001qv062221noMP';'TWIN003Pr001qv062221';'TWIN003Pr001qv062221noMP'};   exptext='noMP';
 % expri2={'TWIN001B';'TWIN001B062221noMP';'TWIN003B';'TWIN003B062221noMP'};
 % expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP'};
@@ -59,7 +64,7 @@ cexp=[ 0 0.447 0.741; 0.85,0.325,0.098; 0.929,0.694,0.125; 0.466,0.674,0.188; 0.
 
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
-stday=22;  sth=21;  lenh=10;  minu=[0 20 40];  tint=1;
+stday=22;  sth=21;  lenh=13;  minu=[0 20 40];  tint=1;
 plotarea=0; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
@@ -76,17 +81,15 @@ arenam={'whole';'mount';'plain'};
 linestyl={'--',':.'};   
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
-
 if plotarea~=0; narea=size(xarea,1); else; narea=0; end
-%
 %---------------------------------------------------
 DTE_dm=zeros(nexp,ntime);  if plotarea~=0; DTE_am=zeros(nexp,ntime,narea); end
 ss_hr=cell(length(tint:tint:lenh),1); ntii=0;
-for ei=1:nexp  
+%% 
+for ei=1:nexp
   nti=0;
   for ti=1:lenh    
-    hr=sth+ti-1;   hrday=fix(hr/24);  hr=hr-24*hrday;
-    s_date=num2str(stday+hrday,'%2.2d');   s_hr=num2str(hr,'%2.2d'); 
+    hr=sth+ti-1;  s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     if ei==1 && mod(ti,tint)==0
       ntii=ntii+1;     ss_hr{ntii}=num2str(mod(hr+9,24),'%2.2d');
     end
@@ -125,30 +128,42 @@ for ei=1:nexp
 end
 %%
 %---plot
-linexp={'-';'-';'-';'-';'-'};
-hf=figure('position',[100 55 1200 600]);
-% hf=figure('position',[100 55 1000 600]);
-for ei=1:nexp    
-  plot(DTE_dm(ei,:),linexp{ei},'LineWidth',3,'color',cexp(ei,:)); hold on
+% close all
+% saveid=1;
+% cexp=[87 198 229; 242 135 0; 146 200 101; 230 84 80; 239 144 185]/255; 
+
+% linexp={'-.';'-';':';'-';'-';'-';'-';'-';'-'};
+linexp={'-';'-';'-';':';':';'-';'-';'-';'-'};
+
+% hf=figure('position',[100 55 1200 600]);
+hf=figure('position',[100 55 1000 600]);
+for ei=[1 3 2 4 5] 
+% for ei=1:nexp   
+ h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
+%   h(ei)=plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
   if plotarea~=0
     for ai=1:narea
       plot(DTE_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
     end
   end
 end
-legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',23,'Location','southeast','FontName','Monospaced');
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',28,'Location','nw','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+%
 %---
-set(gca,'Linewidth',1.2,'fontsize',16)
-% set(gca,'YScale','log'); % set(gca,'Ylim',[2e-4 3e1])
+set(gca,'Linewidth',1.2,'fontsize',20)
+set(gca,'YScale','log');  %
+set(gca,'Ylim',[2e-4 2e1])
+% set(gca,'Ylim',[1e-6 3e1])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 
 xlabel('Local time'); ylabel('J kg^-^1')  
-title(titnam,'fontsize',18)
+title([titnam,' time evolution'],'fontsize',23)
 %---
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min'];
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
-% print(hf,'-dpng',[outfile,'.png'])
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+if saveid==1
+print(hf,'-dpng',[outfile,'.png'])
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

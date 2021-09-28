@@ -3,6 +3,7 @@
 %----
 % close all
 clear;  ccc=':';
+saveid=0; % save figure (1) or not (0)
 %---setting
 expri='TWIN001B';  stday=22;   sth=14;  lenh=48;  tint=3;  bdy=0;
 minu=0:10:50;  
@@ -58,5 +59,8 @@ title(tit,'fontsize',18)
 
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',typst];
+
+if saveid~=0
 % print(hf,'-dpng',[outfile,'.png']) 
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

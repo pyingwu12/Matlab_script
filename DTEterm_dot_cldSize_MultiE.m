@@ -8,81 +8,94 @@
 % 2021/02/11: add <ploterm> option for calculating different terms in the MDTE
 % 2021/06/10: standerize variable name of time settings
 % 2021/06/16: plot multi experiments
+% 2021/09/06: using TPW for detecting cloud area
 
 
 % close all; 
 clear; ccc=':';
 
 expmsize=[19 24 24 29];
-% 
-% expri1={'TWIN001Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};
+% % 
+% expri1={'TWIN201Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};
 % exptext='H500';
-% expri2={'TWIN001B';'TWIN017B';'TWIN013B';'TWIN022B'};    
+% expri2={'TWIN201B';'TWIN017B';'TWIN013B';'TWIN022B'};    
 % expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
 % expmark={'s';'o';'^';'p'}; 
 
-% expri1={'TWIN001Pr0025THM062221';'TWIN017Pr0025THM062221';'TWIN013Pr0025THM062221';'TWIN022Pr0025THM062221'};
+% expri1={'TWIN201Pr0025THM062221';'TWIN017Pr0025THM062221';'TWIN013Pr0025THM062221';'TWIN022Pr0025THM062221'};
 % exptext='H500_THM';
-% expri2={'TWIN001B';'TWIN017B';'TWIN013B';'TWIN022B'};    
+% expri2={'TWIN201B';'TWIN017B';'TWIN013B';'TWIN022B'};    
 % expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
 % expmark={'s';'o';'^';'p'}; 
 
-% expri1={'TWIN001Pr001qv062221';'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221'};
+% expri1={'TWIN201Pr001qv062221';'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221'};
 % exptext='H750';
-% expri2={'TWIN001B';'TWIN025B';'TWIN019B';'TWIN024B'};    
+% expri2={'TWIN201B';'TWIN025B';'TWIN019B';'TWIN024B'};    
 % expnam={ 'FLAT';'V05H075';'V10H075';'V20H075'};
 % expmark={'s';'o';'^';'p'};   
 
-% expri1={'TWIN001Pr0025THM062221';'TWIN025Pr0025THM062221';'TWIN019Pr0025THM062221';'TWIN024Pr0025THM062221'};
+% expri1={'TWIN201Pr0025THM062221';'TWIN025Pr0025THM062221';'TWIN019Pr0025THM062221';'TWIN024Pr0025THM062221'};
 % exptext='H750_THM';
 % expri2={'TWIN001B';'TWIN025B';'TWIN019B';'TWIN024B'};    
 % expnam={ 'FLAT';'V05H075';'V10H075';'V20H075'};
 % expmark={'s';'o';'^';'p'};   
 
-% expri1={'TWIN001Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
-% expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'};    
+% expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
+% expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
 % expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H1000';
 
-% expri1={'TWIN001Pr0025THM062221';'TWIN021Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN020Pr0025THM062221'};
-% expri2={'TWIN001B';'TWIN021B';'TWIN003B';'TWIN020B'};    
+% expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
+% expri2={'TWIN042B';'TWIN045B';'TWIN043B';'TWIN046B'};    
+% expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='U00_H1000';
+
+expri1={'TWIN030Pr001qv062221';'TWIN031Pr001qv062221';'TWIN047Pr001qv062221';'TWIN048Pr001qv062221'};
+expri2={'TWIN030B';'TWIN031B';'TWIN047B';'TWIN048B'};    
+expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
+expmark={'s';'o';'^';'p'};     
+exptext='NS5_H1000';
+
+% expri1={'TWIN201Pr0025THM062221';'TWIN021Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN020Pr0025THM062221'};
+% expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
 % expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H1000_THM';
 
-% expri1={'TWIN001Pr001qv062221';'TWIN023Pr001qv062221';'TWIN016Pr001qv062221';'TWIN018Pr001qv062221'};
-% expri2={'TWIN001B';'TWIN023B';'TWIN016B';'TWIN018B'};    
+% expri1={'TWIN201Pr001qv062221';'TWIN023Pr001qv062221';'TWIN016Pr001qv062221';'TWIN018Pr001qv062221'};
+% expri2={'TWIN201B';'TWIN023B';'TWIN016B';'TWIN018B'};    
 % expnam={ 'FLAT';'V05H20';'V10H20';'V20H20'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H2000';
 
-% expri1={'TWIN001Pr0025THM062221';'TWIN023Pr0025THM062221';'TWIN016Pr0025THM062221';'TWIN018Pr0025THM062221'};
-% expri2={'TWIN001B';'TWIN023B';'TWIN016B';'TWIN018B'};    
+% expri1={'TWIN201Pr0025THM062221';'TWIN023Pr0025THM062221';'TWIN016Pr0025THM062221';'TWIN018Pr0025THM062221'};
+% expri2={'TWIN201B';'TWIN023B';'TWIN016B';'TWIN018B'};    
 % expnam={ 'FLAT';'V05H20';'V10H20';'V20H20'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H2000_THM';
 
-% expri1={'TWIN001Pr001qv062221';'TWIN013Pr001qv062221';'TWIN019Pr001qv062221';'TWIN003Pr001qv062221';'TWIN016Pr001qv062221'};
-% expri2={'TWIN001B';'TWIN013B';'TWIN019B';'TWIN003B';'TWIN016B'};    
+% expri1={'TWIN201Pr001qv062221';'TWIN013Pr001qv062221';'TWIN019Pr001qv062221';'TWIN003Pr001qv062221';'TWIN016Pr001qv062221'};
+% expri2={'TWIN201B';'TWIN013B';'TWIN019B';'TWIN003B';'TWIN016B'};    
 % expnam={ 'FLAT';'V10H05';'V10H075';'V10H10';'V10H20'};
 % expmark={'s';'h';'p';'^';'o'};  
 % expmsize=[11 15 15 13 13];
 % exptext='vol10';
 
-% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221'};
-% expri2={'TWIN001B';'TWIN003B'};    
+% expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'};
+% expri2={'TWIN201B';'TWIN003B'};    
 % expnam={ 'FLAT';'TOPO'};
 % expmark={'s';'^'};  
 % expmsize=[11 16];
 % exptext='exp0103';
 %-------------------------------------------------------------
 
-expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
-exptext='NS5';
-expri2={'TWIN030B';'TWIN032B';'TWIN031B'};    
-expnam={ 'NS5_FLAT';'NS5_H05';'NS5_H10'};
-expmark={'s';'o';'^'};  
+% expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
+% exptext='NS5';
+% expri2={'TWIN030B';'TWIN032B';'TWIN031B'};    
+% expnam={ 'NS5_FLAT';'NS5_H05';'NS5_H10'};
+% expmark={'s';'o';'^'};  
 
 % expri1={'TWIN033Pr001qv062221';'TWIN035Pr001qv062221';'TWIN034Pr001qv062221'};
 % exptext='U05';
@@ -111,10 +124,11 @@ expmark={'s';'o';'^'};
 
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-day=22;   hrs=[22 23 24 25 26];   minu=[0 20 40]; 
-% stday=22;   hrs=[23 24 25 26 27];   minu=[0 20 40];  
+% day=22;   hrs=[22 23 24 25 26];   minu=[0 20 40]; 
+day=22;   hrs=[23 24 25 26 27];   minu=[0 20 40];  
 %
-cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
+% cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
+cloudtpw=0.7;
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
@@ -135,10 +149,11 @@ for ei=1:nexp
   nti=0;
   for ti=hrs 
 %     if ei~=1 && ti>25; break; end
-    if ei~=1 && ti>24; break; end
+%     if ei~=1 && ti>24; break; end
       hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
-    for mi=minu
+    for mi=minu        
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
+       if ei~=1 && nti>7; break; end
       if ei==1
         lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
       end
@@ -148,7 +163,8 @@ for ei=1:nexp
       %---infile 2---
       infile2=[indir,'/',expri2{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %---    
-      cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);    
+%       cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);    
+      cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm);   
       if ~isempty(cloud) 
           if ei==1; edgcol=col(nti,:); alp=0.7;  else; edgcol='k'; alp=0.8; end
 %        plot(cloud.scale,cloud.maxdte,expmark{ei},'MarkerSize',expmsize(ei),'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',edgcol); hold on  
@@ -162,7 +178,7 @@ end %ei
 
 set(gca,'fontsize',16,'LineWidth',1.2,'Xscale','log','Yscale','log','box','on') 
 set(gca,'XLim',[3.5 80],'YLim',[1e-2 2.5e2])
-set(gca,'YLim',[1e-3 4e2])
+% set(gca,'YLim',[1e-3 4e2])
 % set(gca,'XLim',[3.5 30],'YLim',[1e-2 2.5e2])
 xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 
 ylabel({'(Mean of first 10 maximum)',[ploterm,' ( J kg^-^1)']});
@@ -183,6 +199,6 @@ for ei=1:nexp
 end
  %--
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_cld',num2str(cloudhyd*1000)];
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*10,'%.2d')];
 print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);

@@ -1,13 +1,13 @@
  %close all
  clear;  ccc=':';
 %---setting
-expri='TWIN036B';  
+expri='TWIN003B';  
 %year='2007'; mon='06'; date='01';
 year='2018'; mon='06'; s_date='22';  s_hr='23'; minu='30';
 infilenam='wrfout';  dom='01'; 
 
 zi=10;  
-indir=['/mnt/HDD116/pwin/Experiments/expri_twin/',expri];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri];
 %indir=['E:/wrfout/expri191009/',expri];
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir='/mnt/e/figures/expri191009';
 % indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
@@ -158,16 +158,19 @@ RH=ev./esw*100;
 %    %caxis([-2 2])
 %    set(gca,'Fontsize',14,'linewidth',1.2)
 %    print(hf,'-dpng',[outdir,expri,'_w-prof_',s_hr,minu,'.png']) 
-
+%%
 %---HGT---
-%  hf=figure('Position',[100 100 800 650]);  
-%    contour(hgt',20,'LineWidth',1.5)
-%    %title([expri,'  topography '],'FontSize',16)
-%    hc=colorbar; caxis([0 1000])
-%    set(hc,'Fontsize',16,'linewidth',1.4);   title(hc,'(m)','Fontsize',16)
-%    set(gca,'Fontsize',16,'linewidth',1.4)
-%    xlabel('km'); ylabel('km')
-%    outfile=[outdir,'/',expri,'_topo'];
+% cmp = getPyPlot_cMap('terrain',30);
+
+ hf=figure('Position',[100 100 780 650]);  
+   contour(hgt',20,'LineWidth',1.5)
+   %title([expri,'  topography '],'FontSize',16)
+   hc=colorbar; caxis([0 1000])
+   set(hc,'Fontsize',16,'linewidth',1.4);   title(hc,'(m)','Fontsize',16)
+   set(gca,'Fontsize',16,'linewidth',1.4)
+   colormap(winter)
+   xlabel('km'); ylabel('km')
+   outfile=[outdir,'/',expri,'_topo'];
 %    print(hf,'-dpng',[outfile,'.png'])
 %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
 %  hf=figure('Position',[100 100 900 600]);  

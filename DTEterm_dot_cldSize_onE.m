@@ -11,15 +11,17 @@
 
 % close all; 
 clear; ccc=':';
+saveid=1;
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-expri='TWIN020';
+expri='TWIN043';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
+% day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
 % stday=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
 % stday=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
 % stday=23;   hrs=2;  minu=0;
+day=22;   hrs=[25 24 23];  minu=50:-10:0;  
 
 %
 % cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
@@ -35,11 +37,13 @@ nhr=length(hrs);  nminu=length(minu);  ntime=nhr*nminu;
 %
 fload=load('colormap/colormap_ncl.mat');
 % col=fload.colormap_ncl([3 8 17 32 58 81 99 126 147 160 179 203],:);
-col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);
+
+% col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);
+
 % col=fload.colormap_ncl([32 58 81 99 126 147 160 179 203 219 242],:);
 
 % col=fload.colormap_ncl([147],:);
-% col=fload.colormap_ncl(20:12:end,:);
+col=fload.colormap_ncl(30:13:end,:);
 % col=fload.colormap_ncl(30:28:end,:);
 alp=0.8;
 %
@@ -55,36 +59,21 @@ for ti=hrs
     infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %---infile 2---
     infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
-    %---    
-    
-%     cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);   
+    %---        
+%    cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);   
+%    cloud=cal_cloudarea_1time_subdom(infile1,infile2,areasize,cloudhyd,ploterm,1,300,76,225);
     cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm);   
-    
-%      cloud=cal_cloudarea_1time_subdom(infile1,infile2,areasize,cloudhyd,ploterm,1,300,76,225);
-     
     if ~isempty(cloud) 
       ntii=ntii+1;   lgnd{ntii}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
-%       neartopo=find(cloud.todis<=75);
-%       fartopo=find(cloud.todis>75);
-%       if nti<=3
-%        plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',[0.1 0.1 0.1],'linewidth',1.3); hold on   
-%       else
-%       plot(cloud.scale(neartopo),cloud.maxdte(neartopo),'^','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on 
-
-%        plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on   
-
-%          scatter(cloud.scale,cloud.maxdte,120,'o','MarkerEdgeColor',col(nti,:),'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
-         scatter(cloud.scale,cloud.maxdte,120,'o','MarkerEdgeColor',col(nti,:),'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
-
-%       end
-%       plot(cloud.scale(neartopo),cloud.maxdte(neartopo),'o','MarkerSize',8,'MarkerFaceColor','none','MarkerEdgeColor',[0.1 0.1 0.1],'linewidth',1.3); 
+%      plot(cloud.scale,cloud.maxdte,'o','MarkerSize',8,'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',col(nti,:)); hold on   
+      scatter(cloud.scale,cloud.maxdte,120,'o','MarkerEdgeColor',col(nti,:),'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
       %----
       disp([s_hr,s_min,' done'])
     end % if ~isempty(cloud)
   end % mi
 end %ti
 
-legend(lgnd,'Interpreter','none','fontsize',18,'Location','bestoutside');
+legend(lgnd,'Interpreter','none','fontsize',14,'Location','bestoutside');
 set(gca,'fontsize',16,'LineWidth',1.2,'box','on') 
 set(gca,'Xscale','log','Yscale','log')
 % set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 2e2])
@@ -97,6 +86,7 @@ title({expri1,titnam},'fontsize',18)
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 % outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_hyd',num2str(cloudhyd*1e3)];
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*100,'%.3d')];
-
+if saveid~=0
 print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

@@ -3,6 +3,7 @@
 %
 %close all
 clear;   ccc=':';
+saveid=0; % save figure (1) or not (0)
 %---setting
 expri='TWIN003B';  stday=21; sth=15;  lenh=24;  minu=[00 30];  tint=4;
 %
@@ -91,6 +92,7 @@ windbarbM(xi(5:intz:end,2:intt:end),zi(5:intz:end,2:intt:end),...
 %---  
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min'];
+if saveid~=0
 % print(hf,'-dpng',[outfile,'.png']) 
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-
+end

@@ -1,5 +1,6 @@
 % close all
 clear
+saveid=0; % save figure (1) or not (0)
 %---setting
 expri='TWIN001Pr001qv062221';  day=23;  sth=0;  acch=10; 
 filt_len=50;  dx=1; dy=1;
@@ -63,8 +64,10 @@ for ti=sth
     %---
 
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(day),'_',s_sth,'_',num2str(ai),'h_L',num2str(filt_len)];
-%     print(hf,'-dpng',[outfile,'.png'])    
-%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    if saveid==1
+     print(hf,'-dpng',[outfile,'.png'])
+     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    end
 
   end %acch
 end %ti

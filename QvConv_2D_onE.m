@@ -1,6 +1,6 @@
 % close all
 clear;   ccc=':';
-
+saveid=0; % save figure (1) or not (0)
 %---setting
 expri='TWIN020B';  day=22;  hr=23:26;  minu=00;  
 % expri='TWIN021B';  day=22;  hr=23:26;  minu=00;  
@@ -107,8 +107,10 @@ drawnow;
 %     %---    
 %  
 %     outfile=[outdir,'/',fignam,num2str(p_int),'hpa_',mon,s_date,'_',s_hr,s_min];
-%    print(hf,'-dpng',[outfile,'.png']) 
-%    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    if saveid==1
+     print(hf,'-dpng',[outfile,'.png'])
+     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    end
    %}
   end %min
 end

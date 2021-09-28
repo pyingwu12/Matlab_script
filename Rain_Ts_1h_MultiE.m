@@ -1,5 +1,6 @@
 close all
 clear;  ccc=':';
+saveid=0; % save figure (1) or not (0)
 %-------------------------------
 
 % exptext='all';  
@@ -73,5 +74,7 @@ title(tit,'fontsize',25)
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/',fignam,ymd(5:6),ymd(7:8),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_',typst];
 
+if saveid==1;
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

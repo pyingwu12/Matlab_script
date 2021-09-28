@@ -5,6 +5,7 @@
 
 close all
 clear;    ccc=':';
+saveid=0; % save figure (1) or not (0)
 
 expri1={'TWIN001Pr001qv062221';...
        'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221';
@@ -159,9 +160,10 @@ for ei=2:nexp
    drawnow
 %---        
    outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr1,s_min1,'_cld',num2str(cloudhyd*1000)];
+   if saveid==1
    print(hf,'-dpng',[outfile,'.png']) 
    system(['convert -trim ',outfile,'.png ',outfile,'.png']); 
-   
+   end 
   disp([expri2{ei},' done'])
   
 end %ei

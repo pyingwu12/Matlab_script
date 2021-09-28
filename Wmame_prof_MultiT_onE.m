@@ -1,5 +1,7 @@
 % close all
 clear;   ccc=':';
+saveid=0; % save figure (1) or not (0)
+
 %---setting
 plotid='max';
 %
@@ -86,5 +88,7 @@ title(tit,'fontsize',18)
 %
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_',subdomid];
+if saveid~=0
  print(hf,'-dpng',[outfile,'.png']) 
  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end
