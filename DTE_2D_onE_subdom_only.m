@@ -7,28 +7,29 @@ clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=0:2;  minu=[0 30];  
+expri='TWIN040';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=0;  minu=[0 30];  
 %
-cloudhyd=0.003;
+cloudtpw=0.7;
 
 %   subx1=151; subx2=300; suby1=51; suby2=200;
-  subx1=1; subx2=150; suby1=51; suby2=200;
-%  subx1=1; subx2=150; suby1=76; suby2=175;
+%   subx1=1; subx2=150; suby1=51; suby2=200;
+ subx1=1; subx2=150; suby1=76; suby2=225;
+ 
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin/';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-titnam=plotid;   fignam=['sub-dom-only_',expri1(8:end),'_',plotid,'_cld',num2str(cloudhyd*1000),'_x',num2str(subx1),num2str(subx2),'y',num2str(suby1),num2str(suby2),'_'];
+titnam=plotid;   fignam=['sub-dom-only_',expri1(8:end),'_',plotid,'_tpw',num2str(cloudtpw),'_x',num2str(subx1),num2str(subx2),'y',num2str(suby1),num2str(suby2),'_'];
 %---
 col=load('colormap/colormap_dte.mat');
 cmap=col.colormap_dte;  cmap(10,:)=[0.9847 0.75 0.18];
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
-%  L=[0.5 2 4 6 8 10 15 20 25 35];
+ L=[0.5 2 4 6 8 10 15 20 25 35];
   
 % L=[0.5 2 4 6 10 15 20 25 35 45];
   
-  L=[0.5 2 4 6 10 15 20 30 40 60];
+%   L=[0.5 2 4 6 10 15 20 30 40 60];
 %  L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
 %  L=[0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 4 ];
 
@@ -48,7 +49,15 @@ for ti=hr
      qg = double(ncread(infile2,'QGRAUP'));  
      qs = double(ncread(infile2,'QSNOW'));
      qi = double(ncread(infile2,'QICE')); 
-     hyd = sum(qr+qc+qg+qs+qi,3);        
+%      hyd = sum(qr+qc+qg+qs+qi,3);      
+     
+          P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
+
+      hyd  = qr+qc+qg+qs+qi;   
+      dP=P(:,:,1:end-1)-P(:,:,2:end);
+      tpw= dP.*( (hyd(:,:,2:end)+hyd(:,:,1:end-1)).*0.5 ) ;
+      TPW=squeeze(sum(tpw,3)./9.81);   
+
 
     [MDTE, CMDTE] = cal_DTE_2D(infile1,infile2) ;       
 
@@ -64,7 +73,7 @@ for ti=hr
      contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',3); 
     end
     %---
-    contour(hyd',[cloudhyd cloudhyd],'color',[0.1 0.1 0.1],'linewidth',3.5);     
+    contour(TPW',[cloudtpw cloudtpw],'color',[0.1 0.1 0.1],'linewidth',3.5);     
     
     set(gca,'fontsize',25,'LineWidth',2) 
 %     set(gca,'Xtick',0:100:300,'Xticklabel',0:100:300,'Ytick',0:50:300,'Yticklabel',0:50:300)

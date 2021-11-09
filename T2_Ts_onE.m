@@ -1,14 +1,13 @@
 close all 
 clear; ccc=':';
 %---setting
-expri='TWIN003B062218noSW'; stday=22;  sth=18;  lenh=24;  tint=2;  bdy=0;
+expri='TWIN031B'; stday=21;  sth=16;  lenh=72;  tint=6;  bdy=0;
 typst='mean'; %mean/max/min
 %
 year='2018';  mon='06';  s_min='00';
 infilenam='wrfout';  dom='01';    
 %
-% indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri]; outdir='/mnt/e/figures/expri191009';
-indir=['/mnt/HDD016/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %
 titnam='2-m Temp.';   fignam=[expri,'_T2-t_'];
 

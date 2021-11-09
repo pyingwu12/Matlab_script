@@ -1,11 +1,11 @@
 %---
 % plot time series of hourly rainfall
 %----
-% close all
+close all
 clear;  ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %---setting
-expri='TWIN001B';  stday=22;   sth=14;  lenh=48;  tint=3;  bdy=0;
+expri='TWIN018B';  stday=21;   sth=15;  lenh=71;  tint=5;  bdy=0;
 minu=0:10:50;  
 typst='max';  %mean/sum/max
 %---
@@ -25,16 +25,24 @@ for ti=1:lenh
     ntii=ntii+1;    ss_hr{ntii}=num2str(mod(sth+ti-1+9,24),'%2.2d');
   end  
   for tmi=minu
-    nti=nti+1;    rc=cell(1,2); rsh=cell(1,2);  rnc=cell(1,2); 
+    nti=nti+1;    rc=cell(1,2); rsh=cell(1,2);  rnc=cell(1,2);   exi=0;
     s_min=num2str(tmi,'%2.2d');
     for j=1:2
-      hr=(j-1)*1+ti+sth-1;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
+      hr=(j-1)*1+ti+sth-1;  s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
       %------read netcdf data--------
       infile = [indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
+      if exist(indir,'dir') && ~exist(infile,'file')       
+        exi=1;  break;
+      else   
       rc{j} = ncread(infile,'RAINC');
       rsh{j} = ncread(infile,'RAINSH');
       rnc{j} = ncread(infile,'RAINNC');
+      end
     end %j=1:2
+    if exi~=0
+      plotvar(nti)=NaN; 
+    else           
+
     rain=double(rc{2}-rc{1}+rnc{2}-rnc{1}+rsh{2}-rsh{1});
     switch(typst)
     case('mean')
@@ -44,6 +52,8 @@ for ti=1:lenh
     case('max')
       plotvar(nti)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
     end  
+    
+    end
   end
 end
 %

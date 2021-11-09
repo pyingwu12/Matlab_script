@@ -1,30 +1,34 @@
 %-----------------
 % find the time when max cloud area in the "sub-domain" larger than <plt_area>
 %    and plot CMDTE and contour of hyd at different time
+% 2021/10/15: change the criteria of cloud grid to TPW
 %---------------
 
 close all
 clear;    ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
-expri1={'TWIN001Pr001qv062221';...
-       'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221';
-       'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221';
-       'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221';
-       'TWIN023Pr001qv062221';'TWIN016Pr001qv062221';'TWIN018Pr001qv062221'
-        };
 
-expri2={'TWIN001B';...
-        'TWIN017B';'TWIN013B';'TWIN022B';
-        'TWIN025B';'TWIN019B';'TWIN024B';
-        'TWIN021B';'TWIN003B';'TWIN020B';       
-        'TWIN023B';'TWIN016B';'TWIN018B'
-        };  
+expri1={'TWIN020Pr001qv062221'};
+expri2={'TWIN020B'};  
+    
+% expri1={'TWIN001Pr001qv062221';...
+%        'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221';
+%        'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221';
+%        'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221';
+%        'TWIN023Pr001qv062221';'TWIN016Pr001qv062221';'TWIN018Pr001qv062221'
+%         };
+% expri2={'TWIN001B';...
+%         'TWIN017B';'TWIN013B';'TWIN022B';
+%         'TWIN025B';'TWIN019B';'TWIN024B';
+%         'TWIN021B';'TWIN003B';'TWIN020B';       
+%         'TWIN023B';'TWIN016B';'TWIN018B'
+%         };  
 %-----
-cloudhyd=0.003; 
-plt_area=[10 40 65];
+cloudtpw=0.7;
+plt_area=[10 40 60];
 %---
-day=22;   hrs=[23 24 25 26 27 28];  minu=0:10:50; 
+day=22;   hrs=[23 24 25 26 27 28 29 30];  minu=0:10:50; 
 
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
@@ -40,10 +44,10 @@ cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 nexp=size(expri1,1); 
 
 %---plot
-for ei=2:nexp
-% for ei=1
+% for ei=2:nexp
+for ei=1:nexp
   %---decide sub-domain to find max cloud area---
-  if contains(expri1{ei},'TWIN001')
+  if contains(expri1{ei},'TWIN201') 
       subx1=151; subx2=300; suby1=51; suby2=200;
       xsub=151:300;  ysub=51:200;
   else    
@@ -66,17 +70,23 @@ for ei=2:nexp
       qg = double(ncread(infile2,'QGRAUP'));  
       qs = double(ncread(infile2,'QSNOW'));
       qi = double(ncread(infile2,'QICE')); 
-      hyd2D = sum(qr+qc+qg+qs+qi,3); 
+      
+      P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
+  
+      hyd  = qr+qc+qg+qs+qi;   
+      dP=P(:,:,1:end-1,:)-P(:,:,2:end,:);
+      tpw= dP.*( (hyd(:,:,2:end,:)+hyd(:,:,1:end-1,:)).*0.5 ) ;
+      TPW=squeeze(sum(tpw,3)./9.81);
       
       %---cloud grid ratio and error over sub-domain
-      hyd2D_sub =hyd2D(xsub,ysub); 
-      cgr = length(hyd2D_sub(hyd2D_sub>cloudhyd)) / (size(hyd2D_sub,1)*size(hyd2D_sub,2)) *100 ;      
+      TPW_sub =TPW(xsub,ysub); 
+      cgr = length(TPW_sub(TPW_sub>cloudtpw))/(size(TPW_sub,1)*size(TPW_sub,2)) *100 ; 
       %---
       if cgr > 0          
         %---find max cloud area in the sub-domain---
-        [nx, ny]=size(hyd2D); 
-        rephyd=repmat(hyd2D,3,3);      
-        BW = rephyd > cloudhyd;  
+        [nx, ny]=size(TPW); 
+        rephyd=repmat(TPW,3,3);      
+        BW = rephyd > cloudtpw;  
         stats = regionprops('table',BW,'Area','Centroid');     
         centers = stats.Centroid;      
         fin=find( centers(:,1)>ny+suby1 & centers(:,1)<ny+suby2+1 & centers(:,2)>nx+subx1 & centers(:,2)<nx+subx2+1); 
@@ -88,22 +98,22 @@ for ei=2:nexp
         elseif idx==0  &&  max_cldarea >  plt_area(1)     
           disp(['1: ',s_hr,s_min]);
           [~,CMDTE] = cal_DTE_2D(infile1,infile2) ; 
-          hyd2D_plt{1} = hyd2D; 
+          TPW_plt{1} = TPW; 
           idx=idx+1; 
           %
           s_hrj=num2str(mod(hr+9,24),'%2.2d');  % start time string
-          if hr+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
+          s_datej=num2str(day+fix((ti+9)/24)); 
           s_hr1=s_hr; s_min1=s_min;
         elseif idx==1 && max_cldarea > plt_area(2) 
           disp(['2: ',s_hr,s_min]);
 %           [~,CMDTE{2}] = cal_DTE_2D(infile1,infile2) ; 
-          hyd2D_plt{2} = hyd2D;
+          TPW_plt{2} = TPW;
           idx=idx+1; 
           time_tick2=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT'];
         elseif idx==2 && max_cldarea > plt_area(3) 
           disp(['3: ',s_hr,s_min]);
 %           [~,CMDTE{3}] = cal_DTE_2D(infile1,infile2) ; 
-          hyd2D_plt{3} = hyd2D;
+          TPW_plt{3} = TPW;
           time_tick3=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT'];
            idx=idx+1; 
            break
@@ -128,13 +138,14 @@ for ei=2:nexp
   end
           
   hold on;          
-   contour(hyd2D_plt{3}',[cloudhyd cloudhyd],'color',[0.7 0.7 0.7],'linewidth',3.5);    
-   contour(hyd2D_plt{2}',[cloudhyd cloudhyd],'color',[0.4 0.4 0.4],'linewidth',3.5);  
-   contour(hyd2D_plt{1}',[cloudhyd cloudhyd],'color',[0.1 0.1 0.1],'linewidth',3.5);    
+   contour(TPW_plt{3}',[cloudtpw cloudtpw],'color',[0.7 0.7 0.7],'linewidth',3.5);    
+   contour(TPW_plt{2}',[cloudtpw cloudtpw],'color',[0.4 0.4 0.4],'linewidth',3.5);  
+   contour(TPW_plt{1}',[cloudtpw cloudtpw],'color',[0.1 0.1 0.1],'linewidth',3.5);    
 % %         
    text(subx1+5,suby2-5,[s_hrj,s_min1,' LT'],'color',[0.1 0.1 0.1],'fontsize',13)
    text(subx1+5,suby2-12,time_tick2,'color',[0.4 0.4 0.4],'fontsize',13)
    text(subx1+5,suby2-19,time_tick3,'color',[0.7 0.7 0.7],'fontsize',13)
+   
 %    text(subx2-25,suby2-5,[s_hrj,s_min1,' LT'],'color',[0.1 0.1 0.1],'fontsize',13)
 %    text(subx2-25,suby2-12,time_tick2,'color',[0.4 0.4 0.4],'fontsize',13)
 %    text(subx2-25,suby2-19,time_tick3,'color',[0.7 0.7 0.7],'fontsize',13)
@@ -159,7 +170,7 @@ for ei=2:nexp
    end
    drawnow
 %---        
-   outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr1,s_min1,'_cld',num2str(cloudhyd*1000)];
+   outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr1,s_min1,'_tpw',num2str(cloudtpw)];
    if saveid==1
    print(hf,'-dpng',[outfile,'.png']) 
    system(['convert -trim ',outfile,'.png ',outfile,'.png']); 

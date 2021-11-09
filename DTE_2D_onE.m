@@ -2,30 +2,30 @@
 %------------------------------------------
 % plot vertical weighted average MDTE or CMDTE between two simulations
 %------------------------------------------
-% close all
+close all
 clear;   ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN003'; %TWIN003Pr0001qv062221
-expri1=[expri,'Pr0001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN201'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-s_date='23';  hr=3;  minu=50;  
+s_date='23';  hr=0;  minu=0:10:50;  
 %
-hydid=3;  % for hydid~=0, plot contour of hydemeteros = <hydid> (g/kg)
+tpwid=0.7;  % for tpwid~=0, plot contour of TPW = <tpwid> (kg/m^2)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 titnam=plotid;   fignam=[expri1(8:end),'_',plotid,'_',];
-if hydid~=0; fignam=[fignam,'hyd',num2str(hydid),'_'];  end
+if tpwid~=0; fignam=[fignam,'tpw',num2str(tpwid),'_'];  end
 if zhid~=0; fignam=[fignam,'zh',num2str(zhid),'_'];  end
 %---
 col=load('colormap/colormap_dte.mat');
 cmap=col.colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
-%  L=[0.5 2 4 6 8 10 15 20 25 35];
-  L=[0.5 2 4 6 10 15 20 30 40 60];
+ L=[0.5 2 4 6 8 10 15 20 25 35];
+%   L=[0.5 2 4 6 10 15 20 30 40 60];
 %  L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
 %  L=[0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 4 ];
 
@@ -41,13 +41,20 @@ for ti=hr
     hgt = ncread(infile2,'HGT');
     %
     if zhid~=0;  zh_max=cal_zh_cmpo(infile2,'WSM6');  end % zh of based state
-    if hydid~=0
+    if tpwid~=0
      qr = double(ncread(infile2,'QRAIN'));   
      qc = double(ncread(infile2,'QCLOUD'));
      qg = double(ncread(infile2,'QGRAUP'));  
      qs = double(ncread(infile2,'QSNOW'));
      qi = double(ncread(infile2,'QICE')); 
-     hyd = sum(qr+qc+qg+qs+qi,3)*1e3;        
+%      hyd = sum(qr+qc+qg+qs+qi,3)*1e3;   
+     P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
+
+      hyd  = qr+qc+qg+qs+qi;   
+      dP=P(:,:,1:end-1)-P(:,:,2:end);
+      tpw= dP.*( (hyd(:,:,2:end)+hyd(:,:,1:end-1)).*0.5 ) ;
+      TPW=squeeze(sum(tpw,3)./9.81);   
+      
     end  
 
     [MDTE, CMDTE] = cal_DTE_2D(infile1,infile2) ;       
@@ -59,7 +66,7 @@ for ti=hr
     hf=figure('position',[100 75 800 700]); 
     [~, hp]=contourf(plotvar,L2,'linestyle','none');    
     %---
-    if hydid~=0;  hold on; contour(hyd',[hydid hydid],'color',[0.1 0.1 0.1],'linewidth',3);     end
+    if tpwid~=0;  hold on; contour(TPW',[tpwid tpwid],'color',[0.1 0.1 0.1],'linewidth',3.8);     end
     if zhid~=0;   hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',3);    end   
     %---
     if (max(max(hgt))~=0)

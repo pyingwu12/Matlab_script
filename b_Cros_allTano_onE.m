@@ -1,16 +1,22 @@
+
+% 2021/10/16: "not finished" <-use domain mean (but not mean of profile) to calculate theta  anomaly
+
 % close all
 clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN020B';   day=22;  hr=23;  minu=00;  
+expri='TWIN040B';   day=23;  hr=0;  minu=0:10:50;  
 %---
-maxid=1; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-xp=1; yp=144;  %start grid
-len=150;   %length of the line (grid)
+maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
+% xp=23; yp=100;  %start grid
+% len=100;   %length of the line (grid)
+% xp=1; yp=156;  %start grid
+% len=100;   %length of the line (grid)
+xp=1; yp=150;  %start grid
+len=100;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
-
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
@@ -18,17 +24,15 @@ indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figure
 titnam='Theta anomaly';   fignam=[expri,'_cros-theta-anomaly_'];
 %---
 LFC_indir='/mnt/HDDA/Python_script/LFC_data';
-
 %---
 load('colormap/colormap_br3.mat'); 
-% cmap=colormap_br3([3:12,14],:);   
 cmap=colormap_br3([8 9 10 11 12],:);   
-
 cmap2=cmap*255; cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[0 0.5 1 1.5];
 %----
 g=9.81;
-zlim=3200; ytick=1000:1000:zlim; 
+% zlim=3200; ytick=500:500:zlim; 
+zlim=7000; ytick=1000:1000:zlim; 
 
 for ti=hr
   s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
@@ -65,8 +69,8 @@ for ti=hr
     %---
     theta = ncread(infile,'T');  theta=theta+300;
     %---
-    LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
-    LFC=readNPY(LFC_infile);
+%     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
+%     LFC=readNPY(LFC_infile);
     %---   
     [nx,ny,nz]=size(theta);
     if maxid==1      
@@ -76,15 +80,29 @@ for ti=hr
       A=w.unstag;     [xx,yy,zz]= ind2sub([nx,ny,nz],find(A == max(A(:))));   
       if slopx>=slopy; yp=yy; else;  xp=xx; end
     end     
- 
+    
+
 %---interpoltion---
+
+%     for i=1:nx
+%       for j=1:ny          
+%         X=squeeze(zg(i,j,:));       
+%         Y=squeeze(theta(i,j,:));   theta_iso(i,j,:)=interp1(X,Y,zgi,'linear');
+%       end
+%     end      
+%     
+%     %!!!!! problem: the mean is only the cross section mean, not domain mean !!!!!!!!
+%     theta_mean=mean(theta_iso,[1 2],'omitnan');
+%     theta_ano=theta_iso-repmat(theta_mean,nx,ny);            
+
+
     [y, x]=meshgrid(1:ny,1:nx);       
     i=0;  lonB=0; latB=0;
     while lonB<x(xp,yp)+len && latB<y(xp,yp)+len
       i=i+1;
       indx=xp+slopx*(i-1);    indy=yp+slopy*(i-1);
       linex(i)=x(indx,indy);  lonB=linex(i);     
-      liney(i)=y(indx,indy);  latB=liney(i); 
+      liney(i)=y(indx,indy);  latB=liney(i);  
       %---interpolation to isohypsic surface for theta
       X=squeeze(zg(indx,indy,:));       
       Y=squeeze(theta(indx,indy,:));     theta_iso(:,i)=interp1(X,Y,zgi,'linear');
@@ -94,15 +112,20 @@ for ti=hr
       u.prof(:,i)=squeeze(u.unstag(indx,indy,:));
 %       v.prof(:,i)=squeeze(v.unstag(indx,indy,:));
       hyd_prof(:,i)=squeeze(hyd(indx,indy,:));
+      theta_prof(:,i)=squeeze(theta(indx,indy,:));    
+      
+%       theta_nao_prof=squeeze(theta_ano(indx,indy,:));
       theta_prof(:,i)=squeeze(theta(indx,indy,:));      
+
       hgtprof(i)=hgt(indx,indy);
-      LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
+%       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
     end    
     
-%!!!!! problem: the mean is only the cross section mean, not domain mean !!!!!!!!
-    theta_ano=theta_iso-repmat(mean(theta_iso,2,'omitnan'),1,size(theta_iso,2));        
-    
+
+       %!!!!! problem: the mean is only the cross section mean, not domain mean !!!!!!!!
+    theta_ano=theta_iso-repmat(mean(theta_iso,2,'omitnan'),1,size(theta_iso,2));          
     theta_lapse=(theta_prof(1:end-1,:)-theta_prof(2:end,:)) ./ (Zaxis(1:end-1,:)-Zaxis(2:end,:)); 
+
 
 %---plot setting---   
     if slopx>=slopy;    xtitle='X (km)';    xaxis=linex;  
@@ -118,7 +141,8 @@ for ti=hr
     %for theta anamoly (iso)
     [xi_iso, zi_iso]=meshgrid(xaxis*1e3,zgi);
     %for wind vector
-    intu=4000;  intw=1;
+%     in3tu=4000;  intw=1;
+    intu=3000;  intw=1;
     zi_vec=Zaxis(1:intw:end, 1:intu/1000:end);
     xi_vec=repmat( (xaxis(1):intu/1000:xaxis(end))*1e3, size(zi_vec,1),1);
 
@@ -139,9 +163,9 @@ for ti=hr
 %    clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.1 0.6 0],'LabelSpacing',650)
 
     %---LFC
-    plot(xaxis*1e3,LFCprof,'color',[0.5 0.28 0.85],'linewidth',3,'LineStyle','-')
+%     plot(xaxis*1e3,LFCprof,'color',[0.5 0.28 0.85],'linewidth',3,'LineStyle','-')
 
-        %---hydrometeor---
+    %---hydrometeor---
     [c,hdis]= contour(xi,Zaxis,hyd_prof*1e3,[0.1 0.1],'color',[0.05 0.1 0.9],'linewidth',4); 
 %     clabel(c,hdis,hdis.TextList,'fontsize',15,'color',[0.05 0.3 0.8],'LabelSpacing',500) 
 
@@ -150,32 +174,39 @@ for ti=hr
     u.vec= u.prof(1:intw:end,1:intu/1000:end);    
     h1 = quiver(xi_vec,zi_vec,u.vec,w.vec,0,'color',[0.28 0 0],'MaxHeadSize',0.002) ; % the '0' turns off auto-scaling
     hU = get(h1,'UData');   hV = get(h1,'VData') ;
-    qscale=800;
-    set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1.3);   
+%     qscale=400;
+%     qscale=800;
+   qscale=300;
+    set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1.3);  
+    windlegend=10;
+    h2 = quiver((xp+xp+len-5)/2*1000,400,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+    hU = get(h2,'UData');   hV = get(h2,'VData') ;
+    set(h2,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1.3);  
+    text((xp+xp+len-5)/2*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
 
         %---terrain
     if (max(max(hgtprof))~=0)
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)
     end  
     
-    set(gca,'fontsize',16,'LineWidth',1.2,'box','on')
-%     set(gca,'Ylim',[1 zlim],'Xlim',[xp xp+len]*1e3)
-      set(gca,'Ylim',[1 zlim],'Xlim',[20 120]*1e3)
+    set(gca,'fontsize',18,'LineWidth',1.2,'box','on')
+    set(gca,'Ylim',[1 zlim],'Xlim',[xp xp+len]*1e3)
+%       set(gca,'Ylim',[1 zlim],'Xlim',[20 120]*1e3)
     set(gca,'Xticklabel',get(gca,'Xtick')*grids/dx,'Ytick',ytick,'Yticklabel',ytick./1000)
 
     xlim=get(gca,'Xlim');  ylim=get(gca,'Ylim');
-    text(xlim(2)-30,ylim(1)-350,['xp=',num2str(xp),', yp=',num2str(yp)])
+    text(xlim(2)-10000,ylim(1)-700,['xp=',num2str(xp),', yp=',num2str(yp)])
 
     xlabel(xtitle); ylabel('Height (km)')
     s_hrj=num2str(mod(ti+9,24),'%.2d');
-    tit=[expri,'  ',titnam,'  ',s_hrj,s_min,' LT'];     
+    tit=[expri,'  ',titnam,'  ',mon,s_date,'  ',s_hrj,s_min,' LT'];     
     title(tit,'fontsize',18)  
     
     %---colorbar---
     fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
-    colormap(cmap); title(hc,'K','fontsize',13);  drawnow;
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',16,'LineWidth',1.2);
+    colormap(cmap); title(hc,'K','fontsize',16);  drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');

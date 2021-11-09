@@ -6,7 +6,7 @@ function acci=cal_accum_1h(dir,expri,ymd,sth,minu,lenh,dom,bdy,typst,ccc)
 indir=[dir,'/',expri]; 
 %---setting
 if isempty(ccc); ccc=':'; end
-year=ymd(1:4); mon=ymd(5:6); stday=str2double(ymd(7:8)); %s_min=ymd(9:10);
+year=ymd(1:4); mon=ymd(5:6); day=str2double(ymd(7:8)); %s_min=ymd(9:10);
 infilenam='wrfout'; 
 
 acci=size(lenh*length(minu),1); nti=0;

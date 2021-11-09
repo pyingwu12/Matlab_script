@@ -1,12 +1,12 @@
 % close all
 clear;   ccc=':';
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN013B';   day=22;  hr=23;  minu=40;  
+expri='TWIN040B';   day=22;  hr=23;  minu=50;  
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-xp=1; yp=103;  %start grid
+xp=1; yp=150;  %start grid
 len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
@@ -31,19 +31,15 @@ L=[-4 -3 -2 -1  1 2 3 4];
 
 
 
-cmap=[ 
-    183  75 243;
-    203 126 246;
- 225 180 250;
- 236 208 252;
- 255 255 255;
-  255 245 204;
- 255 230 112;
- 255 204  51;
-  255 175  51]./255;
-
-
-
+cmap=[183  75 243;
+      203 126 246;
+      225 180 250;
+      236 208 252;
+      255 255 255;
+      255 245 204;
+      255 230 112;
+      255 204  51;
+      255 175  51]./255;
 cmap2=cmap*255; cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 
 %----
@@ -69,12 +65,12 @@ for ti=hr
     zgi(1:2:nzgi,1)= zg0(150,150,2:end); 
     zgi(2:2:nzgi,1)= ( zg0(150,150,2:end-1) + zg0(150,150,3:end) )/2;   
     %---
-     qr = double(ncread(infile,'QRAIN'));   
-     qc = double(ncread(infile,'QCLOUD'));
-     qg = double(ncread(infile,'QGRAUP'));  
-     qs = double(ncread(infile,'QSNOW'));
-     qi = double(ncread(infile,'QICE'));    
-     hyd=qr+qc+qg+qs+qi;          
+%      qr = double(ncread(infile,'QRAIN'));   
+%      qc = double(ncread(infile,'QCLOUD'));
+%      qg = double(ncread(infile,'QGRAUP'));  
+%      qs = double(ncread(infile,'QSNOW'));
+%      qi = double(ncread(infile,'QICE'));    
+%      hyd=qr+qc+qg+qs+qi;          
     %---
     u.stag = ncread(infile,'U');
     v.stag = ncread(infile,'V');
@@ -85,8 +81,8 @@ for ti=hr
     %---
     theta = ncread(infile,'T');  theta=theta+300;
     %---
-    LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
-    LFC=readNPY(LFC_infile);
+%     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
+%     LFC=readNPY(LFC_infile);
     %---   
     [nx,ny,nz]=size(theta);
     if maxid==1      
@@ -113,10 +109,10 @@ for ti=hr
       w.prof(:,i)=squeeze(w.unstag(indx,indy,:));
       u.prof(:,i)=squeeze(u.unstag(indx,indy,:));
 %       v.prof(:,i)=squeeze(v.unstag(indx,indy,:));
-      hyd_prof(:,i)=squeeze(hyd(indx,indy,:));
+%       hyd_prof(:,i)=squeeze(hyd(indx,indy,:));
       theta_prof(:,i)=squeeze(theta(indx,indy,:));      
       hgtprof(i)=hgt(indx,indy);
-      LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
+%       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
     end    
     
     theta_ano=theta_iso-repmat(mean(theta_iso,2,'omitnan'),1,size(theta_iso,2));        
@@ -151,30 +147,26 @@ for ti=hr
     clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[1 0.5 0.2],'LabelSpacing',650)
     
     %---LFC
-    plot(xaxis*1e3,LFCprof,'color',[0.2 0.5 1],'linewidth',3,'LineStyle',':')
+%     plot(xaxis*1e3,LFCprof,'color',[0.2 0.5 1],'linewidth',3,'LineStyle',':')
     
     %---theta anomaly---
     [c,hdis]= contour(xi_iso, zi_iso,theta_ano,[1 1],'color',[0.1 0.6 0],'linewidth',3,'LineStyle',':'); 
     clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.1 0.6 0],'LabelSpacing',450) 
 
-   
-
     %---hydrometeor---
-    [c,hdis]= contour(xi,Zaxis,hyd_prof*1e3,[0.1 0.1],'color',[0 0 0.7],'linewidth',4); 
-    clabel(c,hdis,hdis.TextList,'fontsize',15,'color',[0 0 0.9],'LabelSpacing',500) 
+%     [c,hdis]= contour(xi,Zaxis,hyd_prof*1e3,[0.1 0.1],'color',[0 0 0.7],'linewidth',4); 
+%     clabel(c,hdis,hdis.TextList,'fontsize',15,'color',[0 0 0.9],'LabelSpacing',500) 
     
-        %---updraft---
+    %---updraft---
     [c,hdis]= contour(xi,Zaxis,w.prof,[0.2  2],'color',[0.7 0.1 0.05],'linewidth',3); 
     clabel(c,hdis,hdis.TextList,'fontsize',15,'color',[0.7 0.1 0.05],'LabelSpacing',500) 
 
-
-        %---terrain
+    %---terrain
     if (max(max(hgtprof))~=0)
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)
     end  
 
 
-    
     set(gca,'fontsize',16,'LineWidth',1.2,'box','on')
     set(gca,'Ylim',[1 zlim],'Xlim',[xp xp+len]*1e3)
     set(gca,'Xticklabel',get(gca,'Xtick')*grids/dx,'Ytick',ytick,'Yticklabel',ytick./1000)

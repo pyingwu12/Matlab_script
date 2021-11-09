@@ -14,14 +14,14 @@ clear; ccc=':';
 saveid=1;
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-expri='TWIN043';
+expri='TWIN040';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
 % day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
 % stday=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
 % stday=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
 % stday=23;   hrs=2;  minu=0;
-day=22;   hrs=[25 24 23];  minu=50:-10:0;  
+day=22;   hrs=[24 23 22];  minu=50:-10:0;  
 
 %
 % cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
@@ -37,11 +37,8 @@ nhr=length(hrs);  nminu=length(minu);  ntime=nhr*nminu;
 %
 fload=load('colormap/colormap_ncl.mat');
 % col=fload.colormap_ncl([3 8 17 32 58 81 99 126 147 160 179 203],:);
-
 % col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);
-
 % col=fload.colormap_ncl([32 58 81 99 126 147 160 179 203 219 242],:);
-
 % col=fload.colormap_ncl([147],:);
 col=fload.colormap_ncl(30:13:end,:);
 % col=fload.colormap_ncl(30:28:end,:);

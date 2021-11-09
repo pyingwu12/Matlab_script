@@ -2,15 +2,15 @@
 % plot vertical weighted average MDTE or CMDTE between two simulations with
 % cloud boxes
 %------------------------------------------
-close all
+% close all
 clear;   ccc=':';
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN046'; 
+expri='TWIN031'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-s_date='22';  hr=23;  minu=[30];  
+day=22;  hr=21;  minu=50;  
 %
 % cloudhyd=0.003;
 cloudtpw=0.7;
@@ -38,14 +38,13 @@ L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
 
 
 for ti=hr
-    if ti>=24; s_date2=num2str(str2double(s_date)+1,'%2.2d'); else; s_date2=s_date; end
-  s_hr=num2str(mod(ti,24),'%2.2d');  
+  s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');  
   for mi=minu        
     s_min=num2str(mi,'%2.2d');
     %---infile 1, perturbed state---
-    infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date2,'_',s_hr,ccc,s_min,ccc,'00'];
+    infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     %---infile 2, based state---
-    infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date2,'_',s_hr,ccc,s_min,ccc,'00'];
+    infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     hgt = ncread(infile2,'HGT');
     %
     [MDTE, CMDTE] = cal_DTE_2D(infile1,infile2) ;        % vertical weighted average (dPm=dP/dPall)      
@@ -93,19 +92,19 @@ for ti=hr
 
     hold on
     for i=1:length(fin)
-%     hrec=rectangle('Position',[bounds(fin(i),2)-nx bounds(fin(i),1)-ny bounds(fin(i),4) bounds(fin(i),3)]);
         hrec=rectangle('Position',[bounds(fin(i),2) bounds(fin(i),1) bounds(fin(i),4) bounds(fin(i),3)]);
     set(hrec,'linewidth',2.5,'EdgeColor',[0.95 0.05 0.2])    
     end    
     %
     set(gca,'fontsize',18,'LineWidth',1.2)
-    set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
+%     set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
+       set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+76 ny+225]) 
 %     set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+26 ny+175]) 
     set(gca,'Xtick',nx+50:50:nx+nx,'Xticklabel',50:50:nx,'Ytick',ny+50:50:ny+ny,'Yticklabel',50:50:ny)
 
     xlabel('(km)'); ylabel('(km)');
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
-    if ti+9>24; s_datej=num2str(str2double(s_date2)+fix((ti+9)/24)); else; s_datej=s_date2; end
+    s_datej=num2str(day+fix((ti+9)/24),'%2.2d');
     tit={expri1,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' LT']}; 
     title(tit,'fontsize',20,'Interpreter','none')
 
@@ -119,7 +118,7 @@ for ti=hr
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
     end
     %---    
-    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date2,'_',s_hr,s_min,'_cld',num2str(cloudtpw)];
+    outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min,'_cld',num2str(cloudtpw)];
     if saveid==1
       print(hf,'-dpng',[outfile,'.png']) 
       system(['convert -trim ',outfile,'.png ',outfile,'.png']);         

@@ -1,6 +1,6 @@
 clear;  ccc=':';
-close all
-saveid=1; % save figure (1) or not (0)
+% close all
+saveid=0; % save figure (1) or not (0)
 %---setting      
 
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
@@ -9,8 +9,29 @@ lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 % expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
 % exptext='U00NS5';
 % expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
-% cexp=[0  50  90; 220 77 11; 0 163 209; 236 121 33; 147 195 233; 239 157 112]/255; 
+% cexp=[87 198 229; 242 155 0;       44 125 190;  232 66 44;  95 85 147; 168 63 63]/255; 
+% % cexp=[0  50  90; 220 77 11; 0 163 209; 236 121 33; 147 195 233; 239 157 112]/255; 
 
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+% exptext='diffTOPO';
+% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255; 
+
+
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
+        'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
+        'TWIN013Pr001qv062221';'TWIN013Pr001qv062221mem2';'TWIN013Pr001qv062221mem3';'TWIN013Pr001qv062221mem4';'TWIN013Pr001qv062221mem5';
+        'TWIN021Pr001qv062221';'TWIN021Pr001qv062221mem2';'TWIN021Pr001qv062221mem3';'TWIN021Pr001qv062221mem4';'TWIN021Pr001qv062221mem5'; 
+        'TWIN020Pr001qv062221';'TWIN020Pr001qv062221mem2';'TWIN020Pr001qv062221mem3';'TWIN020Pr001qv062221mem4';'TWIN020Pr001qv062221mem5'};   
+expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 'TWIN201B';'TWIN201B';
+    'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';
+    'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B';
+    'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';
+    'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B'}; 
+exptext='TOPOmem5';
+expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
 
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr01qv062221';'TWIN201Pr0001qv062221'};   
 % expri2={'TWIN201B';'TWIN201B';'TWIN201B'}; 
@@ -30,39 +51,11 @@ lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 % expnam={ 'FLAT';'FLAT01';'TOPO';'TOPO01'};
 % cexp=[0,0.447,0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;0.929,0.694,0.125];
 
-% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
-% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-% exptext='diffTOPO';
-% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-% cexp=[87 198 229; 242 135 0; 146 200 101; 230 84 80; 239 144 185]/255; 
-
-% exptext='h500';   
-% expri1={'TWIN001Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};   
-% expri2={'TWIN001B';'TWIN017B';'TWIN013B';'TWIN022B'};   
-% expnam={'FLAT';'vol05';'vol10';'vol20'};
-% %lexp={'-';'-';'-';'-';'-'};  
-% cexp=[0  0.447  0.741; 0.929,0.694,0.125; 0.85,0.325,0.098;  0.65,0.125,0.008;  ];
-
-expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
-        'TWIN021Pr001qv062221';'TWIN021Pr001qv062221mem2';'TWIN021Pr001qv062221mem3';'TWIN021Pr001qv062221mem4';'TWIN021Pr001qv062221mem5';
-        'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
-        'TWIN020Pr001qv062221';'TWIN020Pr001qv062221mem2';'TWIN020Pr001qv062221mem3';'TWIN020Pr001qv062221mem4';'TWIN020Pr001qv062221mem5';
-        'TWIN013Pr001qv062221';'TWIN013Pr001qv062221mem2';'TWIN013Pr001qv062221mem3';'TWIN013Pr001qv062221mem4';'TWIN013Pr001qv062221mem5'};   
-expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 'TWIN201B';'TWIN201B';   
-    'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';   
-    'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';
-    'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B'; 
-    'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B'}; 
-exptext='TOPOmem5';
-expnam={'FLAT';'V05';'TOPO';'V20';'H500'};
-cexp=[87 198 229; 230 84 80; 242 135 0; 239 144 185; 146 200 101]/255; 
-
-
 plotarea=0;
 
 %---setting
-% stday=22;  sthrs=23:33;  acch=1;  thres=1;
-stday=22;  sthrs=22;  acch=1:12;  thres=1;  
+stday=22;  sthrs=22:33;  acch=1;  thres=1;
+% stday=22;  sthrs=22;  acch=1:12;  thres=1;  
 year='2018'; mon='06';  minu='00';
 dom='01';  infilenam='wrfout'; 
 %
@@ -131,13 +124,13 @@ for ti=sthrs
 end
 
 %---set legend
-% ni=0;  lgnd=cell(nexp*(narea+1),1);
-% for ei=1:nexp    
-%   for ari=0:narea
-%     ni=ni+1;
-%     lgnd{ni}=[expnam{ei},'_',arenam{ari+1}];
-%   end
-% end
+ni=0;  lgnd=cell(nexp*(narea+1),1);
+for ei=1:nexp    
+  for ari=0:narea
+    ni=ni+1;
+    lgnd{ni}=[expnam{ei},'_',arenam{ari+1}];
+  end
+end
 
 %---set title and filename text
 if length(sthrs)<length(acch)     
@@ -151,17 +144,21 @@ elseif length(sthrs)>length(acch)
 end
 %%
 %---plot
+
+
 hf=figure('position',[100 45 1000 600]);
 % for ei=1:nexp
 % plot(scc(ei,:),'color',cexp(ei,:),'Linestyle',lexp{ei},'LineWidth',2.5); hold on
 % end
 
-for ei=1:nexp
+for ei=[1 3 5 2 4]
+% for ei=1:nexp
+% for ei=[1 3 5 2 4 6 ]
     
   colei=ceil(ei/5);
   h(colei)=plot(scc(ei,:),'LineWidth',3.5,'color',cexp(colei,:)); hold on
   
-  
+%   h(ei)=plot(scc(ei,:),'LineWidth',3.5,'color',cexp(ei,:)); hold on
   
   if plotarea~=0
     for ari=1:narea
@@ -170,9 +167,9 @@ for ei=1:nexp
     end
   end
 end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Monospaced');
+legh=legend(h,lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Monospaced');
 %
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',18,'location','ne');
+% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',18,'location','ne');
 %
 set(gca,'Xlim',[0 ntime+1],'XTick',1:ntime,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 xlabel(xtit);  ylabel('SCC')

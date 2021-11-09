@@ -4,11 +4,11 @@ clear;   ccc=':';
 saveid=0; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN043B';  day=22;  hr=23;  minu=50;  
+expri='TWIN031B';  day=22;  hr=21;  minu=[0 10 20 30 40];  
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-xp=1; yp=150;  %start grid
-len=180;   %length of the line (grid)
+xp=1; yp=161;  %start grid
+len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
 %---
@@ -25,7 +25,7 @@ LFC_indir='/mnt/HDDA/Python_script/LFC_data';
     L=[-2 -1.5 -1 -0.5 -0.1   0.1 0.5 1 1.5 2];
 %----
 g=9.81;
-zlim=9000; ytick=1000:2000:zlim; 
+zlim=15000; ytick=1000:2000:zlim; 
 % zlim=5000; ytick=500:500:zlim; 
 
 for ti=hr
@@ -34,8 +34,8 @@ for ti=hr
     s_min=num2str(mi,'%2.2d');
     clear zgi u v w theta_prof  hyd_prof
 
-%     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
-%     LFC=readNPY(LFC_infile);
+    LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
+    LFC=readNPY(LFC_infile);
 %     LCL_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LCL.npy'];
 %     LCL=readNPY(LCL_infile);
 %       
@@ -96,7 +96,7 @@ for ti=hr
       Y=squeeze(theta(indx,indy,:));     theta_prof(:,i)=interp1(X,Y,zgi,'linear');
       Y=squeeze(hyd(indx,indy,:));    hyd_prof(:,i)=interp1(X,Y,zgi,'linear');
       hgtprof(i)=hgt(indx,indy);
-%       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
+      LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
 %       LCLprof(i)=LCL(indy,indx)+hgt(indx,indy);
     end    
     
@@ -122,13 +122,13 @@ for ti=hr
     [c,hdis]= contour(xi,zi,theta_prof,298:4:360,'color',[0.6 0.6 0.6],'linewidth',2.2); 
     clabel(c,hdis,hdis.TextList,'fontsize',14,'color',[0.6 0.6 0.6],'LabelSpacing',500)   
     
-%     LFC_h=LFC+hgt';
+    LFC_h=LFC+hgt';
 %     LCL_h=LCL+hgt';
 % 
 %     plot(xaxis(end)*1e3-10,LFCprof(end),'sk','markersize',10,'markerfacecolor','k')
 %     plot(xaxis(end)*1e3-10,LCLprof(end),'^k','markersize',10,'markerfacecolor','k')
 % 
-%     plot(xaxis*1e3,LFCprof,'color',[0.05 0.5 0.1],'LineWidth',2.5,'linestyle','--')
+    plot(xaxis*1e3,LFCprof,'color',[0.05 0.5 0.1],'LineWidth',2.5,'linestyle','--')
 %     plot(xaxis*1e3,LCLprof,'color',[0.3 0.8 0.1],'LineWidth',2.5,'linestyle','--')        
 %     contour(xi2,zi2,theda_lapse,[0 0],'color',[0.9 0.5 1],'linewidth',2.5,'linestyle','--'); 
 
@@ -150,9 +150,6 @@ for ti=hr
     w.plot= w.prof(1:intw:end,1:intu/1000:end);  
     u.plot=u.prof(1:intw:end,1:intu/1000:end);
     h1 = quiver(xi2,zi2,u.plot,w.plot,1,'k','MaxHeadSize',0.002) ; % the '0' turns off auto-scaling
-%     hU = get(h1,'UData');   hV = get(h1,'VData') ;
-%     qscale=500;
-%     set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1);   
    
     set(gca,'fontsize',16,'LineWidth',1.2,'box','on')
     set(gca,'Xticklabel',get(gca,'Xtick')*grids/dx,'Ytick',ytick,'Yticklabel',ytick./1000)
@@ -162,7 +159,7 @@ for ti=hr
 
     xlabel(xtitle); ylabel('Height (km)')
     s_hrj=num2str(mod(ti+9,24),'%.2d');
-    tit=[expri,'  ',titnam,'  ',s_hrj,s_min,' LT'];     
+    tit=[expri,'  ',titnam,'  ',mon,s_date,'  ',s_hrj,s_min,' LT'];     
     title(tit,'fontsize',18)  
     
     %---colorbar---

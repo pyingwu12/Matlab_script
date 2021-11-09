@@ -1,10 +1,12 @@
-% close all
+close all
 clear
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %---setting
-expri='TWIN013B';  stday=23;  sth=5;  acch=1; 
+expri='TWIN003B';
+% expri='TWIN042Pr001qv062221';
+stday=22;  sth=[22 28];   s_minu='00';   acch=6; 
 %---
-year='2018'; mon='06';  s_minu='30';  
+year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
 indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
@@ -41,7 +43,7 @@ for ti=sth
     hf=figure('position',[100 45 800 680]);
     [c, hp]=contourf(plotvar,L2,'linestyle','none');
     if (max(max(hgt))~=0)
-    hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
+    hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',2.3); 
     end
     %
     set(gca,'fontsize',18,'LineWidth',1.2) 
@@ -54,8 +56,8 @@ for ti=sth
     %---colorbar---
     fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
-    colormap(cmap);  title(hc,'mm','fontsize',14);  drawnow;
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',15,'LineWidth',1.2);
+    colormap(cmap);  title(hc,'mm','fontsize',15);  drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');

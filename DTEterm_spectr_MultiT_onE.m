@@ -5,7 +5,7 @@
 % close all
 clear;  ccc=':';
 %---
-plotid='UV';  % present option: 'W', 'UV'
+plotid='LH';  % present option: 'W', 'UV'
 %
 expri='TWIN024';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 day=22;  hrs=[21 22 23 24 25 26 27]; minu=0:10:50;
@@ -25,7 +25,6 @@ R=287.04;
 Lv=(2.4418+2.43)/2 * 10^6 ;
 Tr=270;
 Pr=1000;
-
 %---
 lgnd=cell(ntime,1);   nti=0;
 for ti=hrs
@@ -38,6 +37,18 @@ for ti=hrs
     %---infile 2, based state---
     infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     
+    
+    PowSpe=cal_spectr(infile1,infile2,lev);
+    
+    if strcmp(plotid,'CMDTE')==1
+       eval(['spetr.diff_kh(:,nti)=PowSpe.',plotid,';'])
+       eval('spetr.cntl_kh(:,nti)=PowSpe.CMTE;')
+    else
+       eval(['spetr.diff_kh(:,nti)=PowSpe.diff',plotid,';'])
+       eval(['spetr.cntl_kh(:,nti)=PowSpe.',plotid,';'])
+    end    
+
+    %{
     switch(plotid)
       case('W')
         w.stag1 = ncread(infile1,'W'); w.f1=(w.stag1(:,:,lev)+w.stag1(:,:,lev+1)).*0.5; 
@@ -116,10 +127,13 @@ for ti=hrs
     for ki=1:max(max(nk2))   
       spetr.cntl_kh(ki,nti)=sum(spetr.cntl_shi(nk2==ki));   % sum of different kx, ky to kh bin
       spetr.diff_kh(ki,nti)=sum(spetr.diff_shi(nk2==ki));
-    end
+    end    
+    %}
   end %mi
   disp([s_hr,' done'])  
 end %ti
+      vinfo = ncinfo(infile1,'U10');   nx = vinfo.Size(1); ny = vinfo.Size(2); 
+
 % lgnd{nti+1}='-5/3 line';
 plotime=[2 7 13 16 17 18 19 20 21 22 23 25 31 37 42];
 col2=colormap_ncl(25:floor(length(colormap_ncl)/length(plotime))-1:end,:);

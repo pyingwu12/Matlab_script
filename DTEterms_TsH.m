@@ -1,6 +1,6 @@
 %----------------------------------------------------
-% vertical cross section of averaged error over a specific sub-domain (decided by <xsub> and <ysub>)
-%                                                          ^^^^^^^^^^^
+% Time-height cross section of averaged error over a specific sub-domain (decided by <xsub> and <ysub>)
+%                                                             ^^^^^^^^^^^
 % One experiments; x-axis: time; y-axis: Height
 % PY WU @2021/06/22
 %----------------------------------------------------
@@ -9,121 +9,205 @@ clear; ccc=':';
 saveid=1;
 
 %---setting 
-% expri='TWIN201';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
-expri='TWIN003';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
+expri='TWIN001';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
+% expri='TWIN013';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=30;
 % expri='TWIN021';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=00;
+% expri='TWIN003';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
 
 % expri='TWIN042';     xsub=151:300;  ysub=151:300;  stday=23;  sth=0;  stmin=00;
+% expri='TWIN043';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
+
+% expri='TWIN040';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
+
+% expri='TWIN030';     xsub=1:150;  ysub=1:150;  stday=23;  sth=0;  stmin=20;
 % expri='TWIN031';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
-expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];
+% expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];
+expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];
+
 
 % stday=22;  sth=22;  stmin=50;
 mint=10; lenm=160;  tint=2; 
-
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri];
-fignam=[expri,'_DTEtermsthe-ht_'];  titnam=[expri,'  height-time'];  
-
+fignam=[expri1,'_DTE_TsH_'];  titnam=[expri1,'  time-height']; 
 %
 ntime=fix(lenm/mint)+1;
-g=9.81;         nx=length(xsub); ny=length(ysub);
+g=9.81;    nx=length(xsub); ny=length(ysub);
 
 zlimt=15000;
 %%
+%
 %---
 nti=0;  ntii=0;
 for mi=stmin:mint:stmin+lenm
+  nti=nti+1;   
   hr=sth+fix(mi/60);
-  s_min=num2str(mod(mi,60),'%2.2d');  s_hr=num2str(mod(hr,24),'%2.2d');  s_date=num2str(stday+fix(hr/24),'%2.2d');
-  
-  nti=nti+1;      
+  s_min=num2str(mod(mi,60),'%2.2d');  s_hr=num2str(mod(hr,24),'%2.2d');  s_date=num2str(stday+fix(hr/24),'%2.2d');     
   if mod(nti,tint)==0
    ntii=ntii+1;   s_hrj=num2str(mod(hr+9,24),'%2.2d');   ss_hr{ntii}=[s_hrj,s_min];
-  end
-
+  end  
   %---infile 1---
   infile1=[indir,'/',expri1,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
+   qr1 = double(ncread(infile1,'QRAIN'));   
+   qc1 = double(ncread(infile1,'QCLOUD'));
+   qg1 = double(ncread(infile1,'QGRAUP'));  
+   qs1 = double(ncread(infile1,'QSNOW'));
+   qi1 = double(ncread(infile1,'QICE'));      
+   hyd1=qr1+qc1+qg1+qs1+qi1;
+   w1 = double(ncread(infile1,'W'));    
   %---infile 2---
   infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
-  %---  
-tic 
+   qr2 = double(ncread(infile2,'QRAIN'));   
+   qc2 = double(ncread(infile2,'QCLOUD'));
+   qg2 = double(ncread(infile2,'QGRAUP'));  
+   qs2 = double(ncread(infile2,'QSNOW'));
+   qi2 = double(ncread(infile2,'QICE'));     
+   hyd2=qr2+qc2+qg2+qs2+qi2;
+   w2 = double(ncread(infile2,'W')); 
+   theta2 = ncread(infile2,'T');  theta2=theta2+300;
+  %---
+  [DTE, ~]=cal_DTEterms(infile1,infile2);      
+  
+  %---heights to interpolate
   ph = ncread(infile2,'PH'); phb = ncread(infile2,'PHB');  PH0=(phb+ph);  zg0=PH0/g; 
   PH=( PH0(:,:,1:end-1)+PH0(:,:,2:end) ).*0.5;   zg=PH/g; 
-       
   zg_1D=squeeze(zg0(150,150,:));     
   if nti==1
      nz=length(zg_1D); 
      zgi0(1:2:nz*2-1,1)= zg_1D;   
-     zgi0(2:2:nz*2-1,1)= ( zg_1D(1:end-1) + zg_1D(2:end) )/2;   
+     zgi0(2:2:nz*2-1,1)= (zg_1D(1:end-1) + zg_1D(2:end) )/2;   
      zgi=zgi0(zgi0<zlimt);  
      nzgi=length(zgi); 
-  end
-    
-      
-  hyd_sub1=zeros(nx,ny,nzgi);  hyd_sub2=zeros(nx,ny,nzgi);    w_sub2=zeros(nx,ny,nzgi); 
-  KE3D_sub=zeros(nx,ny,nzgi);    SH_sub=zeros(nx,ny,nzgi);     LH_sub=zeros(nx,ny,nzgi);
-  theta_iso=zeros(nx,ny,nzgi);
-  
-  qr1 = double(ncread(infile1,'QRAIN'));   
-  qc1 = double(ncread(infile1,'QCLOUD'));
-  qg1 = double(ncread(infile1,'QGRAUP'));  
-  qs1 = double(ncread(infile1,'QSNOW'));
-  qi1 = double(ncread(infile1,'QICE'));      
-  hyd1=qr1+qc1+qg1+qs1+qi1;
-  w1 = double(ncread(infile1,'W'));    
-    
-    qr2 = double(ncread(infile2,'QRAIN'));   
-    qc2 = double(ncread(infile2,'QCLOUD'));
-    qg2 = double(ncread(infile2,'QGRAUP'));  
-    qs2 = double(ncread(infile2,'QSNOW'));
-    qi2 = double(ncread(infile2,'QICE'));     
-    hyd2=qr2+qc2+qg2+qs2+qi2;
-    w2 = double(ncread(infile2,'W')); 
-    theta2 = ncread(infile2,'T');  theta2=theta2+300;
-    
-  [DTE, ~]=cal_DTEterms(infile1,infile2);               
-   
+  end     
+  %----interpolation
+  hyd_sub1=zeros(nx,ny,nzgi);  hyd_sub2=zeros(nx,ny,nzgi);    w_sub2=zeros(nx,ny,nzgi);  theta_iso=zeros(nx,ny,nzgi);
+  KE3D_sub=zeros(nx,ny,nzgi);    SH_sub=zeros(nx,ny,nzgi);     LH_sub=zeros(nx,ny,nzgi);  
+  %
   ni=0;
   for i=xsub
     ni=ni+1;
     nj=0;
     for j=ysub      
-       nj=nj+1;
-       hyd_sub1(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(hyd1(i,j,:)),zgi,'linear');
-%          w_sub1(ni,nj,:)=interp1(squeeze(zg0(i,j,:)),squeeze(w1(i,j,:)),zgi,'linear');         
-       hyd_sub2(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(hyd2(i,j,:)),zgi,'linear');         
-       w_sub2(ni,nj,:)=interp1(squeeze(zg0(i,j,:)),squeeze(w2(i,j,:)),zgi,'linear');
-         
-       KE3D_sub(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(DTE.KE3D(i,j,:)),zgi,'linear');
-       SH_sub(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(DTE.SH(i,j,:)),zgi,'linear');
-       LH_sub(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(DTE.LH(i,j,:)),zgi,'linear');
-         
-       theta_iso(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(theta2(i,j,:)),zgi,'linear');
+      nj=nj+1;
+      hyd_sub1(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(hyd1(i,j,:)),zgi,'linear');
+%       w_sub1(ni,nj,:)=interp1(squeeze(zg0(i,j,:)),squeeze(w1(i,j,:)),zgi,'linear');         
+      hyd_sub2(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(hyd2(i,j,:)),zgi,'linear');         
+      w_sub2(ni,nj,:)=interp1(squeeze(zg0(i,j,:)),squeeze(w2(i,j,:)),zgi,'linear');
+      %
+      KE3D_sub(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(DTE.KE3D(i,j,:)),zgi,'linear');
+      SH_sub(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(DTE.SH(i,j,:)),zgi,'linear');
+      LH_sub(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(DTE.LH(i,j,:)),zgi,'linear');
+      %  
+      theta_iso(ni,nj,:)=interp1(squeeze(zg(i,j,:)),squeeze(theta2(i,j,:)),zgi,'linear');
     end
   end         
-% toc
 
-    hyd2_m(:,nti)= max(hyd_sub2,[],[1 2]);      
-
-    %---mean of errors---
-    KE3D_m(:,nti)=mean(KE3D_sub,[1 2],'omitnan');
-    SH_m(:,nti)=mean(SH_sub,[1 2],'omitnan');
-    LH_m(:,nti)=mean(LH_sub,[1 2],'omitnan');
-        
-    w_m(:,nti)= max(w_sub2,[],[1 2],'omitnan');
-
-    rmsd_hyd(:,nti)=(mean(  (hyd_sub1-hyd_sub2).^2,[1 2] ,'omitnan' )).^0.5;
-
-    theta_hm=mean(theta_iso,[1, 2],'omitnan');
-    theta_ano=theta_iso-repmat(theta_hm,size(theta_iso,1),size(theta_iso,2),1);    
-    theta_ano_max(:,nti)=max(theta_ano,[],[1 2]);
+  %--variables of the control simulation
+  hyd2_m(:,nti)= max(hyd_sub2,[],[1 2]); 
+  w_m(:,nti)= max(w_sub2,[],[1 2],'omitnan');
+  theta_hm=mean(theta_iso,[1, 2],'omitnan');
+  theta_ano=theta_iso-repmat(theta_hm,size(theta_iso,1),size(theta_iso,2),1);    
+  theta_ano_max(:,nti)=max(theta_ano,[],[1 2]);
     
+  %---mean of errors---
+  KE3D_m(:,nti)=mean(KE3D_sub,[1 2],'omitnan');
+  SH_m(:,nti)=mean(SH_sub,[1 2],'omitnan');
+  LH_m(:,nti)=mean(LH_sub,[1 2],'omitnan');   
+%  rmsd_hyd(:,nti)=(mean(  (hyd_sub1-hyd_sub2).^2,[1 2] ,'omitnan' )).^0.5;
      
   disp([s_hr,s_min,' done'])
 end %mi    
+[xi, zi]=meshgrid(1:ntime,zgi);
+%}
+
+% s_sth=num2str(sth,'%2.2d');
+% load(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m.mat'])
 %%
+%---plot settings
+%colormap
+load('colormap/colormap_ncl.mat')
+cmap=colormap_ncl(20:10:90,:); %cmap(1,:)=[1 1 1];
+cmap2=cmap*255;  cmap2(:,4)= (zeros(1,size(cmap2,1))+255)*0.5;
+L=[0.001 0.005 0.01 0.05 0.1 0.5 1];
+%contours---
+wcol=[0.88 0.1 0]; thecol=[0.98 0.8 0]; 
+%
+% ytick=1000:2000:zgi(end);
+ytick=1000:2000:zi(end,1);
+%
+CMDTE_m=LH_m+KE3D_m+SH_m;
+plotvar=CMDTE_m;
+pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
+%%
+% close all
+%-------plot--------------------------
+ hf=figure('position',[80 350 1100 600]);
+[~, hp]=contourf(xi,zi,plotvar,L2,'linestyle','none');   hold on
+% contour(xi,zgi,qc_m*1e3,[0.1 0.1],'color',[0.1 0.1 0.1],'linewidth',2,'linestyle','--');
+
+LSpac=600; Lfs=25;
+
+%---hydrometeors
+[c,hdis]=contour(xi,zi,hyd2_m*1e3,[0.1 7],'linewidth',3,'color',[0 0 0],'linestyle','--');
+clabel(c,hdis,[0.1 5 6 7 8 10],'fontsize',Lfs,'color',[0 0 0],'LabelSpacing',400)   
+
+%---horizontal max updraft of cntl simulation
+[c,hdis]=contour(xi,zi,w_m,[1.5 15],'color',wcol,'linewidth',3,'linestyle','--'); 
+clabel(c,hdis,[1 1.5 2 5 6 7 10 11 12 13 14 15],'fontsize',Lfs,'color',wcol,'LabelSpacing',1000)   
+
+%---horizontal max of theta'---
+[c,hdis]=contour(xi,zi,theta_ano_max,[1 4],'color',thecol,'linewidth',2.7,'linestyle','--'); 
+clabel(c,hdis,[0.5 1 2 2.5 3 3.5 4 ],'fontsize',Lfs,'color',thecol,'LabelSpacing',2000)   
+
+% LSpac=500; Lfs=15;
+% %---root mean square difference of hydrometeor---
+% [c,hdis]=contour(xi,zi,rmsd_hyd*1e3,[0.01 0.1],'color',dhydcol,'linewidth',3); 
+% clabel(c,hdis,[0.01 0.1],'fontsize',Lfs,'color',dhydcol,'LabelSpacing',LSpac)   
+
+set(gca,'fontsize',18,'LineWidth',1.2)
+set(gca,'Ylim',[0 zlimt-1000],'Ytick',ytick,'Yticklabel',ytick./1000)
+set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
+xlabel('Local time'); ylabel('Height (km)')
+title(titnam,'Interpreter','none')
+
+%---colorbar---
+fi=find(L>0);
+L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
+hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',16,'LineWidth',1.2);
+colormap(cmap); title(hc,'J kg^-^1','fontsize',16);  drawnow;
+hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
+for idx = 1 : numel(hFills)
+  hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
+end  
+%
+s_sth=num2str(sth,'%2.2d');
+outfile=[outdir,'/',fignam,mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m'];
+if saveid~=0
+print(hf,'-dpng',[outfile,'.png'])    
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end
+%}
+%%
+save(['matfile/',expri1,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m.mat'],...
+    'CMDTE_m','xi','zi','hyd2_m','w_m','theta_ano_max','ss_hr')
+%---check vertical velocity---
+%{
+ytick=1000:2000:zgi(end);
+xi=repmat(1:ntime,size(zgi,1),1);
+figure('position',[80 350 1200 400]);
+[~, hp]=contourf(xi,zgi,w_m,30,'linestyle','none');   hold on
+colorbar
+caxis([0 7])
+hold on
+[c,hdis]=contour(xi,zgi,w_m,[0.3 1 10],'color',[0.9 0.1 0.1],'linewidth',2,'linestyle','--'); 
+set(gca,'fontsize',16,'LineWidth',1.2)
+set(gca,'Ylim',[0 5000],'Ytick',ytick,'Yticklabel',ytick./1000)
+set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
+%}
+%%
+% plot DTEterms seperately
 %{
 KE3D_m(1:2,:)=NaN;
 SH_m(1:2,:)=NaN;
@@ -200,93 +284,4 @@ s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end))];
 % print(hf,'-dpng',[outfile,'.png'])    
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-%}
-%%
-%
-%---colormap of cloud---
-load('colormap/colormap_ncl.mat')
-cmap=colormap_ncl(20:10:90,:); %cmap(1,:)=[1 1 1];
-cmap2=cmap*255;  cmap2(:,4)= (zeros(1,size(cmap2,1))+255)*0.5;
-
-
-L=[0.001 0.005 0.01 0.05 0.1 0.5 1];
-
-%---settings of contours---
-wcol=[0.9 0.1 0.1]; thecol=[1 0.85 0.1];
-DTElw=4;
-%
-ytick=1000:2000:zgi(end);
-%
-% xi=repmat(1:ntime,size(zgi,1),1);
-[xi, zi]=meshgrid(1:ntime,zgi);
-%
-CMDTE_m=LH_m+KE3D_m+SH_m;
-plotvar=CMDTE_m;
-pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
-
-%%
-%-------plot--------------------------
- hf=figure('position',[80 350 1100 600]);
-[~, hp]=contourf(xi,zi,plotvar,L2,'linestyle','none');   hold on
-% contour(xi,zgi,qc_m*1e3,[0.1 0.1],'color',[0.1 0.1 0.1],'linewidth',2,'linestyle','--');
-
-LSpac=600; Lfs=18;
-
-[c,hdis]=contour(xi,zi,hyd2_m*1e3,[0.1 7],'linewidth',3,'color',[0 0 0],'linestyle','--');
-clabel(c,hdis,[0.1 5 6 7 8],'fontsize',Lfs,'color',[0 0 0],'LabelSpacing',LSpac)   
-
-%---horizontal max updraft of cntl simulation
-[c,hdis]=contour(xi,zi,w_m,[15 15],'color',wcol,'linewidth',3,'linestyle','--'); 
-clabel(c,hdis,[2 5 6 7 10 11 12 13 14 15],'fontsize',Lfs,'color',wcol,'LabelSpacing',LSpac)   
-
-%---horizontal max of theta'---
-[c,hdis]=contour(xi,zi,theta_ano_max,[4 4],'color',thecol,'linewidth',4,'linestyle','--'); 
-clabel(c,hdis,[1.5 2 2.5 3 3.5 4 ],'fontsize',Lfs,'color',thecol,'LabelSpacing',LSpac)   
-
-% LSpac=500; Lfs=15;
-% %---root mean square difference of hydrometeor---
-% [c,hdis]=contour(xi,zi,rmsd_hyd*1e3,[0.01 0.1],'color',dhydcol,'linewidth',3); 
-% clabel(c,hdis,[0.01 0.1],'fontsize',Lfs,'color',dhydcol,'LabelSpacing',LSpac)   
-
-set(gca,'fontsize',16,'LineWidth',1.2)
-set(gca,'Ylim',[0 zlimt-1000],'Ytick',ytick,'Yticklabel',ytick./1000)
-set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
-% set(gca,'Xlim',[3 ntime-3],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
-
-xlabel('Local time'); ylabel('Height (km)')
-title(titnam,'Interpreter','none')
-
-%---colorbar---
-fi=find(L>0);
-L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',14,'LineWidth',1.2);
-colormap(cmap); title(hc,'J kg^-^1','fontsize',14);  drawnow;
-hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
-for idx = 1 : numel(hFills)
-  hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
-end  
-%
-s_sth=num2str(sth,'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(stday),s_sth,num2str(stmin),'_',num2str(lenm),'m','_DTEshade4'];
-
-if saveid~=0
-print(hf,'-dpng',[outfile,'.png'])    
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-end
-%}
-%%
-save(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin),'_',num2str(lenm),'m.mat'],'CMDTE_m','xi','zi','hyd2_m','w_m','theta_ano_max')
-%---check vertical velocity---
-%{
-ytick=1000:2000:zgi(end);
-xi=repmat(1:ntime,size(zgi,1),1);
-figure('position',[80 350 1200 400]);
-[~, hp]=contourf(xi,zgi,w_m,30,'linestyle','none');   hold on
-colorbar
-caxis([0 7])
-hold on
-[c,hdis]=contour(xi,zgi,w_m,[0.3 1 10],'color',[0.9 0.1 0.1],'linewidth',2,'linestyle','--'); 
-set(gca,'fontsize',16,'LineWidth',1.2)
-set(gca,'Ylim',[0 5000],'Ytick',ytick,'Yticklabel',ytick./1000)
-set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 %}

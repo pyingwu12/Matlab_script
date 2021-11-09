@@ -52,8 +52,8 @@ expmsize=[19 24 24 29];
 % expmark={'s';'o';'^';'p'};     
 % exptext='U00_H1000';
 
-expri1={'TWIN030Pr001qv062221';'TWIN031Pr001qv062221';'TWIN047Pr001qv062221';'TWIN048Pr001qv062221'};
-expri2={'TWIN030B';'TWIN031B';'TWIN047B';'TWIN048B'};    
+expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
+expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
 expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
 expmark={'s';'o';'^';'p'};     
 exptext='NS5_H1000';
@@ -153,7 +153,7 @@ for ei=1:nexp
       hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     for mi=minu        
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
-       if ei~=1 && nti>7; break; end
+      if ei~=1 && nti>7; break; end
       if ei==1
         lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
       end

@@ -1,12 +1,12 @@
 % function zh_2D_twin(expri,s_date,hr,minu)
 close all
 clear;   ccc=':';
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN042';
+expri='TWIN201';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-day=23;  hr=1;  minu=20;  
+day=23;  hr=2;  minu=00;  
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % scheme='Gaddard'; %!!!!!!!!!!!!!!!
