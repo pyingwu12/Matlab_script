@@ -6,11 +6,11 @@
 
 close all
 clear;    ccc=':';
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 
 
-expri1={'TWIN020Pr001qv062221'};
-expri2={'TWIN020B'};  
+expri1={'TWIN003Pr001qv062221'};
+expri2={'TWIN003B'};  
     
 % expri1={'TWIN001Pr001qv062221';...
 %        'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221';

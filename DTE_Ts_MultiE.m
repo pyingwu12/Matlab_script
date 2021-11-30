@@ -1,7 +1,7 @@
-clear;  ccc=':';
-close all
+% clear;  ccc=':';
+% close all
 
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 
 %---experiments
 
@@ -21,15 +21,18 @@ saveid=1; % save figure (1) or not (0)
 % expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FALT_10LT'};
 % cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110  ]/255;
 
-
-% expri1={'TWIN042Pr001qv062221'; 'TWIN033Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN036Pr001qv062221';'TWIN201Pr001qv062221'; 
-%    'TWIN043Pr001qv062221'; 'TWIN003Pr001qv062221';  };   
-% expri2={'TWIN042B';'TWIN033B';'TWIN030B'; 'TWIN036B'; 'TWIN201B';
-%     'TWIN043B'; 'TWIN003B'}; 
-% exptext='FLATOPOU15';
-% % cexp=[183 179 162;  109 119 67; 77 191 216; 80 156 156]/255;
-% expnam={'U00_FLAT';'U05_FLAT';'NS5_FLAT';'U15_FLAT';'FLAT';'U00_TOPO';'TOPO'};
-% cexp=[109 191 230;  109 119 67; 80 156 156; 77 191 216;  183 179 162;  244 199 2 ;227 128 29]/255; 
+% exptext='diffpertU00';
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
+%         'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';
+%         'TWIN039Pr001qv062221';'TWIN039Pr0001qv062221';
+%         'TWIN013Pr001qv062221';'TWIN013Pr0001qv062221';
+%         'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
+% expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN039B';'TWIN039B'
+%         'TWIN013B';'TWIN013B';'TWIN003B';'TWIN003B'}; 
+% expnam={'FLAT';'FLAT_P01';'U00';'U00_P01';'U25';'U25_P01'
+%         'H500';'H500_P01';'TOPO';'TOPO_P01'};
+% cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;    24 88 139;   24 88 139
+%        146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
 
 % expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301'};   
 % expri2={'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
@@ -43,23 +46,19 @@ saveid=1; % save figure (1) or not (0)
 % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
  
-% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221noMP';'TWIN003Pr001qv062221';
-%          'TWIN003Pr001qv062221noMP';'TWIN013Pr001qv062221';'TWIN013Pr001qv062221noMP'};  
-% expri2={'TWIN201B';'TWIN201B062221noMP';'TWIN003B';'TWIN003B062221noMP';'TWIN013B';'TWIN013B062221noMP'};
-% exptext='noMP13';
-% expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP';'H500';'H500noMP'};
-% cexp=[0,0.447,0.741; 0.3,0.745,0.933;  0.85,0.325,0.098;  0.929,0.694,0.125; 0.466,0.674,0.188; 0.572 0.784 0.396]; 
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221noMP';'TWIN003Pr001qv062221';
+         'TWIN003Pr001qv062221noMP';'TWIN013Pr001qv062221';'TWIN013Pr001qv062221noMP'};  
+expri2={'TWIN201B';'TWIN201B062221noMP';'TWIN003B';'TWIN003B062221noMP';'TWIN013B';'TWIN013B062221noMP'};
+exptext='noMP13';
+expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP';'H500';'H500noMP'};
+cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
 
-% expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221'};   
-% expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; exptext='THM25';
-% expnam={'FLAT';'TOPO';'FLAT_THM25';'TOPO_THM25'};
-% cexp=[ 0,0.447,0.741; 0.85,0.325,0.098;  0.3,0.745,0.933; 0.929,0.694,0.125]; 
 
-expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221';
-        'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN013Pr0025THM062221'};   
-expri2={'TWIN201B';'TWIN003B';'TWIN013B';'TWIN001B';'TWIN003B';'TWIN013B'}; exptext='THM25';
-expnam={'FLAT';'TOPO';'H500';'FLAT_THM25';'TOPO_THM25';'H500_THM25'};
-cexp=[87 198 229; 242 155 0; 146 200 101;  47 158 189; 202 115 0; 10 160 61]/255; 
+% expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221';
+%         'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN013Pr0025THM062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN013B';'TWIN001B';'TWIN003B';'TWIN013B'}; exptext='THM25';
+% expnam={'FLAT';'TOPO';'H500';'FLAT_THM25';'TOPO_THM25';'H500_THM25'};
+% cexp=[87 198 229; 242 155 0; 146 200 101;  28 88 119; 171 106 105; 125 127 55]/255; 
 
 %{
 % expri1={'TWIN042Pr001qv062221';'TWIN030Pr001qv062221';'TWIN033Pr001qv062221';'TWIN036Pr001qv062221';'TWIN039Pr001qv062221'};   
@@ -83,7 +82,7 @@ plotid='CMDTE'; % "MDTE" or "CMDTE"
 stday=22;  sth=21;  lenh=11; minu=[0 20 40];  tint=1;
 % stday=22;  sth=21;  lenh=6; minu=0:10:50;  tint=1;
 
-plotarea=0; %if ~=0, plot sub-domain average set below
+plotarea=1; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
@@ -148,36 +147,46 @@ end
 %---plot
 % close all
 % saveid=1;
-% cexp=[87 198 229; 242 135 0; 146 200 101; 230 84 80; 239 144 185]/255; 
 
-cexp=[87 198 229; 242 155 0; 146 200 101;  28 88 119; 171 106 105; 125 127 55]/255; 
-
-linexp={'-';'-';'-';':';':';':'};
-% linexp={'-';'-';'-';':';':';'-';'-';'-';':';':'};
+% linexp={'-';'-';'-';':';':';':'};
+% linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
 % linexp={'-';'--';'-';'--';'-';'--'};
+
+% exptext='noMP';  fignam=[plotid,'_Ts_',exptext,'_'];
+% cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
+% expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP';'H500';'H500noMP'};
+
 
 % hf=figure('position',[100 55 1200 600]);
 hf=figure('position',[100 55 1000 600]);
-% for ei=[5 3 2 4 1  10 8 9 7 6] 
-% for ei=1:nexp   
-for ei=[1 4 3 6 2 5]
-  h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
-%   h(ei)= plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
+plotexp=1:nexp;
+% plotexp=[1 2 5 6 3 4];
+for ei=plotexp
+%   h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
+  h(ei)= plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
   if plotarea~=0
-    for ai=1:narea
+    for ai=1
       plot(DTE_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
     end
   end
 end
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+
+% ni=0;  lgnd=cell(nexp*(narea),1);
+% for ei=plotexp
+%   for ai=0:1
+%     ni=ni+1;
+%     lgnd{ni}=[expnam{ei},' (',arenam{ai+1},')'];
+%   end
+% end
 % legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
 %
 %---
 set(gca,'Linewidth',1.2,'fontsize',20)
 set(gca,'YScale','log');  %
-set(gca,'Ylim',[2e-4 2e1])
+% set(gca,'Ylim',[2e-4 2e1])
 % set(gca,'Ylim',[1e-6 3e1])
-% set(gca,'Ylim',[3e-5 2e1])
+set(gca,'Ylim',[3e-5 2e1])
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 
 xlabel('Local time'); ylabel('J kg^-^1')  

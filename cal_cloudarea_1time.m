@@ -1,5 +1,4 @@
 function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm)
-% function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm)
 
 
 % Criteria of find cloud area:
@@ -11,6 +10,7 @@ function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm)
 % cloud.scale:  Diameter of circle with the same area
 % cloud.maxzh:  Maximum Zh of control run over the cloud area
 % cloud.maxdte: Mean of first X maximum moist DTE over the cloud area. X=areasize
+% cloud.mounarea: if around mountain or downstream=1 (for idealized wind profile exp. added on 21/11/09)
 %------------
 % PY Wu @ 2020.11.25
 % 2021/02/10: modified the input from <expri1 and expri2> to <infile1 an infile2>
@@ -79,6 +79,8 @@ if ~isempty(stats)
 %   fin=find(stats.Area>areasize & centers(:,1)>ny+50 & centers(:,1)<=ny+50+300 & centers(:,2)>nx+75 & centers(:,2)<=nx+75+300);  
   fin=find(stats.Area>areasize & centers(:,1)>ny & centers(:,1)<2*ny+1 & centers(:,2)>nx & centers(:,2)<2*nx+1);  
                                                  %find area for calculating in center domain
+  cloud.mounarea=zeros(1,size(fin,1));
+  
   if ~isempty(fin)
     for i=1:size(fin,1) 
       cloud.size(i) = stats.Area(fin(i));            %grid numbers 
@@ -87,6 +89,16 @@ if ~isempty(stats)
       cloud.maxdte(i) = mean( maxk(repDTE(L==fin(i)),areasize)  ); % calculate mean of first X maximum value, X=areasize
       cloud.meandte(i) = mean(repDTE(L==fin(i)));
       
+      %---for idealized wind profile
+      if centers(fin(i),1)>=(ny+101) && centers(fin(i),1)<=(ny+200)
+          cloud.mounarea(i)=1;
+      end
+      %---for original sounding wind profile
+%       if centers(fin(i),1)>=(ny+51) && centers(fin(i),1)<=(ny+200) && centers(fin(i),2)>=(nx+1) && centers(fin(i),2)<=(nx+150)
+%           cloud.mounarea(i)=1;
+%       end
+      
+          
       %%---calculate distance between center of mountain and cloud area----
       disx=centers(fin(i),2)-(topo_locx+nx); disy=centers(fin(i),1)-(topo_locy+ny); 
       if disx>150; disx=300-disx; end

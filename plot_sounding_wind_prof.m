@@ -45,7 +45,7 @@ plot(U05,h,'linewidth',3.5,'color',[109 119 67]/255)
 % plot(U10,h,'linewidth',2.8)
 plot(U15,h,'linewidth',3.5,'color',[77 191 216]/255)
 % plot(U20,h,'linewidth',2.8)
-% plot(U25,h,'linewidth',2.8)
+plot(U25,h,'linewidth',2.8)
 
 plot([5 5],[0 h(end)],'linewidth',3.5,'linestyle',':','color',[80 156 156]/255)
 
@@ -58,8 +58,8 @@ set(gca,'linewidth',1.2,'fontsize',15,'Ylim',[0 27])
 
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
 outfile='/mnt/e/figures/idealized_wind_profile_WeismanKlemp_210906';
-print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png'])
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 
 %%
 %{

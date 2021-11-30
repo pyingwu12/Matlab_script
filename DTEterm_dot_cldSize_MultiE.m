@@ -52,11 +52,18 @@ expmsize=[19 24 24 29];
 % expmark={'s';'o';'^';'p'};     
 % exptext='U00_H1000';
 
-expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
-expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
+% expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
+% expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
+% expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='NS5_H1000';
+
+expri1={'TWIN042Pr001qv062221';'TWIN049Pr001qv062221';'TWIN043Pr001qv062221';'TWIN050Pr001qv062221'};
+expri2={'TWIN042B';'TWIN049B';'TWIN043B';'TWIN050B'};    
 expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
 expmark={'s';'o';'^';'p'};     
-exptext='NS5_H1000';
+exptext='U25_H1000';
+
 
 % expri1={'TWIN201Pr0025THM062221';'TWIN021Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN020Pr0025THM062221'};
 % expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
@@ -76,13 +83,6 @@ exptext='NS5_H1000';
 % expmark={'s';'o';'^';'p'};     
 % exptext='H2000_THM';
 
-% expri1={'TWIN201Pr001qv062221';'TWIN013Pr001qv062221';'TWIN019Pr001qv062221';'TWIN003Pr001qv062221';'TWIN016Pr001qv062221'};
-% expri2={'TWIN201B';'TWIN013B';'TWIN019B';'TWIN003B';'TWIN016B'};    
-% expnam={ 'FLAT';'V10H05';'V10H075';'V10H10';'V10H20'};
-% expmark={'s';'h';'p';'^';'o'};  
-% expmsize=[11 15 15 13 13];
-% exptext='vol10';
-
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'};
 % expri2={'TWIN201B';'TWIN003B'};    
 % expnam={ 'FLAT';'TOPO'};
@@ -90,7 +90,7 @@ exptext='NS5_H1000';
 % expmsize=[11 16];
 % exptext='exp0103';
 %-------------------------------------------------------------
-
+%{
 % expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
 % exptext='NS5';
 % expri2={'TWIN030B';'TWIN032B';'TWIN031B'};    
@@ -120,12 +120,13 @@ exptext='NS5_H1000';
 % expri2={'TWIN042B';'TWIN044B';'TWIN043B'};    
 % expnam={ 'noW_FLAT';'noW_H05';'noW_H10'};
 % expmark={'s';'o';'^'}; 
-
+%}
 
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
 % day=22;   hrs=[22 23 24 25 26];   minu=[0 20 40]; 
 day=22;   hrs=[23 24 25 26 27];   minu=[0 20 40];  
+% day=22;   hrs=[23 24 25 26 27];   minu=[0]; 
 %
 % cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
 cloudtpw=0.7;
@@ -157,7 +158,7 @@ for ei=1:nexp
       if ei==1
         lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
       end
-      if ei==1 && ti<25; continue; end
+%       if ei==1 && ti<25; continue; end
       %---infile 1---
       infile1=[indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %---infile 2---
@@ -200,5 +201,5 @@ end
  %--
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*10,'%.2d')];
-print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png'])
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);

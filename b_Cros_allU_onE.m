@@ -1,12 +1,12 @@
 % close all
 clear;   ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN040B';   day=22;  hr=23;  minu=50;  
+expri='TWIN013B062221noMP';   day=22;  hr=23;  minu=40;  
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-xp=1; yp=150;  %start grid
+xp=1; yp=102;  %start grid
 len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0

@@ -1,33 +1,47 @@
-% close all
+close all
 clear;  ccc=':';
 saveid=1; % save figure (1) or not (0)
 %-------------------------------
 
-exptext='alltopo';  
-expri={'TWIN201B';...
-        'TWIN017B';'TWIN013B';'TWIN022B';
-        'TWIN025B';'TWIN019B';'TWIN024B';
-        'TWIN021B';'TWIN003B';'TWIN020B';       
-        'TWIN023B';'TWIN016B';'TWIN018B'
-        };      
-    expnam={'FLAT';
-        'V05H05';'V10H05';'V20H05';
-        'V05H075';'V10H075';'V20H075';
-        'V05H10';'TOPO';'V20H10';
-        'V05H20';'V10H20';'V20H20'
-        };
-    cexp=[ 20 20 20;
-        75 190 237 ; 0  114  189;  5 55 160 ; 
-       245 153 202; 200 50 170; 140 30 135 
-       235 175 32 ;  220 85 25;  160 20 45;  
-       143 204 128;  97 153  48; 35 120 35 
-       ]/255;   
+% exptext='alltopo';  
+% expri={'TWIN201B';...
+%         'TWIN017B';'TWIN013B';'TWIN022B';
+%         'TWIN025B';'TWIN019B';'TWIN024B';
+%         'TWIN021B';'TWIN003B';'TWIN020B';       
+%         'TWIN023B';'TWIN016B';'TWIN018B'
+%         };      
+%     expnam={'FLAT';
+%         'V05H05';'V10H05';'V20H05';
+%         'V05H075';'V10H075';'V20H075';
+%         'V05H10';'TOPO';'V20H10';
+%         'V05H20';'V10H20';'V20H20'
+%         };
+%     cexp=[ 20 20 20;
+%         75 190 237 ; 0  114  189;  5 55 160 ; 
+%        245 153 202; 200 50 170; 140 30 135 
+%        235 175 32 ;  220 85 25;  160 20 45;  
+%        143 204 128;  97 153  48; 35 120 35 
+%        ]/255;   
    
-   
+% expri={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN039B';  'TWIN003B'; 'TWIN031B'; 'TWIN043B';'TWIN040B'}; 
+% exptext='U00NS5U25';
+% expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'U25_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO';'U25_TOPO'};
+% cexp=[87 198 229; 44 125 190; 95 85 147;  24 88 139;     242 155 0; 232 66 44; 168 63 63; 117 79 58]/255; 
+
+
+expri={'TWIN201B';'TWIN030B';'TWIN042B';  'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
+exptext='U00NS5';
+expnam={'FLAT';'NS5_FLAT';'U00_FLAT'; 'TOPO';'NS5_TOPO';'U00_TOPO'};
+cexp=[87 198 229; 44 125 190; 95 85 147;    242 155 0; 232 66 44; 168 63 63]/255; 
+
+% expri={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+% exptext='diffTOPO';
+% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+
    
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 dom={'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01'};
-
 
 % expri={'TWIN001B';'TWIN003B'}; 
 % exptext='FLATOPO';
@@ -35,8 +49,6 @@ dom={'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01'};
 % cexp=[87 198 229; 242 155 0]/255; 
 % lexp={'-';'-';'-'};  
 % dom={'01';'01';'01'};
-
-
 
 %---setting
 sth=15;   lenh=71;   minu=0:10:50;  tint=6; 
@@ -73,25 +85,29 @@ end
 %        ]/255;   
 % lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 %---plot
-% hf=figure('position',[100 45 1000 600]);
-hf=figure('position',[100 45 1400 800]);
-plotid=[1 3 10 9 8 ];
-for i=1:nexp
-% for i=plotid
+hf=figure('position',[100 45 1200 800]);
+% hf=figure('position',[100 45 1400 800]);
+% plotid=[1 3 5 2 4];
+plotid=1:nexp;
+for i=plotid
  h(i)=plot(1.5:ntime+0.5,plotvar(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',4); hold on
 end
 %
 legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Monospaced');
+%
+% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',30,'location','north','FontName','Monospaced');
+% set(legh,'Position',[0.31 0.5 0.1743 0.374])
+
 % legh=legend(h([1 3 8 9 10]),expnam{[1 3 8 9 10]},'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Monospaced');
 %
-% text(0,-0.08,'6/21','fontsize',20,'HorizontalAlignment', 'center')
-% text(145,-0.08,'6/22','fontsize',20,'HorizontalAlignment', 'center')
-% text(289,-0.08,'6/23','fontsize',20,'HorizontalAlignment', 'center')
+text(0,-0.115,'6/21','fontsize',20,'HorizontalAlignment', 'center')
+text(145,-0.115,'6/22','fontsize',20,'HorizontalAlignment', 'center')
+text(289,-0.115,'6/23','fontsize',20,'HorizontalAlignment', 'center')
 
 
 set(gca,'XLim',[1 ntime+1],'XTick',1 : tint*nminu : ntime ,'XTickLabel',ss_hr,'fontsize',20,'linewidth',1.5)
 % set(gca,'XLim',[20 ntime-26])
-% set(gca,'Ylim',[0 1])
+set(gca,'Ylim',[0 1.3])
 xlabel('Local time');  ylabel('mm')
 tit=[titnam,'  (domain ',typst,')  '];   
 % tit=['Domain-averaged hourly rainfall'];   

@@ -1,7 +1,7 @@
 close all 
 clear; ccc=':';
 %---setting
-expri='TWIN031B'; stday=21;  sth=16;  lenh=72;  tint=6;  bdy=0;
+expri='TWIN030B'; stday=21;  sth=16;  lenh=72;  tint=6;  bdy=0;
 typst='mean'; %mean/max/min
 %
 year='2018';  mon='06';  s_min='00';

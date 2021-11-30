@@ -2,15 +2,17 @@
 % calculate power spectra (cntl&diff) of model variables and the spectra of diff/cntl
 % PY @2021/06/27 
 %------------------------------------------
-% close all
+close all
 clear;  ccc=':';
 %---
-plotid='LH';  % present option: 'W', 'UV'
+plotid='CMDTE';  
 %
-expri='TWIN024';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-day=22;  hrs=[21 22 23 24 25 26 27]; minu=0:10:50;
+expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+day=22;  hrs=[21 22 23 24 25 26 27]; minu=0:10:50; 
+lev=1:33;  
+% day=22;  hrs=[21 22 23 24 25 26 27 28]; minu=[00 20 40];
 % lev=1:33;  
-lev=16:33;  
+
 %--
 year='2018';  mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
@@ -137,6 +139,12 @@ end %ti
 % lgnd{nti+1}='-5/3 line';
 plotime=[2 7 13 16 17 18 19 20 21 22 23 25 31 37 42];
 col2=colormap_ncl(25:floor(length(colormap_ncl)/length(plotime))-1:end,:);
+
+% plotime=[1 4 7 10 11 12 13 14 15 16 17 18 19 ];
+% col0=colormap_ncl([36 49  70 81 97 114 129 147 151 155 160 166 172 179 186 ...
+%     191 197 202 206 210 216 222 225 230 234 236 241 246 251 254],:);
+% col2=col0(1:2:end,:);
+
 %%
 %---Spectra of cntl and error at specfic times decided by <plotime>---
 %
@@ -155,13 +163,13 @@ for ti=plotime
 end
 legend(lgnd2,'Box','off','Interpreter','none','fontsize',15,'Location','BestOutside')
 %-------------
-xlim=[1 min(nx,ny)]; 
-switch(plotid)
-  case('W')
-    ylim=[1e-5 2e3];
-  case('UV')
-    ylim=[1e-5 2e5];
-end
+xlim=[1 min(nx,ny)];  ylim=[3e-2 1e6];
+% switch(plotid)
+%   case('W')
+%     ylim=[1e-5 2e3];
+%   case('UV')
+%     ylim=[1e-5 2e5];
+% end
 %---first axis---
 set(gca,'YScale','log','XScale','log','XLim',xlim,'Linewidth',1.2,'fontsize',16)
 set(gca,'Ylim',ylim)
@@ -217,12 +225,12 @@ title(tit,'fontsize',18)
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
-print(hf,'-dpng',[outfile,'.png']) 
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png']) 
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %}
 %%
 %---Spectra of cntl and error at all times---
-%{
+%
 col=colormap_ncl(25:floor(length(colormap_ncl)/ntime)-1:end,:);
 %---
 hf=figure('position',[100 45 930 660]) ;
@@ -240,7 +248,7 @@ end
 
 legend(lgnd,'Box','off','Interpreter','none','fontsize',13,'Location','BestOutside')
 %-------------
-xlim=[1 min(nx,ny)]; ylim=[1e-5 1e4];
+xlim=[1 min(nx,ny)]; ylim=[1e-5 1e4]; %ylim=[3e-2 1e6];
 %---first axis---
 set(gca,'YScale','log','XScale','log','XLim',xlim,'Linewidth',1.2,'fontsize',16)
 set(gca,'Ylim',ylim)
@@ -258,7 +266,7 @@ tit=[expri1,'  ',titnam,'  lev',num2str(lev(1),'%.2d'),'-',num2str(lev(end),'%.2
 title(tit,'fontsize',18)
 %---
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
+outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
 % print(hf,'-dpng',[outfile,'.png']) 
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);

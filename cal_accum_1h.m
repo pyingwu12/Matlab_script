@@ -41,5 +41,6 @@ for ti=1:lenh
         acci(nti)=max(max(rain(bdy+1:end-bdy,bdy+1:end-bdy)));
       end
     end  
+    if mod(nti,60)==0; disp([s_hr,s_min]); end
   end % tmi
 end %ti

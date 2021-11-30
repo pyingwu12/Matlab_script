@@ -1,12 +1,14 @@
 
-% 2021/10/16: "not finished" <-use domain mean (but not mean of profile) to calculate theta  anomaly
+% 2021/10/16: "not finished" <-use domain mean (but not mean of cross section) to calculate theta  anomaly
+% 2021/11/30: another file: <b_Cros_Tano_wholedom> use domain mean (but not mean of the cross section) to calculate theta  anomaly
+
 
 % close all
 clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN040B';   day=23;  hr=0;  minu=0:10:50;  
+expri='TWIN050B';   day=22;  hr=23;  minu=[10 20];  
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
 % xp=23; yp=100;  %start grid
@@ -14,7 +16,7 @@ maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
 % xp=1; yp=156;  %start grid
 % len=100;   %length of the line (grid)
 xp=1; yp=150;  %start grid
-len=100;   %length of the line (grid)
+len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
 %---
@@ -120,7 +122,6 @@ for ti=hr
       hgtprof(i)=hgt(indx,indy);
 %       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
     end    
-    
 
        %!!!!! problem: the mean is only the cross section mean, not domain mean !!!!!!!!
     theta_ano=theta_iso-repmat(mean(theta_iso,2,'omitnan'),1,size(theta_iso,2));          
@@ -179,11 +180,15 @@ for ti=hr
    qscale=300;
     set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1.3);  
     windlegend=10;
-    h2 = quiver((xp+xp+len-5)/2*1000,400,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+%     h2 = quiver((xp+xp+len-5)/2*1000,400,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+        h2 = quiver(50*1000,400,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+
     hU = get(h2,'UData');   hV = get(h2,'VData') ;
     set(h2,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1.3);  
-    text((xp+xp+len-5)/2*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
+%     text((xp+xp+len-5)/2*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
+    text(50*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
 
+    
         %---terrain
     if (max(max(hgtprof))~=0)
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)

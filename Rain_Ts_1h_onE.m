@@ -5,9 +5,9 @@ close all
 clear;  ccc=':';
 saveid=1; % save figure (1) or not (0)
 %---setting
-expri='TWIN018B';  stday=21;   sth=15;  lenh=71;  tint=5;  bdy=0;
+expri='TWIN201B';  stday=21;   sth=15;  lenh=71;  tint=5;  bdy=0;
 minu=0:10:50;  
-typst='max';  %mean/sum/max
+typst='mean';  %mean/sum/max
 %---
 year='2018'; mon='06';   infilenam='wrfout';  dom='01';  
 %---

@@ -3,6 +3,7 @@
 %                                        ^^^^^^^^^^^
 % Multi experiments; x-axis: time; y-axis: error; color: cloud ratio 
 % PY WU @2021/06/13
+% 2021/11/23: change critaria to TPW
 %----------------------------------------------------
 
 
@@ -48,13 +49,13 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[ 0.5 0.5 0.5];
 % exptext='TOPO';
 
-
 expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221'};   
 expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; 
 expnam={'FLAT';'TOPO';'FLAT_THM25';'TOPO_THM25'};
 cexp=[ 0,0.447,0.741; 0.85,0.325,0.098;  0.3,0.745,0.933; 0.929,0.694,0.125]; 
 expmark={'s';'^';'s';'^'};     
 exptext='THM25';
+
 %--------------------------------
 %   subx1=1; subx2=150; suby1=76; suby2=225;
 %   xsub=1:150;  ysub=76:225;
@@ -88,8 +89,8 @@ exptext='THM25';
 % exptext='U25';
 
 
-% cloudhyd=0.005;
-cloudhyd=0.003;
+
+cloudtpw=0.7; 
 %---
 stday=22;   sth=21;   lenh=7;  minu=0:10:50;   tint=1;
 % stday=22;   sth=23;   lenh=5;  minu=0:10:50;   tint=1;
@@ -130,18 +131,23 @@ for ei=1:nexp
       qg = double(ncread(infile2,'QGRAUP'));  
       qs = double(ncread(infile2,'QSNOW'));
       qi = double(ncread(infile2,'QICE')); 
-      hyd2D = sum(qr+qc+qg+qs+qi,3);      
+      hyd2D = sum(qr+qc+qg+qs+qi,3);   
+           P=double(ncread(infile2,'P')+ncread(infile2,'PB')); 
+  
+     hyd  = qr+qc+qg+qs+qi;   
+     dP=P(:,:,1:end-1,:)-P(:,:,2:end,:);
+     tpw= dP.*( (hyd(:,:,2:end,:)+hyd(:,:,1:end-1,:)).*0.5 ) ;
+     TPW=squeeze(sum(tpw,3)./9.81);     
           
       %---cloud grid ratio and error over sub-domain
-%       hyd2D_sub =hyd2D(subx1:subx2,suby1:suby2);    
-      hyd2D_sub =hyd2D(xsub,ysub); 
-      cgr(nti,ei) = length(hyd2D_sub(hyd2D_sub>cloudhyd)) / (size(hyd2D_sub,1)*size(hyd2D_sub,2)) *100 ;      
+      TPW_sub =TPW(xsub,ysub); 
+      cgr(nti,ei) = length(TPW_sub(TPW_sub>cloudtpw)) / (size(TPW_sub,1)*size(TPW_sub,2)) *100 ;  
       %---
       if cgr(nti,ei)>0          
         %---find max cloud area in the sub-domain---
-        [nx, ny]=size(hyd2D); 
-        rephyd=repmat(hyd2D,3,3);      
-        BW = rephyd > cloudhyd;  
+        [nx, ny]=size(TPW); 
+        rephyd=repmat(TPW,3,3);      
+        BW = rephyd > cloudtpw;  
         stats = regionprops('table',BW,'Area','Centroid');     
         centers = stats.Centroid;      
         fin=find( centers(:,1)>ny+suby1 & centers(:,1)<ny+suby2+1 & centers(:,2)>nx+subx1 & centers(:,2)<nx+subx2+1); 
@@ -221,7 +227,6 @@ for ploti=[2]
 end
 %}
 %%
-%
 %---plot colored curve colored by cloud grid ratio
 cmap0=loadfile.colormap_ncl(15:26:end-10,:); 
 cmap=cmap0(1:8,:); cmap(1,:)=[0.9 0.9 0.9];
@@ -302,7 +307,7 @@ for ploti=[2 4 5 6]
   drawnow  
 
   s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-  outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_hyd',num2str(cloudhyd*1000)];
+  outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_hyd',num2str(cloudtpw)];
   if saveid~=0
   print(hf,'-dpng',[outfile,'.png'])
   system(['convert -trim ',outfile,'.png ',outfile,'.png']);

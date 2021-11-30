@@ -2,15 +2,15 @@
 %------------------------------------------
 % plot vertical weighted average MDTE or CMDTE between two simulations
 %------------------------------------------
-close all
+% close all
 clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN201'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
+expri='TWIN003'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-s_date='23';  hr=0;  minu=0:10:50;  
+s_date='22';  hr=23;  minu=50;  
 %
 tpwid=0.7;  % for tpwid~=0, plot contour of TPW = <tpwid> (kg/m^2)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
