@@ -11,15 +11,17 @@
 % 2021/09/06: using TPW for detecting cloud area
 
 
-% close all; 
+close all; 
 clear; ccc=':';
+saveid=1;
 
 expmsize=[19 24 24 29];
 % % 
 % expri1={'TWIN201Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};
 % exptext='H500';
 % expri2={'TWIN201B';'TWIN017B';'TWIN013B';'TWIN022B'};    
-% expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
+% % expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
+% expnam={ 'FLAT';'H500_V05';'H500';'H500_V20'};
 % expmark={'s';'o';'^';'p'}; 
 
 % expri1={'TWIN201Pr0025THM062221';'TWIN017Pr0025THM062221';'TWIN013Pr0025THM062221';'TWIN022Pr0025THM062221'};
@@ -42,28 +44,28 @@ expmsize=[19 24 24 29];
 
 % expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
 % expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
-% expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
+% expnam={ 'FLAT';'V05';'TOPO';'V20'};
+% % expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H1000';
 
-% expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
-% expri2={'TWIN042B';'TWIN045B';'TWIN043B';'TWIN046B'};    
-% expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
-% expmark={'s';'o';'^';'p'};     
-% exptext='U00_H1000';
+expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
+expri2={'TWIN042B';'TWIN045B';'TWIN043B';'TWIN046B'};    
+expnam={'U00_FLAT';'U00_V05';'U00_TOPO';'U00_V20'};
+expmark={'s';'o';'^';'p'};     
+exptext='U00_H1000';
 
 % expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
 % expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
-% expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
+% expnam={'NS5_FLAT';'NS5_V05';'NS5_TOPO';'NS5_V20'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='NS5_H1000';
 
-expri1={'TWIN042Pr001qv062221';'TWIN049Pr001qv062221';'TWIN043Pr001qv062221';'TWIN050Pr001qv062221'};
-expri2={'TWIN042B';'TWIN049B';'TWIN043B';'TWIN050B'};    
-expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
-expmark={'s';'o';'^';'p'};     
-exptext='U25_H1000';
-
+% expri1={'TWIN042Pr001qv062221';'TWIN049Pr001qv062221';'TWIN043Pr001qv062221';'TWIN050Pr001qv062221'};
+% expri2={'TWIN042B';'TWIN049B';'TWIN043B';'TWIN050B'};    
+% expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='U25_H1000';
 
 % expri1={'TWIN201Pr0025THM062221';'TWIN021Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN020Pr0025THM062221'};
 % expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
@@ -155,6 +157,8 @@ for ei=1:nexp
     for mi=minu        
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
       if ei~=1 && nti>7; break; end
+%       if ei~=1 && nti>9; break; end
+
       if ei==1
         lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
       end
@@ -195,11 +199,17 @@ colormap(col(1:ntime,:))
 %---plot legent for experiments---
 xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
 for ei=1:nexp  
-  plot(10^(log10(xlimit(2))-0.31) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',13,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-  text(10^(log10(xlimit(2))-0.26) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',18,'FontName','Monospaced','Interpreter','none'); 
+  plot(10^(log10(xlimit(2))-0.35) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
+  text(10^(log10(xlimit(2))-0.30) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none'); 
 end
+% for ei=1:nexp  
+%   plot(10^(log10(xlimit(2))-0.25) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
+%   text(10^(log10(xlimit(2))-0.20) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none'); 
+% end
  %--
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*10,'%.2d')];
-% print(hf,'-dpng',[outfile,'.png'])
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+if saveid==1
+print(hf,'-dpng',[outfile,'.png'])
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end

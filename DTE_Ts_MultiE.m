@@ -1,16 +1,16 @@
-% clear;  ccc=':';
-% close all
+clear;  ccc=':';
+close all
 
 saveid=0; % save figure (1) or not (0)
 
 %---experiments
 
-% exptext='diffpert';
+% exptext='diffpert2';
 % expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
 %         'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301' };   
 % expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'
 %         'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
-% expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FALT_10LT'
+% expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FLAT_10LT'
 %         'TOPO_P10';'TOPO';'TOPO_P01';'TOPO_08LT';'TOPO_10LT'};
 % cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 %       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
@@ -34,6 +34,16 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;    24 88 139;   24 88 139
 %        146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
 
+exptext='diffpertU002';
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
+        'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';        
+        'TWIN013Pr001qv062221';'TWIN013Pr0001qv062221';
+        'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
+expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN013B';'TWIN013B';'TWIN003B';'TWIN003B'}; 
+expnam={'FLAT';'FLAT_P01';'U00_FLAT';'U00_FLAT_P01';'H500';'H500_P01';'TOPO';'TOPO_P01'};
+cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  
+       146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
+
 % expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301'};   
 % expri2={'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
 % exptext='TOPOdiffpert2';
@@ -46,12 +56,19 @@ saveid=0; % save figure (1) or not (0)
 % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
  
-expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221noMP';'TWIN003Pr001qv062221';
-         'TWIN003Pr001qv062221noMP';'TWIN013Pr001qv062221';'TWIN013Pr001qv062221noMP'};  
-expri2={'TWIN201B';'TWIN201B062221noMP';'TWIN003B';'TWIN003B062221noMP';'TWIN013B';'TWIN013B062221noMP'};
-exptext='noMP13';
-expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP';'H500';'H500noMP'};
-cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221noMP';'TWIN003Pr001qv062221';
+%          'TWIN003Pr001qv062221noMP';'TWIN013Pr001qv062221';'TWIN013Pr001qv062221noMP'};  
+% expri2={'TWIN201B';'TWIN201B062221noMP';'TWIN003B';'TWIN003B062221noMP';'TWIN013B';'TWIN013B062221noMP'};
+% exptext='noMP13';
+% expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP';'H500';'H500noMP'};
+% cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
+
+
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221noMP';'TWIN201Pr0025THM062221';'TWIN201Pr0025THM062221noMP'};  
+% expri2={'TWIN201B';'TWIN201B062221noMP';'TWIN201B';'TWIN201B062221noMP'};
+% exptext='THMnoMP';
+% expnam={'FLAT';'FLATnoMP';'FLAT_THM';'FLAT_THMnoMP'};
+% cexp=[87 198 229; 143 189 227;    28 88 119;  12 12 66 ]/255; 
 
 
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221';
@@ -82,7 +99,7 @@ plotid='CMDTE'; % "MDTE" or "CMDTE"
 stday=22;  sth=21;  lenh=11; minu=[0 20 40];  tint=1;
 % stday=22;  sth=21;  lenh=6; minu=0:10:50;  tint=1;
 
-plotarea=1; %if ~=0, plot sub-domain average set below
+plotarea=0; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
@@ -149,8 +166,8 @@ end
 % saveid=1;
 
 % linexp={'-';'-';'-';':';':';':'};
-% linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
-% linexp={'-';'--';'-';'--';'-';'--'};
+linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
+% linexp={'-';'--';'-';'--';'-';'--';'-';'--'};
 
 % exptext='noMP';  fignam=[plotid,'_Ts_',exptext,'_'];
 % cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
@@ -159,19 +176,19 @@ end
 
 % hf=figure('position',[100 55 1200 600]);
 hf=figure('position',[100 55 1000 600]);
-plotexp=1:nexp;
+plotexp=[1 2 3 4 7 8];
+% plotexp=1:nexp;
 % plotexp=[1 2 5 6 3 4];
 for ei=plotexp
-%   h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
-  h(ei)= plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
-  if plotarea~=0
-    for ai=1
-      plot(DTE_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
-    end
-  end
+  h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:)); hold on
+%   h(ei)= plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:)); hold on
+%   if plotarea~=0
+%     for ai=1
+%       plot(DTE_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
+%     end
+%   end
 end
 legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
-
 % ni=0;  lgnd=cell(nexp*(narea),1);
 % for ei=plotexp
 %   for ai=0:1
@@ -185,8 +202,10 @@ legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsiz
 set(gca,'Linewidth',1.2,'fontsize',20)
 set(gca,'YScale','log');  %
 % set(gca,'Ylim',[2e-4 2e1])
-% set(gca,'Ylim',[1e-6 3e1])
-set(gca,'Ylim',[3e-5 2e1])
+% set(gca,'Ylim',[1e-6 2e1])
+set(gca,'Ylim',[1e-6 3e1])
+% set(gca,'Ylim',[3e-5 2e1])
+
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 
 xlabel('Local time'); ylabel('J kg^-^1')  

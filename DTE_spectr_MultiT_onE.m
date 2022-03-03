@@ -5,7 +5,7 @@ close all
 clear;  ccc=':';
 saveid=1;
 %---
-expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN201';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 day=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00;
 % stday=23; hrs=[0 1 2];
 minu=[00 20 40];
@@ -123,7 +123,7 @@ vinfo = ncinfo(infile1,'U10');   nx = vinfo.Size(1); ny = vinfo.Size(2);
 lgnd{nti+1}='-5/3 line';
 %%
 %---plot
-hf=figure('position',[100 45 950 660]) ;
+hf=figure('position',[100 45 955 660]) ;
 %---
 % for ti=1:lenhr*length(minu)
 % plot(KE.kh(:,ti),'LineWidth',2.5,'LineStyle','-','color',col(ti,:)); hold on
@@ -148,9 +148,9 @@ end
 %
 lgnd2{n+1}='cntl13';
 plot(spetr.cntl_kh(:,21),'color',[0.3 0 0],'LineWidth',3,'LineStyle','-')
-% lgnd2{n+2}='-5/3 line';
-% x53=-5:0.1:4;  y53=7.35+(-5/3*x53);
-% plot(10.^x53,10.^y53,'k','linewidth',2.2,'linestyle','--');
+lgnd2{n+2}='-5/3 line';
+x53=-5:0.1:4;  y53=7.35+(-5/3*x53);
+plot(10.^x53,10.^y53,'k','linewidth',2.2,'linestyle','--');
 legend(lgnd2,'Box','off','Interpreter','none','fontsize',20,'Location','BestOutside')
 %
 %---
@@ -180,7 +180,7 @@ print(hf,'-dpng',[outfile,'.png'])
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %%
-%
+%{
 col=col0;
 %---plot
 hf=figure('position',[100 45 930 660]) ;

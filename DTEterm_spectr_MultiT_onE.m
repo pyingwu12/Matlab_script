@@ -189,12 +189,12 @@ title(tit,'fontsize',18)
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
-print(hf,'-dpng',[outfile,'.png']) 
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png']) 
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %}
 %%
 %---ratio of difference to cntl run at specfic times decided by <plotime>---
-%
+%{
 titnam=[plotid,' error %'];   fignam=[expri1(8:end),'_',plotid,'-r_',];
 hf=figure('position',[100 55 940 660]) ;
 n=0;
@@ -230,7 +230,7 @@ outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h'
 %}
 %%
 %---Spectra of cntl and error at all times---
-%
+%{
 col=colormap_ncl(25:floor(length(colormap_ncl)/ntime)-1:end,:);
 %---
 hf=figure('position',[100 45 930 660]) ;

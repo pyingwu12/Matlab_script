@@ -4,9 +4,9 @@ close all
 clear;
 ccc=':';
 %---setting
-expri='TWIN001'; 
+expri='TWIN031'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-day=22;  hr=23:26;  minu=00;  
+day=22;  hr=23;  minu=[20 30 40];  
 saveid=true;
 %---
 year='2018'; mon='06'; 
@@ -183,7 +183,7 @@ for ti=hr
 %     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
     %}
     
-    hf=figure('position',[80 350 1200 600]);
+    hf=figure('position',[80 100 1200 600]);
 
 ax1=subplot('position',[0.1300 0.43  0.7750 0.47]);
     %---cloud shaded---

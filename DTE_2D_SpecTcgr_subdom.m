@@ -6,19 +6,19 @@
 
 close all
 clear;    ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
-expri='TWIN003';   subx1=1; subx2=150; suby1=51; suby2=200;    xsub=1:150;  ysub=51:200;
+% expri='TWIN020';   subx1=1; subx2=150; suby1=51; suby2=200;    xsub=1:150;  ysub=51:200;
 % expri='TWIN201';   subx1=151; subx2=300; suby1=51; suby2=200;   xsub=151:300;  ysub=51:200;   
 
 % expri='TWIN043';   subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225; 
 % expri='TWIN042';    subx1=151; subx2=300; suby1=151; suby2=300;    xsub=151:300;  ysub=151:300; 
 
-% expri='TWIN030';    subx1=1; subx2=150; suby1=1; suby2=150;     xsub=1:150;  ysub=1:150;  
 % expri='TWIN031';    subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225; 
+% expri='TWIN030';    subx1=1; subx2=150; suby1=1; suby2=150;     xsub=1:150;  ysub=1:150;  
 
-%  expri='TWIN040';    subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225;  
-%   expri='TWIN039';     subx1=101; subx2=250; suby1=26; suby2=175;     xsub=101:250;  ysub=26:175;  
+% expri='TWIN040';    subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225;  
+expri='TWIN039';     subx1=101; subx2=250; suby1=26; suby2=175;     xsub=101:250;  ysub=26:175;  
 
 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
@@ -33,7 +33,7 @@ day=22;   hrs=[23 24 25 26 27 28 29 30];  minu=0:10:50;
 
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/DTE_2D_for_paper';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/';
 titnam='CMDTE';  fignam=[expri,'_CMDTE-SpecT_'];  
 %
 fload=load('colormap/colormap_dte.mat');
@@ -76,10 +76,6 @@ nexp=size(expri1,1);
       else
         cgr = length(TPW(TPW>cloudtpw)) / (size(TPW,1)*size(TPW,2))*100 ; 
       end
-      %---cloud grid ratio and error over sub-domain
-%       TPW_sub =TPW(xsub,ysub); 
-%       cgr = length(TPW_sub(TPW_sub>cloudtpw))/(size(TPW_sub,1)*size(TPW_sub,2)) *100 ; 
-
 
       thresh=cgrthresh(ntii);
       
@@ -110,6 +106,7 @@ nexp=size(expri1,1);
   %
   
 %%
+close all
   plotvar=CMDTE';   
   pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end      
   %---
@@ -130,23 +127,32 @@ nexp=size(expri1,1);
 %    text(subx1+5,suby2-16,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
 %    text(subx1+5,suby2-24,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
 %---upper right
-%    text(subx2-30,suby2-8,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
-%    text(subx2-30,suby2-16,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
-%    text(subx2-30,suby2-24,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
+rectangle('Position',[subx2-31.5 suby2-30 29.5 28],'Facecolor',[1 1 1],'Curvature',0.2)
+   text(subx2-30,suby2-8,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
+   text(subx2-30,suby2-16,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
+   text(subx2-30,suby2-24,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
 %---outside bottom right
 %    text(subx2-30,suby1-6,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
 %    text(subx2-30,suby1-14,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
 %    text(subx2-30,suby1-22,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
 %---bottom right
-   text(subx2-30,suby1+22,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
-   text(subx2-30,suby1+14,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
-   text(subx2-30,suby1+6,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
+%    text(subx2-30,suby1+22,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
+%    text(subx2-30,suby1+14,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
+%    text(subx2-30,suby1+6,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
 %
    set(gca,'fontsize',25,'LineWidth',2)           
    set(gca,'Xtick',[50 100 200 250],'Xticklabel',[50 100 200 250],'Ytick',0:50:300,'Yticklabel',0:50:300)
    set(gca,'xlim',[subx1-1 subx2],'ylim',[suby1-1 suby2])
    xlabel('(km)'); ylabel('(km)');
 % 
+
+
+xp=1; yp=150;
+line([xp xp+99],[yp yp],'color',[202 75 81]/255,'Linestyle',':','Linewidth',3.3)
+
+% xp=56; yp=50;
+% line([xp xp],[yp yp+99],'color',[202 75 81]/255,'Linestyle',':','Linewidth',3.3)
+
 
    tit={expri1,[titnam,'  ',mon,s_datej,'  ',time_tick{1}]}; 
    title(tit,'fontsize',20,'Interpreter','none')

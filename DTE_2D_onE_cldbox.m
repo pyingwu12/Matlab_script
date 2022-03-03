@@ -7,10 +7,10 @@ clear;   ccc=':';
 saveid=0; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN031'; 
+expri='TWIN201'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-day=22;  hr=21;  minu=50;  
+day=23;  hr=2;  minu=20;  
 %
 % cloudhyd=0.003;
 cloudtpw=0.7;
@@ -27,11 +27,11 @@ cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 % L=0.001*[0.1 0.5 1 1.5 2 2.5 3 3.5 4 4.5];
 % L=[0.001 0.003 0.005 0.007 0.009 0.01 0.02 0.03 0.04 0.05];
 
-L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
-
+% L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
+% 
 %   L=[0.5 2 4 6 8 10 15 20 25 30];
 
-%     L=[0.5 2 4 6 8 10 15 20 25 35];
+    L=[0.5 2 4 6 8 10 15 20 25 35];
 
 %   L=[0.5 2 4 6 10 15 20 30 40 60];
 %  L=[0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 4 ];
@@ -97,8 +97,8 @@ for ti=hr
     end    
     %
     set(gca,'fontsize',18,'LineWidth',1.2)
-%     set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
-       set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+76 ny+225]) 
+    set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
+%        set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+76 ny+225]) 
 %     set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+26 ny+175]) 
     set(gca,'Xtick',nx+50:50:nx+nx,'Xticklabel',50:50:nx,'Ytick',ny+50:50:ny+ny,'Yticklabel',50:50:ny)
 

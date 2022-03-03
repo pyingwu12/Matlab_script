@@ -9,18 +9,18 @@
 % 2021/06/10: standerize variable name of time settings
 % 2021/08/05: change cloud area criteria to TPW=0.7
 
-% close all; 
+close all; 
 clear; ccc=':';
 saveid=1;
 %---setting 
-ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-expri='TWIN201'; 
+ploterm='KE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
+expri='TWIN043'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
 % day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
 % day=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
-% day=22;   hrs=[27 26 25 24 23];  minu=[40 20 0]; 
-day=22;   hrs=[27 26 25 24 23];  minu=[50 20]; 
+day=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
+% day=22;   hrs=[27 26 25 24 23];  minu=[50 20]; 
 % day=23;   hrs=2;  minu=0;
 %  day=22;   hrs=[25 24 23];  minu=50:-10:0; 
 
@@ -74,7 +74,7 @@ for ti=hrs
   end % mi
 end %ti
 
-legend(lgnd,'Interpreter','none','fontsize',22,'Location','bestoutside','box','off');
+legend(lgnd,'Interpreter','none','fontsize',18,'Location','bestoutside','box','off');
 
 % nti=0;
 %   for ti=hrs 
