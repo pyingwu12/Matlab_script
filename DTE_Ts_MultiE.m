@@ -15,12 +15,6 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 %       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
 %   
-%   exptext='FLATdiffpert';
-% expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'};   
-% expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
-% expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FALT_10LT'};
-% cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110  ]/255;
-
 % exptext='diffpertU00';
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
 %         'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';
@@ -34,15 +28,15 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;    24 88 139;   24 88 139
 %        146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
 
-exptext='diffpertU002';
-expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
-        'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';        
-        'TWIN013Pr001qv062221';'TWIN013Pr0001qv062221';
-        'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
-expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN013B';'TWIN013B';'TWIN003B';'TWIN003B'}; 
-expnam={'FLAT';'FLAT_P01';'U00_FLAT';'U00_FLAT_P01';'H500';'H500_P01';'TOPO';'TOPO_P01'};
-cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  
-       146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
+% exptext='diffpertU002';
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
+%         'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';        
+%         'TWIN013Pr001qv062221';'TWIN013Pr0001qv062221';
+%         'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
+% expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN013B';'TWIN013B';'TWIN003B';'TWIN003B'}; 
+% expnam={'FLAT';'FLAT_P01';'U00_FLAT';'U00_FLAT_P01';'H500';'H500_P01';'TOPO';'TOPO_P01'};
+% cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  
+%        146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
 
 % expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301'};   
 % expri2={'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
@@ -70,12 +64,23 @@ cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;
 % expnam={'FLAT';'FLATnoMP';'FLAT_THM';'FLAT_THMnoMP'};
 % cexp=[87 198 229; 143 189 227;    28 88 119;  12 12 66 ]/255; 
 
-
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221';
 %         'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN013Pr0025THM062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B';'TWIN001B';'TWIN003B';'TWIN013B'}; exptext='THM25';
 % expnam={'FLAT';'TOPO';'H500';'FLAT_THM25';'TOPO_THM25';'H500_THM25'};
 % cexp=[87 198 229; 242 155 0; 146 200 101;  28 88 119; 171 106 105; 125 127 55]/255; 
+
+expri1={'TWIN201Pr001qv062221';'TWIN201Prl001qv062221';'TWIN003Pr001qv062221'; 'TWIN003Prl001qv062221'};  
+expri2={'TWIN201B';'TWIN201B';'TWIN003B';'TWIN003B'};
+exptext='prl';
+expnam={'FLAT';'FLATlow';'TOPO';'TOPOlow'};
+cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;  ]/255; 
+
+% expri1={'TWIN201Prl001qv062221';'TWIN003Pr001qv062221'; 'TWIN003Prl001qv062221'};  
+% expri2={'TWIN201B';'TWIN003B';'TWIN003B'};
+% exptext='prl';
+% expnam={'FLATlow';'TOPO';'TOPOlow'};
+% cexp=[143 189 227;     242 155 0; 211 127 143;  ]/255; 
 
 %{
 % expri1={'TWIN042Pr001qv062221';'TWIN030Pr001qv062221';'TWIN033Pr001qv062221';'TWIN036Pr001qv062221';'TWIN039Pr001qv062221'};   
@@ -175,12 +180,12 @@ linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
 
 
 % hf=figure('position',[100 55 1200 600]);
-hf=figure('position',[100 55 1000 600]);
-plotexp=[1 2 3 4 7 8];
-% plotexp=1:nexp;
+hf=figure('position',[100 105 1000 600]);
+% plotexp=[1 2 3 4 7 8];
+plotexp=1:nexp;
 % plotexp=[1 2 5 6 3 4];
 for ei=plotexp
-  h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:)); hold on
+  h(ei)= plot(real(DTE_dm(ei,:)),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:)); hold on
 %   h(ei)= plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:)); hold on
 %   if plotarea~=0
 %     for ai=1

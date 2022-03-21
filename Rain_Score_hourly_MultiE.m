@@ -13,12 +13,17 @@ close all
 % expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
 % cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
 
-expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN003B'; 'TWIN042B'; 'TWIN043B'}; 
-exptext='U00';
-expnam={'FLAT';'TOPO';'U00_FLAT';'U00_TOPO'};
-cexp=[87 198 229; 242 155 0;   95 85 147; 168 63 63]/255; 
 
+exptext='FLATOPOdiffpert';
+expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
+        'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301' };   
+expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'
+        'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
+expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FLAT_10LT'
+        'TOPO_P10';'TOPO';'TOPO_P01';'TOPO_08LT';'TOPO_10LT'};
+cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
+      230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
+  
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
 %         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
 %         'TWIN013Pr001qv062221';'TWIN013Pr001qv062221mem2';'TWIN013Pr001qv062221mem3';'TWIN013Pr001qv062221mem4';'TWIN013Pr001qv062221mem5';
@@ -81,7 +86,12 @@ for ei=1:nexp
       for j=1:2
        hr=(j-1)*acch+ti;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
        %------read netcdf data--------
-       infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];      
+       infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
+       if exist([indir,'/',expri1{ei}],'dir') && ~exist(infile1,'file') 
+        SCC(ei,nti)=NaN;
+        RMSE(ei,nti)=NaN;
+        continue
+       end
        rall1{j} = ncread(infile1,'RAINC');
        rall1{j} = rall1{j} + ncread(infile1,'RAINSH');
        rall1{j} = rall1{j} + ncread(infile1,'RAINNC');
@@ -91,6 +101,10 @@ for ei=1:nexp
        rall2{j} = rall2{j} + ncread(infile2,'RAINSH');
        rall2{j} = rall2{j} + ncread(infile2,'RAINNC');   
       end %j=1:2      
+      if isnan(SCC(ei,nti))
+          continue
+      end
+
       rain1=double(rall1{2}-rall1{1});  rain1(rain1+1==1)=0;
       rain2=double(rall2{2}-rall2{1});  rain2(rain2+1==1)=0;     
       %--------------------
@@ -131,7 +145,9 @@ end
 %---plot
 
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'TOPO';'NS5_TOPO';'U00_TOPO'};
-linestyl={'-';'-';'-';'-';':';':'};
+% linestyl={'-';'-';'-';'-';':';':'};
+linestyl={'-';'-';'-';':';':';'-';'-';'-';':';':'};
+
 
 hf=figure('position',[100 55 900 600]);
 % for ei=[1 3 5 2 4 6]
@@ -153,7 +169,7 @@ for ei=1:nexp
 end
 % legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','ne','FontName','Monospaced');
 %
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',18,'location','sw','FontName','Monospaced');
 %
 % set(gca,'Xlim',[0 ntime+1],'XTick',1:ntime,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 set(gca,'Xlim',[-1.5 ntime-1.5],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime+1,'XTickLabel',7:19,'Linewidth',1.2,'fontsize',20)
