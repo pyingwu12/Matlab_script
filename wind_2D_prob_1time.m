@@ -4,9 +4,10 @@ clear
 close all
 % addpath('/data8/wu_py/MATLAB/m_map/')
 
-pltime=43;  memsize=999;  thrd=[20 30 35 40];
+pltime=43;  memsize=999;  thrd=[20 25 30 35];
 
-member=randi([1 1000],1,memsize);
+tmp=randperm(1000);
+member=tmp(1:memsize);
 
 indir='/home/wu_py/plot_5kmEns/201910101800/';
 outdir='/data8/wu_py/Result_fig/Hagibis_5km';
@@ -87,7 +88,7 @@ hf=figure('Position',[100 100 800 630]);
 %
 m_proj('Lambert','lon',[135 145],'lat',[31 39],'clongitude',140,'parallels',[30 60],'rectbox','on')
 % % [~, hp]=m_contourf(lon,lat,squeeze(spd(:,:,pltt)),20,'linestyle','none'); 
-[~, hp]=m_contourf(lon,lat,mean(spd10_ens,3),20,'linestyle','none'); 
+[~, hp]=m_contourf(lon,lat,mean(spd10_ens,3),0:5:100,'linestyle','none'); 
 % 
 % m_coast('color','k');
 % m_gshhs_h('color','k','LineWidth',0.8);  m_gshhs_h('save','gumby');
