@@ -14,15 +14,22 @@ close all
 % cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
 
 
-exptext='FLATOPOdiffpert';
-expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
-        'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301' };   
-expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'
-        'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
-expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FLAT_10LT'
-        'TOPO_P10';'TOPO';'TOPO_P01';'TOPO_08LT';'TOPO_10LT'};
-cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
-      230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
+exptext='042check';
+expri1={'TWIN042Pr001qv062221';'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5'};   
+expri2={'TWIN042B';'TWIN042B';'TWIN042B'; 'TWIN042B';'TWIN042B'}; 
+expnam={'m1';'m2';'m3';'m4';'m5'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+
+  
+% exptext='FLATOPOdiffpert';
+% expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
+%         'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301' };   
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'
+%         'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
+% expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FLAT_10LT'
+%         'TOPO_P10';'TOPO';'TOPO_P01';'TOPO_08LT';'TOPO_10LT'};
+% cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
+%       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
   
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
 %         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
@@ -46,12 +53,12 @@ cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 % expnam={'FLAT';'TOPO'};
 % cexp=[87 198 229; 242 155 0]/255;
 
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 
 plotid='SCC';
 plotarea=0;
 %---setting
-sthrs=22:33;   minu=[0 20 40];  acch=1;
+sthrs=22:33;   minu=0:10:50;  acch=1;
 thres=1;  tint=1;
 year='2018'; mon='06'; stday=22;  
 dom='01';  infilenam='wrfout';
@@ -146,7 +153,8 @@ end
 
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'TOPO';'NS5_TOPO';'U00_TOPO'};
 % linestyl={'-';'-';'-';'-';':';':'};
-linestyl={'-';'-';'-';':';':';'-';'-';'-';':';':'};
+%linestyl={'-';'-';'-';':';':';'-';'-';'-';':';':'};
+linestyl={'-';'-';'-';'-';'-';'-';'-';'-';':';':'};
 
 
 hf=figure('position',[100 55 900 600]);
