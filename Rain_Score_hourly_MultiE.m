@@ -1,5 +1,5 @@
-clear;  ccc=':';
-close all
+clear;  ccc='-';
+%close all
 %---setting      
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
@@ -14,15 +14,15 @@ close all
 % cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
 
 
-exptext='FLATOPOdiffpert';
-expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
-        'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301' };   
-expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'
-        'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
-expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FLAT_10LT'
-        'TOPO_P10';'TOPO';'TOPO_P01';'TOPO_08LT';'TOPO_10LT'};
-cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
-      230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
+% exptext='FLATOPOdiffpert';
+% expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
+%         'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301' };   
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'
+%         'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
+% expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FLAT_10LT'
+%         'TOPO_P10';'TOPO';'TOPO_P01';'TOPO_08LT';'TOPO_10LT'};
+% cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
+%       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
   
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
 %         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
@@ -34,6 +34,17 @@ cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 %     'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B';
 %     'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';
 %     'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B'}; 
+
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3'
+%         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3'
+%         'TWIN013Pr001qv062221';'TWIN013Pr001qv062221mem2';'TWIN013Pr001qv062221mem3'
+%         'TWIN021Pr001qv062221';'TWIN021Pr001qv062221mem2';'TWIN021Pr001qv062221mem3'
+%         'TWIN020Pr001qv062221';'TWIN020Pr001qv062221mem2';'TWIN020Pr001qv062221mem3'};   
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 
+%     'TWIN003B';'TWIN003B';'TWIN003B';
+%     'TWIN013B';'TWIN013B';'TWIN013B';
+%     'TWIN021B';'TWIN021B';'TWIN021B';
+%     'TWIN020B';'TWIN020B';'TWIN020B';}; 
 % exptext='TOPOmem5';
 % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
@@ -46,17 +57,26 @@ cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 % expnam={'FLAT';'TOPO'};
 % cexp=[87 198 229; 242 155 0]/255;
 
-saveid=1; % save figure (1) or not (0)
+expri1={'TWIN031Pr001qv062221mem4'; 'TWIN030Pr001qv062221mem4'; 'TWIN043Pr001qv062221mem4';
+    'TWIN042Pr001qv062221mem4';'TWIN020Pr001qv062221mem4';'TWIN003Pr001qv062221mem5'};   
+expri2={'TWIN031B';'TWIN030B';'TWIN043B'; 'TWIN042B'; 'TWIN020B'; 'TWIN003B'}; 
+exptext='Test';
+expnam={'031m4';'030m4';'043m4';'042m4';'020m4';'003m5'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183; 168 63 63]/255; 
+
+saveid=0; % save figure (1) or not (0)
 
 plotid='SCC';
 plotarea=0;
 %---setting
-sthrs=22:33;   minu=[0 20 40];  acch=1;
+sthrs=22:33;   minu=0:10:50;  acch=1;
+% sthrs=22:33;   minu=[0 20 40];  acch=1;
 thres=1;  tint=1;
 year='2018'; mon='06'; stday=22;  
 dom='01';  infilenam='wrfout';
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='E:expri_twin'; outdir='E:figures/expri_twin';
 titnam='Hourly rainfall';   fignam=['accum1h_',plotid,'_',exptext,'_'];
 
 %---set area
@@ -75,7 +95,10 @@ ntime=length(sthrs)*nminu;
 ntii=0;
 SCC=zeros(nexp,ntime); RMSE=zeros(nexp,ntime); %ETS=zeros(nexp,ntime); bias=zeros(nexp,ntime); 
 for ei=1:nexp
-  nti=0;       
+  nti=0;  
+  if ~exist([indir,'/',expri1{ei}],'dir')
+     continue
+  end
   for ti=sthrs
     if mod(ti-sthrs(1),tint)==0 && ei==1
        ntii=ntii+1;    ss_hr{ntii}=num2str(mod(ti+9,24),'%2.2d');
@@ -146,7 +169,8 @@ end
 
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'TOPO';'NS5_TOPO';'U00_TOPO'};
 % linestyl={'-';'-';'-';'-';':';':'};
-linestyl={'-';'-';'-';':';':';'-';'-';'-';':';':'};
+% linestyl={'-';'-';'-';':';':';'-';'-';'-';':';':'};
+linestyl={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 
 
 hf=figure('position',[100 55 900 600]);

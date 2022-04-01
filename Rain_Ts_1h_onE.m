@@ -2,7 +2,7 @@
 % plot time series of hourly rainfall
 %----
 close all
-clear;  ccc=':';
+clear;  ccc='-';
 saveid=1; % save figure (1) or not (0)
 %---setting
 expri='TWIN201B';  stday=21;   sth=15;  lenh=71;  tint=5;  bdy=0;
@@ -12,7 +12,8 @@ typst='mean';  %mean/sum/max
 year='2018'; mon='06';   infilenam='wrfout';  dom='01';  
 %---
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir=['/mnt/e/figures/expri_test/',expri];
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['E:expri_twin/',expri]; outdir=['E:figures/expri_twin/',expri];
+% indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 %---
 titnam='Hourly rainfall time series';   fignam=[expri,'_accum-1h_Ts_'];
 

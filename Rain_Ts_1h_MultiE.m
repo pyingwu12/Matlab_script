@@ -1,6 +1,6 @@
 close all
-clear;  ccc=':';
-saveid=1; % save figure (1) or not (0)
+clear;  ccc='-';
+saveid=0; % save figure (1) or not (0)
 %-------------------------------
 
 % exptext='alltopo';  
@@ -28,16 +28,15 @@ saveid=1; % save figure (1) or not (0)
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'U25_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO';'U25_TOPO'};
 % cexp=[87 198 229; 44 125 190; 95 85 147;  24 88 139;     242 155 0; 232 66 44; 168 63 63; 117 79 58]/255; 
 
+% expri={'TWIN201B';'TWIN030B';'TWIN042B';  'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
+% exptext='U00NS5';
+% expnam={'FLAT';'NS5_FLAT';'U00_FLAT'; 'TOPO';'NS5_TOPO';'U00_TOPO'};
+% cexp=[87 198 229; 44 125 190; 95 85 147;    242 155 0; 232 66 44; 168 63 63]/255; 
 
-expri={'TWIN201B';'TWIN030B';'TWIN042B';  'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
-exptext='U00NS5';
-expnam={'FLAT';'NS5_FLAT';'U00_FLAT'; 'TOPO';'NS5_TOPO';'U00_TOPO'};
-cexp=[87 198 229; 44 125 190; 95 85 147;    242 155 0; 232 66 44; 168 63 63]/255; 
-
-% expri={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-% exptext='diffTOPO';
-% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+expri={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+exptext='diffTOPO';
+expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
 
    
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
@@ -56,7 +55,8 @@ typst='mean';%mean/sum/max
 ymd='20180621';   bdy=0;  
 %
 % indir='/mnt/HDD003/pwin/Experiments/expri_test/'; outdir='/mnt/e/figures/expri_test';
-indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+%indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='E:expri_twin'; outdir='E:figures/expri_twin';
 titnam='Hourly rainfall';   fignam=['accum-1h_Ts_',exptext,'_'];
 %
 nexp=size(expri,1); nminu=length(minu);  ntime=lenh*nminu;
