@@ -1,10 +1,10 @@
 close all
 clear
-saveid=1; % save figure (1) or not (0)
+saveid=0; % save figure (1) or not (0)
 %---setting
-expri='TWIN003B';
+expri='TWIN042B';
 % expri='TWIN042Pr001qv062221';
-stday=22;  sth=[22 28];   s_minu='00';   acch=6; 
+stday=22;  sth=23;   s_minu='50';   acch=1; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
