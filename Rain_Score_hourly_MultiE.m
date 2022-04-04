@@ -1,4 +1,4 @@
-clear;  ccc='-';
+clear;  ccc=':';
 close all
 %---setting      
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
@@ -45,12 +45,12 @@ close all
 
 expri1={%'TWIN030Pr001qv062221';'TWIN030Pr001qv062221mem2';'TWIN030Pr001qv062221mem3';'TWIN030Pr001qv062221mem4';'TWIN030Pr001qv062221mem5';
         %'TWIN031Pr001qv062221';'TWIN031Pr001qv062221mem2';'TWIN031Pr001qv062221mem3';'TWIN031Pr001qv062221mem4';'TWIN031Pr001qv062221mem5'; 
-        'TWIN042Pr001qv062221'%;'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5'; 
+        'TWIN042Pr001qv062221mem2'%;'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5'; 
         %'TWIN043Pr001qv062221';'TWIN043Pr001qv062221mem2';'TWIN043Pr001qv062221mem3';'TWIN043Pr001qv062221mem4';'TWIN043Pr001qv062221mem5'
         };   
 expri2={%'TWIN030B';'TWIN030B';'TWIN030B';'TWIN030B';'TWIN030B';
     %'TWIN031B';'TWIN031B';'TWIN031B';'TWIN031B';'TWIN031B';
-    'TWIN042B'%;'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
+    'TWIN042Pr001qv062221'%;'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
     %'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B'
     }; 
 exptext='042test';
@@ -69,8 +69,8 @@ thres=1;  tint=1;
 year='2018'; mon='06'; stday=22;  
 dom='01';  infilenam='wrfout';
 %
-% indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
-indir='E:expri_twin'; outdir='E:figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+% indir='E:expri_twin'; outdir='E:figures/expri_twin';
 titnam='Hourly rainfall';   fignam=['accum1h_',plotid,'_',exptext,'_'];
 
 %---set area
