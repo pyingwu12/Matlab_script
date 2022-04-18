@@ -1,5 +1,5 @@
 clear;  ccc=':';
-close all
+% close all
 %---setting      
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
@@ -45,12 +45,12 @@ close all
 
 expri1={%'TWIN030Pr001qv062221';'TWIN030Pr001qv062221mem2';'TWIN030Pr001qv062221mem3';'TWIN030Pr001qv062221mem4';'TWIN030Pr001qv062221mem5';
         %'TWIN031Pr001qv062221';'TWIN031Pr001qv062221mem2';'TWIN031Pr001qv062221mem3';'TWIN031Pr001qv062221mem4';'TWIN031Pr001qv062221mem5'; 
-        'TWIN042Pr001qv062221mem2'%;'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5'; 
+        'TWIN042Pr001qv062221'%;'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5'; 
         %'TWIN043Pr001qv062221';'TWIN043Pr001qv062221mem2';'TWIN043Pr001qv062221mem3';'TWIN043Pr001qv062221mem4';'TWIN043Pr001qv062221mem5'
         };   
 expri2={%'TWIN030B';'TWIN030B';'TWIN030B';'TWIN030B';'TWIN030B';
     %'TWIN031B';'TWIN031B';'TWIN031B';'TWIN031B';'TWIN031B';
-    'TWIN042Pr001qv062221'%;'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
+    'TWIN042B'%;'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
     %'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B'
     }; 
 exptext='042test';
@@ -88,6 +88,7 @@ ntime=length(sthrs)*nminu;
 %---
 ntii=0;
 SCC=zeros(nexp,ntime); RMSE=zeros(nexp,ntime); %ETS=zeros(nexp,ntime); bias=zeros(nexp,ntime); 
+%%
 for ei=1:nexp
   nti=0;  
   if ~exist([indir,'/',expri1{ei}],'dir')
@@ -104,6 +105,7 @@ for ei=1:nexp
        hr=(j-1)*acch+ti;   s_date=num2str(stday+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d');
        %------read netcdf data--------
        infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
+       if nti==12; disp(infile1); end
        if exist([indir,'/',expri1{ei}],'dir') && ~exist(infile1,'file') 
         SCC(ei,nti)=NaN;
         RMSE(ei,nti)=NaN;
@@ -137,7 +139,7 @@ for ei=1:nexp
   end %ti      
   disp([expri1{ei},' done'])
 end %exp
-
+%%
 eval(['rain_score=',plotid,';'])
 rain_score(rain_score==0)=NaN;
       
