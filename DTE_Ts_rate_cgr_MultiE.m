@@ -1,13 +1,13 @@
-clear;  ccc=':';
+clear;  ccc='-';
 close all
 
-expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-exptext='diffTOPO';
-expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
-xsub0={1:300 ; 1:300; 1:300; 1:300; 1:300}; 
-ysub0={1:300; 1:300; 1:300; 1:300; 1:300};
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+% exptext='diffTOPO';
+% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+% xsub0={1:300 ; 1:300; 1:300; 1:300; 1:300}; 
+% ysub0={1:300; 1:300; 1:300; 1:300; 1:300};
 
 % expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';'TWIN003Pr001qv062221';'TWIN043Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN042B';'TWIN003B';'TWIN043B'}; 
@@ -25,15 +25,15 @@ ysub0={1:300; 1:300; 1:300; 1:300; 1:300};
 % xsub0={1:300 ; 1:300; 1:300; 1:300; 1:300; 1:300}; 
 % ysub0={1:300; 1:300; 1:300; 1:300; 1:300; 1:300};
 
-% expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
-%         'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
-% expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
-% exptext='U00NS5_thesis';
-% expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
-% % % cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
-% cexp=[87 198 229; 46 125 195; 99 85 146;   242 155 0; 242 80 50; 163 63 63]/255; 
-% xsub0={1:300 ; 1:300; 1:300; 1:300; 1:300; 1:300}; 
-% ysub0={1:300; 1:300; 1:300; 1:300; 1:300; 1:300};
+expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
+        'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
+exptext='U00NS5_thesis_R2color';
+expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
+% % cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
+cexp=[87 198 229; 46 125 195; 99 85 146;   242 155 0; 242 80 50; 163 63 63]/255; 
+xsub0={1:300 ; 1:300; 1:300; 1:300; 1:300; 1:300}; 
+ysub0={1:300; 1:300; 1:300; 1:300; 1:300; 1:300};
 
 % expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';'TWIN039Pr001qv062221'; ...
 %         'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221';'TWIN040Pr001qv062221'};   
@@ -60,7 +60,8 @@ stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+indir='E:expri_twin';   outdir='D:\figures\expri_twin';
 titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -122,17 +123,18 @@ DTE_log=log(DTE_m);
 DTE_slope = (DTE_log(4:end,:)-DTE_log(1:end-3,:)); 
 % DTE_slope = (DTE_log(2:end,:)-DTE_log(1:end-1,:)); 
 %%
-cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 237 156 187]/255;
-
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 237 156 187]/255;
+% cexp=[87 198 229; 46 125 195; 99 85 146;     242 155 0; 242 80 50; 163 63 63]/255;  %R2 ori
+cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255; 
 %---
-close all
+% close all
 % hf=figure('position',[200 45 1000 600]);
-hf=figure('position',[200 65 1000 950]);
+hf=figure('position',[200 35 1000 950]);
 
 
-plotexp=[1 3 4 5 2];
+% plotexp=[1 3 4 5 2];
 %  plotexp=[1 3 4 2 5];
-% plotexp=[3 2 1 6 5 4];
+plotexp=[3 2 1 6 5 4];  %U00NS5 R2
 % plotexp=1:nexp;
 
 
@@ -141,8 +143,7 @@ ax2=subplot('position',[0.12 0.1 0.78 0.625]);
  
 yyaxis right
 for ei=plotexp
-% for ei=[1 3 2 5 4]
-   plot(2.5:ntime-1.5,DTE_slope(:,ei),'color',cexp(ei,:),'LineWidth',2.8,'linestyle',':','Marker','none'); hold on
+   plot(2.5:ntime-1.5,DTE_slope(:,ei),'color',cexp(ei,:),'LineWidth',3,'linestyle',':','Marker','none'); hold on
 %   plot(1:ntime-1,DTE_slope(:,ei),'color',cexp(ei,:),'LineWidth',2.5,'linestyle',':','Marker','none'); hold on
 end
 plot([1 ntime-1],[0.01 0.01],'LineWidth',2,'color','k','Marker','none','linestyle','-.')
@@ -152,24 +153,21 @@ label_h=ylabel('CMDTE growth rate');  label_h.Position(2) = 0.8; label_h.Positio
 
 yyaxis left
 for ei=plotexp
-% for ei=[1 3 2 5 4]
   h(ei)=plot(DTE_m(:,ei),'color',cexp(ei,:),'LineWidth',3.8,'linestyle','-','Marker','none'); hold on
 end
 set(ax2,'Yscale','log','Ylim',[1e-6 1.5e1],'YTick',[1e-4 1e-2 1e0],'fontsize',18,'LineWidth',1.2,'TickDir','out');
 ylabel('CMDTE (J kg^-^1)')
 % 
 % legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Monospaced');
-legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Monospaced');
+legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Courier New');
 
 set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
-% 
 xlabel('Local time'); 
 
 
 ax1=subplot('position',[0.12 0.735 0.78 0.2]);
 for ei=plotexp
-% for ei=[1 3 2 5 4]
-  plot(cgr(:,ei),'color',cexp(ei,:),'LineWidth',3.8,'linestyle','-.','Marker','none'); hold on
+  plot(cgr(:,ei),'color',cexp(ei,:),'LineWidth',3,'linestyle','-.','Marker','none'); hold on
 end
 set(ax1,'Yscale','log','Ylim',[2.9e-3 2.2e1],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 
 set(ax1,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',[],'YTick',[0.01 0.1 1 10])

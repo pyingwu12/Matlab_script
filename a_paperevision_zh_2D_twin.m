@@ -1,18 +1,19 @@
 % function zh_2D_twin(expri,s_date,hr,minu)
 close all
 clear;   
-ccc=':';
+ccc='-';
 %---setting
 expri='TWIN003';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-s_date='23'; hr=[1 3 5 7 9];  minu=40; 
+s_date='23'; hr=[1];  minu=40; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % scheme='Gaddard'; %!!!!!!!!!!!!!!!
 scheme='WSM6';
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7),'/SOLA2021_revision'];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7),'/SOLA2021_revision'];
+indir='E:expri_twin';   outdir='E:figures';
 %---
 titnam='Zh composite';   fignam=[expri1(8:end),'_zh-twin_'];
 %
@@ -59,7 +60,8 @@ for ti=hr
      hold on; contour(hgt_extend',[100 500 900],'color',[0.5 0.5 0.5],'linestyle','--','linewidth',2.5); 
     end
     hold on
-    contour(zh_max1_extend',[20 20],'color','k','linestyle','-','linewidth',3.9)
+%     contour(zh_max1_extend',[20 20],'color','k','linestyle','-','linewidth',3.9) % SOLA paper
+    contour(zh_max1_extend',[20 20],'color','k','linestyle','-','linewidth',2.5)
     %
     set(gca,'fontsize',20,'LineWidth',2) 
     set(gca,'Xlim',[301 600],'Ylim',[301 600])
@@ -86,8 +88,8 @@ for ti=hr
     
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     print(hf,'-dpng',[outfile,'.png'])    
-%      print(hf,'-dpdf',[outfile,'.pdf']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    % print(hf,'-dpdf',[outfile,'.pdf']) 
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %    
   end
 end

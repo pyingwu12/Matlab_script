@@ -10,8 +10,8 @@
 % 2021/08/05: change cloud area criteria to TPW=0.7
 
 close all; 
-clear; ccc=':';
-saveid=1;
+clear; ccc='-';
+saveid=0;
 %---setting 
 ploterm='KE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
 expri='TWIN043'; 
@@ -20,7 +20,7 @@ expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];
 % day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
 % day=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
 day=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
-% day=22;   hrs=[27 26 25 24 23];  minu=[50 20]; 
+% day=22;   hrs=[27 26 25 24 23];  minu=[50 20];  %thesis F3.9
 % day=23;   hrs=2;  minu=0;
 %  day=22;   hrs=[25 24 23];  minu=50:-10:0; 
 
@@ -30,7 +30,8 @@ cloudtpw=0.7;
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='E:expri_twin';   outdir=['E:figures/',expri];
 titnam=['size of cloud area to ',ploterm];   fignam=[expri1(8:end),'_cloud-',ploterm,'_'];
 %
 nhr=length(hrs);  nminu=length(minu);  ntime=nhr*nminu;
@@ -90,7 +91,6 @@ legend(lgnd,'Interpreter','none','fontsize',18,'Location','bestoutside','box','o
 % n=0; for i=1:tickint:ntime; n=n+1; llll{n}=lgnd2{i}; end
 % colorbar('YTick',L1,'YTickLabel',lgnd2,'fontsize',13,'LineWidth',1.2);
 % colormap(col(1:ntime,:))  
-
 
 set(gca,'fontsize',16,'LineWidth',1.2,'box','on') 
 set(gca,'Xscale','log','Yscale','log')
