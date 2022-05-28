@@ -15,11 +15,25 @@ saveid=1;
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
 % cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
 
-expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';'TWIN003Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN042B';'TWIN003B'}; 
-exptext='FLATU00';
-expnam={'FLAT';  'U00_FLAT'; 'TOPO'};
-cexp=[87 198 229;  95 85 147;  242 155 0]/255; 
+
+expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';...
+        'TWIN003Pr001qv062221';'TWIN043Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN042B';'TWIN003B'; 'TWIN043B'}; 
+exptext='U00';
+expnam={'FLAT';'U00_FLAT';  'TOPO';'U00_TOPO'};
+cexp=[87 198 229;  95 85 147;   242 155 0;  168 63 63]/255; 
+
+% expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';'TWIN003Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN042B';'TWIN003B'}; 
+% exptext='FLATU00';
+% expnam={'FLAT';  'U00_FLAT'; 'TOPO'};
+% cexp=[87 198 229;  95 85 147;  242 155 0]/255; 
+
+% expri1={'TWIN201Pr001qv062221';'TWIN043Pr001qv062221';'TWIN003Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN043B';'TWIN003B'}; 
+% exptext='TOPOU00';
+% expnam={'FLAT'; 'U00_TOPO'; 'TOPO'};
+% cexp=[87 198 229;  168 63 63;  242 155 0]/255; 
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B'}; 
@@ -117,7 +131,7 @@ end % expri
 %---
 close all
 % hf=figure('position',[200 45 1000 600]);
-hf=figure('position',[200 65 1000 800]);
+hf=figure('position',[200 65 930 800]);
 
 ni=0;  lgnd=cell(nexp*(narea+1),1);
 for ei=1:nexp    
@@ -140,22 +154,25 @@ for ei=plotexp
   end
 end
 % set(ax2,'Yscale','log','Ylim',[2e-4 2e1],'fontsize',18,'LineWidth',1.2,'TickDir','out');
-set(ax2,'Yscale','log','Ylim',[2e-4 1.5e1],'fontsize',18,'LineWidth',1.2,'TickDir','out');
-% set(ax2,'Yscale','log','Ylim',[1e-6 1.5e1],'YTick',[1e-4 1e-2 1e0],'fontsize',18,'LineWidth',1.2,'TickDir','out');
+
+% set(ax2,'Yscale','log','Ylim',[2e-4 1.5e1],'fontsize',18,'LineWidth',1.2,'TickDir','out'); %JAS paper ?
+set(ax2,'Yscale','log','Ylim',[1e-6 1.5e1],'fontsize',18,'LineWidth',1.2,'TickDir','out');
 
 ylabel('CMDTE (J kg^-^1)')
 % 
 legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
 % legend(ax2,lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','southeast','FontName','Consolas');
 
-set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
+% set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
+set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
+
 % 
 xlabel('Local time'); 
 
 
 ax1=subplot('position',[0.12 0.675 0.78 0.25]);
 for ei=plotexp
-  plot(cgr(:,ei),'color',cexp(ei,:),'LineWidth',3.5,'linestyle','--','Marker','none'); hold on
+  plot(cgr(:,ei),'color',cexp(ei,:),'LineWidth',3.5,'linestyle','-.','Marker','none'); hold on
   if plotarea~=0
     for ai=1:narea
       plot(cgr_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
@@ -174,5 +191,5 @@ outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
 if saveid==1
 print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
