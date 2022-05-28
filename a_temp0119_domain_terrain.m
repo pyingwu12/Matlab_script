@@ -1,14 +1,13 @@
 
 close all
-clear;  ccc=':';
+clear;  ccc='-';
 
 %---setting
 expri='TWIN003B';  
 year='2018'; mon='06'; s_date='22';  s_hr='23'; minu='30';
 infilenam='wrfout';  dom='01'; 
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri];
-outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
-
+% indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['E:expri_twin/',expri];   outdir=['D:/figures/expri_twin/',expri(1:7)];
 
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
 hgt= ncread(infile,'HGT');
@@ -17,7 +16,8 @@ hgt= ncread(infile,'HGT');
 % Side lengths
 Lx = 300;
 Ly = 300;
-Lz = 10000;
+%Lz = 10000; %thesis
+Lz = 2000; 
 
 % Vertices
 vertices = [
@@ -51,7 +51,7 @@ hface = patch('Faces', faces, 'Vertices', vertices, 'FaceColor', 'none','linewid
 
 axis([0 Lx 0 Ly 0 Lz])
 set(gca,'fontsize',20,'linewidth',2)
-set(gca,'ZTick',[0 10000],'ZTicklabel',[0 25])
+% set(gca,'ZTick',[0 10000],'ZTicklabel',[0 25]) %thesis
 set(gca,'position',[0.1 0.11 0.7 0.8])
 % grid off
 grid minor
@@ -60,11 +60,12 @@ cmp = getPyPlot_cMap('BuGn');
 colormap(cmp); hc=colorbar; title(hc,'m'); caxis([0 1000])
   set(hc,'position',[0.9 0.12 0.018 0.7150],'Linewidth',1.5);
 
-view([-20.5 33])
+%view([-20.5 33]) % thesis
+view([-20.5 33]) 
 
 xlabel('X (km)'); ylabel('Y (km)'); zlabel('Height (km)')
 
 outfile=[outdir,'/terrain_3D'];
-   print(hf,'-dpng',[outfile,'.png'])    
-   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%    print(hf,'-dpng',[outfile,'.png'])    
+%    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

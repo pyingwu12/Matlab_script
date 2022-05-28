@@ -1,4 +1,4 @@
-clear;  ccc=':';
+clear;  ccc='-';
 % close all
 saveid=1;
 
@@ -8,12 +8,18 @@ saveid=1;
 % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
 
-expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
-        'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
-exptext='U00NS52';
-expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
-cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
+% expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
+%         'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
+% exptext='U00NS52';
+% expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
+% cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
+
+expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';'TWIN003Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN042B';'TWIN003B'}; 
+exptext='FLATU00';
+expnam={'FLAT';  'U00_FLAT'; 'TOPO'};
+cexp=[87 198 229;  95 85 147;  242 155 0]/255; 
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B'}; 
@@ -36,11 +42,13 @@ if plotarea~=0; narea=size(xarea,1); else; narea=0; end
 cloudtpw=0.7; 
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
-stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1;
+% stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1;
+stday=22;  sth=21;  lenh=11;  minu=[0 20 40];  tint=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+indir='E:expri_twin';   outdir='D:\figures\expri_twin';
 titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;

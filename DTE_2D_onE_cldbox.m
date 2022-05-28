@@ -3,7 +3,7 @@
 % cloud boxes
 %------------------------------------------
 % close all
-clear;   ccc=':';
+clear;   ccc='-';
 saveid=0; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
@@ -18,7 +18,8 @@ areasize=10;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='E:expri_twin';   outdir=['D:/figures/expri_twin/',expri];
 titnam=plotid;   fignam=[expri1(8:end),'_',plotid,'-cloud_',];
 
 %

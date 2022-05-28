@@ -10,7 +10,8 @@ ax = gca;  c = ax.Color;  ax.Color = 'blue';
 
 indir=['E:/wrfout/expri191009/',expri]; outdir='E:/figures/expri191009/'; % for matlab under windows
 
-legh=legend(expnam,'Box','off','Interpreter','none','location','nw','fontsize',16);
+legh=legend(expnam,'Box','off','Interpreter','none','location','nw','fontsize',16,'FontName','Consolas'); %Lucida Console
+
 set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
 set(gca,'TickDir','out','box','on')
 

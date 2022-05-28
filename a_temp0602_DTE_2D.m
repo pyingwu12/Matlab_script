@@ -7,10 +7,10 @@ clear;   ccc='-';
 saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN003'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
+expri='TWIN201'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-day=22;    hr=27;  minu=50;  
+day=23;    hr=2;  minu=50;  
 %
 tpwid=0.7;  % for tpwid~=0, plot contour of TPW = <tpwid> (kg/m^2)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
@@ -18,7 +18,7 @@ zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-indir='E:expri_twin';   outdir=['E:figures/',expri];
+indir='E:expri_twin';   outdir=['D:/figures/expri_twin/',expri];
 
 titnam=plotid;   fignam=[expri1,'_',plotid,'_',];
 if tpwid~=0; fignam=[fignam,'tpw',num2str(tpwid),'_'];  end
@@ -84,7 +84,8 @@ for ti=hr
     xlabel('(km)'); ylabel('(km)');
     %---
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % JST time string
-      if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
+    s_datej=num2str(day+fix((ti+9)/24),'%2.2d'); 
+%       if ti+9>24; s_datej=num2str(str2double(s_date)+fix((ti+9)/24)); else; s_datej=s_date; end
     tit={expri1,[titnam,'  ',mon,s_datej,'  ',s_hrj,s_min,' LT']}; 
     title(tit,'fontsize',20,'Interpreter','none')
     
