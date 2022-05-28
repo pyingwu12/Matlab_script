@@ -120,7 +120,7 @@ end %ti
 end
 
  lh= legend(lgnd);
- set(lh,'fontsize',15,'Location','eastoutside','FontName','Monospaced','box','off')
+ set(lh,'fontsize',15,'Location','eastoutside','FontName','Consolas','box','off')
  
  
  

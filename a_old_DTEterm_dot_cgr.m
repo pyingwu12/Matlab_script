@@ -209,7 +209,7 @@ colormap(col(1:nti,:))
 % % xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
 % % for ei=1:nexp  
 % %   plot(10^(log10(xlimit(1))+0.2) , 10^(log10(ylimit(2))-0.4*ei) ,expmark{ei},'MarkerSize',10,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-% %   text(10^(log10(xlimit(1))+0.3) , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',18,'FontName','Monospaced','Interpreter','none'); 
+% %   text(10^(log10(xlimit(1))+0.3) , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',18,'FontName','Consolas','Interpreter','none'); 
 % % end
 % % 
 % % s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');

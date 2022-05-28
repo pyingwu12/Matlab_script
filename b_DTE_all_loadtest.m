@@ -139,8 +139,8 @@ for ploti=2
   for ei=plotexp  
     nei=nei+1;
     plot(xlimit(1)+1 , 10^(log10(ylimit(2))-0.4*nei) ,expmark{ei},'MarkerSize',10,'MarkerFaceColor',cexp(ei,:),'MarkerEdgeColor',cexp(ei,:),'linewidth',1.5);
-%     text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*nei) ,[expnam{ei},' (',num2str(slope(ei)),')'],'fontsize',18,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
-    text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*nei) ,expnam{ei},'fontsize',18,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
+%     text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*nei) ,[expnam{ei},' (',num2str(slope(ei)),')'],'fontsize',18,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
+    text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*nei) ,expnam{ei},'fontsize',18,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
   end
   drawnow  
 end
@@ -207,7 +207,7 @@ for ploti=1
   for ei=plotexp  
     nei=nei+1;
     plot(10^(log10(xlimit(1))+0.2) , 10^(log10(ylimit(2))-0.4*nei) ,expmark{ei},'MarkerSize',13,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-    text(10^(log10(xlimit(1))+0.3) , 10^(log10(ylimit(2))-0.4*nei) ,expnam{ei},'fontsize',18,'FontName','Monospaced','Interpreter','none'); 
+    text(10^(log10(xlimit(1))+0.3) , 10^(log10(ylimit(2))-0.4*nei) ,expnam{ei},'fontsize',18,'FontName','Consolas','Interpreter','none'); 
   end
  
 end

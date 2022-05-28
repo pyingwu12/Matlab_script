@@ -185,7 +185,7 @@ for ei=1:nexp
     end
   end
 end
-legh=legend(h,lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Monospaced');
+legh=legend(h,lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Consolas');
 %
 % legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',18,'location','ne');
 %

@@ -301,8 +301,8 @@ for ploti=[2 4 5 6]
   xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
   for ei=1:nexp  
 %     plot(xlimit(1)+1.5 , 10^(log10(ylimit(2))-0.4*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',cexp(ei,:),'MarkerEdgeColor',cexp(ei,:),'linewidth',1.5);
-%     text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(quan_err(ei)),')'],'fontsize',20,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
-    text(xlimit(1)+2.4 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
+%     text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(quan_err(ei)),')'],'fontsize',20,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
+    text(xlimit(1)+2.4 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',20,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
   end
   drawnow  
 
@@ -380,8 +380,8 @@ for ploti=[2 ]
   xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
   for ei=1:nexp  
     plot(xlimit(1)+1 , 10^(log10(ylimit(2))-0.4*ei) ,expmark{ei},'MarkerSize',10,'MarkerFaceColor',cexp(ei,:),'MarkerEdgeColor',cexp(ei,:),'linewidth',1.5);
-    text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(slope(ei)),')'],'fontsize',18,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
-%  text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',18,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
+    text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(slope(ei)),')'],'fontsize',18,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
+%  text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',18,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
   end
   drawnow  
 

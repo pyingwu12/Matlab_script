@@ -99,7 +99,7 @@ for ei=1:nexp
 %   line([35 38],[10^(-3-0.5*ei) 10^(-3-0.5*ei)],'color','k','LineWidth',2.5,'linestyle',linestyl{ei})
 %   text(6,10^(-3-0.5*ei),expnam{ei},'fontsize',18)
 end
-legh=legend({'KE','ThE','LH'},'Box','off','Interpreter','none','fontsize',20,'Location','se','FontName','Monospaced');
+legh=legend({'KE','ThE','LH'},'Box','off','Interpreter','none','fontsize',20,'Location','se','FontName','Consolas');
 %---
 set(gca,'YScale','log','Linewidth',1.2,'fontsize',16)
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)

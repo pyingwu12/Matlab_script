@@ -129,7 +129,7 @@ hf=figure('position',[100 55 900 600]);
 
  h(ei)= plot(scc(ei,:),'LineWidth',5,'color',cexp(ei,:),'linestyle',linestyl{ei}); hold on
 end
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Consolas');
 
 set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',20,'linewidth',1.2)
 set(gca,'Ylim',[0.2 1],'YTick',0:0.2:1)

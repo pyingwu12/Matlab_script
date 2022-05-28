@@ -43,7 +43,7 @@ hf=figure('position',[200 45 1000 600]);
 for ei=1:nexp
   plot(plotvar(:,ei),'color',cexp(ei,:),'LineWidth',2.5);  hold on
 end
-legend(expnam,'Box','off','Interpreter','none','fontsize',28,'Location','bestout','FontName','Monospaced');
+legend(expnam,'Box','off','Interpreter','none','fontsize',28,'Location','bestout','FontName','Consolas');
 %
 % set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr,'Linewidth',1.2,'fontsize',16)

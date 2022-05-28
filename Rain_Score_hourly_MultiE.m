@@ -185,9 +185,9 @@ for ei=1:nexp
 %     end
 %   end
 end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','ne','FontName','Monospaced');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','ne','FontName','Consolas');
 %
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',18,'location','sw','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',18,'location','sw','FontName','Consolas');
 %
 % set(gca,'Xlim',[0 ntime+1],'XTick',1:ntime,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 set(gca,'Xlim',[-1.5 ntime-1.5],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime+1,'XTickLabel',7:19,'Linewidth',1.2,'fontsize',20)

@@ -65,7 +65,7 @@ hf=figure('position',[100 55 1000 600]);
       plot(DTEmo_am(:,ai),'LineWidth',3,'color',col(ai,:),'linestyle','-');hold on
     end
 
-legh=legend(arenam,'Box','off','Interpreter','none','fontsize',23,'Location','southeast','FontName','Monospaced');
+legh=legend(arenam,'Box','off','Interpreter','none','fontsize',23,'Location','southeast','FontName','Consolas');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log');

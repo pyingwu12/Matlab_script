@@ -93,12 +93,12 @@ for i=plotid
  h(i)=plot(1.5:ntime+0.5,plotvar(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',4); hold on
 end
 %
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Consolas');
 %
-% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',30,'location','north','FontName','Monospaced');
+% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',30,'location','north','FontName','Consolas');
 % set(legh,'Position',[0.31 0.5 0.1743 0.374])
 
-% legh=legend(h([1 3 8 9 10]),expnam{[1 3 8 9 10]},'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Monospaced');
+% legh=legend(h([1 3 8 9 10]),expnam{[1 3 8 9 10]},'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Consolas');
 %
 text(0,-0.115,'6/21','fontsize',20,'HorizontalAlignment', 'center')
 text(145,-0.115,'6/22','fontsize',20,'HorizontalAlignment', 'center')

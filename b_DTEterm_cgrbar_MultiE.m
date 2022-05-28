@@ -121,7 +121,7 @@ for ploti=1:4
     plot_col_line(1:ntime,ones(1,ntime)*10^(-6.3+0.3*ei),cgr(:,ei),cmap,L,7)
   end  
 
-  legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+  legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
   set(legh,'Position',[0.5773 0.3278 0.2520 0.4008])
 
 

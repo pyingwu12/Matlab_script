@@ -181,7 +181,7 @@ for ei=plotexp
 %   end
 end
 %%
-legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
 % ni=0;  lgnd=cell(nexp*(narea),1);
 % for ei=plotexp
 %   for ai=0:1
@@ -189,7 +189,7 @@ legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsiz
 %     lgnd{ni}=[expnam{ei},' (',arenam{ai+1},')'];
 %   end
 % end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Consolas');
 %
 %---
 set(gca,'Linewidth',1.2,'fontsize',20)

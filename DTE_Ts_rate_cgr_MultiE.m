@@ -159,8 +159,8 @@ end
 set(ax2,'Yscale','log','Ylim',[1e-6 1.5e1],'YTick',[1e-4 1e-2 1e0],'fontsize',18,'LineWidth',1.2,'TickDir','out');
 ylabel('CMDTE (J kg^-^1)')
 % 
-% legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Monospaced');
-legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Courier New');
+% legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
+legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
 
 set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 xlabel('Local time'); 

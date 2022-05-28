@@ -48,7 +48,7 @@ stday=22;  sth=21;  lenh=11;  minu=[0 20 40];  tint=1;
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
-indir='E:expri_twin';   outdir='D:\figures\expri_twin';
+indir='D:expri_twin';   outdir='D:figures\expri_twin';
 titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -145,8 +145,8 @@ set(ax2,'Yscale','log','Ylim',[2e-4 1.5e1],'fontsize',18,'LineWidth',1.2,'TickDi
 
 ylabel('CMDTE (J kg^-^1)')
 % 
-legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Monospaced');
-% legend(ax2,lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','southeast','FontName','Monospaced');
+legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
+% legend(ax2,lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','southeast','FontName','Consolas');
 
 set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 % 

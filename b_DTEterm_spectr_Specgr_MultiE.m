@@ -124,7 +124,7 @@ for ei=[1 3 5 2 4 6]
  end
 end
 
-legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','sw','FontName','Monospaced')
+legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','sw','FontName','Consolas')
 %---
 xlim=[1 min(nx,ny)]; ylim=[1e-3 3e4];
 %---first axis---

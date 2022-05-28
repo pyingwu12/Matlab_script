@@ -205,7 +205,7 @@ for ei=1:nexp
 end
 % for ei=1:nexp  
 %   plot(10^(log10(xlimit(2))-0.25) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-%   text(10^(log10(xlimit(2))-0.20) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none'); 
+%   text(10^(log10(xlimit(2))-0.20) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Consolas','Interpreter','none'); 
 % end
  %--
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');

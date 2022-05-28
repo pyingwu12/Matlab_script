@@ -93,7 +93,7 @@ end
 for ei=1:nexp
   plot(plotvar2(ei,:),'LineWidth',2.5,'color',cexp(ei,:),'linestyle','--');
 end
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','best','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','best','FontName','Consolas');
 
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
@@ -114,7 +114,7 @@ hf=figure('position',[100 55 1000 600]);
 for ei=1:nexp
   plot(plotvar2(ei,:),'LineWidth',2.8,'color',cexp(ei,:)); hold on
 end
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','nw','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','nw','FontName','Consolas');
 
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)

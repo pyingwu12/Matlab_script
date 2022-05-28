@@ -71,7 +71,7 @@ for ei=1:nexp
   plot(zhall(ei,:),'color',cexp(ei,:),'Linestyle',lexp{ei},'LineWidth',2.8); hold on
 end
 %
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','best','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','best','FontName','Consolas');
 %
 set(gca,'fontsize',16,'linewidth',1.2)
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)

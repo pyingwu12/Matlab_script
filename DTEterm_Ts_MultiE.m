@@ -111,8 +111,8 @@ for ei=1:nexp
     end
   end
 end
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
 %
 %---
 set(gca,'Linewidth',1.2,'fontsize',20)

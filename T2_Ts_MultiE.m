@@ -99,10 +99,10 @@ for i=plotid
    h(i)= plot(plotvar(i,:),'color',cexp(i,:),'Linestyle',lexp{i},'LineWidth',4); hold on
 end
 %
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','southeast','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','southeast','FontName','Consolas');
 set(legh,'Position',[0.475 0.1233 0.17 0.3006],'fontsize',25)
 
-% legh=legend(h([1 3 8 9 10]),expnam{[1 3 8 9 10]},'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Monospaced');
+% legh=legend(h([1 3 8 9 10]),expnam{[1 3 8 9 10]},'Box','off','Interpreter','none','fontsize',30,'location','eastoutside','FontName','Consolas');
 %
 text(-6,294.8,'6/21','fontsize',20,'HorizontalAlignment', 'center')
 text(138,294.8,'6/22','fontsize',20,'HorizontalAlignment', 'center')

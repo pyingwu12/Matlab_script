@@ -66,7 +66,7 @@ hf=figure('position',[100 45 1000 600]);
 for i=1:nexp
 plot(cldg_num(i,:),'color',cexp(i,:),'LineWidth',2); hold on
 end
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','bestoutside','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','bestoutside','FontName','Consolas');
 %
 set(gca,'XTick',tint:length(minu):size(cldg_num,2),'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 set(gca,'Yscale','log')

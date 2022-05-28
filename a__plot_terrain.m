@@ -44,7 +44,7 @@ for ei=1:nexp
       hgt = ncread(infile,'HGT');     
       plot(hgt(:,100),'LineWidth',4.5,'color',cexp(ei,:)); hold on        
       
-% legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','ne','FontName','Monospaced');
+% legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','ne','FontName','Consolas');
 
 set(gca,'fontsize',20,'linewidth',2,'Ylim',[0 2500])
 xlabel('X (km)');  ylabel('Hheight (m)')
@@ -83,7 +83,7 @@ for ei=1:nexp
       plot(hgt(:,100),'LineWidth',4.5,'color',cexp(ei,:)); hold on        
 end %exp
      
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',28,'Location','ne','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',28,'Location','ne','FontName','Consolas');
 
 set(gca,'fontsize',20,'linewidth',2,'Ylim',[0 2500],'Ylim',[0 1500])
 xlabel('X (km)');  ylabel('Hheight (m)')

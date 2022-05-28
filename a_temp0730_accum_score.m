@@ -90,9 +90,9 @@ hf=figure('position',[100 45 1000 600]);
 for ei=1:nexp
   plot(scc(ei,:),'LineWidth',3,'color',cexp(ei,:),'linestyle',explin{ei}); hold on
 end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Monospaced');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Consolas');
 %
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','ne','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'location','ne','FontName','Consolas');
 %
 set(gca,'Xlim',[0 ntime+1],'XTick',1:ntime,'XTickLabel',ss_hr,'fontsize',16,'linewidth',1.2)
 xlabel(xtit);  ylabel('SCC')
