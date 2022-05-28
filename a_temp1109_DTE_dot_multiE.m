@@ -5,19 +5,17 @@
 % 2021/06/16: plot multi experiments
 % 2021/09/06: using TPW for detecting cloud area
 
-
 close all; 
-clear; ccc=':';
-
+clear; ccc='-';
 saveid=1;
 
 expmsize=[19 24 24 29];
 
-expri1={'TWIN039Pr001qv062221';'TWIN049Pr001qv062221';'TWIN040Pr001qv062221';'TWIN050Pr001qv062221'};
-expri2={'TWIN039B';'TWIN049B';'TWIN040B';'TWIN050B'};    
-expnam={'U25_FLAT';'U25_V05';'U25_TOPO';'U2S5_V20'};
-expmark={'s';'o';'^';'p'};     
-exptext='U25_H1000';
+% expri1={'TWIN039Pr001qv062221';'TWIN049Pr001qv062221';'TWIN040Pr001qv062221';'TWIN050Pr001qv062221'};
+% expri2={'TWIN039B';'TWIN049B';'TWIN040B';'TWIN050B'};    
+% expnam={'U25_FLAT';'U25_V05';'U25_TOPO';'U2S5_V20'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='U25_H1000';
 
 % expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
 % expri2={'TWIN042B';'TWIN045B';'TWIN043B';'TWIN046B'};    
@@ -31,11 +29,12 @@ exptext='U25_H1000';
 % expmark={'s';'o';'^';'p'};     
 % exptext='NS5_H1000';
 
-% expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
-% expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
-% expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
-% expmark={'s';'o';'^';'p'};     
-% exptext='H1000';
+expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
+expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
+expnam={ 'FLAT';'V05';'TOPO';'V20'};
+expmark={'s';'o';'^';'p'};     
+exptext='H1000';
+
 
 
 %---setting 
@@ -48,7 +47,8 @@ cloudtpw=0.7;
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';   outdir='/mnt/e/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';   outdir='/mnt/e/figures/expri_twin';
+indir='D:expri_twin';   outdir='D:figures';
 titnam=['size of cloud area to ',ploterm];   fignam=[ploterm,'_cldsize','_',exptext,'_'];
 %
 nexp=size(expri1,1);  nhr=length(hrs); nminu=length(minu);  ntime=nhr*nminu;
@@ -82,8 +82,6 @@ for ei=1:nexp
       cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm);   
       if ~isempty(cloud) 
           if ei==1; edgcol=col(nti,:); alp=0.7;  else; edgcol='k'; alp=0.8; end
-         
-          
 %        plot(cloud.scale,cloud.maxdte,expmark{ei},'MarkerSize',expmsize(ei),'MarkerFaceColor',col(nti,:),'MarkerEdgeColor',edgcol); hold on  
         scatter(cloud.scale,cloud.maxdte,expmsize(ei)*10,expmark{ei},'MarkerEdgeColor',edgcol,'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
         if ei~=1
@@ -116,7 +114,7 @@ colormap(col(1:ntime,:))
 xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
 for ei=1:nexp  
   plot(10^(log10(xlimit(2))-0.35) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-  text(10^(log10(xlimit(2))-0.30) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none'); 
+  text(10^(log10(xlimit(2))-0.30) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Mono','Interpreter','none'); 
 end
  %--
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
@@ -124,5 +122,5 @@ outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h'
     '_tpw',num2str(cloudtpw*10,'%.2d'),'_edge'];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end

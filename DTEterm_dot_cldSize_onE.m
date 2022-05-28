@@ -11,27 +11,26 @@
 
 close all; 
 clear; ccc='-';
-saveid=0;
+saveid=1;
 %---setting 
-ploterm='KE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
-expri='TWIN043'; 
+ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
+expri='TWIN201'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-% day=22;   hrs=[23 24 25 26 27];  minu=[0 30];  
 % day=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
-day=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
-% day=22;   hrs=[27 26 25 24 23];  minu=[50 20];  %thesis F3.9
-% day=23;   hrs=2;  minu=0;
-%  day=22;   hrs=[25 24 23];  minu=50:-10:0; 
+% day=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
+day=22;   hrs=[27 26 25 24 23];  minu=[50 20];  %thesis F3.9
+% day=22;   hrs=[25 24 23];  minu=50:-10:0;  
+% day=23;   hrs=2;  minu=50;  %day=23;   hrs=0;  minu=50;
 
-%  cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
+% cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
 cloudtpw=0.7;
 
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-indir='E:expri_twin';   outdir=['E:figures/',expri];
+indir='D:expri_twin';   outdir=['D:figures/',expri];
 titnam=['size of cloud area to ',ploterm];   fignam=[expri1(8:end),'_cloud-',ploterm,'_'];
 %
 nhr=length(hrs);  nminu=length(minu);  ntime=nhr*nminu;
@@ -40,14 +39,15 @@ fload=load('colormap/colormap_ncl.mat');
 % col=fload.colormap_ncl([3 8 17 32 58 81 99 126 147 160 179 203],:);
 % col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);
 % col=fload.colormap_ncl([32 58 81 99 126 147 160 179 203 219 242],:);
+% col=fload.colormap_ncl([58],:);
 % col=fload.colormap_ncl([147],:);
 % col=fload.colormap_ncl(30:13:end,:);
 % col=fload.colormap_ncl(30:28:end,:);
-
-col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:); %thesis 2
-% col=fload.colormap_ncl(30:15:end,:); %thesis 1
+col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);% %thesis F3.9
+% col=fload.colormap_ncl(30:15:end,:); %thesis 2?
 
 alp=0.8;
+% alp=1;
 %
 %---
 hf=figure('Position',[100 65 900 480]);
@@ -75,24 +75,9 @@ for ti=hrs
   end % mi
 end %ti
 
-legend(lgnd,'Interpreter','none','fontsize',18,'Location','bestoutside','box','off');
+legend(lgnd,'Interpreter','none','fontsize',20,'Location','bestoutside','box','off');
 
-% nti=0;
-%   for ti=hrs 
-%       hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
-%     for mi=minu        
-%       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
-%         lgnd2{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
-%     end
-%   end
-% %---colorbar for time legend----  
-% tickint=2;
-% L1=( (1:tickint:ntime)*diff(caxis)/ntime )  +  min(caxis()) -  diff(caxis)/ntime/2;
-% n=0; for i=1:tickint:ntime; n=n+1; llll{n}=lgnd2{i}; end
-% colorbar('YTick',L1,'YTickLabel',lgnd2,'fontsize',13,'LineWidth',1.2);
-% colormap(col(1:ntime,:))  
-
-set(gca,'fontsize',16,'LineWidth',1.2,'box','on') 
+set(gca,'fontsize',18,'LineWidth',1.2,'box','on') 
 set(gca,'Xscale','log','Yscale','log')
 % set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 2e2])
 set(gca,'XLim',[3.5 1e2],'YLim',[2e-2 4e2])
@@ -106,5 +91,5 @@ s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*100,'%.3d')];
 if saveid~=0
 print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end

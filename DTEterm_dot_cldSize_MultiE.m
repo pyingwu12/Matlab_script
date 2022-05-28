@@ -12,17 +12,17 @@
 
 
 close all; 
-clear; ccc=':';
+clear; ccc='-';
 saveid=1;
 
 expmsize=[19 24 24 29];
 % % 
-% expri1={'TWIN201Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};
-% exptext='H500';
-% expri2={'TWIN201B';'TWIN017B';'TWIN013B';'TWIN022B'};    
-% % expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
-% expnam={ 'FLAT';'H500_V05';'H500';'H500_V20'};
-% expmark={'s';'o';'^';'p'}; 
+expri1={'TWIN201Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};
+exptext='H500';
+expri2={'TWIN201B';'TWIN017B';'TWIN013B';'TWIN022B'};    
+% expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
+expnam={ 'FLAT';'H500_V05';'H500';'H500_V20'};
+expmark={'s';'o';'^';'p'}; 
 
 % expri1={'TWIN201Pr0025THM062221';'TWIN017Pr0025THM062221';'TWIN013Pr0025THM062221';'TWIN022Pr0025THM062221'};
 % exptext='H500_THM';
@@ -49,11 +49,11 @@ expmsize=[19 24 24 29];
 % expmark={'s';'o';'^';'p'};     
 % exptext='H1000';
 
-expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
-expri2={'TWIN042B';'TWIN045B';'TWIN043B';'TWIN046B'};    
-expnam={'U00_FLAT';'U00_V05';'U00_TOPO';'U00_V20'};
-expmark={'s';'o';'^';'p'};     
-exptext='U00_H1000';
+% expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
+% expri2={'TWIN042B';'TWIN045B';'TWIN043B';'TWIN046B'};    
+% expnam={'U00_FLAT';'U00_V05';'U00_TOPO';'U00_V20'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='U00_H1000';
 
 % expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
 % expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
@@ -88,9 +88,9 @@ exptext='U00_H1000';
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'};
 % expri2={'TWIN201B';'TWIN003B'};    
 % expnam={ 'FLAT';'TOPO'};
-% expmark={'s';'^'};  
-% expmsize=[11 16];
-% exptext='exp0103';
+% expmark={'s';'^'};     
+% expmsize=[19 24];
+% exptext='FLATOPO';
 %-------------------------------------------------------------
 %{
 % expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
@@ -135,7 +135,8 @@ cloudtpw=0.7;
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';   outdir='/mnt/e/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';   outdir='/mnt/e/figures/expri_twin';
+indir='D:expri_twin';   outdir='D:figures';
 titnam=['size of cloud area to ',ploterm];   fignam=[ploterm,'_cldsize','_',exptext,'_'];
 %
 nexp=size(expri1,1);  nhr=length(hrs); nminu=length(minu);  ntime=nhr*nminu;
@@ -156,8 +157,8 @@ for ei=1:nexp
       hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     for mi=minu        
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
-      if ei~=1 && nti>7; break; end
-%       if ei~=1 && nti>9; break; end
+%       if ei~=1 && nti>7; break; end
+      if ei~=1 && nti>9; break; end
 
       if ei==1
         lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
@@ -200,7 +201,7 @@ colormap(col(1:ntime,:))
 xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
 for ei=1:nexp  
   plot(10^(log10(xlimit(2))-0.35) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-  text(10^(log10(xlimit(2))-0.30) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none'); 
+  text(10^(log10(xlimit(2))-0.30) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Mono','Interpreter','none'); 
 end
 % for ei=1:nexp  
 %   plot(10^(log10(xlimit(2))-0.25) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
@@ -211,5 +212,5 @@ s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),'_tpw',num2str(cloudtpw*10,'%.2d')];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
