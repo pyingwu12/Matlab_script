@@ -2,9 +2,9 @@
 % plot vertical weighted average MDTE or CMDTE between two simulations with
 % cloud boxes
 %------------------------------------------
-% close all
+close all
 clear;   ccc='-';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
 expri='TWIN201'; 
@@ -19,7 +19,8 @@ areasize=10;
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-indir='E:expri_twin';   outdir=['D:/figures/expri_twin/',expri];
+indir='D:expri_twin';   outdir=['G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/',expri];
+%outdir=['D:/figures/expri_twin/',expri];
 titnam=plotid;   fignam=[expri1(8:end),'_',plotid,'-cloud_',];
 
 %
@@ -27,13 +28,9 @@ load('colormap/colormap_dte.mat')
 cmap=colormap_dte; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 % L=0.001*[0.1 0.5 1 1.5 2 2.5 3 3.5 4 4.5];
 % L=[0.001 0.003 0.005 0.007 0.009 0.01 0.02 0.03 0.04 0.05];
-
 % L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
-% 
 %   L=[0.5 2 4 6 8 10 15 20 25 30];
-
     L=[0.5 2 4 6 8 10 15 20 25 35];
-
 %   L=[0.5 2 4 6 10 15 20 30 40 60];
 %  L=[0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 4 ];
 
@@ -84,24 +81,24 @@ for ti=hr
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end      
     %
     hf=figure('position',[100 45 800 700]); 
-    [c, hp]=contourf(plotvar,L2,'linestyle','none');    
+    [c, hp]=contourf(plotvar,L2,'linestyle','none');     hold on
     if (max(max(hgt))~=0)
-     hold on; contour(repmat(hgt',3,3),[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
+%      contour(repmat(hgt',3,3),[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',1.8); 
+     contour(repmat(hgt',3,3),[100 500 900],'color',[0.45 0.45 0.45],'linestyle','--','linewidth',2.5); 
     end
-    hold on;
     contour(repTPW',[cloudtpw cloudtpw],'color',[0.1 0.1 0.1],'linewidth',3); 
-
-    hold on
     for i=1:length(fin)
-        hrec=rectangle('Position',[bounds(fin(i),2) bounds(fin(i),1) bounds(fin(i),4) bounds(fin(i),3)]);
-    set(hrec,'linewidth',2.5,'EdgeColor',[0.95 0.05 0.2])    
+      hrec=rectangle('Position',[bounds(fin(i),2) bounds(fin(i),1) bounds(fin(i),4) bounds(fin(i),3)]);
+      set(hrec,'linewidth',2.3,'EdgeColor',[0.95 0.05 0.2])    
     end    
     %
-    set(gca,'fontsize',18,'LineWidth',1.2)
+%     set(gca,'fontsize',18,'LineWidth',1.2)            
+    set(gca,'fontsize',24,'LineWidth',2)  % temp0602
     set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
-%        set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+76 ny+225]) 
-%     set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+26 ny+175]) 
-    set(gca,'Xtick',nx+50:50:nx+nx,'Xticklabel',50:50:nx,'Ytick',ny+50:50:ny+ny,'Yticklabel',50:50:ny)
+ 
+%     set(gca,'xlim',[nx+1 nx+150],'ylim',[ny+76 ny+225]) 
+%     set(gca,'Xtick',nx+1+50:50:nx+nx-50,'Xticklabel',50:50:nx-50,'Ytick',ny+1+50:50:ny+ny-50,'Yticklabel',50:50:ny-50)
+    set(gca,'Xtick',nx+50:50:nx+250,'Xticklabel',50:50:250,'Ytick',ny+50:50:ny+250,'Yticklabel',50:50:250)
 
     xlabel('(km)'); ylabel('(km)');
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % start time string
@@ -112,8 +109,10 @@ for ti=hr
     %---colorbar---
     fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
-    colormap(cmap);     drawnow;
+    hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',20,'LineWidth',1.5); %temp0602
+    colormap(cmap); title(hc,'J kg^-^1','fontsize',20);  drawnow;    %temp0602
+    %hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',13,'LineWidth',1.2);
+    %colormap(cmap);     drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
@@ -122,7 +121,7 @@ for ti=hr
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min,'_cld',num2str(cloudtpw)];
     if saveid==1
       print(hf,'-dpng',[outfile,'.png']) 
-      system(['convert -trim ',outfile,'.png ',outfile,'.png']);         
+%       system(['convert -trim ',outfile,'.png ',outfile,'.png']);         
     end
   end %tmi
 end

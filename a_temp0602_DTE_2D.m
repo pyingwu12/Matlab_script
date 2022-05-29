@@ -10,7 +10,7 @@ plotid='CMDTE';  %optioni: MDTE or CMDTE
 expri='TWIN201'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-day=23;    hr=2;  minu=50;  
+day=23;    hr=2;  minu=[20];  
 %
 tpwid=0.7;  % for tpwid~=0, plot contour of TPW = <tpwid> (kg/m^2)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
@@ -18,7 +18,8 @@ zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-indir='E:expri_twin';   outdir=['D:/figures/expri_twin/',expri];
+indir='D:expri_twin';   %outdir=['D:/figures/expri_twin/',expri];
+outdir=['G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/',expri];
 
 titnam=plotid;   fignam=[expri1,'_',plotid,'_',];
 if tpwid~=0; fignam=[fignam,'tpw',num2str(tpwid),'_'];  end
@@ -41,6 +42,7 @@ for ti=hr
     %---infile 2, based state---
     infile2=[indir,'/',expri2,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     hgt = ncread(infile2,'HGT');
+    [nx ,ny]=size(hgt);
     %
     if zhid~=0;  zh_max=cal_zh_cmpo(infile2,'WSM6');  end % zh of based state
     if tpwid~=0
@@ -56,31 +58,32 @@ for ti=hr
       dP=P(:,:,1:end-1)-P(:,:,2:end);
       tpw= dP.*( (hyd(:,:,2:end)+hyd(:,:,1:end-1)).*0.5 ) ;
       TPW=squeeze(sum(tpw,3)./9.81);   
-      
+      repTPW =repmat(TPW,3,3);      
     end  
 
     [MDTE, CMDTE] = cal_DTE_2D(infile1,infile2) ;       
-
+%%
     %---plot---
-    eval([' plotvar=',plotid,'''; '])    
+    eval(['plotvar=repmat(',plotid,''',3,3);'])  
+%     eval([' plotvar=',plotid,'''; '])    
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end      
     %
     hf=figure('position',[100 75 800 700]); 
     [~, hp]=contourf(plotvar,L2,'linestyle','none');    
     %---
-    if tpwid~=0;  hold on; contour(TPW',[tpwid tpwid],'color',[0.1 0.1 0.1],'linewidth',3);     end
+    if tpwid~=0;  hold on; contour(repTPW',[tpwid tpwid],'color',[0.1 0.1 0.1],'linewidth',3);     end
     if zhid~=0;   hold on; contour(zh_max',[zhid zhid],'color',[0.1 0.1 0.1],'linewidth',3);    end   
     %---
     if (max(max(hgt))~=0)
-     hold on; contour(hgt',[100 500 900],'color',[0.45 0.45 0.45],'linestyle','--','linewidth',2.5); 
+     hold on; contour(repmat(hgt',3,3),[100 500 900],'color',[0.45 0.45 0.45],'linestyle','--','linewidth',2.5); 
     end
     %---
-%     set(gca,'fontsize',18,'LineWidth',1.2)
-    set(gca,'fontsize',24,'LineWidth',2) 
-%     set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
-        set(gca,'Xtick',50:50:250,'Ytick',50:50:250)
-
-        set(gca,'fontsize',24,'LineWidth',2) 
+    
+    set(gca,'fontsize',24,'LineWidth',2)  % temp0602
+    set(gca,'xlim',[nx+1 nx+nx],'ylim',[ny+1 ny+ny]) 
+    set(gca,'Xtick',nx+50:50:nx+250,'Xticklabel',50:50:250,'Ytick',ny+50:50:ny+250,'Yticklabel',50:50:250)
+    
+%     set(gca,'Xtick',50:50:250,'Ytick',50:50:250)
     xlabel('(km)'); ylabel('(km)');
     %---
     s_hrj=num2str(mod(ti+9,24),'%2.2d');  % JST time string
@@ -93,7 +96,7 @@ for ti=hr
     fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
     hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',20,'LineWidth',1.5);
-    colormap(cmap); title(hc,'J kg^-^1','fontsize',20);  drawnow;
+    colormap(cmap); title(hc,'J kg^-^1','fontsize',20);  drawnow
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');

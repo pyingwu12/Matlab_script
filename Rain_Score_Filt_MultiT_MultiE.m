@@ -1,8 +1,8 @@
-% close all
-clear; ccc=':';
+close all
+clear; ccc='-';
 %---setting
 
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
 % exptext='H500';
 % expri1={'TWIN201Pr001qv062221';'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221'};
@@ -25,13 +25,12 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[0.4 0.4 0.4; 0.95 0.8  0.13; 0.85 0.43 0.10; 0.70 0.08 0.18];
 % lexp={'-';'-.';'--';'-';':'};
 
-expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-exptext='diffTOPO';
-expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-% cexp=[87 198 229; 242 135 0; 146 200 101; 230 84 80; 239 144 185]/255; 
-cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255; 
-lexp={'-';'-.';'--';'-';':';'-'};
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+% exptext='diffTOPO';
+% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% % cexp=[87 198 229; 242 135 0; 146 200 101; 230 84 80; 239 144 185]/255; 
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255; 
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN031Pr001qv062221';'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
@@ -49,24 +48,38 @@ lexp={'-';'-.';'--';'-';':';'-'};
 % lexp={'-';'-.';'--';'-';':';'-'};
 
 
+expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+exptext='diffTOPO';
+expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255; 
+
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'};   
+% expri2={'TWIN201B';'TWIN003B'}; 
+% exptext='FLATOPO';
+% expnam={'FLAT';'TOPO'};
+% cexp=[87 198 229; 242 155 0]/255; 
+
 timemark={'o';'^';'+';'p';'*'};
 
 
 % stday=22;   sthrs=[23];   acch=[3 6 12]; 
-stday=22;   sthrs=[27 30];   acch=[1]; 
+stday=22;   sthrs=[26 30];   acch=[1]; 
 filt_len=[1 5 10 15 20 25 35 40 45 50 60 70 80 90 100];  dx=1; dy=1; % km
 %---
 year='2018'; mon='06';  s_min='00';  
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir='/mnt/e/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir='/mnt/e/figures/expri_twin';
+indir='D:expri_twin';   %outdir='D:figures\expri_twin';
+outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin';
 %
 titnam='SCC of accumu. rainfall at different scale';   fignam=['accum-scc-scale_',exptext,'_'];
 %
 nexp=size(expri1,1);
 
 %---
-hf=figure('position',[100 300 1200 600]);
+hf=figure('position',[100 55 1200 600]);
 lgndi=0;
 for ei=1:nexp
 nti=0;
@@ -120,9 +133,7 @@ end %ti
 end
 
  lh= legend(lgnd);
- set(lh,'fontsize',15,'Location','eastoutside','FontName','Consolas','box','off')
- 
- 
+ set(lh,'fontsize',20,'Location','eastoutside','FontName','Consolas','box','off')
  
 %%
 if length(sthrs)<length(acch)     
@@ -132,8 +143,8 @@ elseif length(sthrs)>=length(acch)
   fitext=[sth,edh,'_',num2str(length(sthrs)),'st_',num2str(acch),'h'];
 end
 %
-set(gca,'fontsize',16,'LineWidth',1.2) 
-% set(gca,'Ylim',[0.1 1.1],'Xlim',[0 length(filt_len)+1])
+set(gca,'fontsize',18,'LineWidth',1.2) 
+set(gca,'Ylim',[0 1])
 set(gca,'xtick',1:length(filt_len),'Xticklabel',filt_len)
 xlabel('Wave length (km)'); ylabel('SCC');
 tit=titnam;
@@ -142,6 +153,6 @@ title(tit,'fontsize',18)
 outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),'_',fitext];
   if saveid~=0
     print(hf,'-dpng',[outfile,'.png'])    
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
   end
 %}

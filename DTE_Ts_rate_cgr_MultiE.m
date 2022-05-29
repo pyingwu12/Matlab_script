@@ -126,18 +126,16 @@ DTE_slope = (DTE_log(4:end,:)-DTE_log(1:end-3,:));
 %%
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 237 156 187]/255;
 % cexp=[87 198 229; 46 125 195; 99 85 146;     242 155 0; 242 80 50; 163 63 63]/255;  %R2 ori
-cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255; 
+% cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255; 
 %---
 % close all
 % hf=figure('position',[200 45 1000 600]);
 hf=figure('position',[200 35 1000 950]);
 
-
 % plotexp=[1 3 4 5 2];
 %  plotexp=[1 3 4 2 5];
 plotexp=[3 2 1 6 5 4];  %U00NS5 R2
 % plotexp=1:nexp;
-
 
 ax2=subplot('position',[0.12 0.1 0.78 0.625]);
  colororder({'k','k'})
@@ -150,7 +148,6 @@ end
 plot([1 ntime-1],[0.01 0.01],'LineWidth',2,'color','k','Marker','none','linestyle','-.')
 set(gca,'Ylim',[-1 10],'YTick',[-1 0 1 2 3])
 label_h=ylabel('CMDTE growth rate');  label_h.Position(2) = 0.8; label_h.Position(1) = ntime+ntime/17; 
- 
 
 yyaxis left
 for ei=plotexp

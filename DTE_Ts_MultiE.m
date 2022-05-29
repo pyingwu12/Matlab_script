@@ -1,7 +1,7 @@
 clear;  ccc='-';
 close all
 
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
 %---experiments
 
@@ -15,20 +15,13 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 %       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
 %   
-% exptext='U00diffpert';
-% expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
-%         'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';  
-%         'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
-% expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN003B';'TWIN003B'}; 
-% expnam={'FLAT';'FLAT_P01';  'U00_FLAT';'U00_FLAT_P01';  'TOPO';'TOPO_P01'};
-% cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  
-%        146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
-
-% expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301'};   
-% expri2={'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
-% exptext='TOPOdiffpert2';
-% expnam={ 'TOPO_01';'TOPO_001';'TOPO_0001';'TOPO_08LT';'TOPO_10LT'};
-% cexp=[199 42 50;  227 128 29;  244 199 2;  220 219 147;  238 180 150]/255;
+exptext='U00diffpert';
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
+        'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';  
+        'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
+expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN003B';'TWIN003B'}; 
+expnam={'FLAT';'FLAT_P01';  'U00_FLAT';'U00_FLAT_P01';  'TOPO';'TOPO_P01'};
+% cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  242 155 0;   242 155 0; ]/255;
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
@@ -61,11 +54,6 @@ saveid=0; % save figure (1) or not (0)
 % expnam={'FLAT';'FLATlow';'TOPO';'TOPOlow'};
 % cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;  ]/255; 
 
-% expri1={'TWIN201Prl001qv062221';'TWIN003Pr001qv062221'; 'TWIN003Prl001qv062221'};  
-% expri2={'TWIN201B';'TWIN003B';'TWIN003B'};
-% exptext='prl';
-% expnam={'FLATlow';'TOPO';'TOPOlow'};
-% cexp=[143 189 227;     242 155 0; 211 127 143;  ]/255; 
 
 %{
 % expri1={'TWIN042Pr001qv062221';'TWIN030Pr001qv062221';'TWIN033Pr001qv062221';'TWIN036Pr001qv062221';'TWIN039Pr001qv062221'};   
@@ -94,8 +82,8 @@ plotarea=0; %if ~=0, plot sub-domain average set below
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
-indir='E:expri_twin';  outdir='D:/figures/expri_twin';
-
+indir='D:expri_twin';  %outdir='D:/figures/expri_twin';
+outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
 titnam=plotid;   fignam=[plotid,'_Ts_',exptext,'_'];
 
 %---set sub-domain average range---
@@ -154,12 +142,14 @@ for ei=1:nexp
 end
 %%
 %---plot
-% close all
+close all
 % saveid=1;
+cexp=[87 198 229; 154 211 237;     75 70 154;   147 144 212;   242 155 0;    240 220 20; ]/255;
 
 % linexp={'-';'-';'-';':';':';'-';'-';'-';':';':'};
-% linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
-linexp={'-';'--';'-';'--';'-';'--';'-';'--'};
+linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
+% linexp={'-';'--';'-';'--';'-';'--';'-';'--'};
+% linexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 
 % exptext='noMP';  fignam=[plotid,'_Ts_',exptext,'_'];
 % cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
@@ -180,7 +170,7 @@ for ei=plotexp
 %     end
 %   end
 end
-%%
+%
 legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
 % ni=0;  lgnd=cell(nexp*(narea),1);
 % for ei=plotexp
@@ -193,7 +183,7 @@ legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsiz
 %
 %---
 set(gca,'Linewidth',1.2,'fontsize',20)
-% set(gca,'YScale','log');  %
+set(gca,'YScale','log');  %
 set(gca,'Ylim',[1e-6 3e1])
 % set(gca,'Ylim',[2e-4 2e1])
 % set(gca,'Ylim',[1e-6 2e1])
@@ -205,9 +195,9 @@ xlabel('Local time'); ylabel('J kg^-^1')
 title([titnam,' evolution'],'fontsize',23)
 %---
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
-outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min_nonlog'];
+outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min'];
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
 if saveid==1
 print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
