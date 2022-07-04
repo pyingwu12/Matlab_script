@@ -4,6 +4,17 @@ clear;   ccc=':';
 saveid=0; % save figure (1) or not (0)
 
 %---setting
+expri='TWIN003B';  day=23;  hr=5;  minu=30;
+%---
+maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
+xp=1; yp=100;  %start grid
+len=150;   %length of the line (grid)
+slopx=1; %integer and >= 0
+slopy=0; %integer and >= 0
+
+%thesis settings
+%{
+%---setting
 expri='TWIN031B';  day=22;  hr=21;  minu=[0 10 20 30 40];  
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
@@ -11,6 +22,8 @@ xp=1; yp=161;  %start grid
 len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
+%}
+
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
@@ -25,8 +38,8 @@ LFC_indir='/mnt/HDDA/Python_script/LFC_data';
     L=[-2 -1.5 -1 -0.5 -0.1   0.1 0.5 1 1.5 2];
 %----
 g=9.81;
-zlim=15000; ytick=1000:2000:zlim; 
-% zlim=5000; ytick=500:500:zlim; 
+% zlim=15000; ytick=1000:2000:zlim; 
+zlim=5000; ytick=500:500:zlim; 
 
 for ti=hr
   s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
@@ -34,8 +47,8 @@ for ti=hr
     s_min=num2str(mi,'%2.2d');
     clear zgi u v w theta_prof  hyd_prof
 
-    LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
-    LFC=readNPY(LFC_infile);
+%     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
+%     LFC=readNPY(LFC_infile);
 %     LCL_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LCL.npy'];
 %     LCL=readNPY(LCL_infile);
 %       
@@ -96,7 +109,7 @@ for ti=hr
       Y=squeeze(theta(indx,indy,:));     theta_prof(:,i)=interp1(X,Y,zgi,'linear');
       Y=squeeze(hyd(indx,indy,:));    hyd_prof(:,i)=interp1(X,Y,zgi,'linear');
       hgtprof(i)=hgt(indx,indy);
-      LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
+%       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
 %       LCLprof(i)=LCL(indy,indx)+hgt(indx,indy);
     end    
     
@@ -122,14 +135,14 @@ for ti=hr
     [c,hdis]= contour(xi,zi,theta_prof,298:4:360,'color',[0.6 0.6 0.6],'linewidth',2.2); 
     clabel(c,hdis,hdis.TextList,'fontsize',14,'color',[0.6 0.6 0.6],'LabelSpacing',500)   
     
-    LFC_h=LFC+hgt';
+%     LFC_h=LFC+hgt';
 %     LCL_h=LCL+hgt';
+%     plot(xaxis*1e3,LFCprof,'color',[0.05 0.5 0.1],'LineWidth',2.5,'linestyle','--')
+%     plot(xaxis*1e3,LCLprof,'color',[0.3 0.8 0.1],'LineWidth',2.5,'linestyle','--')        
 % 
 %     plot(xaxis(end)*1e3-10,LFCprof(end),'sk','markersize',10,'markerfacecolor','k')
-%     plot(xaxis(end)*1e3-10,LCLprof(end),'^k','markersize',10,'markerfacecolor','k')
-% 
-    plot(xaxis*1e3,LFCprof,'color',[0.05 0.5 0.1],'LineWidth',2.5,'linestyle','--')
-%     plot(xaxis*1e3,LCLprof,'color',[0.3 0.8 0.1],'LineWidth',2.5,'linestyle','--')        
+%     plot(xaxis(end)*1e3-10,LCLprof(end),'^k','markersize',10,'markerfacecolor','k') 
+
 %     contour(xi2,zi2,theda_lapse,[0 0],'color',[0.9 0.5 1],'linewidth',2.5,'linestyle','--'); 
 
     %---updraft---

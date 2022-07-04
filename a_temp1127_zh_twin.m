@@ -4,16 +4,17 @@ clear;   ccc=':';
 %---setting
 expri='TWIN030';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
-s_date='23'; hr=[1 3];  minu=40; 
+s_date='23'; hr=[1];  minu=40; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % scheme='Gaddard'; %!!!!!!!!!!!!!!!
 scheme='WSM6';
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin'; 
+outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 %---
-titnam='Zh composite';   fignam=['a_',expri1(8:end),'_zh-twin_'];
+titnam='Zh composite';   fignam=['b_',expri1(8:end),'_zh-twin_'];
 %
 
  cmap=[  1.0000    1.0000    1.0000;
@@ -58,9 +59,7 @@ for ti=hr
     end
     hold on
     contour(zh_max1_extend',[20 20],'color','k','linestyle','-','linewidth',3.9)
-    %
-    
-    
+    %    
     set(gca,'fontsize',20,'LineWidth',2) 
     set(gca,'Xlim',[301 600],'Ylim',[301 600])
     set(gca,'Xtick',350:50:550,'Xticklabel',50:50:250,'Ytick',350:50:550,'Yticklabel',50:50:250)

@@ -1,13 +1,13 @@
 
 
-% close all
+close all
 clear;   ccc=':';
 %---setting
-expri='TWIN003B';  s_date='22'; hr=23;  minu=10; 
+expri='TWIN003B';  s_date='23'; hr=[4];  minu=40; 
 %---
-maxid=1; %0: define by <xp>, <yp>; 1: max of hyd
-xp=1; yp=120;  %start grid
-len=150;   %length of the line (grid)
+maxid=0; %0: define by <xp>, <yp>; 1: max of hyd
+xp=1; yp=110;  %start grid
+len=200;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
 %---
@@ -18,23 +18,24 @@ indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figure
 LFC_indir='/mnt/HDDA/Python_script/LFC_data';
 %---
 g=9.81;
-zlim=10000; ytick=1000:2000:zlim; 
+zlim=5000; ytick=1000:1000:zlim; 
 
 for ti=hr
   s_hr=num2str(ti,'%2.2d'); 
   for mi=minu   
     s_min=num2str(mi,'%2.2d');
     %---
-    LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
-    LFC=readNPY(LFC_infile);
-    LCL_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LCL.npy'];
-    LCL=readNPY(LCL_infile);
+%     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
+%     LFC=readNPY(LFC_infile);
+%     LCL_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LCL.npy'];
+%     LCL=readNPY(LCL_infile);
       
     %---wrf file---
     
     infile=[indir,'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
         dx=ncreadatt(infile,'/','DX') ;    dy=ncreadatt(infile,'/','DY') ; 
     %---
+    qv = double(ncread(infile,'QVAPOR'));   
      qr = double(ncread(infile,'QRAIN'));   
      qc = double(ncread(infile,'QCLOUD'));
      qg = double(ncread(infile,'QGRAUP'));  
@@ -92,9 +93,10 @@ for ti=hr
       Y=squeeze(theta(indx,indy,:));     theta_prof(:,i)=interp1(X,Y,zgi,'linear');
       Y=squeeze(conv(indx,indy,:));     con_prof(:,i)=interp1(X,Y,zgi,'linear');
       Y=squeeze(hyd(indx,indy,:));    hyd_prof(:,i)=interp1(X,Y,zgi,'linear');
+      Y=squeeze(qv(indx,indy,:));    qv_prof(:,i)=interp1(X,Y,zgi,'linear');
       hgtprof(i)=hgt(indx,indy);
-      LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
-      LCLprof(i)=LCL(indy,indx)+hgt(indx,indy);
+%       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);
+%       LCLprof(i)=LCL(indy,indx)+hgt(indx,indy);
     end    
     theda_lapse=(theta_prof(1:end-1,:)-theta_prof(2:end,:)) ./ (repmat(zgi(2:end)-zgi(1:end-1),1,i)*1e-3); 
     zgi2 = (zgi(1:end-1)+zgi(2:end))/2;
@@ -106,7 +108,7 @@ for ti=hr
     if slopx==0; slope='Inf'; else; slope=num2str(slopy/slopx,2); end
 %%
 %---theta_prof
-%{
+%
     titnam='Potential temperature';   fignam=[expri,'_cros-theta_'];
     [xi, zi]=meshgrid(xaxis*1e3,zgi);
     plotvar=theta_prof;
@@ -126,9 +128,13 @@ for ti=hr
 %     set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1);   
 
     %---updraft---
-    [c,hdis]= contour(xi,zi,w.prof,[0.05  3],'color',[0.95 0.1 0.05],'linewidth',2); 
+    [c,hdis]= contour(xi,zi,w.prof,[0.5 1 3],'color',[0.95 0.1 0.05],'linewidth',2); 
     clabel(c,hdis,hdis.TextList,'fontsize',13,'color',[0.95 0.1 0.05],'LabelSpacing',500) 
     
+[c,hdis]= contour(xi,zi,qv_prof*1000,[3 5 7 9 11 13 15],'color',[0.05 0.1 0.95],'linewidth',2); 
+    clabel(c,hdis,hdis.TextList,'fontsize',13,'color',[0.05 0.1 0.95],'LabelSpacing',500) 
+
+
     %---terrain---
     if (max(max(hgtprof))~=0)
       plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.8)
@@ -147,8 +153,8 @@ for ti=hr
     title(tit,'fontsize',18)  
     %    
     outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope),'_z',num2str(zlim)];
-    print(hf,'-dpng',[outfile,'.png']) 
-    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%     print(hf,'-dpng',[outfile,'.png']) 
+%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %}
 %%
  %---lapse rate
@@ -286,7 +292,7 @@ for ti=hr
 %}
  %%
  %---T anomaly
-%
+%{
     titnam='Theta anomaly';   fignam=[expri,'_cros-theta-anomaly_'];
     load('colormap/colormap_br3.mat'); clear cmap
     cmap=colormap_br3(3:end-2,:);
@@ -348,7 +354,7 @@ for ti=hr
     outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope),'_z',num2str(zlim)];
 %     print(hf,'-dpng',[outfile,'.png']) 
 %     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-% }
+%}
  
   end
 end

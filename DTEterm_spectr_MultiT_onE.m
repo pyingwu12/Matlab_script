@@ -4,11 +4,12 @@
 %------------------------------------------
 close all
 clear;  ccc=':';
+saveid=0;
 %---
-plotid='CMDTE';  
+plotid='LH';  
 %
 expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-day=22;  hrs=[21 22 23 24 25 26 27]; minu=0:10:50; 
+day=22;  hrs=[21 22 23 24 25 26 27 28 29]; minu=[0 30]; 
 lev=1:33;  
 % day=22;  hrs=[21 22 23 24 25 26 27 28]; minu=[00 20 40];
 % lev=1:33;  
@@ -137,7 +138,8 @@ end %ti
       vinfo = ncinfo(infile1,'U10');   nx = vinfo.Size(1); ny = vinfo.Size(2); 
 
 % lgnd{nti+1}='-5/3 line';
-plotime=[2 7 13 16 17 18 19 20 21 22 23 25 31 37 42];
+% plotime=[2 7 13 16 17 18 19 20 21 22 23 25 31 37 42];
+plotime=1:ntime;
 col2=colormap_ncl(25:floor(length(colormap_ncl)/length(plotime))-1:end,:);
 
 % plotime=[1 4 7 10 11 12 13 14 15 16 17 18 19 ];
@@ -147,7 +149,7 @@ col2=colormap_ncl(25:floor(length(colormap_ncl)/length(plotime))-1:end,:);
 
 %%
 %---Spectra of cntl and error at specfic times decided by <plotime>---
-%
+%{
 titnam=[plotid,' spectra'];   fignam=[expri1(8:end),'_',plotid,'-spectr_',];
 hf=figure('position',[100 55 940 660]) ;
 n=0;
@@ -194,18 +196,20 @@ outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h'
 %}
 %%
 %---ratio of difference to cntl run at specfic times decided by <plotime>---
-%{
+%
 titnam=[plotid,' error %'];   fignam=[expri1(8:end),'_',plotid,'-r_',];
+ratio=spetr.diff_kh./spetr.cntl_kh;
 hf=figure('position',[100 55 940 660]) ;
 n=0;
 for ti=plotime
   n=n+1;
-  plot(spetr.diff_kh(:,ti)./spetr.cntl_kh(:,ti),'LineWidth',3,'LineStyle','-','color',col2(n,:)); hold on
+  plot(ratio(:,ti),'LineWidth',3,'LineStyle','-','color',col2(n,:)); hold on
   lgnd2{n}=lgnd{ti};
 end
+line([1 min(nx,ny)],[2 2],'color','k','linewidth',2.2,'linestyle','--')
 legend(lgnd2,'Box','off','Interpreter','none','fontsize',15,'Location','BestOutside')
 %-------------
-xlim=[1 min(nx,ny)]; ylim=[7e-6 2];
+xlim=[1 min(nx,ny)]; ylim=[7e-6 5];
 %---first axis---
 set(gca,'YScale','log','XScale','log','XLim',xlim,'Linewidth',1.2,'fontsize',16)
 set(gca,'Ylim',ylim)
@@ -225,8 +229,10 @@ title(tit,'fontsize',18)
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d'); 
 outfile=[outdir,'/',fignam,mon,num2str(day),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end)),...
     '_lev',num2str(lev(1),'%.2d'),num2str(lev(end),'%.2d')];
-% print(hf,'-dpng',[outfile,'.png']) 
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+if saveid==1
+ print(hf,'-dpng',[outfile,'.png']) 
+ system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end
 %}
 %%
 %---Spectra of cntl and error at all times---
