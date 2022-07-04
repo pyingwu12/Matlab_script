@@ -39,8 +39,6 @@ dy=ncreadatt(infile,'/','DY') ;
 scale_factor = ncreadatt('example.nc','temperature','scale_factor');
 attvalue = ncreadatt(source,location,attname);
 
-
-
 %---fitting---
 % if fitid~=0
 %  fo = fit(log10(scale_all)',log10(double(dte_all))','poly1');
@@ -49,7 +47,10 @@ attvalue = ncreadatt(source,location,attname);
 %  plot(10.^x12,10.^y12,'color','k','linewidth',1.5)
 % end
 
-
+expnam={'ORI_H00V00';'ORI_H10V10';'ORI_H05V10';'ORI_H10V05';'ORI_H10V20'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+expnam={'ORI_H00V00';'ORI_H10V10';'NS5_H00V00';'NS5_H10V10';'U00_H00V00';'U00_H10V10'};
+cexp=[87 198 229; 242 155 0;   24 126 218;  242 80 50;    75 70 154; 155 55 55 ]/255;
 
 
 %-----

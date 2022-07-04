@@ -1,4 +1,4 @@
-clear;  ccc='-';
+clear;  ccc=':';
 close all
 
 saveid=1; % save figure (1) or not (0)
@@ -69,10 +69,10 @@ thres=1;  tint=1;
 year='2018'; mon='06'; stday=22;  
 dom='01';  infilenam='wrfout';
 %
-% indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 % indir='E:expri_twin'; outdir='E:figures/expri_twin';
-indir='D:expri_twin';   %outdir='D:figures\expri_twin';
-outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin';
+% indir='D:expri_twin';   %outdir='D:figures\expri_twin';
+% outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin';
 titnam='Hourly rainfall';   %fignam=['accum1h_',plotid,'_',exptext,'_'];
 
 
@@ -160,9 +160,7 @@ end
 %   end
 % end
 
-%---set title and filename text
-  fitext=[num2str(length(sthrs)),'steps_',num2str(acch),'h'];
-%%
+
 %---plot
 
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'TOPO';'NS5_TOPO';'U00_TOPO'};
@@ -207,7 +205,7 @@ outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',num2str(length(sthrs
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
 if saveid~=0
  print(hf,'-dpng',[outfile,'.png']) 
-%  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+ system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %% ens mean
 %{

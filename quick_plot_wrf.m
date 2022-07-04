@@ -1,19 +1,19 @@
  %close all
  clear;  ccc=':';
 %---setting
-expri='TWIN003B';  
+expri='TWIN048B';  
 %year='2007'; mon='06'; date='01';
-year='2018'; mon='06'; s_date='22';  s_hr='23'; minu='30';
+year='2018'; mon='06'; s_date='23';  s_hr='00'; minu='30';
 infilenam='wrfout';  dom='01'; 
 
 zi=10;  
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri];
+indir=['/mnt/HDD007/pwin/Experiments/expri_twin/',expri];
 %indir=['E:/wrfout/expri191009/',expri];
 % indir=['/mnt/HDD003/pwin/Experiments/expri_test/',expri];  outdir='/mnt/e/figures/expri191009';
 % indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 % indir=['/mnt/HDD016/pwin/Experiments/expri_test201002/',expri]; outdir=['/mnt/e/figures/expri_test201002/'];
 
-
+%/mnt/HDD007/pwin/Experiments/expri_twin/TWIN048B/wrfout_d01_2018-06-23_00\:00\:00
 infile = [indir,'/',infilenam,'_d01_',year,'-',mon,'-',s_date,'_',s_hr,ccc,minu,ccc,'00'];
 qv = ncread(infile,'QVAPOR');
 % u = ncread(infile,'U');
@@ -170,7 +170,7 @@ RH=ev./esw*100;
    set(gca,'Fontsize',16,'linewidth',1.4)
    colormap(winter)
    xlabel('km'); ylabel('km')
-   outfile=[outdir,'/',expri,'_topo'];
+%    outfile=[outdir,'/',expri,'_topo'];
 %    print(hf,'-dpng',[outfile,'.png'])
 %    system(['convert -trim ',outfile,'.png ',outfile,'.png']);   
 %  hf=figure('Position',[100 100 900 600]);  

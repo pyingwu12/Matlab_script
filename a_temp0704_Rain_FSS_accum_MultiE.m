@@ -4,12 +4,6 @@ close all
 saveid=1; % save figure (1) or not (0)
 
 %---setting      
-expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN031Pr001qv062221';'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
-exptext='U00NS5';
-expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
-% cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
-cexp=[87 198 229; 242 155 0;       24 126 218; 242 80 50;      75 70 154;  155 55 55]/255; %R3
 
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 
@@ -24,63 +18,45 @@ lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 %     'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';'TWIN021B';
 %     'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B';'TWIN020B'}; 
 % exptext0='TOPO';
-% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% expnam={'ORI_H00V00';'ORI_H10V10';'ORI_H05V10';'ORI_H10V05';'ORI_H10V20'};
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
-
-% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
-%         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5'};   
-% expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 'TWIN201B';'TWIN201B';
-%     'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
-% exptext='FLATOPOmem';
-% expnam={'FLAT';'TOPO'};
-% cexp=[87 198 229; 242 155 0]/255;
-
-% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
-% expri2={'TWIN201B';'TWIN003B'; 'TWIN042B'; 'TWIN043B'}; 
-% exptext='U00';
-% expnam={'FLAT';'TOPO';'U00_FLAT';'U00_TOPO'};
-% cexp=[87 198 229; 242 155 0;   95 85 147; 168 63 63]/255; 
+% plotexp=[1 3 2 5 4]-1;
 
 expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
+        'TWIN030Pr001qv062221';'TWIN030Pr001qv062221mem2';'TWIN030Pr001qv062221mem3';'TWIN030Pr001qv062221mem4';'TWIN030Pr001qv062221mem5';
+        'TWIN031Pr001qv062221';'TWIN031Pr001qv062221mem2';'TWIN031Pr001qv062221mem3';'TWIN031Pr001qv062221mem4';'TWIN031Pr001qv062221mem5';
         'TWIN042Pr001qv062221';'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5';
         'TWIN043Pr001qv062221';'TWIN043Pr001qv062221mem2';'TWIN043Pr001qv062221mem3';'TWIN043Pr001qv062221mem4';'TWIN043Pr001qv062221mem5'};   
 expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 'TWIN201B';'TWIN201B';
     'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';
+    'TWIN030B';'TWIN030B';'TWIN030B';'TWIN030B';'TWIN030B';
+    'TWIN031B';'TWIN031B';'TWIN031B';'TWIN031B';'TWIN031B';
     'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
     'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B'}; 
-exptext0='U00mem';
-expnam={'FLAT';'TOPO';'U00_FLAT';'U00_TOPO'};
-cexp=[87 198 229; 242 155 0;    75 70 154; 155 55 55 ]/255;
-
-% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
-% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-% exptext='diffTOPO';
-% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255; 
-
-% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN031Pr001qv062221';'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
-% expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
-% exptext='U00NS5';
+exptext0='U00NS5';
 % expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
-% cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
+expnam={'ORI_H00V00';'ORI_H10V10';'NS5_H00V00';'NS5_H10V10';'U00_H00V00';'U00_H10V10'};
+cexp=[87 198 229; 242 155 0;   24 126 218;  242 80 50;    75 70 154; 155 55 55 ]/255;
+plotexp=[5 3 1 2 6 4]-1;
 
-plotarea=0;
 
+plotid='FSS';  thres=1; nnx=1; nny=nnx;
 %---setting
 intm=20;
-stday=22;  sthr=22;  accm=00:intm:720;   thres=1;  
+stday=22;  sthr=22;  accm=00:intm:720;  
 year='2018'; mon='06';  dom='01';  infilenam='wrfout'; 
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 % indir='D:expri_twin';   %outdir='D:figures\expri_twin';
-% outdir='G:/�ڪ����ݵw��/3.�կZ/��s/figures/expri_twin';
+% outdir='G:/§Úªº¶³ºÝµwºÐ/3.³Õ¯Z/¬ã¨s/figures/expri_twin';
 titnam='Rainfall SCC';  % fignam=['accum_score_',exptext,'_'];
 
 nexp=size(expri1,1);
 ntime=length(accm)-1;
 %---
-scc=zeros(nexp,ntime); %rmse=zeros(nexp,ntime); ETS=zeros(nexp,ntime); bias=zeros(nexp,ntime); 
+FSS=zeros(nexp,ntime); %rmse=zeros(nexp,ntime); ETS=zeros(nexp,ntime); bias=zeros(nexp,ntime); 
 for ei=1:nexp
   nti=0;     
 
@@ -116,74 +92,104 @@ for ei=1:nexp
       rain1=double(rall1{2}-rall1{1});
       rain2=double(rall2{2}-rall2{1});
       %--------------------
-      [nx, ny]=size(rain1);
-      [scc(ei,nti), ~, ~, ~]=cal_score(reshape(rain1,nx*ny,1),reshape(rain2,nx*ny,1),thres);     
+%       [nx, ny]=size(rain1);
+%       [scc(ei,nti), ~, ~, ~]=cal_score(reshape(rain1,nx*ny,1),reshape(rain2,nx*ny,1),thres);   
+thres2=thres/60*ai;
+      FSS(ei,nti)=cal_FSS(rain1,rain2,nnx,nny,thres2);    
+
 % disp([s_date,s_hr,s_min,' done'])
   end %ai  
   disp([expri1{ei},' done'])
 end %exp
-%%
+
+FSS(FSS==0)=NaN;
+
 %---set title and filename text
   titext=['accumulated from ',num2str(mod(sthr+9,24),'%2.2d'),' LT'];
-%   fitext=['from',num2str(sthr,'%2.2d'),'_',num2str(length(acch)),'acch'];
 %%
 %---plot
-%linestyl={'-';'-';'-';'-';':';':'};
-linestyl={'-';'-';'--';'--';':';':'};
+linestyl={'-';'-';'-';'-';':';':'};
 
-% exptext=[exptext0,'mem'];   
-fignam=['accum_score_',exptext,'_'];
+exptext=[exptext0,'mem'];   fignam=['accum_fss_',exptext,'_'];
 
 hf=figure('position',[100 55 900 600]);
-plotexp=[1 3 5 2 4 6];
-% plotexp=[(1:5) 5*(3-1)+(1:5) 5*(2-1)+(1:5) 5*(5-1)+(1:5) 5*(4-1)+(1:5)];
-for ei=plotexp
-    
-%   colei=ceil(ei/5);
-%   h(colei)=plot(scc(ei,:),'LineWidth',3.5,'color',cexp(colei,:)); hold on
+% for ei=[1 3 5 2 4 6]
+%  for ei=1:nexp    
+for ei0=1:nexp/5
+ for ei=plotexp(ei0)*5+(1:5)
+     
+  colei=ceil(ei/5);
+  h(colei)=plot(FSS(ei,:),'LineWidth',2,'color',cexp(colei,:)); hold on
 
- h(ei)= plot(scc(ei,:),'LineWidth',5,'color',cexp(ei,:),'linestyle',linestyl{ei}); hold on
+ end
 end
+% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Consolas');
 
-% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',28,'location','sw','FontName','Consolas');
-legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',28,'location','sw','FontName','Consolas');
+set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',20,'linewidth',1.2)
+% set(gca,'Ylim',[0.2 1],'YTick',0:0.2:1)
+set(gca,'YLim',[0.2 1],'YTick',0.4:0.2:1)
 
-set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',22,'linewidth',1.2)
-set(gca,'Ylim',[0.2 1],'YTick',0:0.2:1)
-xlabel('Accumulated period (h)');  ylabel('SCC')
+
+xlabel('Accumulated period (h)');  ylabel('FSS')
 tit=[titnam,' (',titext,')'];   
-title(tit,'fontsize',20)
+title(tit,'fontsize',19)
 %
-%s_sth=num2str(sthr(1),'%2.2d'); s_edh=num2str(mod(sthr(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m'];
+s_sth=num2str(sthr(1),'%2.2d'); s_edh=num2str(mod(sthr(end),24),'%2.2d'); 
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m','_thr',num2str(thres),'_n',num2str(nnx)];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}
-%%
-% ensemble mean
-%{
-exptext=[exptext0,'mean'];    fignam=['accum_score_',exptext,'_'];
+%% ens mean
+exptext=[exptext0,'mean'];    fignam=['accum_fss_',exptext,'_'];
 
 for ei=1:nexp/5
- scc_mean(ei,:)=mean(scc(5*(ei-1)+1:5*ei,:),1);
+ FSS_mean(ei,:)=mean(FSS(5*(ei-1)+1:5*ei,:),1);
 end
-
+%---plot
 hf=figure('position',[100 55 900 600]);
-for ei=1:nexp/5
-   h(ei)=plot(scc_mean(ei,:),'LineWidth',5,'color',cexp(ei,:)); hold on
+for  ei=plotexp+1
+   h(ei)=plot(FSS_mean(ei,:),'LineWidth',5,'color',cexp(ei,:)); hold on
 end
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Consolas');
+% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Monospaced');
 
 set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',20,'linewidth',1.2)
-set(gca,'Ylim',[0.2 1],'YTick',0:0.2:1)
-xlabel('Accumulated period (h)');  ylabel('SCC')
+set(gca,'YLim',[0.2 1],'YTick',0.4:0.2:1)
+
+xlabel('Accumulated period (h)');  ylabel('FSS')
 tit=[titnam,' (',titext,')'];   
 title(tit,'fontsize',19)
 %
 s_sth=num2str(sthr(1),'%2.2d'); s_edh=num2str(mod(sthr(end),24),'%2.2d'); 
-outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m'];
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m','_thr',num2str(thres),'_n',num2str(nnx)];
+if saveid==1
+print(hf,'-dpng',[outfile,'.png']) 
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+end
+%}
+%% ens spread
+exptext=[exptext0,'spread'];    fignam=['accum_fss_',exptext,'_'];
+
+for ei=1:nexp/5
+spread(ei,:) = (mean((FSS( 5*(ei-1)+1:5*ei ,:)-FSS_mean(ei,:)).^2,1)).^0.5;
+end
+%--- plot
+hf=figure('position',[100 55 900 200]);
+for ei=plotexp+1
+   h(ei)=plot(spread(ei,:),'LineWidth',2,'color',cexp(ei,:)); hold on
+end
+% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Consolas');
+
+set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',20,'linewidth',1.2)
+set(gca,'YLim',[0 0.1],'YTick',[0 0.05 0.1])
+
+xlabel('Accumulated period (h)');  ylabel('spread')
+% tit=[titnam,' (',titext,')'];   
+% title(tit,'fontsize',19)
+%
+s_sth=num2str(sthr(1),'%2.2d'); s_edh=num2str(mod(sthr(end),24),'%2.2d'); 
+outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m','_thr',num2str(thres),'_n',num2str(nnx)];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
