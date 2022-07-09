@@ -9,7 +9,6 @@ saveid=1; % save figure (1) or not (0)
 % lexp={'-';'--';'-';'--'};  
 % cexp=[0  0.447  0.741; 0.3,0.745,0.933; 0.85,0.325,0.098;  0.929,0.694,0.125];
 
-
 % expri={'TWIN001B';'TWIN030B';'TWIN042B';'TWIN039B';  'TWIN003B'; 'TWIN031B'; 'TWIN043B';'TWIN040B'}; 
 % exptext='U00NS5U25';
 % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';'U25_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO';'U25_TOPO'};

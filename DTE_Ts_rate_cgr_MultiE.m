@@ -32,7 +32,7 @@ exptext='U00NS5';
 expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
 % % cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
 % cexp=[87 198 229; 46 125 195; 99 85 146;   242 155 0; 242 80 50; 163 63 63]/255; 
-cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255; 
+cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255;  %R3
 xsub0={1:300 ; 1:300; 1:300; 1:300; 1:300; 1:300}; 
 ysub0={1:300; 1:300; 1:300; 1:300; 1:300; 1:300};
 
@@ -63,7 +63,10 @@ year='2018'; mon='06';  infilenam='wrfout'; dom='01';
 %---
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R1';
 % indir='E:expri_twin';   outdir='D:\figures\expri_twin';
-% titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+%indir='D:expri_twin';   %outdir='D:\figures\expri_twin';
+%outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin';
+titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
 %---------------------------------------------------
@@ -124,22 +127,23 @@ DTE_log=log(DTE_m);
 DTE_slope = (DTE_log(4:end,:)-DTE_log(1:end-3,:)); 
 % DTE_slope = (DTE_log(2:end,:)-DTE_log(1:end-1,:)); 
 %%
+% close all
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 237 156 187]/255;
 % cexp=[87 198 229; 46 125 195; 99 85 146;     242 155 0; 242 80 50; 163 63 63]/255;  %R2 ori
 % cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255; 
 %---
 % close all
 % hf=figure('position',[200 45 1000 600]);
-hf=figure('position',[200 35 1000 950]);
+hf=figure('position',[200 35 970 910]);
 
-% plotexp=[1 3 4 5 2];
-%  plotexp=[1 3 4 2 5];
+% plotexp=[1 3 4 5 2];  %diffTOPO R2
+%  plotexp=[1 3 5 2 4];  %diffTOPO final
 plotexp=[3 2 1 6 5 4];  %U00NS5 R2
 % plotexp=1:nexp;
+set(hf,'defaultAxesColorOrder',[0 0 0; 0 0 0]);
+ %colororder({'k','k'}) 
 
 ax2=subplot('position',[0.12 0.1 0.78 0.625]);
- colororder({'k','k'})
- 
 yyaxis right
 for ei=plotexp
    plot(2.5:ntime-1.5,DTE_slope(:,ei),'color',cexp(ei,:),'LineWidth',3,'linestyle',':','Marker','none'); hold on
@@ -153,11 +157,11 @@ yyaxis left
 for ei=plotexp
   h(ei)=plot(DTE_m(:,ei),'color',cexp(ei,:),'LineWidth',3.8,'linestyle','-','Marker','none'); hold on
 end
-set(ax2,'Yscale','log','Ylim',[1e-6 1.5e1],'YTick',[1e-4 1e-2 1e0],'fontsize',18,'LineWidth',1.2,'TickDir','out');
+set(ax2,'Yscale','log','Ylim',[1e-6 1.5e1],'YTick',[1e-4 1e-2 1e0],'fontsize',20,'LineWidth',1.2,'TickDir','out');
 ylabel('CMDTE (J kg^-^1)')
 % 
 % legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
-legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
+legend(h,expnam,'Box','off','Interpreter','none','fontsize',32,'Location','east','FontName','Consolas');
 
 set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 xlabel('Local time'); 
@@ -167,14 +171,14 @@ ax1=subplot('position',[0.12 0.735 0.78 0.2]);
 for ei=plotexp
   plot(cgr(:,ei),'color',cexp(ei,:),'LineWidth',3,'linestyle','-.','Marker','none'); hold on
 end
-set(ax1,'Yscale','log','Ylim',[2.9e-3 2.2e1],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 
+set(ax1,'Yscale','log','Ylim',[2.9e-3 2.2e1],'fontsize',20,'LineWidth',1.2,'TickDir','out'); 
 set(ax1,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',[],'YTick',[0.01 0.1 1 10])
 ylabel('cloud grid ratio (%)') 
 
-title(ax1,titnam,'fontsize',18,'Position',[floor(ntime/2) 50 0]);
+title(ax1,titnam,'fontsize',20,'Position',[floor(ntime/2) 50 0]);
 
 %---
 s_sth=num2str(sth,'%2.2d'); s_lenh=num2str(lenh,'%2.2d'); 
 outfile=[outdir,'/2',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str(nminu),'min2'];
 print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
