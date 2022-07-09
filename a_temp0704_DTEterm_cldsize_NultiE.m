@@ -61,44 +61,60 @@ expmsize=[19 24 24 29];
 % exptext='U00_H10';
 % skipti=7;
 
-expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
-expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
-% expnam={'NS5_FLAT';'NS5_V05';'NS5_TOPO';'NS5_V20'};
-expnam={ 'NS5_H00V00';'NS5_H10V05';'NS5_H10V10';'NS5_H10V20'};
-expmark={'s';'o';'^';'p'};     
-exptext='NS5_H10';
-skipti=7;
+% expri1={'TWIN030Pr001qv062221';'TWIN047Pr001qv062221';'TWIN031Pr001qv062221';'TWIN048Pr001qv062221'};
+% expri2={'TWIN030B';'TWIN047B';'TWIN031B';'TWIN048B'};    
+% % expnam={'NS5_FLAT';'NS5_V05';'NS5_TOPO';'NS5_V20'};
+% expnam={ 'NS5_H00V00';'NS5_H10V05';'NS5_H10V10';'NS5_H10V20'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='NS5_H10';
+% skipti=7;
 
 % expri1={'TWIN042Pr001qv062221';'TWIN049Pr001qv062221';'TWIN043Pr001qv062221';'TWIN050Pr001qv062221'};
 % expri2={'TWIN042B';'TWIN049B';'TWIN043B';'TWIN050B'};    
 % expnam={'FLAT';'V05H10';'V10H10';'V20H10'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='U25_H1000';
+% skipti=9;
+
 
 % expri1={'TWIN201Pr0025THM062221';'TWIN021Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN020Pr0025THM062221'};
 % expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
 % expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H1000_THM';
+% skipti=9;
+
 
 % expri1={'TWIN201Pr001qv062221';'TWIN023Pr001qv062221';'TWIN016Pr001qv062221';'TWIN018Pr001qv062221'};
 % expri2={'TWIN201B';'TWIN023B';'TWIN016B';'TWIN018B'};    
 % expnam={ 'FLAT';'V05H20';'V10H20';'V20H20'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H2000';
+% skipti=9;
+
 
 % expri1={'TWIN201Pr0025THM062221';'TWIN023Pr0025THM062221';'TWIN016Pr0025THM062221';'TWIN018Pr0025THM062221'};
 % expri2={'TWIN201B';'TWIN023B';'TWIN016B';'TWIN018B'};    
 % expnam={ 'FLAT';'V05H20';'V10H20';'V20H20'};
 % expmark={'s';'o';'^';'p'};     
 % exptext='H2000_THM';
+% skipti=9;
 % 
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'};
 % expri2={'TWIN201B';'TWIN003B'};    
-% expnam={ 'FLAT';'TOPO'};
+% expnam={ 'ORI_H00V00';'ORI_H10V10'};
 % expmark={'s';'^'};     
 % expmsize=[19 24];
-% exptext='FLATOPO';
+% exptext='FLATOPO2';
+% skipti=20;
+
+expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5'};
+expri2={'TWIN201B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'};    
+expnam={ 'ORI_H00V00';'ORI_H10V10';'ORI_H10V10m2';'ORI_H10V10m3';'ORI_H10V10m4';'ORI_H10V10m5'};
+expmark={'s';'^';'^';'^';'^';'^'};     
+expmsize=[19 24 24 24 24 24 24];
+exptext='FLATOPOmem';
+skipti=9;
 
 
 %---setting 
@@ -112,7 +128,7 @@ cloudtpw=0.7;
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';   outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';   outdir='/mnt/e/figures/expri_twin/JAS_R1';
 % indir='D:expri_twin';   outdir='D:figures';
 titnam=['size of cloud area to ',ploterm];   fignam=[ploterm,'_cldsize','_',exptext,'_'];
 %
@@ -179,8 +195,8 @@ colormap(col(1:ntime,:))
 %---plot legent for experiments---
 xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
 for ei=1:nexp  
-  plot(10^(log10(xlimit(2))-0.9) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
-  text(10^(log10(xlimit(2))-0.82) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Mono','Interpreter','none'); 
+  plot(10^(log10(xlimit(2))-1.03) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);
+  text(10^(log10(xlimit(2))-0.95) , 10^(log10(ylimit(1))+0.3*ei) ,expnam{ei},'fontsize',20,'FontName','Mono','Interpreter','none'); 
 end
 % for ei=1:nexp  
 %   plot(10^(log10(xlimit(2))-0.25) , 10^(log10(ylimit(1))+0.3*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor',[0 0 0],'linewidth',1.5);

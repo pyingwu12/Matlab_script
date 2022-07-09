@@ -4,25 +4,25 @@
 %------------------------------------------
 % close all
 clear;   ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %---
-plotid='KE'; 
-expri='TWIN020';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-s_date='23';  hr=0;  minu=00;  
+plotid='LH'; 
+expri='TWIN201';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+s_date='23';  hr=2;  minu=20;  
 %
 % cloudhyd=0.003;
 cloudtpw=0.7;
 
- subx1=1; subx2=200; suby1=1; suby2=200;
-
-%   subx1=151; subx2=300; suby1=51; suby2=200;
+  subx1=151; subx2=300; suby1=51; suby2=200;
 %   subx1=1; subx2=150; suby1=51; suby2=200;
+
 %  subx1=1; subx2=150; suby1=76; suby2=175;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin/';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-titnam=plotid;   fignam=['sub-dom-only_',expri1(8:end),'_',plotid,'_cld',num2str(cloudtpw*1000),'_x',num2str(subx1),num2str(subx2),'y',num2str(suby1),num2str(suby2),'_'];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin/';   outdir='/mnt/e/figures/expri_twin/JAS_R1';
+% outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+titnam=plotid;   fignam=['sub_',expri1,'_',plotid,'_cld',num2str(cloudtpw*1000),'_x',num2str(subx1),num2str(subx2),'y',num2str(suby1),num2str(suby2),'_'];
 %---
 col=load('colormap/colormap_dte.mat');
 cmap=col.colormap_dte;  cmap(10,:)=[0.9847 0.75 0.18];
@@ -33,7 +33,9 @@ cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
   
 %   L=[0.5 2 4 6 10 15 20 30 40 60];
 
- L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
+%  L=[0.05 0.1 0.3 0.5 1 2 3 4 5 6];
+   L=[0.05 0.1 0.5 1   3 5 7 9 11 13];
+
 
 %  L=[0.001 0.005 0.01 0.05 0.1 0.3 0.5 1 2 3 ];
  
@@ -76,6 +78,9 @@ for ti=hr
        eval(['error2D = sum(dPm.*',plotid,'(:,:,1:end-1),3) + DTE.Ps;'])      
      elseif contains(plotid,'Ps')
        eval(['error2D = DTE.',plotid,';'])   
+     elseif contains(plotid,'w')
+       w_err = DTE.KE3D - DTE.KE; 
+       error2D = sum(dPm.*w_err(:,:,1:end-1),3) ;
      else
        eval(['error2D = sum(dPm.*DTE.',plotid,'(:,:,1:end-1),3);'])   
      end

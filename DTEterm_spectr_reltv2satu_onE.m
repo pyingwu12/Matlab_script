@@ -3,10 +3,10 @@ close all
 clear;   ccc=':';
 saveid=1;
 %---setting
-expri='TWIN013';
+expri='TWIN003';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
  
-plotid='SH';  lev=1:33;
+plotid='LH';  lev=1:33;
 
 xsub=1:300;   ysub=1:300; 
 cldtpw=0.7;
@@ -15,11 +15,14 @@ sat_ratio=0.01;
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; 
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/JAS_R1'];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 titnam=['relative ',plotid,' spectra'];   fignam=[expri1(8:end),'_rel-',plotid,'_',];
 %---
 %
-load('/mnt/HDDA/Matlab_script/matfile/exp_statu.mat')
+% load('/mnt/HDDA/Matlab_script/matfile/exp_statu.mat')
+load('matfile/exp_statu.mat')
+
 for i=1:size(exp_statu_saved,1)    
   if strcmp(exp_statu_saved.Exp_name{i},expri1)==1 && exp_statu_saved.cldtpw(i)==cldtpw && ...
             exp_statu_saved.err_int(i)==err_int  && exp_statu_saved.sat_ratio(i)==sat_ratio && ...

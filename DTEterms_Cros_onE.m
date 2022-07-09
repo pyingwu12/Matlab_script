@@ -4,8 +4,8 @@
 close all
 clear;  ccc=':';
 %---
-expri='TWIN013';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-day=22;  hr=23:26;  minu=00;  
+expri='TWIN003';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+day=22;  hr=23;  minu=30;  
 %---
 maxid=2; %0: define by <xp>, <yp>; 1:max of DTE; 2: max of hyd
 xp=1;  yp=87;  %start grid

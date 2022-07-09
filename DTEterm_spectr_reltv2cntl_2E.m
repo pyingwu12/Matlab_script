@@ -6,9 +6,9 @@
 clear;  ccc=':';
 
 
- expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'}; 
+ expri1={'TWIN201Pr001qv062221mem5';'TWIN003Pr001qv062221mem5'}; 
  expri2={'TWIN201B';'TWIN003B'}; 
- exptext='FALTOPO';
+ exptext='FALTOPOmem3';
 
 %  expri1={'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'}; 
 %  expri2={'TWIN003B';'TWIN003B'}; 
@@ -26,7 +26,7 @@ plotid='CMDTE'; % CMDTE, LH, KE3D, etc.
 %day=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00; % thesis
 day=22;  hrs=[21 22 23 24 25 26 27 28 29];% minu=00;
 % stday=23; hrs=[0 1 2];
-minu=[00 30];
+minu=[00];
 lev=1:33;  
 %--
 year='2018';  mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
@@ -79,18 +79,18 @@ vinfo = ncinfo(infile1,'U10');   nx = vinfo.Size(1); ny = vinfo.Size(2);
 %
 linexp={'-';'--'};
 ratio=spetr.diff_kh./spetr.cntl_kh;
-col=col0;
+col=col0(1:2:end,:);
 % col=col0([1:2:29,30],:);
 %---plot
 hf=figure('position',[100 45 930 660]) ;
 %---
-plotime=1:2:ntime;
+plotime=1:ntime;
 for ei=1:nexp
 for ti=plotime
 plot(ratio(:,ti,ei),'LineWidth',2.5,'LineStyle',linexp{ei},'color',col(ti,:)); hold on
 end
 end
-lgnd{end}='2 times';
+lgnd{end+1}='2 times';
 line([1 min(nx,ny)],[2 2],'color','k','linewidth',2.2,'linestyle','--')
 legend(lgnd{plotime},'Box','off','Interpreter','none','fontsize',13,'Location','BestOutside')
 %-------------

@@ -217,9 +217,9 @@ end
 %
 outdir='/mnt/e/figures/expri_twin';
 
-plotexp=1:13; exptext='all';
+plotexp=[1 3 8 9 10]; exptext='fiddTOPO';
 % for ploti=1:size(ploterms,1)-1
-for ploti=[1]
+for ploti=1
 
   ploterm=ploterms{ploti}; titnam=ploterm;    eval(['DiffE_m=',ploterm,'_m;'])
  
@@ -244,10 +244,10 @@ for ploti=[1]
 end
 %%
 %---for all expri, plot x-axis of cloud grid ratio---
-%
+%{
 outdir='/mnt/e/figures/expri_twin';
 
-plotexp=1:13; exptext='all';
+plotexp=[1 3 8 9 10]; exptext='fiddTOPO';
 % for ploti=1:size(ploterms,1)-1
 
 for ploti=[1 ]

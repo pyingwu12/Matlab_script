@@ -4,7 +4,7 @@ clear;   ccc=':';
 %---setting
 expri='TWIN001B';  
 
-stday=22;   sth=23;   lenh=10;  minu=0:10:50;   tint=2;
+stday=22;   sth=23;   lenh=10;  minu=0:10:50;   tint=1;
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01'; 
 %---
@@ -64,26 +64,28 @@ for ti=1:lenh
        rain=double(rainb-raina);
       %---
       
-      TPW075(nti) = length( TPW(TPW>0.75) ) / (nx*ny) *100 ;
-      TPW05(nti) = length( TPW(TPW>0.5) ) / (nx*ny) *100 ;
-      TPW1(nti) = length( TPW(TPW>1) ) / (nx*ny) *100 ;
+      TPW07(nti) = length( TPW(TPW>0.7) ) / (nx*ny) *100 ;
+      TPW03(nti) = length( TPW(TPW>0.3) ) / (nx*ny) *100 ;
+      TPW15(nti) = length( TPW(TPW>1.5) ) / (nx*ny) *100 ;
+      TPW5(nti) = length( TPW(TPW>5) ) / (nx*ny) *100 ;
       
-      cld5(nti) = length( hyd2D(hyd2D>0.005) ) / (nx*ny) *100 ;
-      cld3(nti) = length( hyd2D(hyd2D>0.003) ) / (nx*ny) *100 ;  
-      cld1(nti) = length( hyd2D(hyd2D>0.001) ) / (nx*ny) *100 ;  
+%       cld5(nti) = length( hyd2D(hyd2D>0.005) ) / (nx*ny) *100 ;
+%       cld3(nti) = length( hyd2D(hyd2D>0.003) ) / (nx*ny) *100 ;  
+%       cld1(nti) = length( hyd2D(hyd2D>0.001) ) / (nx*ny) *100 ;  
 %       cld05(nti) = length( hyd2D(hyd2D>0.0005) ) / (nx*ny) *100 ;  
  
 %       zh1(nti) = length( zh_max(zh_max>1) ) / (nx*ny) *100 ;  
 %       zh5(nti) = length( zh_max(zh_max>5) ) / (nx*ny) *100 ;  
       
 %       rain0(nti) = length( rain(rain+1>1) ) / (nx*ny) *100 ; 
+     rain02(nti) = length( rain(rain>0.2) ) / (nx*ny) *100 ;  
       rain01(nti) = length( rain(rain>0.1) ) / (nx*ny) *100 ;  
       rain002(nti) = length( rain(rain>0.02) ) / (nx*ny) *100 ;  
 
 %       rain05(nti) = length( rain(rain>0.5) ) / (nx*ny) *100 ; 
       
-      rain_max(nti) = max(max(rain)) ;  
-      rain_mean(nti) = mean(mean(rain)) ;  
+%       rain_max(nti) = max(max(rain)) ;  
+%       rain_mean(nti) = mean(mean(rain)) ;  
       
       
 %{
@@ -118,8 +120,6 @@ for ti=1:lenh
       end
       %}
       
-      
-      
   end
   disp([s_hr,' done'])
 end
@@ -127,22 +127,25 @@ end
 %---plot---       
 hf=figure('position',[200 45 1000 600]);
 
-plot(cld5,'linewidth',3,'color',[0.6350 0.0780 0.1840]); hold on
-plot(cld3,'linewidth',3,'color',[0.85,0.325,0.098]);
-plot(cld1,'linewidth',3,'color',[0.929,0.694,0.125]);
+% plot(cld5,'linewidth',3,'color',[0.6350 0.0780 0.1840]); hold on
+% plot(cld3,'linewidth',3,'color',[0.85,0.325,0.098]);
+% plot(cld1,'linewidth',3,'color',[0.929,0.694,0.125]);
 % plot(cld05,'linewidth',3);
 % plot(zh1,'linewidth',3);
 % plot(zh5,'linewidth',3);
 % plot(rain0,'linewidth',3);
-plot(rain01,'linewidth',3,'color',[0,0.447,0.741]);
+% plot(rain02,'linewidth',3,'color',[0.1,0.25,0.55]);
+% hold on
+plot(rain01,'linewidth',3,'color',[0,0.447,0.741]); hold on
 plot(rain002,'linewidth',3,'color',[ 0.3,0.745,0.933]);
 % plot(rain05,'linewidth',3,'color','r');
 % plot(max_cld1,'linewidth',3);
 % plot(max_cld3,'linewidth',3);
 % plot(max_cld5,'linewidth',3);
-plot(TPW1,'linewidth',3,'color',[0.066,0.374,0.088]);
-plot(TPW075,'linewidth',3,'color',[0.466,0.674,0.188]);
-plot(TPW05,'linewidth',3,'color',[0.566,0.90,0.688]);
+% plot(TPW5,'linewidth',3,'color',[0.066,0.374,0.088]);
+plot(TPW15,'linewidth',3,'color',[0.066,0.374,0.088]);
+plot(TPW07,'linewidth',3,'color',[0.466,0.674,0.188]);
+plot(TPW03,'linewidth',3,'color',[0.566,0.90,0.688]);
 
 ylabel('%') 
 
@@ -150,7 +153,7 @@ ylabel('%')
 % % plot(rain_max,'linewidth',3,'color','k');
 % plot(rain_mean,'linewidth',3,'color','r');
 
-legend('cld5','cld3','cld1','rain01','rain002','TPW1','TPW075','TPW05','location','best','fontsize',18,'box','off','Interpreter','none')
+legend('rain0.1','rain0.02','int_hyd15','int_hyd07','int_hyd03','location','best','fontsize',18,'box','off','Interpreter','none')
 
 % legend('cld5','cld3','cld1','cld05','rain002','rain01','max_cld1','max_cld3','max_cld5','rain_max','location','best','fontsize',18,'box','off','Interpreter','none')
 % legend('cld5','cld1','cld05','zh1','zh5','rain0','rain01','rain05','location','best','fontsize',18,'box','off')

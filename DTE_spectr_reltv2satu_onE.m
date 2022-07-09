@@ -1,9 +1,9 @@
 %
 % close all
 clear;   ccc=':';
-saveid=0;
+saveid=1;
 %---setting
-expri='TWIN013';
+expri='TWIN201';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
  
  grids=1; 
@@ -20,13 +20,15 @@ lev=1:33;
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01'; 
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
-titnam='relative CMDTE spectra';   fignam=[expri1(8:end),'_CMDTE-sat_',];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/JAS_R1'];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+titnam='relative CMDTE spectra';   fignam=[expri1,'_CMDTE-sat_',];
 
 %---
 %%
 
-load('/mnt/HDDA/Matlab_script/matfile/exp_statu.mat')
+% load('/mnt/HDDA/Matlab_script/matfile/exp_statu.mat')
+load('matfile/exp_statu.mat')
 
 for i=1:size(exp_statu_saved,1)    
   if strcmp(exp_statu_saved.Exp_name{i},expri1)==1 && exp_statu_saved.cldtpw(i)==cldtpw && ...

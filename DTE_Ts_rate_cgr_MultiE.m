@@ -1,4 +1,4 @@
-clear;  ccc='-';
+clear;  ccc=':';
 close all
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
@@ -28,7 +28,7 @@ close all
 expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
         'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
 expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
-exptext='U00NS5_thesis_R2color';
+exptext='U00NS5';
 expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
 % % cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
 % cexp=[87 198 229; 46 125 195; 99 85 146;   242 155 0; 242 80 50; 163 63 63]/255; 
@@ -61,9 +61,9 @@ stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
-indir='E:expri_twin';   outdir='D:\figures\expri_twin';
-titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R1';
+% indir='E:expri_twin';   outdir='D:\figures\expri_twin';
+% titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
 %---------------------------------------------------

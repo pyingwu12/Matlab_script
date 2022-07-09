@@ -1,25 +1,27 @@
-% function DTE_2D_twin(expri)
+% function a_temp0602_DTE_2D(expri)
 %------------------------------------------
 % plot vertical weighted average MDTE or CMDTE between two simulations
 %------------------------------------------
 close all
-clear;   ccc='-';
+% clear;   
+ccc=':';
 saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN201'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
+% expri='TWIN030'; %TWIN003Pr0001qv062221 TWIN013B062221noMP
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-day=23;    hr=2;  minu=[20];  
+day=22;    hr=[23 24 25 26 27];  minu=[00 30];  
 %
 tpwid=0.7;  % for tpwid~=0, plot contour of TPW = <tpwid> (kg/m^2)
 zhid=0;   % for zhid~=0, plot contour of zh composite = <zhid> (dBZ)
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-indir='D:expri_twin';   %outdir=['D:/figures/expri_twin/',expri];
-outdir=['G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/',expri];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R1';
+%  outdir=['/mnt/e/figures/expri_twin/',expri];
+% indir='D:expri_twin';   %outdir=['D:/figures/expri_twin/',expri];
+% outdir=['G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/',expri];
 
 titnam=plotid;   fignam=[expri1,'_',plotid,'_',];
 if tpwid~=0; fignam=[fignam,'tpw',num2str(tpwid),'_'];  end
@@ -105,7 +107,7 @@ for ti=hr
     outfile=[outdir,'/',fignam,'d',dom,'_',mon,s_date,'_',s_hr,s_min];
     if saveid==1
       print(hf,'-dpng',[outfile,'.png']) 
-%       system(['convert -trim ',outfile,'.png ',outfile,'.png']);         
+      system(['convert -trim ',outfile,'.png ',outfile,'.png']);         
     end
   end %tmi
 end

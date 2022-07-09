@@ -1,26 +1,28 @@
-clear;  ccc='-';
-% close all
+clear;  ccc=':';
+close all
 saveid=1;
 
-% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
-% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-% exptext='diffTOPO2';
+expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+exptext='diffTOPO';
 % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+expnam={'ORI_H00V00';'ORI_H10V10';'ORI_H05V10';'ORI_H10V05';'ORI_H10V20'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
 
 % expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
 %         'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
-% exptext='U00NS52';
-% expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
-% cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
+% exptext='U00NS5';
+% % expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
+% expnam={'ORI_H00V00';'NS5_H00V00';'U00_H00V00';  'ORI_H10V10';'NS5_H10V10';'U00_H10V10'};
+% cexp=[87 198 229; 24 126 218; 75 70 154;     242 155 0; 242 80 50; 155 55 55]/255; 
 
-expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';...
-        'TWIN003Pr001qv062221';'TWIN043Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN042B';'TWIN003B'; 'TWIN043B'}; 
-exptext='U00';
-expnam={'FLAT'; 'U00_FLAT'; 'TOPO';'U00_TOPO'};
-cexp=[87 198 229;  95 85 147;   242 155 0;  168 63 63]/255; 
+% expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';...
+%         'TWIN003Pr001qv062221';'TWIN043Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN042B';'TWIN003B'; 'TWIN043B'}; 
+% exptext='U00';
+% expnam={'FLAT'; 'U00_FLAT'; 'TOPO';'U00_TOPO'};
+% cexp=[87 198 229;  95 85 147;   242 155 0;  168 63 63]/255; 
 
 % expri1={'TWIN201Pr001qv062221';'TWIN042Pr001qv062221';'TWIN003Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN042B';'TWIN003B'}; 
@@ -54,14 +56,14 @@ if plotarea~=0; narea=size(xarea,1); else; narea=0; end
 cloudtpw=0.7; 
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
-% stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1; %JAS paper ?
-stday=22;  sth=21;  lenh=11;  minu=[0 20 40];  tint=1;
+stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1; %JAS paper ?
+% stday=22;  sth=21;  lenh=11;  minu=[0 20 40];  tint=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
-indir='D:expri_twin';   %outdir='D:figures\expri_twin';
-outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R1';
+% indir='D:expri_twin';   %outdir='D:figures\expri_twin';
+% outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
 titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -130,8 +132,8 @@ end % expri
 %---
 close all
 % hf=figure('position',[200 45 1000 600]);
-% hf=figure('position',[200 65 930 800]); %JAS paper
-hf=figure('position',[200 65 1000 800]);
+hf=figure('position',[200 65 930 830]); %JAS paper
+% hf=figure('position',[200 65 1000 800]);
 
 ni=0;  lgnd=cell(nexp*(narea+1),1);
 for ei=1:nexp    
@@ -144,7 +146,7 @@ end
 % plotexp=[1 3 2 5 4];
 plotexp=1:nexp;
 
-ax2=subplot('position',[0.12 0.1 0.78 0.56]);
+ax2=subplot('position',[0.12 0.1 0.78 0.54]);
 for ei=plotexp
   h(ei)=plot(DTE_m(:,ei),'color',cexp(ei,:),'LineWidth',3.8,'linestyle','-','Marker','none'); hold on
   if plotarea~=0
@@ -159,28 +161,28 @@ set(ax2,'Yscale','log','Ylim',[2e-4 1.5e1],'fontsize',18,'LineWidth',1.2,'TickDi
 
 ylabel('CMDTE (J kg^-^1)')
 % 
-legend(h([1,3,2,4]),expnam{[1,3,2,4]},'Box','off','Interpreter','none','fontsize',27,'Location','east','FontName','Consolas');
+legend(h,expnam,'Box','off','Interpreter','none','fontsize',27,'Location','east','FontName','Monospaced');
 % legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','east','FontName','Consolas');
 % legend(ax2,lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','southeast','FontName','Consolas');
 
-% set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
-set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
+set(ax2,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
+% set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)
 
 % 
 xlabel('Local time'); 
 
-ax1=subplot('position',[0.12 0.675 0.78 0.25]);
+ax1=subplot('position',[0.12 0.655 0.78 0.25]);
 for ei=plotexp
   plot(cgr(:,ei),'color',cexp(ei,:),'LineWidth',3,'linestyle','-.','Marker','none'); hold on
   if plotarea~=0
     for ai=1:narea
-      plot(cgr_am(ei,:,ai),linestyl{ai},'LineWidth',2.5,'color',cexp(ei,:));hold on
+      plot(cgr_am(ei,:,ai),linestyl{ai},'LineWidth',2.2,'color',cexp(ei,:));hold on
     end
   end
 end
-set(ax1,'Yscale','log','Ylim',[2.9e-3 2.2e1],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 
+set(ax1,'Yscale','log','Ylim',[1.5e-3 2.2e1],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 
 % set(ax1,'Yscale','log','Ylim',[2.9e-3 5e1],'fontsize',16,'LineWidth',1.2,'TickDir','out'); 
-set(ax1,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',[],'YTick',[0.01 0.1 1 10])
+set(ax1,'Xlim',[0 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',[],'YTick',[0.01 0.1 1 10])
 ylabel('cloud grid ratio (%)') 
 
 title(ax1,titnam,'fontsize',18,'Position',[floor(ntime/2) 50 0]);
@@ -190,5 +192,5 @@ outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,'_',s_lenh,'hr_',num2str
 if plotarea~=0;  outfile=[outfile,'_',num2str(narea),'area']; end
 if saveid==1
 print(hf,'-dpng',[outfile,'.png'])
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
