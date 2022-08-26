@@ -1,4 +1,4 @@
-%function [h_bar]=Recolor_contourf(hc,cmap,Levls,varargin)
+function [h_bar]=Recolor_contourf(hc,cmap,Levls,varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Inputs:
 %%% hc is handle to contours
@@ -19,7 +19,7 @@
 %%% [cdd hc]=contourf(X,Y,C,[-5 L]);
 %%% Recolor_contourf(hc,c,L,'vert');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-hc=hp; cmap=cm; Levls=Lt; varargin='vert';
+% hc=hp; cmap=cm; Levls=Lt; varargin='vert';
 
 L=[-inf Levls inf];
 if(length(hc)==1)

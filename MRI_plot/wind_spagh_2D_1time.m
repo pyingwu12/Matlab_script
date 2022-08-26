@@ -7,15 +7,12 @@ clear
 close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
-
 saveid=1;
 
 pltime=43;  memsize=1000;  pltspd=[15 25];
 
 %plt_bst_time=[12 15];
 plt_bst_time=[12]; % for plot typhoon center and radius of best track
-
-
 
 tmp=randperm(1000);
 member=tmp(1:memsize);
