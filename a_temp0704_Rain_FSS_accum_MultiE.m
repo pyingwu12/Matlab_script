@@ -51,7 +51,7 @@ year='2018'; mon='06';  dom='01';  infilenam='wrfout';
 indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 % indir='D:expri_twin';   %outdir='D:figures\expri_twin';
 % outdir='G:/§Úªº¶³ºÝµwºÐ/3.³Õ¯Z/¬ã¨s/figures/expri_twin';
-titnam='Rainfall SCC';  % fignam=['accum_score_',exptext,'_'];
+titnam='Rainfall FSS';  % fignam=['accum_score_',exptext,'_'];
 
 nexp=size(expri1,1);
 ntime=length(accm)-1;

@@ -5,12 +5,18 @@ saveid=1; % save figure (1) or not (0)
 
 %---experiments
 
-exptext='diffpert2';
-expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5'}; 
-expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
-expnam={'ORI_H00V00';'ORI_H00V00m2';'ORI_H00V00m3';'ORI_H00V00m4';'ORI_H00V00m5'};
-cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
-      230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
+% exptext='diffpert2';
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5'}; 
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
+% expnam={'ORI_H00V00';'ORI_H00V00m2';'ORI_H00V00m3';'ORI_H00V00m4';'ORI_H00V00m5'};
+% cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
+%       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
+
+exptext='AOGSFLAT';
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221' };   
+expri2={'TWIN201B';'TWIN201B'  }; 
+expnam={'FLAT';'FLAT_P01'};
+cexp=[   87 198 229; 87 198 229  ]/255;
 
 % exptext='diffpert2';
 % expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
@@ -82,13 +88,12 @@ cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
 stday=22;  sth=21;  lenh=11; minu=[0 20 40];  tint=1;
-% stday=22;  sth=21;  lenh=6; minu=0:10:50;  tint=1;
 
 plotarea=0; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R1';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
 % indir='D:expri_twin';  %outdir='D:/figures/expri_twin';
 % outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
 titnam=plotid;   fignam=[plotid,'_Ts_',exptext,'_'];

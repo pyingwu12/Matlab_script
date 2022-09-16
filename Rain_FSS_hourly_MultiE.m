@@ -28,7 +28,7 @@ nexp=size(expri1,1);
 nminu=length(minu); 
 ntime=length(sthrs)*nminu;
 %---
-ntii=0;  SCC=zeros(nexp,ntime);
+ntii=0;  fss=zeros(nexp,ntime);
 %
 for ei=1:nexp
   nti=0;  

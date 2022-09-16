@@ -16,9 +16,9 @@ saveid=1;
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
 expri='TWIN003'; 
-% expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-expri1=[expri,'Pr001qv062221mem3'];  expri2=[expri,'B'];  
+% expri1=[expri,'Pr001qv062221mem3'];  expri2=[expri,'B'];  
 % day=22;   hrs=[27 26 25 24 23];  minu=[30 0];  
 % day=22;   hrs=[26 25 24 23];  minu=[40 20 0]; 
 day=22;   hrs=[27 26 25 24 23];  minu=[50 20];  %thesis F3.9
@@ -33,7 +33,7 @@ cloudtpw=0.7;
 areasize=10;     % threshold of finding cloud area (gird numbers)
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/JAS_R1'];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
 % indir='D:expri_twin';   outdir=['G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/',expri]; %outdir=['D:figures/',expri];
 titnam=['size of cloud area to ',ploterm];   %fignam=[expri1(8:end),'_cloud-',ploterm,'_'];
