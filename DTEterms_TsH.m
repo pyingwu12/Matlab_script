@@ -12,7 +12,9 @@ saveid=1;
 % expri='TWIN201';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
 % expri='TWIN013';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=30;
 % expri='TWIN021';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=00;
-expri='TWIN003';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
+% expri='TWIN003';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
+
+expri='TWIN003';     xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
 
 % expri='TWIN042';     xsub=151:300;  ysub=151:300;  stday=23;  sth=0;  stmin=00;
 % expri='TWIN043';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
@@ -200,14 +202,16 @@ for idx = 1 : numel(hFills)
 end  
 %
 s_sth=num2str(sth,'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m'];
+outfile=[outdir,'/',fignam,mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm)...
+    ,'m_x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end))];
 if saveid~=0
 print(hf,'-dpng',[outfile,'.png'])    
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}
 %%
-save(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m.mat'],...
+save(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m_'...
+    ,'x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end)),'.mat'],...
     'CMDTE_m','xi','zi','hyd2_m','w_m','theta_ano_max','ss_hr')
 %---check vertical velocity---
 %{

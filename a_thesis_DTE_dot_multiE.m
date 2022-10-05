@@ -5,6 +5,8 @@
 % 2021/06/16: plot multi experiments
 % 2021/09/06: using TPW for detecting cloud area
 
+% specific for PhD thesis
+
 close all; 
 clear; ccc='-';
 saveid=1;
@@ -29,11 +31,11 @@ expmsize=[19 24 24 29];
 % expmark={'s';'o';'^';'p'};     
 % exptext='NS5_H1000';
 
-expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
-expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
-expnam={ 'FLAT';'V05';'TOPO';'V20'};
-expmark={'s';'o';'^';'p'};     
-exptext='H1000';
+% expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
+% expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
+% expnam={ 'FLAT';'V05';'TOPO';'V20'};
+% expmark={'s';'o';'^';'p'};     
+% exptext='H1000';
 
 
 
@@ -97,6 +99,7 @@ end %ei
 
 set(gca,'fontsize',16,'LineWidth',1.2,'Xscale','log','Yscale','log','box','on') 
 set(gca,'XLim',[3.5 80],'YLim',[1e-2 2.5e2])
+
 % set(gca,'YLim',[1e-3 4e2])
 % set(gca,'XLim',[3.5 30],'YLim',[1e-2 2.5e2])
 xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 

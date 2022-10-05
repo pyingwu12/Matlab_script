@@ -90,9 +90,9 @@ if ~isempty(stats)
       cloud.meandte(i) = mean(repDTE(L==fin(i)));
       
       %---for idealized wind profile
-      if centers(fin(i),1)>=(ny+101) && centers(fin(i),1)<=(ny+200)
-          cloud.mounarea(i)=1;
-      end
+%       if centers(fin(i),1)>=(ny+101) && centers(fin(i),1)<=(ny+200)
+%           cloud.mounarea(i)=1;
+%       end
       %---for original sounding wind profile
 %       if centers(fin(i),1)>=(ny+51) && centers(fin(i),1)<=(ny+200) && centers(fin(i),2)>=(nx+1) && centers(fin(i),2)<=(nx+150)
 %           cloud.mounarea(i)=1;

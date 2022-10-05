@@ -25,13 +25,6 @@ expmsize=[19 24 24 29];
 % expmark={'s';'o';'^';'p'}; 
 % skipti=9;
 
-% expri1={'TWIN201Pr0025THM062221';'TWIN017Pr0025THM062221';'TWIN013Pr0025THM062221';'TWIN022Pr0025THM062221'};
-% exptext='H500_THM';
-% expri2={'TWIN201B';'TWIN017B';'TWIN013B';'TWIN022B'};    
-% expnam={ 'FLAT';'V05H05';'V10H05';'V20H05'};
-% expmark={'s';'o';'^';'p'}; 
-% skipti=9;
-
 % expri1={'TWIN201Pr001qv062221';'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221'};
 % exptext='H750';
 % expri2={'TWIN201B';'TWIN025B';'TWIN019B';'TWIN024B'};    

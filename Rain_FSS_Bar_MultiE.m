@@ -3,47 +3,52 @@ clear;  ccc=':';
 
 saveid=1; % save figure (1) or not (0)
 
-%---setting      
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN003B'}; 
+% exptext='FLATOPO';
+% expnam={'FLAT';'TOPO'};
+% % expnam={'ORI_H00V00';'ORI_H10V10'};
+% cexp=[87 198 229; 242 155 0]/255;
+
+
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
 % exptext='diffTOPO';
 % % expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
 % expnam={'ORI_H00V00';'ORI_H10V10';'ORI_H05V10';'ORI_H10V05';'ORI_H10V20'};
-% cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
-
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255; 
 
 expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN031Pr001qv062221';'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
 expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
 exptext='U00NS5';
 % expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
 expnam={'ORI_H00V00';'ORI_H10V10';'NS5_H00V00';'NS5_H10V10';'U00_H00V00';'U00_H10V10'};
-cexp=[87 198 229; 242 155 0;   24 126 218;  242 80 50;    75 70 154; 155 55 55 ]/255;
-
-
-
+cexp=[87 198 229; 242 155 0;       24 126 218; 242 80 50;      75 70 154;  155 55 55]/255;
 
 %---setting
-thres=1;  scales=[1 10 80];
-% nnx=1; nny=nnx;
+acch = [1 3 6 9 12];
+
+thresholds=acch*1;  
+
+nnx=1; nny=nnx;
 %---
-intm=20;
-stday=22;  sthr=22;  accm=00:intm:720;  
+stday=22;  sthr=23;  minu=00; 
 year='2018'; mon='06';  dom='01';  infilenam='wrfout'; 
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin/JAS_R2';
 % indir='D:expri_twin';   %outdir='D:figures\expri_twin';
 % outdir='G:/§Úªº¶³ºÝµwºÐ/3.³Õ¯Z/¬ã¨s/figures/expri_twin';
-titnam='Rainfall FSS';   fignam=['accum_fss_',exptext,'_'];
+titnam='Rainfall FSS';   fignam=['accum_fss-bar_',exptext,'_'];
 
 nexp=size(expri1,1);
-ntime=length(accm)-1;
+ntime=length(acch);
 %---
-fss=zeros(nexp,ntime); %rmse=zeros(nexp,ntime); ETS=zeros(nexp,ntime); bias=zeros(nexp,ntime); 
-for ei=1:nexp
-    %%
+% fss=zeros(nexp,ntime); %rmse=zeros(nexp,ntime); ETS=zeros(nexp,ntime); bias=zeros(nexp,ntime); 
+
+for ei=1:nexp    
   nti=0;     
 
-  s_date=num2str(stday,'%2.2d');   s_hr=num2str(sthr,'%2.2d'); s_min= num2str(accm(1),'%2.2d');
+  s_date=num2str(stday,'%2.2d');   s_hr=num2str(sthr,'%2.2d'); s_min= num2str(minu,'%2.2d');
   
   infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
     rall1{1} = ncread(infile1,'RAINC');
@@ -54,14 +59,12 @@ for ei=1:nexp
     rall2{1} = rall2{1} + ncread(infile2,'RAINSH');
     rall2{1} = rall2{1} + ncread(infile2,'RAINNC');  
   
-  for ai=accm(2:end)
-      nti=nti+1;
-     
-      s_min=num2str(mod(ai,60),'%2.2d');
-      s_hr=num2str(mod(sthr+fix(ai/60),24),'%2.2d');
-      s_date=num2str(stday+fix( (sthr+fix(ai/60)) /24),'%2.2d'); 
+  for ai=acch
+    nti=nti+1; 
+    s_hr=num2str(mod(sthr+ai,24),'%2.2d');
+    s_date=num2str(stday+fix( (sthr+fix(ai)) /24),'%2.2d'); 
       
-      %------read netcdf data--------
+    %------read netcdf data--------
       infile1 = [indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];      
       rall1{2} = ncread(infile1,'RAINC');
       rall1{2} = rall1{2} + ncread(infile1,'RAINSH');
@@ -74,67 +77,41 @@ for ei=1:nexp
       
       rain1=double(rall1{2}-rall1{1});
       rain2=double(rall2{2}-rall2{1});
-      %--------------------
-      [nx, ny]=size(rain1);
-%       [scc(ei,nti), ~, ~, ~]=cal_score(reshape(rain1,nx*ny,1),reshape(rain2,nx*ny,1),thres);  
-thres2=thres/60*ai;
-%        fss(ei,nti)=FSS(rain1,rain2,nnx,nny,thres2);
-
-       for nxi=1:length(scales)
-        nnx=scales(nxi); nny=nnx;
-        [fss(ei,nti,nxi),fss_use(ei,nti,nxi)]=cal_FSS(rain1,rain2,nnx,nny,thres2);
-      end
-% disp([s_date,s_hr,s_min,' done'])
-
-  end %ai  
-  %%
+    %--------------------
+    
+    fss(nti,ei)=cal_FSS(rain1,rain2,nnx,nny,thresholds(nti));
+  end %ai   
   disp([expri1{ei},' done'])
 end %exp
 % fss(fss==0)=NaN;
 
 %%
-%---set title and filename text
-  titext=['accumulated from ',num2str(mod(sthr+9,24),'%2.2d'),' LT'];
-%---plot
-lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
-
+% %---set title and filename text
+  
+% %---plot
+% lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
+% 
 hf=figure('position',[100 55 900 600]);
+b=bar(fss,0.4,'FaceColor',"flat",'EdgeColor',[0.3 0.3 0.3],'linewidth',1.2);
 
-% for ei=1:nexp
-%  h(ei)=plot(fss(ei,:),'LineWidth',5,'color',cexp(ei,:),'linestyle',lexp{ei}); hold on
-% end
-
-
-for ei=1:nexp    
-  h(ei)=plot(fss(ei,:,1),'LineWidth',4,'color',cexp(ei,:),'linestyle','-'); hold on
-end
-for ei=1:nexp    
-  plot(fss(ei,:,2),'LineWidth',3.5,'color',cexp(ei,:),'linestyle','-.'); 
-end
-for ei=1:nexp    
-  plot(fss(ei,:,3),'LineWidth',2,'color',cexp(ei,:),'linestyle','-'); 
-end
-% for ei=1:nexp    
-%   plot(fss(ei,:,4),'LineWidth',2,'color',cexp(ei,:),'linestyle','--'); 
-% end
-
-for ei=1:nexp    
-  plot(fss_use(ei,:,1),'LineWidth',0.5,'color',cexp(ei,:),'linestyle',':'); 
+for ei=1:nexp
+b(ei).CData=cexp(ei,:);
 end
 
-% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',26,'location','sw','FontName','Liberation Mono');
+legend(expnam,'Location','northeast','Box','off','Interpreter','none')
 
-set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',20,'linewidth',1.2)
+set(gca,'XTickLabel',acch,'fontsize',20,'linewidth',1.2)
 set(gca,'Ylim',[0.2 1],'YTick',0:0.2:1)
 xlabel('Accumulated period (h)');  ylabel('FSS')
-tit={[titnam,' (',titext,')'];['  (n=',num2str(scales),', thres=',num2str(thres),')']};   
+titext=['accumulated from ',num2str(mod(sthr+9,24),'%2.2d'),' LT'];
+tit=[titnam,' (',titext,', n=',num2str(nnx),')'];   
 title(tit,'fontsize',19)
 %
 s_sth=num2str(sthr(1),'%2.2d'); s_edh=num2str(mod(sthr(end),24),'%2.2d'); 
 outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),...
-    num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m','_', num2str(length(scales)),'scales_th',num2str(thres)];
+    num2str(acch(1),'%.2d'),'_',num2str(acch(end)),'m','_thr',num2str(thresholds(1)),'_n',num2str(nnx)];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
-%}
+% %}
