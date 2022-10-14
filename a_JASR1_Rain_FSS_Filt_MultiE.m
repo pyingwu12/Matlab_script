@@ -81,14 +81,17 @@ for ti=sthrs
     end
 
     
-    skidx=(find(FSS>=fss_use,1));
-
-%     plot(scc,'color',cexp(ei,:),'linewidth',.5,'linestyle',lexp{ei}); hold on
 
 lgndi=lgndi+1;
 
     h(lgndi)=plot(FSS,timemark{nti},'color',cexp(ei,:),'linewidth',3,'Markersize',10); hold on
-    plot(skidx,FSS(skidx),'.','Markersize',12,'color','k','linewidth',1.2)
+
+    skidx=(find(FSS>=fss_use,1)); % the scale with score higher than skillful threshold
+%     plot(skidx,FSS(skidx),'.','Markersize',12,'color','k','linewidth',1.2)
+    cexp2=cexp-0.2; cexp2(cexp2<0)=0;
+    plot(skidx,FSS(skidx),'x','Markersize',10,'color','k','linewidth',1.5)
+
+
     
     if ei==1 && nti==1
      lgnd{lgndi}=[expnam{ei},'  ',num2str(mod(ti+9,24),'%2.2d'),s_min,'+',num2str(ai),'h'];

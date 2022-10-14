@@ -1,4 +1,4 @@
-function Rain_FSSform_onE(expri,sth,acch)
+% function Rain_FSSform_onE(expri,sth,acch)
 
 close all
 % clear; 

@@ -1,11 +1,11 @@
 
 
-% close all
+close all
 clear;   ccc=':';
 %---setting
-expri='TWIN024B';   day=22;  hr=23;  minu=30;  
+expri='TWIN031B';   day=22;  hr=21;  minu=00;  
 %---
-xp=1; yp=110;  %start grid
+xp=1; yp=150;  %start grid
 len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0

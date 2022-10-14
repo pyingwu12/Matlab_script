@@ -24,26 +24,23 @@ cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
 % cexp=[87 198 229; 242 155 0; 146 200 101]/255; 
 
 %---
-plotid='FSS';
 acch=1;  thres=1;  scales=[1 10 40];
-% nnx=1; nny=nnx;
 %---
 sthrs=22:33; minu=[0 20 40];  tint=1;
-% sthrs=22:30; minu=[0 30];  tint=1;
 %---
+plotid='FSS';
 year='2018'; mon='06'; stday=22;  
 dom='01';  infilenam='wrfout';
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
 titnam=[num2str(acch),'-h rainfall'];   fignam=['accum_',plotid,'_',exptext,'_'];
-
 %
 nexp=size(expri1,1);
-nminu=length(minu); 
-ntime=length(sthrs)*nminu;
+nminu=length(minu);  ntime=length(sthrs)*nminu;
+nscale=length(scales);
 %---
-ntii=0;  fss=zeros(nexp,ntime);
-%
+ntii=0;  fss=zeros(nexp,ntime,nscale); fss_use=zeros(nexp,ntime);
+%---
 for ei=1:nexp
   nti=0;  
 %   if ~exist([indir,'/',expri1{ei}],'dir')
@@ -79,40 +76,52 @@ for ei=1:nexp
       rain1=double(rall1{2}-rall1{1});  rain1(rain1+1==1)=0;
       rain2=double(rall2{2}-rall2{1});  rain2(rain2+1==1)=0;     
       %--------------------
-      for nxi=1:length(scales)
+      for nxi=1:nscale
         nnx=scales(nxi); nny=nnx;
-        [fss(ei,nti,nxi),fss_use(ei,nti,nxi)]=cal_FSS(rain1,rain2,nnx,nny,thres);
+        if nxi==1
+          [fss(ei,nti,nxi),fss_use(ei,nti)]=cal_FSS(rain1,rain2,nnx,nny,thres);
+        else
+          [fss(ei,nti,nxi), ~]=cal_FSS(rain1,rain2,nnx,nny,thres);
+        end
       end
-    end
+
+    end %tmi
   end %ti      
   disp([expri1{ei},' done'])
 end %exp
 fss(fss==0)=NaN;
 %%
 %---plot
-linestyl={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
-%
+% linestyl={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
+linestyl={'-';'-.';'-'};
+linewidth=[4 3.5 2];
+%%
 hf=figure('position',[100 55 900 600]);
 
-for ei=1:nexp    
-  h(ei)=plot(fss(ei,:,1),'LineWidth',4,'color',cexp(ei,:),'linestyle','-'); hold on
+plotexp=[1 3 2 5 4];
+%--- skillful threshold--
+% cexp2=cexp+0.3;cexp2(cexp2>1)=1;
+for ei=plotexp   
+  plot(fss_use(ei,:),'LineWidth',0.6,'color',cexp(ei,:),'linestyle','-.'); hold on
 end
-for ei=1:nexp    
-  plot(fss(ei,:,2),'LineWidth',3.5,'color',cexp(ei,:),'linestyle','-.'); 
-end
-for ei=1:nexp    
-  plot(fss(ei,:,3),'LineWidth',2,'color',cexp(ei,:),'linestyle','-'); 
-end
-% for ei=1:nexp    
-%   plot(fss(ei,:,4),'LineWidth',2,'color',cexp(ei,:),'linestyle','--'); 
-% end
 
-for ei=1:nexp    
-  plot(fss_use(ei,:,1),'LineWidth',0.5,'color',cexp(ei,:),'linestyle',':'); 
+% line([1 ntime],[max(fss_use(:)) max(fss_use(:))],'LineWidth',1.5,'color',[0.9 0.9 0.9],'linestyle','-.')
+% line([1 ntime],[min(fss_use(:)) min(fss_use(:))],'LineWidth',1.5,'color',[0.9 0.9 0.9],'linestyle','-.')
+% plot(mean(fss_use(ei,:),1),'LineWidth',1.5,'color',[0.9 0.9 0.9],'linestyle','-.'); hold on
+
+for nxi=1:nscale
+  for ei=plotexp
+    if nxi==1
+     h(ei)=plot(fss(ei,:,nxi),'LineWidth',linewidth(nxi),'color',cexp(ei,:),'linestyle',linestyl{nxi}); hold on  
+    else
+     plot(fss(ei,:,nxi),'LineWidth',linewidth(nxi),'color',cexp(ei,:),'linestyle',linestyl{nxi});
+    end
+  end
 end
+
 
 legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'location','sw','FontName','Consolas');
-
+%
 set(gca,'Xlim',[-1.5 ntime-1.5],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr,'Linewidth',1.2,'fontsize',20)
 % 
 xlabel(['Start time of ',num2str(acch),'-h rainfall (LT)']);  ylabel(plotid)

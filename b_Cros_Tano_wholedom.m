@@ -6,27 +6,33 @@ saveid=1; % save figure (1) or not (0)
 
 %---setting
 % expri='TWIN013B';   day=22;  hr=23;  minu=40;    qscale=800;
-% expri='TWIN031B';   day=23;  hr=0;  minu=0;    qscale=400;
-% expri='TWIN043B';   day=22;  hr=23;  minu=[30];    qscale=400;
-expri='TWIN040B';   day=22;  hr=23;  minu=[40];   qscale=300;
+% expri='TWIN020B';   day=22;  hr=23;  minu=10;    qscale=800;
+% expri='TWIN021B';   day=22;  hr=23;  minu=20;    qscale=800;
+expri='TWIN003B';   day=22;  hr=23;  minu=10;    qscale=800; xp=26; yp=102;
+
+  % expri='TWIN017B';   day=22;  hr=23;  minu=[20 ];    qscale=800;
+
+% expri='TWIN031B';   day=22;  hr=23;  minu=30;    qscale=400; xp=1; yp=156;
+% expri='TWIN043B';   day=22;  hr=23;  minu=[00];    qscale=400;
+% expri='TWIN040B';   day=22;  hr=23;  minu=[40];   qscale=300;
 
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-% xp=26; yp=102;  %start grid
-% len=100;   %length of the line (grid)
-
-xp=1; yp=152;  %start grid
+  %start grid
 len=100;   %length of the line (grid)
+
+% xp=1; yp=152;  %start grid
+% len=100;   %length of the line (grid)
 
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
-titnam='\theta anomaly';   fignam=['1_',expri,'_cros-theta-anomaly_'];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/JAS_R2'];
+titnam='\theta anomaly';   fignam=[expri,'_cros-theta-anomaly_'];
 %---
-LFC_indir='/mnt/HDDA/Python_script/LFC_data';
+% LFC_indir='/mnt/HDDA/Python_script/LFC_data';
 %---
 load('colormap/colormap_br3.mat'); 
 cmap=colormap_br3([8 9 10 11 12],:);   
@@ -34,8 +40,8 @@ cmap2=cmap*255; cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[0 0.5 1 1.5];
 %----
 g=9.81;
-% zlim=3200; ytick=500:500:zlim; 
-zlim=7000; ytick=1000:1000:zlim; 
+zlim=3200; ytick=500:500:zlim; 
+% zlim=7000; ytick=1000:1000:zlim; 
 
 for ti=hr
   s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
@@ -72,8 +78,8 @@ for ti=hr
     %---
     theta = ncread(infile,'T');  theta=theta+300;
     %---
-    LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
-    LFC=readNPY(LFC_infile);
+%     LFC_infile=[LFC_indir,'/',expri,'_',mon,s_date,'_',s_hr,s_min,'_LFC.npy'];
+%     LFC=readNPY(LFC_infile);
     %---   
     [nx,ny,nz]=size(theta);
     if maxid==1      
@@ -118,11 +124,9 @@ for ti=hr
       
 
       hgtprof(i)=hgt(indx,indy);
-      LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
+%       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
     end    
 
-       %!!!!! problem: the mean is only the cross section mean, not domain mean !!!!!!!!
-%     theta_ano=theta_iso-repmat(mean(theta_iso,2,'omitnan'),1,size(theta_iso,2));          
     theta_lapse=(theta_prof(1:end-1,:)-theta_prof(2:end,:)) ./ (Zaxis(1:end-1,:)-Zaxis(2:end,:)); 
 
 
@@ -158,13 +162,18 @@ for ti=hr
      %---theta---
     [c,hdis]= contour(xi,Zaxis,theta_prof,298:2:360,'color',[0.55 0.55 0.55],'linewidth',2.2); 
     clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.55 0.55 0.55],'LabelSpacing',600)   
+
+%---w contour -- for JAS_R2
+contour(xi,Zaxis,w.prof,[0.5 0.5],'color',[0.8 0.1 0.4],'linewidth',3.5,'linestyle','-.'); 
+%---
+
     
     %---theta lapse rate
    [c,hdis]=  contour(xi2,Zaxis2,theta_lapse,[0 0],'color',[0.2 0.6 0.1],'linewidth',3,'linestyle','-'); 
 %    clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.1 0.6 0],'LabelSpacing',650)
 
     %---LFC
-    plot(xaxis*1e3,LFCprof,'color',[0.5 0.28 0.85],'linewidth',3,'LineStyle','-')
+%     plot(xaxis*1e3,LFCprof,'color',[0.5 0.28 0.85],'linewidth',3,'LineStyle','-')
 
     %---hydrometeor---
     [c,hdis]= contour(xi,Zaxis,hyd_prof*1e3,[0.1 0.1],'color',[0.05 0.1 0.9],'linewidth',4); 
@@ -177,18 +186,24 @@ for ti=hr
     hU1 = get(h1,'UData');   hV1 = get(h1,'VData') ;
 
 
-%     windlegend=5;    
-%     h2 = quiver((xp+xp+len-5)/2*1000,350,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
-%     hU2 = get(h2,'UData');   hV2 = get(h2,'VData') ;
-%     text((xp+xp+len-5)/2*1000,200,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
+ 
+     windlegend=5;    
+    h2 = quiver((xp+xp+len-5)/2*1000,350,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+    hU2 = get(h2,'UData');   hV2 = get(h2,'VData') ;
+% %     text((xp+xp+len-5)/2*1000,200,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
+     windlegend=0.5;    
+    h3 = quiver((xp+xp+len-5)/2*1000,500,0,windlegend,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+    hU3 = get(h3,'UData');   hV3 = get(h3,'VData') ;
+% %     text((xp+xp+len-5)/2*1000,200,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)
 %----for U25--- 
-   windlegend=10;    
-   h2 = quiver(50*1000,400,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
-   hU2 = get(h2,'UData');   hV2 = get(h2,'VData') ;
-   text(50*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)   
+%    windlegend=10;    
+%    h2 = quiver(50*1000,400,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
+%    hU2 = get(h2,'UData');   hV2 = get(h2,'VData') ;
+%    text(50*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)   
 
     set(h1,'UData',qscale*hU1,'VData',qscale*hV1,'LineWidth',1.3);  
     set(h2,'UData',qscale*hU2,'VData',qscale*hV2,'LineWidth',1.3);  
+    set(h3,'UData',qscale*hU3,'VData',qscale*hV3,'LineWidth',1.3);  
 
       %---colorbar---
     fi=find(L>pmin,1);
@@ -212,7 +227,7 @@ for ti=hr
     set(gca,'Ytick',ytick,'Yticklabel',ytick./1000,'Xtick',(10:10:140)*1000,'Xticklabel',10:10:140)
 
     xlim=get(gca,'Xlim');  ylim=get(gca,'Ylim');
-    text(xlim(2)-10000,ylim(1)-ylim(2)/10,['xp=',num2str(xp),', yp=',num2str(yp)])
+    text(xlim(2)-10000,ylim(1)-ylim(2)/12,['xp=',num2str(xp),', yp=',num2str(yp)])
 
     xlabel(xtitle); ylabel('Height (km)')
     s_hrj=num2str(mod(ti+9,24),'%.2d');

@@ -3,10 +3,11 @@ clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 
 %---setting
-expri='TWIN021B';   day=22;  hr=23;  minu=20;  
+% expri='TWIN020B';   day=22;  hr=23;  minu=10;   xp=56;
+expri='TWIN021B';   day=22;  hr=23;  minu=20;   xp=66;
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
-xp=66; yp=50;  %start grid
+ yp=50;  %start grid
 len=100;   %length of the line (grid)
 slopx=0; %integer and >= 0
 slopy=1; %integer and >= 0
@@ -14,10 +15,10 @@ slopy=1; %integer and >= 0
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/JAS_R2'];
 titnam='\theta anomaly';   fignam=['1_',expri,'_cros-theta-anomaly_'];
 %---
-LFC_indir='/mnt/HDDA/Python_script/LFC_data';
+LFC_indir='/home/pwin/Documents/LFC_data';
 
 %---
 load('colormap/colormap_br3.mat'); 
@@ -107,18 +108,14 @@ for ti=hr
       v.prof(:,i)=squeeze(v.unstag(indx,indy,:));
       hyd_prof(:,i)=squeeze(hyd(indx,indy,:));
       
-      
       theta_nao_prof(:,i)=squeeze(theta_ano(indx,indy,:));
       
       theta_prof(:,i)=squeeze(theta(indx,indy,:));  
-      
       
       hgtprof(i)=hgt(indx,indy);
       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
     end    
     
-%!!!!! problem: the mean is only the cross section mean, not domain mean !!!!!!!!
-%     theta_ano=theta_iso-repmat(mean(theta_iso,2,'omitnan'),1,size(theta_iso,2));          
     theta_lapse=(theta_prof(1:end-1,:)-theta_prof(2:end,:)) ./ (Zaxis(1:end-1,:)-Zaxis(2:end,:)); 
 
 %---plot setting---   
@@ -150,7 +147,11 @@ for ti=hr
      %---theta---
     [c,hdis]= contour(xi,Zaxis,theta_prof,298:2:360,'color',[0.55 0.55 0.55],'linewidth',2.2); 
     clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.55 0.55 0.55],'LabelSpacing',600)   
-    
+
+%---w contour -- for JAS_R2
+contour(xi,Zaxis,w.prof,[0.5 0.5],'color',[0.8 0.1 0.4],'linewidth',3.5,'linestyle','-.'); 
+%---
+
     %---theta lapse rate
    [c,hdis]=  contour(xi2,Zaxis2,theta_lapse,[0 0],'color',[0.2 0.6 0.1],'linewidth',3,'linestyle','-'); 
 %    clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.1 0.6 0],'LabelSpacing',650)
@@ -175,8 +176,7 @@ for ti=hr
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)
     end  
 
-    
-    
+
         %---colorbar---
     fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
@@ -187,7 +187,6 @@ for ti=hr
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
     end    
     
-    
     set(gca,'fontsize',20,'LineWidth',1.2,'box','on')
 %     set(gca,'Ylim',[1 zlim],'Xlim',[xp xp+len]*1e3)
      set(gca,'Ylim',[1 zlim],'Xlim',[yp yp+len]*1e3,'Xtick',(60:10:140)*1000)
@@ -195,14 +194,13 @@ for ti=hr
     set(gca,'Xticklabel',get(gca,'Xtick')*grids/dx,'Ytick',ytick,'Yticklabel',ytick./1000)
 
     xlim=get(gca,'Xlim');  ylim=get(gca,'Ylim');
-    text(xlim(2)-10000,ylim(1)-ylim(2)/10,['xp=',num2str(xp),', yp=',num2str(yp)])
+    text(xlim(2)-10000,ylim(1)-ylim(2)/12,['xp=',num2str(xp),', yp=',num2str(yp)])
 
     xlabel(xtitle); ylabel('Height (km)')
     s_hrj=num2str(mod(ti+9,24),'%.2d');
     tit=[expri,'  ',titnam,'  ',mon,s_date,'  ',s_hrj,s_min,' LT'];     
     title(tit,'fontsize',25)  
     
-   
     
     %---    
     outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope),'_z',num2str(zlim)];

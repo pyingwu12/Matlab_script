@@ -1,16 +1,16 @@
 
 
 close all
-clear
+clear all
 
 
- acch=6;
- Rain_FSSform_onE('TWIN201',27:28,acch)
- Rain_FSSform_onE('TWIN003',27:28,acch)
- Rain_FSSform_onE('TWIN042',27:28,acch)
- Rain_FSSform_onE('TWIN043',27:28,acch)
- Rain_FSSform_onE('TWIN030',27:28,acch)
- Rain_FSSform_onE('TWIN031',27:28,acch)
+ acch=6; sth=[22 24 25];
+ a_JSAR2_Rain_FSS_form_onEmean('TWIN201',sth,acch)
+ a_JSAR2_Rain_FSS_form_onEmean('TWIN003',sth,acch)
+ a_JSAR2_Rain_FSS_form_onEmean('TWIN042',sth,acch)
+ a_JSAR2_Rain_FSS_form_onEmean('TWIN043',sth,acch)
+ a_JSAR2_Rain_FSS_form_onEmean('TWIN030',sth,acch)
+ a_JSAR2_Rain_FSS_form_onEmean('TWIN031',sth,acch)
 % 
 % DTEterm_dot_cldSize_onE('TWIN201',0.3)
 % DTEterm_dot_cldSize_onE('TWIN201',0.7)

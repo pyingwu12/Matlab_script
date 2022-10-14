@@ -1,7 +1,7 @@
 
 % 2021/10/16: "not finished" <-use domain mean (but not mean of cross section) to calculate theta  anomaly
 % 2021/11/30: another file: <b_Cros_Tano_wholedom> use domain mean (but not mean of the cross section) to calculate theta  anomaly
-
+%!!!!!!!!!!!!!^^^^^^^ ^^^^
 
 % close all
 clear;   ccc=':';

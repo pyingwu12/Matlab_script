@@ -12,7 +12,7 @@
 % 2022/07: use grid numbers as x-axis
 
 
-close all; 
+% close all; 
 clear; ccc=':';
 saveid=1;
 
@@ -44,14 +44,13 @@ expmsize=[19 24 24 29];
 % expnam={ 'FLAT';'V05H075';'V10H075';'V20H075'};
 % expmark={'s';'o';'^';'p'};   
 
-exptext='H1000';
-expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
-expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
-% expnam={ 'FLAT';'V05';'TOPO';'V20'};
-% expnam={ 'FLAT';'V05H10';'V10H10';'V20H10'};
-expnam={ 'ORI_H00V00';'ORI_H10V05';'ORI_H10V10';'ORI_H10V20'};
-expmark={'s';'o';'^';'p'};   
-skipti=10;
+% exptext='H1000';
+% expri1={'TWIN201Pr001qv062221';'TWIN021Pr001qv062221';'TWIN003Pr001qv062221';'TWIN020Pr001qv062221'};
+% expri2={'TWIN201B';'TWIN021B';'TWIN003B';'TWIN020B'};    
+% % expnam={ 'FLAT';'V05';'TOPO';'V20'};
+% expnam={ 'ORI_H00V00';'ORI_H10V05';'ORI_H10V10';'ORI_H10V20'};
+% expmark={'s';'o';'^';'p'};   
+% skipti=9;
 
 % exptext='U00_H1000';
 % expri1={'TWIN042Pr001qv062221';'TWIN045Pr001qv062221';'TWIN043Pr001qv062221';'TWIN046Pr001qv062221'};
@@ -92,13 +91,13 @@ skipti=10;
 % exptext='H2000_THM';
 
 % 
-% exptext='FLATOPOtest';
-% expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'};
-% expri2={'TWIN201B';'TWIN003B'};    
-% expnam={ 'FLAT';'TOPO'};
-% expmark={'s';'^'};     
-% expmsize=[19 24];
-% skipti=9;
+exptext='FLATOPOtest';
+expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221'};
+expri2={'TWIN201B';'TWIN003B'};    
+expnam={ 'FLAT';'TOPO'};
+expmark={'s';'^'};     
+expmsize=[19 24];
+skipti=9;
 %-------------------------------------------------------------
 %{
 % expri1={'TWIN030Pr001qv062221';'TWIN032Pr001qv062221';'TWIN031Pr001qv062221'};
@@ -135,7 +134,7 @@ skipti=10;
 %---setting 
 ploterm='CMDTE'; % option: MDTE, CMDTE,  KE, KE3D, SH, LH
 % day=22;   hrs=[22 23 24 25 26];   minu=[0 20 40]; 
-day=22;   hrs=[23 24 25 26 27];   minu=[0 20 40];  
+% day=22;   hrs=[23 24 25 26 27];   minu=[0 20 40];  
 % day=22;   hrs=[23 24 25 26 27];   minu=[0]; 
 %
 % cloudhyd=0.003;  % threshold of definition of cloud area (Kg/Kg)
@@ -153,7 +152,6 @@ fload=load('colormap/colormap_ncl.mat');
 % col=fload.colormap_ncl([3 8 17 32 58 81 99 126 147 160 179 203],:);
 col=fload.colormap_ncl(12:15:end,:);
 % col=fload.colormap_ncl([17 32 58 81 99 126 147 160 179 203 219 242],:);
-
 %
 %---
 hf=figure('Position',[100 65 900 690]);
@@ -165,29 +163,24 @@ for ei=1:nexp
       hr=ti;  s_date=num2str(day+fix(hr/24),'%2.2d');   s_hr=num2str(mod(hr,24),'%2.2d'); 
     for mi=minu        
       nti=nti+1;      s_min=num2str(mi,'%2.2d'); 
-%       if ei~=1 && nti>7; break; end
-      if ei~=1 && nti>skipti; break; end
-
       if ei==1
         lgnd{nti}=[num2str(mod(hr+9,24),'%2.2d'),s_min,' LT']; 
       end
-%       if ei==1 && ti<25; continue; end
+%       if ei~=1 && nti>7; break; end
+      if ei~=1 && nti>skipti; break; end
+
       %---infile 1---
       infile1=[indir,'/',expri1{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %---infile 2---
       infile2=[indir,'/',expri2{ei},'/',infilenam,'_d',dom,'_',year,'-',mon,'-',s_date,'_',s_hr,ccc,s_min,ccc,'00'];
       %---    
-%       cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudhyd,ploterm);    
       cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm);   
       if ~isempty(cloud) 
           if ei==1; edgcol=col(nti,:); alp=0.7;  else; edgcol='k'; alp=0.8; end
         
-scatter(cloud.size,cloud.maxdte,expmsize(ei)*10,expmark{ei},'MarkerEdgeColor',edgcol,'MarkerFaceColor',col(nti,:),'MarkerFaceAlpha',alp); hold on
+scatter(cloud.size,cloud.maxdte,expmsize(ei)*10,expmark{ei},'MarkerEdgeColor',edgcol,'MarkerFaceColor',col(nti,:),...
+    'MarkerFaceAlpha',alp); hold on
 
-if ei~=1
-fn=find(cloud.todis<100);
- scatter(cloud.size(fn),cloud.maxdte(fn),expmsize(ei)*10,expmark{ei},'MarkerEdgeColor','k','LineWidth',2);
-end
 
       end % if ~isempty(cloud)
 
@@ -203,7 +196,7 @@ set(gca,'XLim',[1e1 5e3],'YLim',[1e-2 2.5e2])
 % set(gca,'XLim',[3.5 80],'YLim',[1e-2 2.5e2])
 % set(gca,'YLim',[1e-3 4e2])
 % set(gca,'XLim',[3.5 30],'YLim',[1e-2 2.5e2])
-xlabel({'Size (km)';'(Diameter of circle with the same area)'}); 
+xlabel({'Size';'(Grid numbers)'}); 
 ylabel({'(Mean of first 10 maximum)',[ploterm,' ( J kg^-^1)']});
 title([titnam,'  (',exptext,')'],'fontsize',18,'Interpreter','none')
 %%

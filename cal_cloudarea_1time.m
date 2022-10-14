@@ -17,7 +17,8 @@ function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm)
 % 2021/02/11: add <ploterm> option for calculating different terms in the DTE
 % 2021/08/05: change cloud area criteria to TPW
 
-topo_locx=75; topo_locy=100;  % center of topography
+% topo_locx=75; topo_locy=100;  % center of topography
+topo_locx=50; topo_locy=150;  % center of topography for U00 and NS5
 %---
 scheme='WSM6';
 
