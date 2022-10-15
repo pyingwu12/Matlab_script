@@ -47,12 +47,17 @@ saveid=1; % save figure (1) or not (0)
 % cexp=[0,0.447,0.741; 0.85,0.325,0.098;  0.6350 0.0780 0.1840;   0.929,0.694,0.125]; 
 % lexp={'-';'-.';'--';'-';':';'-'};
 
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+% exptext='diffTOPO';
+% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+% cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255; 
 
-expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
-exptext='diffTOPO';
-expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
-cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255; 
+expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'; 'TWIN013Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN003B';'TWIN013B'}; 
+exptext='H500';
+expnam={'FLAT';'TOPO';'H500'};
+cexp=[87 198 229; 242 155 0; 146 200 101]/255; 
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221mem2'};   
 % expri2={'TWIN201B';'TWIN003B'}; 
@@ -60,11 +65,12 @@ cexp=[87 198 229; 242 155 0; 146 200 101; 230 84 80; 239 144 185]/255;
 % expnam={'FLAT';'TOPO'};
 % cexp=[87 198 229; 242 155 0]/255; 
 
-timemark={'o';'^';'+';'p';'*'};
+% timemark={'o';'^';'+';'p';'*'};
+timemark={'p'};
 
 
 % stday=22;   sthrs=[23];   acch=[3 6 12]; 
-stday=22;   sthrs=[26 30];   acch=[1]; 
+stday=22;   sthrs=[30];   acch=[1]; 
 filt_len=[1 5 10 15 20 25 35 40 45 50 60 70 80 90 100];  dx=1; dy=1; % km
 %---
 year='2018'; mon='06';  s_min='00';  
@@ -144,7 +150,7 @@ elseif length(sthrs)>=length(acch)
 end
 %
 set(gca,'fontsize',18,'LineWidth',1.2) 
-set(gca,'Ylim',[0 1])
+set(gca,'Ylim',[0 0.75])
 set(gca,'xtick',1:length(filt_len),'Xticklabel',filt_len)
 xlabel('Wave length (km)'); ylabel('SCC');
 tit=titnam;

@@ -1,15 +1,15 @@
-clear;  ccc=':';
+clear;  ccc='-';
 close all
 
 saveid=1; % save figure (1) or not (0)
 
 %---setting      
-expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN031Pr001qv062221';'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
-expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
-exptext='U00NS5';
-expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
-% cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
-cexp=[87 198 229; 242 155 0;       24 126 218; 242 80 50;      75 70 154;  155 55 55]/255; %R3
+% expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN030Pr001qv062221'; 'TWIN031Pr001qv062221';'TWIN042Pr001qv062221';'TWIN043Pr001qv062221'};   
+% expri2={'TWIN201B';'TWIN003B';'TWIN030B'; 'TWIN031B'; 'TWIN042B'; 'TWIN043B'}; 
+% exptext='U00NS5';
+% expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
+% % cexp=[87 198 229; 242 155 0;   44 125 190;  232 66 44;   95 85 147; 168 63 63]/255; 
+% cexp=[87 198 229; 242 155 0;       24 126 218; 242 80 50;      75 70 154;  155 55 55]/255; %R3
 
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 
@@ -41,17 +41,28 @@ lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 % expnam={'FLAT';'TOPO';'U00_FLAT';'U00_TOPO'};
 % cexp=[87 198 229; 242 155 0;   95 85 147; 168 63 63]/255; 
 
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
+%         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
+%         'TWIN042Pr001qv062221';'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5';
+%         'TWIN043Pr001qv062221';'TWIN043Pr001qv062221mem2';'TWIN043Pr001qv062221mem3';'TWIN043Pr001qv062221mem4';'TWIN043Pr001qv062221mem5'};   
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 'TWIN201B';'TWIN201B';
+%     'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';
+%     'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
+%     'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B'}; 
+% exptext0='U00mem';
+% expnam={'FLAT';'TOPO';'U00_FLAT';'U00_TOPO'};
+% cexp=[87 198 229; 242 155 0;    75 70 154; 155 55 55 ]/255;
+
 expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5';
         'TWIN003Pr001qv062221';'TWIN003Pr001qv062221mem2';'TWIN003Pr001qv062221mem3';'TWIN003Pr001qv062221mem4';'TWIN003Pr001qv062221mem5';
-        'TWIN042Pr001qv062221';'TWIN042Pr001qv062221mem2';'TWIN042Pr001qv062221mem3';'TWIN042Pr001qv062221mem4';'TWIN042Pr001qv062221mem5';
-        'TWIN043Pr001qv062221';'TWIN043Pr001qv062221mem2';'TWIN043Pr001qv062221mem3';'TWIN043Pr001qv062221mem4';'TWIN043Pr001qv062221mem5'};   
+        'TWIN013Pr001qv062221';'TWIN013Pr001qv062221mem2';'TWIN013Pr001qv062221mem3';'TWIN013Pr001qv062221mem4';'TWIN013Pr001qv062221mem5'};   
 expri2={'TWIN201B';'TWIN201B';'TWIN201B'; 'TWIN201B';'TWIN201B';
     'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';
-    'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';'TWIN042B';
-    'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B';'TWIN043B'}; 
-exptext0='U00mem';
-expnam={'FLAT';'TOPO';'U00_FLAT';'U00_TOPO'};
-cexp=[87 198 229; 242 155 0;    75 70 154; 155 55 55 ]/255;
+    'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B';'TWIN013B'}; 
+exptext0='H500';
+expnam={'FLAT';'TOPO';'H500'};
+cexp=[87 198 229; 242 155 0; 146 200 101;]/255;
+
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
@@ -72,9 +83,9 @@ intm=20;
 stday=22;  sthr=22;  accm=00:intm:720;   thres=1;  
 year='2018'; mon='06';  dom='01';  infilenam='wrfout'; 
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
-% indir='D:expri_twin';   %outdir='D:figures\expri_twin';
-% outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin';
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';
+indir='D:expri_twin';   %outdir='D:figures\expri_twin';
+outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin';
 titnam='Rainfall SCC';  % fignam=['accum_score_',exptext,'_'];
 
 nexp=size(expri1,1);
@@ -131,22 +142,23 @@ end %exp
 %linestyl={'-';'-';'-';'-';':';':'};
 linestyl={'-';'-';'--';'--';':';':'};
 
-% exptext=[exptext0,'mem'];   
+exptext=[exptext0,'mem'];   
 fignam=['accum_score_',exptext,'_'];
 
 hf=figure('position',[100 55 900 600]);
-plotexp=[1 3 5 2 4 6];
+ plotexp=1:nexp;
+% plotexp=[1 3 5 2 4 6];
 % plotexp=[(1:5) 5*(3-1)+(1:5) 5*(2-1)+(1:5) 5*(5-1)+(1:5) 5*(4-1)+(1:5)];
 for ei=plotexp
     
-%   colei=ceil(ei/5);
-%   h(colei)=plot(scc(ei,:),'LineWidth',3.5,'color',cexp(colei,:)); hold on
+  colei=ceil(ei/5);
+  h(colei)=plot(scc(ei,:),'LineWidth',3.5,'color',cexp(colei,:)); hold on
 
- h(ei)= plot(scc(ei,:),'LineWidth',5,'color',cexp(ei,:),'linestyle',linestyl{ei}); hold on
+%  h(ei)= plot(scc(ei,:),'LineWidth',5,'color',cexp(ei,:),'linestyle',linestyl{ei}); hold on
 end
 
-% legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',28,'location','sw','FontName','Consolas');
-legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',28,'location','sw','FontName','Consolas');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',28,'location','sw','FontName','Consolas');
+% legend(h(plotexp),expnam(plotexp),'Box','off','Interpreter','none','fontsize',28,'location','sw','FontName','Consolas');
 
 set(gca,'Xlim',[0.5 ntime+0.5],'XTick',60/intm:60/intm:ntime,'XTickLabel',1:fix(ntime/(60/intm)),'fontsize',22,'linewidth',1.2)
 set(gca,'Ylim',[0.2 1],'YTick',0:0.2:1)
@@ -158,12 +170,12 @@ title(tit,'fontsize',20)
 outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m'];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}
 %%
 % ensemble mean
-%{
+%
 exptext=[exptext0,'mean'];    fignam=['accum_score_',exptext,'_'];
 
 for ei=1:nexp/5
@@ -186,6 +198,6 @@ s_sth=num2str(sthr(1),'%2.2d'); s_edh=num2str(mod(sthr(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,'d',dom,'_',mon,num2str(stday),num2str(sthr,'%2.2d'),num2str(accm(1),'%.2d'),'_',num2str(accm(end)),'m'];
 if saveid==1
 print(hf,'-dpng',[outfile,'.png']) 
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}

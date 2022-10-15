@@ -7,10 +7,10 @@ clear;   ccc='-';
 saveid=1; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
-expri='TWIN201'; 
+expri='TWIN013'; 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];  
-day=23;  hr=2;  minu=20;  
+day=23;  hr=0;  minu=50;  
 %
 % cloudhyd=0.003;
 cloudtpw=0.7;
@@ -19,9 +19,9 @@ areasize=10;
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
-indir='D:expri_twin';   outdir=['G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/',expri];
+indir='D:expri_twin';   outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
 %outdir=['D:/figures/expri_twin/',expri];
-titnam=plotid;   fignam=[expri1(8:end),'_',plotid,'-cloud_',];
+titnam=plotid;   fignam=[expri1,'_',plotid,'-cloud_',];
 
 %
 load('colormap/colormap_dte.mat')
