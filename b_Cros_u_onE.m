@@ -3,9 +3,9 @@
 % close all
 clear;   ccc=':';
 %---setting
-expri='TWIN003B';   day=22;  hr=21;  minu=40;  
+expri='TWIN031B';   day=21;  hr=15;  minu=00;  
 %---
-xp=1; yp=104;  %start grid
+xp=1; yp=150;  %start grid
 len=150;   %length of the line (grid)
 slopx=1; %integer and >= 0
 slopy=0; %integer and >= 0

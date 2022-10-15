@@ -10,7 +10,10 @@ ax = gca;  c = ax.Color;  ax.Color = 'blue';
 
 indir=['E:/wrfout/expri191009/',expri]; outdir='E:/figures/expri191009/'; % for matlab under windows
 
-legh=legend(expnam,'Box','off','Interpreter','none','location','nw','fontsize',16,'FontName','Consolas'); %Lucida Console
+%---legend
+legend(expnam,'Box','off','Interpreter','none','location','nw','fontsize',16,'FontName','Consolas'); %Lucida Console
+legend(h([1:2:5,2:2:6]),expnam([1:2:5,2:2:6]),'Box','off','NumColumns',2,'FontName','Monospaced');
+                                                         % change lines
 
 set(gca,'Xticklabel',get(gca,'Xtick')*grids,'Yticklabel',get(gca,'Ytick')*grids)
 set(gca,'TickDir','out','box','on')
@@ -86,7 +89,6 @@ cexp=[0.1 0.1 0.1;
 %        235 175 32 ;  220 85 25;  160 20 45;  
 %        143 204 128;  97 153  48; 35 120 35 
 %        ]/255; 
-
 
 
 expri='TWIN017';  %minu=10;

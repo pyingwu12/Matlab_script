@@ -30,31 +30,12 @@ cexp=[87 198 229; 44 125 190; 95 85 147;     242 155 0; 232 66 44; 168 63 63]/25
 % cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
 
 
-
-% exptext='alltopo';  
-% expri={'TWIN001B';...
-%         'TWIN017B';'TWIN013B';'TWIN022B';
-%         'TWIN025B';'TWIN019B';'TWIN024B';
-%         'TWIN021B';'TWIN003B';'TWIN020B';       
-%         'TWIN023B';'TWIN016B';'TWIN018B'
-%         };      
-%     expnam={'FLAT';
-%         'V05H05';'V10H05';'V20H05';
-%         'V05H075';'V10H075';'V20H075';
-%         'V05H10';'TOPO';'V20H10';
-%         'V05H20';'V10H20';'V20H20'
-%         };
-%     cexp=[ 20 20 20;
-%         75 190 237 ; 0  114  189;  5 55 160 ; 
-%        245 153 202; 200 50 170; 140 30 135 
-%        235 175 32 ;  220 85 25;  160 20 45;  
-%        143 204 128;  97 153  48; 35 120 35 
-%        ]/255;   
 lexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};  
 dom={'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01';'01'};
 
 %---setting
-stday=21;  sth=16;  lenh=70; minu=0:10:50; tint=6;  typst='mean';%mean/sum/max
+% stday=21;  sth=16;  lenh=70; minu=0:10:50; tint=6;  typst='mean';%mean/sum/max
+stday=22;  sth=21;  lenh=24; minu=0:10:50; tint=3;  typst='max';%mean/sum/max
 ym='201806';  
 %
 indir='/mnt/HDD123/pwin/Experiments/expri_twin'; outdir='/mnt/e/figures/expri_twin';

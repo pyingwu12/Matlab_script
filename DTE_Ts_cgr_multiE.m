@@ -56,7 +56,7 @@ if plotarea~=0; narea=size(xarea,1); else; narea=0; end
 cloudtpw=0.7; 
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
-stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1; %JAS paper ?
+stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1; %JAS paper 
 % stday=22;  sth=21;  lenh=11;  minu=[0 20 40];  tint=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
