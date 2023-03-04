@@ -1,28 +1,16 @@
 
- thrd=[15 20 25 30 35];
+pltensize=50; 
+expnam='Hagibis05kme01';
+gaussian_level(expnam,pltensize,'v10m')
+gaussian_level(expnam,pltensize,'u10m')
+expnam='Hagibis05kme02';
+gaussian_level(expnam,pltensize,'v10m')
+gaussian_level(expnam,pltensize,'u10m')
 
-%{
-  pltime=45;  memsize=50; 
- wind_2D_prob_MultiT(pltime,memsize,thrd)
-
-  memsize=100; 
- wind_2D_prob_MultiT(pltime,memsize,thrd)
-
-  memsize=500; 
- wind_2D_prob_MultiT(pltime,memsize,thrd)
-
-
-  pltime=42:47;  memsize=50; 
-wind_2D_prob_MultiT(pltime,memsize,thrd)
-
-  pltime=42:47;  memsize=100; 
-wind_2D_prob_MultiT(pltime,memsize,thrd)
-
-  pltime=42:47;  memsize=500; 
-wind_2D_prob_MultiT(pltime,memsize,thrd)
-%}
-
-  pltime=45;  memsize=1000;
-wind_2D_prob_MultiT(pltime,memsize,thrd)
-  pltime=42:47;  
-wind_2D_prob_MultiT(pltime,memsize,thrd)
+pltensize=1000; 
+expnam='Hagibis05kme01';
+gaussian_level(expnam,pltensize,'v10m')
+gaussian_level(expnam,pltensize,'u10m')
+expnam='Hagibis05kme02';
+gaussian_level(expnam,pltensize,'v10m')
+gaussian_level(expnam,pltensize,'u10m')

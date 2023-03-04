@@ -6,10 +6,10 @@ saveid=1;
 pltime=19:54;  
 
 % xp=556; yp=325;
-% xp=554; yp=335;
+xp=554; yp=335;
 % xp=558; yp=331;
 
-xp=656;yp=683; % 1km 1101*1201
+% xp=656;yp=683; % 1km 1101*1201
 
 memsize=50; 
 % tmp=randperm(1000);

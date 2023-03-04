@@ -6,6 +6,8 @@
 
 x='test'; eval([x,'=0:4;'])
 
+plon=[135 144.5]; plat=[32 39]; % wide Kantou area
+
 ax = gca;  c = ax.Color;  ax.Color = 'blue';
 
 indir=['E:/wrfout/expri191009/',expri]; outdir='E:/figures/expri191009/'; % for matlab under windows
@@ -38,8 +40,6 @@ dy=ncreadatt(infile,'/','DY') ;
 scale_factor = ncreadatt('example.nc','temperature','scale_factor');
 attvalue = ncreadatt(source,location,attname);
 
-
-
 %---fitting---
 % if fitid~=0
 %  fo = fit(log10(scale_all)',log10(double(dte_all))','poly1');
@@ -49,7 +49,6 @@ attvalue = ncreadatt(source,location,attname);
 % end
 
 %-----
-
 expri1={'TWIN001Pr001qv062221';...
        'TWIN017Pr001qv062221';'TWIN013Pr001qv062221';'TWIN022Pr001qv062221';
        'TWIN025Pr001qv062221';'TWIN019Pr001qv062221';'TWIN024Pr001qv062221';

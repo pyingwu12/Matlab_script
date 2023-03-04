@@ -65,12 +65,12 @@ for spd_ctr=pltspd
       % 10/12 2100 JST (1200 UTC)
       bst_loc=[139.6 35.6];
       if spd_ctr==25; bst_rad=[260 330];  elseif spd_ctr==15; bst_rad=650; end
-      bst_max=35;
+%       bst_max=35;
     elseif bst_time==15
       % 10/13 0000 JST (1500 UTC)
       bst_loc=[140.6 36.9];
       if spd_ctr==25; bst_rad=280;  elseif spd_ctr==15; bst_rad=600; end
-      bst_max=30;
+%       bst_max=30;
     end
     dis2bst=Great_circle_distance(lon,lat,bst_loc(1),bst_loc(2),'d');
 

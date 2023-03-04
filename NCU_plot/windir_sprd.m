@@ -2,7 +2,7 @@
 %-------------------------------------------------------
 % wind direction spread of experi (DA cycle & forecasting time)
 %-------------------------------------------------------
-%{
+%
 clear all
 close all
 
@@ -92,5 +92,5 @@ for ti=hr
      system(['rm ',[outfile,'.pdf']]);  
     %
 %}
-%end     % time
+end     % time
 

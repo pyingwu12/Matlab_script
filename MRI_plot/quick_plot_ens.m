@@ -3,9 +3,9 @@ clear
 addpath('/data8/wu_py/MATLAB/m_map/')
 
 
-pltime=43; lev=1;
+pltime=40; lev=1;
 % member=randi([1 1000],1,1);
-member=5;
+member=41;
 indir='/data8/leduc/nhm/exp/Fugaku05km/forecast/Fugaku05km06/201910101800';
 % indir='/home/wu_py/plot_5kmEns/201910101800';
 % indir='/obs262_data01/wu_py/Experiments/Hagibis01km1000';
@@ -61,8 +61,8 @@ figure('Position',[100 100 800 630])
 %   plon=[130 145]; plat=[24 43];
   plon=[135 143]; plat=[32 38];
 m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rectbox','on')
-% [~, hp]=m_contourf(lon,lat,squeeze(spd(:,:,pltime)),20,'linestyle','none'); 
-[~, hp]=m_contourf(lon,lat,spd10,20,'linestyle','none');  hold on
+[~, hp]=m_contourf(lon,lat,squeeze(spd10(:,:,pltime)),20,'linestyle','none'); 
+% [~, hp]=m_contourf(lon,lat,spd10,20,'linestyle','none');  hold on
 % [~, hp]=m_contourf(lon,lat,pmsl(:,:,pltime),20,'linestyle','none'); 
 % [~, hp]=m_contour(lon,lat,pmsl(:,:,pltime),[1015 1015],'color','b','linewidth',1.5); 
 
@@ -70,7 +70,7 @@ m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rec
 % m_gshhs_h('color','k','LineWidth',0.8);  m_gshhs_h('save','gumby');
  m_usercoast('gumby','linewidth',0.8,'color','k')
 
-m_text(plon(1)+0.25,plat(1)+0.3,['Valid: ',datestr(pltdate)],'color','k','fontsize',15)
+% m_text(plon(1)+0.25,plat(1)+0.3,['Valid: ',datestr(pltdate)],'color','k','fontsize',15)
 m_grid('fontsize',12,'LineStyle','-.','LineWidth',1); 
 % m_grid('fontsize',12,'LineStyle','-.','LineWidth',1,'xtick',130:5:150,'ytick',25:5:50); 
 

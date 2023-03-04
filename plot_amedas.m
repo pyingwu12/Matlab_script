@@ -1,10 +1,10 @@
 
 
-close all
+% close all
 clear
 
 addpath('/data8/wu_py/MATLAB/m_map/')
-indir='/disk2/da01/Mori/typhon2019/vprftxt/obs/';
+indir='/data8/wu_py/Data/obs/';
 
 
 sta_info=amedastation();

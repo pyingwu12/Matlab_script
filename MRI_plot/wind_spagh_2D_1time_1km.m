@@ -1,7 +1,7 @@
 
 % !!! still need to adopt to different radius for different direction
 
-clear
+% clear
 close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
