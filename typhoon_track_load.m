@@ -1,13 +1,15 @@
-clear
+clear 
 close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
 saveid=0;
 
-pltensize=500; 
+pltensize=50; 
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
-expnam='Hagibis05kme01'; infilename='201910101800'; infiletrackname='201910101800track';
+% expnam='Hagibis05kme01'; infilename='201910101800'; infiletrackname='201910101800track';
+expnam='H01MultiE0206'; infilename='201910111800'; load(['H01MultiE0206_center_',infilename,'.mat'])
+%
 expsize=1000;  
 %
 indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
@@ -26,8 +28,11 @@ for imem=1:pltensize
     lon_track=zeros(length(data_time),pltensize);
     lat_track=zeros(length(data_time),pltensize);
   end  
-  infile_track= [indir,'/',num2str(member(imem),'%.4d'),'/',infiletrackname,'.nc'];
   
+  
+  %5km
+  %{
+  infile_track= [indir,'/',num2str(member(imem),'%.4d'),'/',infiletrackname,'.nc'];
   len_track=length(ncread(infile_track,'lon'));
   if len_track~=length(data_time)
       lon_track(1:len_track,imem) = ncread(infile_track,'lon');
@@ -38,6 +43,9 @@ for imem=1:pltensize
    lon_track(:,imem) = ncread(infile_track,'lon');
    lat_track(:,imem) = ncread(infile_track,'lat');
   end
+  %}
+  
+  
   
 end  %imem
 %%
@@ -60,7 +68,6 @@ best_lon=obs(bestime_idx,2); best_lat=obs(bestime_idx,3);
 
 %---plot
 %%
-%{
 % plon=[min(lon(:)) max(lon(:))]; plat=[min(lat(:)) max(lat(:))];
 plon=[132 148]; plat=[25 42.8];
 % plon=[135 142]; plat=[28 38];
@@ -94,7 +101,7 @@ if saveid==1
 end
 %}
 %%
-%
+%{
 [nx, ny]=size(lon);
 BCmem=50; 
 % n=2; pltibc=randperm(BCmem,n)  %randomly plot n groups

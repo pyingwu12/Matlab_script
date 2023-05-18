@@ -8,6 +8,10 @@ x='test'; eval([x,'=0:4;'])
 
 plon=[135 144.5]; plat=[32 39]; % wide Kantou area
 
+idifx=53; %Fugaku05km
+idifx=58; %Kyushu02km
+idifx=44; %Oizumi-Nagasaki
+
 ax = gca;  c = ax.Color;  ax.Color = 'blue';
 
 indir=['E:/wrfout/expri191009/',expri]; outdir='E:/figures/expri191009/'; % for matlab under windows
