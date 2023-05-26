@@ -17,7 +17,7 @@ for imem=1:ensize
   infile_d=[indir,'/',num2str(member_d(imem),'%.4d'),'/s',infilename,'.nc']; 
   
   if imem==1
-    lon = double(ncread(infile_s,'lon'));    lat = double(ncread(infile_s,'lat'));
+    lon = double(ncread(infile_s,'lon'));    %lat = double(ncread(infile_s,'lat'));
     data_time = (ncread(infile_s,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
     vari0_s=zeros(nx,ny,ntime,ensize); vari0_d=zeros(nx,ny,ntime,ensize);

@@ -92,7 +92,7 @@ for ti=pltime
   end
 %
   outfile=[outdir,'/',fignam,'rnd',num2str(randmem),'m',num2str(pltensize),...
-      '_',datestr(pltdate(ti-acch),'mmdd_HH'),datestr(pltdate(ti),'HH')];
+           datestr(pltdate(ti-acch),'_mmdd_HH'),datestr(pltdate(ti),'HH')];
   if saveid==1
    print(hf,'-dpng',[outfile,'.png'])    
    system(['convert -trim ',outfile,'.png ',outfile,'.png']);

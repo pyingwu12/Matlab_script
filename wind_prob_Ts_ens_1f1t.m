@@ -1,7 +1,7 @@
 clear
-% close all
+close all
 
-saveid=1;
+saveid=0;
 
 pltensize=10;  thresholds=[15]; 
 
@@ -9,17 +9,16 @@ pltensize=10;  thresholds=[15];
 % xp=666;yp=653; % 1km 1101*1201; 
 xp=679;yp=730; % 1km Rinkai; 
 
-
 sth=2; lenh=15; minu=[10];   tint=1;
 %
-expnam='H01km';
-expri='Hagibis01km1000';  expsize=1000;
+expri='Hagibis01kme06';  expsize=1000;
 yyyy='2019'; mm='10'; stday=12;  infilename='sfc';
+expnam=expri;
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
 %outdir='/data8/wu_py/Result_fig';
-titnam='Wind speed';   fignam=[expnam,'_wind-prob-Ts_'];
+titnam='Wind speed';   fignam=[expnam,'_WindProbTs_'];
 %
 nminu=length(minu);  ntime=lenh*nminu;
 %---
@@ -52,7 +51,7 @@ for ti=1:lenh
     if imem==1 && nti==nti
      lon = double(ncread(infile,'lon'));
      lat = double(ncread(infile,'lat'));  
-   
+  
 %      dis_sta=(lon-lonp).^2+(lat-latp).^2;      [xp,yp]=find(dis_sta==min(dis_sta(:)));
     end
 
@@ -78,10 +77,12 @@ for thi=thresholds
   set(gca,'Ylim',[0 100],'YTick',0:10:100,'tickdir','out')
   ylabel('Probability (%)');  
   %---
-%   xlabel('Time (UTC)')
-  xlabel('Time (JST)')
   set(gca,'fontsize',16,'linewidth',1.2) 
-  set(gca,'Xlim',[0 ntime+1],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'Xticklabel',mod(sth+9:tint:sth+lenh-1+9,24))
+  xlabel('Time (UTC)')
+    set(gca,'Xlim',[0 ntime+1],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'Xticklabel',mod(sth:tint:sth+lenh-1,24))
+
+%   xlabel('Time (JST)')  
+%   set(gca,'Xlim',[0 ntime+1],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'Xticklabel',mod(sth+9:tint:sth+lenh-1+9,24))
 grid on
   %---
   %   

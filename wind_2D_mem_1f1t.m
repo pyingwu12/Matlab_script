@@ -7,13 +7,13 @@ saveid=1;
 member=[1]; hr=[13]; minu=[00];
 %
 % expnam='e02nh01G';
-expnam='Hagibis01kme05';
+expri='Hagibis01kme05';
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam]; 
-outdir='/home/wu_py/labwind/Result_fig';
+indir=['/obs262_data01/wu_py/Experiments/',expri]; 
+outdir=['/home/wu_py/labwind/Result_fig/',expri];
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
-titnam=[expnam,'  Wind speed'];   fignam0=[expnam,'_wind-spd_']; unit='m s^-^1';
+titnam=[expri,'  Wind speed'];   fignam0=[expri,'_wind-spd_']; unit='m s^-^1';
 %
 % plon=[134 144]; plat=[30 38];
 % plon=[134.8 143.5]; plat=[32.3 38.5];  fignam=[expnam,'_wind-sprd_']; lo_int=135:5:144; la_int=30:5:37; % Japan center of Kanto
@@ -29,7 +29,7 @@ load('colormap/colormap_wind2.mat')
 cmap=colormap_wind2([2 3 5 8 9 11 12 14 ],:); cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[1 5 10 15 20 25 30];
 
-infile_hm=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm2.nc'];
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm2.nc'];
 land = double(ncread(infile_hm,'landsea_mask'));
 
 %%

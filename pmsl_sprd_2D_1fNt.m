@@ -25,7 +25,7 @@ indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir=['/home/wu_py/labwind/Result_fig/',expri];
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expri,'  PSEA spread'];   fignam=[expri,'_PmslSprd2_'];
+titnam=[expri,'  PSEA spread'];   fignam=[expri,'_PmslSprd_'];
 %--
 % plon=[134.5 143.5]; plat=[32 38.5]; %hagibis kantou
 %
@@ -78,10 +78,10 @@ for ti=pltime
   %---box of domain
 %   m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');
 %   m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
-  m_plot(lon(1+idifx:end-idifx,idifx),lat(1+idifx:end-idifx,idifx),'color',[0.6 0.6 0.6],'linewidth',1.5);
-  m_plot(lon(idifx,1+idifx:end-idifx),lat(idifx,1+idifx:end-idifx),'color',[0.6 0.6 0.6],'linewidth',1.2);
-  m_plot(lon(1+idifx:end-idifx,end-idifx),lat(1+idifx:end-idifx,end-idifx),'color',[0.6 0.6 0.6],'linewidth',1.5);
-  m_plot(lon(end-idifx,1+idifx:end-idifx),lat(end-idifx,1+idifx:end-idifx),'color',[0.6 0.6 0.6],'linewidth',1.5)
+%   m_plot(lon(1+idifx:end-idifx,idifx),lat(1+idifx:end-idifx,idifx),'color',[0.6 0.6 0.6],'linewidth',1.5);
+%   m_plot(lon(idifx,1+idifx:end-idifx),lat(idifx,1+idifx:end-idifx),'color',[0.6 0.6 0.6],'linewidth',1.2);
+%   m_plot(lon(1+idifx:end-idifx,end-idifx),lat(1+idifx:end-idifx,end-idifx),'color',[0.6 0.6 0.6],'linewidth',1.5);
+%   m_plot(lon(end-idifx,1+idifx:end-idifx),lat(end-idifx,1+idifx:end-idifx),'color',[0.6 0.6 0.6],'linewidth',1.5)
 
   %---  
   tit={[titnam];[datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem, rnd',num2str(randmem),')']};   
