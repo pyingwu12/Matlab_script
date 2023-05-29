@@ -51,7 +51,7 @@ plotexp=[1 3 2 5 4]-1;
 % % expnam={'FLAT';'TOPO';'NS5_FLAT';'NS5_TOPO';'U00_FLAT';'U00_TOPO'};
 % expnam={'ORI_H00V00';'ORI_H10V10';'NS5_H00V00';'NS5_H10V10';'U00_H00V00';'U00_H10V10'};
 % cexp=[87 198 229; 242 155 0;   24 126 218;  242 80 50;    75 70 154; 155 55 55 ]/255;
-% plotexp=[5 3 1 2 6 4]-1;
+% plotexp=[1 3 5 2 4 6]-1;
 
 % 
 % timemark={'o';'^';'s';'p';'v';'d';'h'};

@@ -10,6 +10,8 @@ saveid=1;
 
 %---setting 
 % expri='TWIN201';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
+expri='TWIN201';  xsub=1:150;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
+
 % expri='TWIN013';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=30;
 % expri='TWIN021';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=00;
 %%% expri='TWIN020';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
@@ -25,7 +27,7 @@ saveid=1;
 % expri='TWIN040';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
 
 % expri='TWIN030';     xsub=1:150;  ysub=1:150;  stday=23;  sth=0;  stmin=20;
-expri='TWIN031';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
+% expri='TWIN031';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];
 % expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];
@@ -45,7 +47,7 @@ g=9.81;    nx=length(xsub); ny=length(ysub);
 
 zlimt=15000;
 %%
-%{
+%
 %---
 nti=0;  ntii=0;
 for mi=stmin:mint:stmin+lenm
@@ -131,9 +133,9 @@ CMDTE_m=LH_m+KE3D_m+SH_m;
 
 %}
 
-s_sth=num2str(sth,'%2.2d');
-load(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m_'...
-    ,'x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end)),'.mat'])
+% s_sth=num2str(sth,'%2.2d');
+% load(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m_'...
+%     ,'x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end)),'.mat'])
 %%
 %---plot settings
 load('colormap/colormap_ncl.mat')

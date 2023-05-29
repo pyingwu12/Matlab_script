@@ -3,7 +3,7 @@ close all
 clear;   ccc=':';
 saveid=1;
 %---setting
-expri='TWIN003';
+expri='TWIN030';
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];  
  
 plotid='LH';  lev=1:33;
@@ -15,7 +15,7 @@ sat_ratio=0.01;
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; 
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/JAS_R1'];
+indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin'];
 % indir='/mnt/HDD123/pwin/Experiments/expri_twin/'; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
 titnam=['relative ',plotid,' spectra'];   fignam=[expri1(8:end),'_rel-',plotid,'_',];
 %---

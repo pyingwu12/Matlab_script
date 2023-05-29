@@ -6,7 +6,7 @@ close all
 clear;  ccc=':';
 saveid=1;
 %---
-expri='TWIN013';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
+expri='TWIN030';  expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
 %day=22;  hrs=[21 22 23 24 25 26 27 28];% minu=00; % thesis
 day=22;  hrs=[21 22 23 24 25 26 27 28 29];% minu=00;
 % stday=23; hrs=[0 1 2];
@@ -183,7 +183,7 @@ system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}
 %%
-%
+%{
  fignam=[expri1(8:end),'_CMDTE-spectr_',];
 col=col0;
 % col=col0([1:2:29,30],:);

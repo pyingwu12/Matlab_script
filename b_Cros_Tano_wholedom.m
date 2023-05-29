@@ -1,27 +1,27 @@
 
-
 close all
-clear;   ccc='-';
+clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 
 %---setting
-% expri='TWIN013B';   day=22;  hr=23;  minu=40;    qscale=800; xp=26; yp=102;
-% expri='TWIN020B';   day=22;  hr=23;  minu=10;    qscale=800; xp=26; yp=102;
-% expri='TWIN021B';   day=22;  hr=23;  minu=20;    qscale=800; xp=26; yp=100;
-expri='TWIN003B';   day=22;  hr=23;  minu=10;    qscale=800;  xp=26; yp=102;
+% qscale=800; qscalev=qscale*0.45;
+% expri='TWIN013B';   day=22;  hr=23;  minu=40;   xp=26; yp=102;
+% expri='TWIN020B';   day=22;  hr=23;  minu=10;   xp=26; yp=102;
+% expri='TWIN021B';   day=22;  hr=23;  minu=20;   xp=26; yp=100;
+% expri='TWIN003B';   day=22;  hr=23;  minu=10;   xp=26; yp=102;
+% expri='TWIN017B';   day=22;  hr=23;  minu=[20 ];    xp=26; yp=102;
 
-% expri='TWIN017B';   day=22;  hr=23;  minu=[20 ];    qscale=800;  xp=26; yp=102;
-
-% expri='TWIN031B';   day=22;  hr=23;  minu=30;    qscale=400; xp=1; yp=156;
-% expri='TWIN043B';   day=22;  hr=23;  minu=[00];    qscale=400;
-% expri='TWIN040B';   day=22;  hr=23;  minu=[40];   qscale=300;
+qscale=450; qscalev=qscale*0.75;
+% expri='TWIN031B';   day=22;  hr=23;  minu=30;  xp=1; yp=156;
+expri='TWIN043B';   day=22;  hr=23;  minu=[30];    xp=1; yp=144;
+% expri='TWIN040B';   day=22;  hr=23;  minu=[40];  
 
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
   %start grid
 len=100;   %length of the line (grid)
 
-% xp=1; yp=152;  %start grid
+% xp=26; yp=102;  %start grid
 % len=100;   %length of the line (grid)
 
 slopx=1; %integer and >= 0
@@ -29,13 +29,12 @@ slopy=0; %integer and >= 0
 %---
 year='2018'; mon='06';  infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-% indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/JAS_R2'];
-indir=['D:expri_twin/',expri]; 
-outdir='JAS_R2';
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/JAS_R2'];
+% indir=['D:expri_twin/',expri]; outdir='JAS_R2';
 titnam='\theta anomaly';   fignam=[expri,'_cros-theta-anomaly_'];
 %---
-% LFC_indir='/mnt/HDDA/Python_script/LFC_data';
-LFC_indir='LFC_data/';
+LFC_indir='/home/pwin/Documents/LFC_data';
+% LFC_indir='LFC_data/';
 %---
 load('colormap/colormap_br3.mat'); 
 cmap=colormap_br3([8 9 10 11 12],:);   
@@ -43,8 +42,8 @@ cmap2=cmap*255; cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[0 0.5 1 1.5];
 %----
 g=9.81;
-zlim=3200; ytick=500:500:zlim; 
-% zlim=7000; ytick=1000:1000:zlim; 
+% zlim=3200; ytick=500:500:zlim; 
+zlim=7000; ytick=1000:1000:zlim; 
 
 for ti=hr
   s_date=num2str(day+fix(ti/24),'%2.2d');    s_hr=num2str(mod(ti,24),'%2.2d');   
@@ -91,8 +90,7 @@ for ti=hr
     elseif maxid==2
       A=w.unstag;     [xx,yy,zz]= ind2sub([nx,ny,nz],find(A == max(A(:))));   
       if slopx>=slopy; yp=yy; else;  xp=xx; end
-    end     
-    
+    end        
 
 %---interpoltion---
     for i=1:nx
@@ -103,7 +101,6 @@ for ti=hr
     end      
     theta_mean=mean(theta_iso,[1 2],'omitnan');
     theta_ano=theta_iso-repmat(theta_mean,nx,ny);            
-
 
     [y, x]=meshgrid(1:ny,1:nx);       
     i=0;  lonB=0; latB=0;
@@ -125,7 +122,6 @@ for ti=hr
       
       theta_nao_prof(:,i)=squeeze(theta_ano(indx,indy,:));
       
-
       hgtprof(i)=hgt(indx,indy);
       LFCprof(i)=LFC(indy,indx)+hgt(indx,indy);      
     end    
@@ -167,21 +163,20 @@ contour(xi,Zaxis,w.prof,[0.5 0.5],'color',[0.8 0.1 0.4],'linewidth',3.5,'linesty
 %---
 
     %---theta lapse rate
-   [c,hdis]=  contour(xi2,Zaxis2,theta_lapse,[0 0],'color',[0.2 0.6 0.1],'linewidth',3,'linestyle','-'); 
-%    clabel(c,hdis,hdis.TextList,'fontsize',18,'color',[0.1 0.6 0],'LabelSpacing',650)
+   contour(xi2,Zaxis2,theta_lapse,[0 0],'color',[0.2 0.6 0.1],'linewidth',3,'linestyle','-'); 
 
-    %---LFC
+%     %---LFC
     plot(xaxis*1e3,LFCprof,'color',[0.5 0.28 0.85],'linewidth',3,'LineStyle','-')
 
     %---hydrometeor---
-    [c,hdis]= contour(xi,Zaxis,hyd_prof*1e3,[0.1 0.1],'color',[0.05 0.1 0.9],'linewidth',4); 
-%     clabel(c,hdis,hdis.TextList,'fontsize',15,'color',[0.05 0.3 0.8],'LabelSpacing',500) 
+    contour(xi,Zaxis,hyd_prof*1e3,[0.1 0.1],'color',[0.05 0.1 0.9],'linewidth',4);  
 
-        %---wind vector----
+    %---wind vector----
     w.vec= w.prof(1:intw:end,1:intu/1000:end);  
     u.vec= u.prof(1:intw:end,1:intu/1000:end);    
     h1 = quiver(xi_vec,zi_vec,u.vec,w.vec,0,'color',[0.28 0 0],'MaxHeadSize',0.002) ; % the '0' turns off auto-scaling
     hU1 = get(h1,'UData');   hV1 = get(h1,'VData') ;
+        set(h1,'UData',qscale*hU1,'VData',qscalev*hV1,'LineWidth',1.3);  
 
      windlegend=5;    
     h2 = quiver((xp+xp+len-5)/2*1000,350,windlegend,0,0,'color',[0.9 0 0],'MaxHeadSize',0.2) ; % the '0' turns off auto-scaling
@@ -197,30 +192,29 @@ contour(xi,Zaxis,w.prof,[0.5 0.5],'color',[0.8 0.1 0.4],'linewidth',3.5,'linesty
 %    hU2 = get(h2,'UData');   hV2 = get(h2,'VData') ;
 %    text(50*1000,250,[num2str(windlegend),' m s^-^1'],'color',[0.9 0 0],'fontsize',16)   
 
-    set(h1,'UData',qscale*hU1,'VData',qscale*hV1*0.45,'LineWidth',1.3);  
-    set(h2,'UData',qscale*hU2,'VData',qscale*hV2*0.45,'LineWidth',1.3);  
-    set(h3,'UData',qscale*hU3,'VData',qscale*hV3*0.45,'LineWidth',1.3);  
+%     set(h2,'UData',qscale*hU2,'VData',qscalev*hV2,'LineWidth',1.3);  
+%     set(h3,'UData',qscale*hU3,'VData',qscalev*hV3,'LineWidth',1.3);  
     
      %---terrain
     if (max(max(hgtprof))~=0)
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)
     end  
-    
-    set(gca,'fontsize',20,'LineWidth',1.2,'box','on')
-    set(gca,'Ylim',[1 zlim],'Xlim',[xp xp+len]*1e3)
-%       set(gca,'Ylim',[1 zlim],'Xlim',[20 120]*1e3)
-    set(gca,'Ytick',ytick,'Yticklabel',ytick./1000,'Xtick',(10:10:140)*1000,'Xticklabel',10:10:140)
 
-    %%
-    %---colorbar---
+        %---colorbar---
     fi=find(L>pmin,1);
     L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
     hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',18,'LineWidth',1.2);
-    colormap(cmap); title(hc,'K','fontsize',16);  %drawnow;
+    colormap(cmap); title(hc,'K','fontsize',16);  drawnow;
     hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
     for idx = 1 : numel(hFills)
       hFills(idx).ColorData=uint8(cmap2(idx+fi-1,:)');
-    end     
+    end    
+    
+    set(gca,'fontsize',20,'LineWidth',1.2,'box','on')
+    set(gca,'Ylim',[1 zlim],'Xlim',[xp xp+len]*1e3)
+%     set(gca,'Ylim',[1 zlim],'Xlim',[20 120]*1e3)
+    set(gca,'Ytick',ytick,'Yticklabel',ytick./1000,'Xtick',(10:10:140)*1000,'Xticklabel',10:10:140)
+   
     %%
     xlim=get(gca,'Xlim');  ylim=get(gca,'Ylim');
     text(xlim(2)-10000,ylim(1)-ylim(2)/12,['xp=',num2str(xp),', yp=',num2str(yp)])
@@ -232,9 +226,10 @@ contour(xi,Zaxis,w.prof,[0.5 0.5],'color',[0.8 0.1 0.4],'linewidth',3.5,'linesty
     %%
     %---    
     outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_x',num2str(xp),'y',num2str(yp),'s',num2str(slope),'_z',num2str(zlim)];
+%     outfile=[outfile,'_legend'];
     if saveid~=0
     print(hf,'-dpng',[outfile,'.png']) 
-%     system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+    system(['convert -trim ',outfile,'.png ',outfile,'.png']);
     end
 %}
  

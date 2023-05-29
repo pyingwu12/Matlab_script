@@ -20,9 +20,10 @@ saveid=1; % save figure (1) or not (0)
 % expri='TWIN040';    subx1=1; subx2=150; suby1=76; suby2=225;  
 % expri='TWIN039';    subx1=101; subx2=250; suby1=26; suby2=175;      
 
-
+%---JAS_R2: plot the whole domain---
 subx1=1; subx2=300; suby1=1; suby2=300;     
-expri='TWIN030';   
+expri='TWIN013';  
+%---
 
 expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];   
 %-----

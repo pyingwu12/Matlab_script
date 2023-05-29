@@ -3,8 +3,8 @@ clear;   ccc=':';
 saveid=1; % save figure (1) or not (0)
 
 %---setting
-% expri='TWIN020B';   day=22;  hr=23;  minu=10;   xp=56;
-expri='TWIN021B';   day=22;  hr=23;  minu=20;   xp=66;
+expri='TWIN020B';   day=22;  hr=23;  minu=10;   xp=56;
+% expri='TWIN021B';   day=22;  hr=23;  minu=20;   xp=66;
 %---
 maxid=0; %0: define by <xp>, <yp>; 1: max of hyd; 2: max of w
  yp=50;  %start grid
@@ -167,15 +167,16 @@ contour(xi,Zaxis,w.prof,[0.5 0.5],'color',[0.8 0.1 0.4],'linewidth',3.5,'linesty
     w.vec= w.prof(1:intw:end,1:intu/1000:end);  
     v.vec= v.prof(1:intw:end,1:intu/1000:end);    
     h1 = quiver(xi_vec,zi_vec,  v.vec,w.vec,0,'color',[0.28 0 0],'MaxHeadSize',0.002) ; % the '0' turns off auto-scaling
+    
     hU = get(h1,'UData');   hV = get(h1,'VData') ;
-    qscale=800;
-    set(h1,'UData',qscale*hU,'VData',qscale*hV,'LineWidth',1.3);   
+    qscale=800; qscalev=qscale*0.45;
+
+    set(h1,'UData',qscale*hU,'VData',qscalev*hV*0.45,'LineWidth',1.3);   
 
      %---terrain
     if (max(max(hgtprof))~=0)
      plot(xaxis*1e3,hgtprof,'color',[0.2 0.2 0.2],'LineWidth',1.5)
     end  
-
 
         %---colorbar---
     fi=find(L>pmin,1);
