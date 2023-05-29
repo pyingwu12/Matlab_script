@@ -8,18 +8,18 @@ pltensize=1000;  tint=6;
 
 BCnum=50;
 
-% expnam='Hagibis05kme01'; infilename='201910101800';%hagibis
-expnam='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-% expnam='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
-% expnam='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san) 
+% expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
+% expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+% expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san) 
 
 expsize=1000;
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expnam,'  Spread of rainfall'];   fignam=[expnam,'_rain-sprd-Ts_'];
+titnam=[expri,'  Spread of rainfall'];   fignam=[expri,'_rain-sprd-Ts_'];
 %
 %---
 tmp=randperm(expsize); 

@@ -19,9 +19,9 @@ if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 titnam=[expri,' Wind speed']; fignam0=[expri,'_MaxWind_'];   unit='m/s';
 %
 % plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
-% plon=[138 141]; plat=[34 37];  fignam=[expnam,'_wind-max_obskanto_'];  lo_int=133:2:145; la_int=26:2:46; 
-% plon=[135.5 142.5]; plat=[33.5 37]; fignam=[expnam,'_wind-max_zkt_'];  lo_int=135:5:145; la_int=30:5:40; % zoom in Kantou area
-% plon=[135.5 142.3]; plat=[33.5 37.3];  fignam=[expnam,'_wind-max_zkt2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
+% plon=[138 141]; plat=[34 37];  fignam=[expri,'_wind-max_obskanto_'];  lo_int=133:2:145; la_int=26:2:46; 
+% plon=[135.5 142.5]; plat=[33.5 37]; fignam=[expri,'_wind-max_zkt_'];  lo_int=135:5:145; la_int=30:5:40; % zoom in Kantou area
+% plon=[135.5 142.3]; plat=[33.5 37.3];  fignam=[expri,'_wind-max_zkt2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
 
 plon=[134.8 143.5]; plat=[32.3 38.5];  fignam=[fignam0,'Kanto_']; lo_int=135:5:144; la_int=30:5:37; % Japan center of Kanto
 % plon=[138 141]; plat=[34 37.3]; fignam=[fignam0,'ktp_'];  lo_int=130:2:146; la_int=25:2:45; msize=13;  %Kantou portrait(verticle)

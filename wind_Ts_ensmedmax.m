@@ -7,16 +7,16 @@ saveid=1;
 pltensize=20;    
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
-% expnam='Hagibis05kme02'; infilename='201910101800';%hagibis05
-expnam='Hagibis01kme06'; infilename='201910111800';%hagibis01
+% expri='Hagibis05kme02'; infilename='201910101800';%hagibis05
+expri='Hagibis01kme06'; infilename='201910111800';%hagibis01
 expsize=1000; 
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
-infile_hm=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm.nc',];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc',];
 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam=[expnam,'  Max. wind speed'];   fignam=[expnam,'_wind-max_'];   unit='m/s';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam=[expri,'  Max. wind speed'];   fignam=[expri,'_wind-max_'];   unit='m/s';
 %---
 land = double(ncread(infile_hm,'landsea_mask'));
 %%

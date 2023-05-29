@@ -12,11 +12,11 @@ cmap=colormap_tern;
 %
 % filenam='Hagibis200m_terrain_F';
 % infile='/home/wu_py/nhm/exp/Hagibis200m/const/mfhm.nc';
-%  infile='/data2/wu_py/Tools/Out/mfhm2_RISTrev1.nc';  expnam='test_RISTrev1';
-expnam='Nagasaki02km';
-infile=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm.nc'];
-% expnam='e02nh01K';% expnam='Hagibis01kme06';
-% infile=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm2.nc'];
+%  infile='/data2/wu_py/Tools/Out/mfhm2_RISTrev1.nc';  expri='test_RISTrev1';
+expri='Nagasaki02km';
+infile=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc'];
+% expri='e02nh01K';% expri='Hagibis01kme06';
+% infile=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm2.nc'];
 lon = double(ncread(infile,'lon'));
 lat = double(ncread(infile,'lat'));
 land = double(ncread(infile,'landsea_mask'));
@@ -53,8 +53,8 @@ m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 % m_plot(lon2(end,:),lat2(end,:),'color',[0.4 0.4 0.4],'linewidth',1.2,'linestyle','-')
 
 
-title([expnam,' Terrain'],'fontsize',18)
-outfile=[outdir,'/',expnam,'_',domtxt,'_terr'];
+title([expri,' Terrain'],'fontsize',18)
+outfile=[outdir,'/',expri,'_',domtxt,'_terr'];
 print(hf,'-dpng',[outfile,'.png'])    
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 %}

@@ -1,20 +1,22 @@
-close all
+% close all
 clear
 saveid=1; % save figure (1) or not (0)
 %---setting
-expri='TWIN003B';
+expri='TWIN017B';
 % expri='TWIN042Pr001qv062221';
-stday=22;  sth=[22 28];   s_minu='00';   acch=6; 
+stday=22;  sth=22;   s_minu='00';   acch=12; 
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 %---
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri]; %outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+outdir='/mnt/e/figures/expri_twin/JAS_R2';
 %---
 titnam='Accumulated Rainfall';   fignam=[expri,'_accum_'];
 %
 load('colormap/colormap_rain.mat')
-cmap=colormap_rain; cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
+cmap=colormap_rain; cmap(1,:)=[1 1 1];
+cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[  0.1   2   4   6  10  15  20  25  30  40  50  60  70  80 100 120];
 
 %---

@@ -7,15 +7,15 @@ saveid=0;
 pltensize=50; 
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
-% expnam='Hagibis05kme01'; infilename='201910101800'; infiletrackname='201910101800track';
-expnam='H01MultiE0206'; infilename='201910111800'; load(['H01MultiE0206_center_',infilename,'.mat'])
+% expri='Hagibis05kme01'; infilename='201910101800'; infiletrackname='201910101800track';
+expri='H01MultiE0206'; infilename='201910111800'; load(['H01MultiE0206_center_',infilename,'.mat'])
 %
 expsize=1000;  
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
-titnam='Tracks';   fignam=[expnam,'_track_'];  % unit='m s^-^1';
+titnam='Tracks';   fignam=[expri,'_track_'];  % unit='m s^-^1';
 %%
 if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); else; member=1:pltensize; end
 %---
@@ -91,7 +91,7 @@ m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',110:5:150,'ytick',
 %---plot the box of the domain ---
 % m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 %---
-tit=[expnam,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
+tit=[expri,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
 title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'rnd',num2str(randmem)];
@@ -140,7 +140,7 @@ m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',110:5:150,'ytick',
 %---plot the box of the domain ---
 % m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 %---
-tit={expnam,['  ',titnam,'  (',num2str(pltensize/BCmem),' mem per BC)']};   
+tit={expri,['  ',titnam,'  (',num2str(pltensize/BCmem),' mem per BC)']};   
 title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'_coloredBC1_p'];
@@ -178,7 +178,7 @@ m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',110:5:150,'ytick',
 %---plot the box of the domain ---
 % m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 %---
-tit=[expnam,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
+tit=[expri,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
 title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'_coloredBCSVpair'];

@@ -13,12 +13,12 @@ sth=2; lenh=15; minu=[10];   tint=1;
 %
 expri='Hagibis01kme06';  expsize=1000;
 yyyy='2019'; mm='10'; stday=12;  infilename='sfc';
-expnam=expri;
+expri=expri;
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='Wind speed';   fignam=[expnam,'_WindProbTs_'];
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='Wind speed';   fignam=[expri,'_WindProbTs_'];
 %
 nminu=length(minu);  ntime=lenh*nminu;
 %---

@@ -5,17 +5,18 @@ saveid=0;
 
 pltensize=1000;  tint=6;
 
-expnam='Hagibis05kme02'; infilename='201910101800';%hagibis
+expri='Hagibis05kme02'; infilename='201910101800';%hagibis
 expsize=1000; 
 infiletrackname='201910101800track';
 %
 % ntime=length(pltime);
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+
 %
-titnam='Track error';   fignam=[expnam,'_TrackErr-Ts_'];
+titnam='Track error';   fignam=[expri,'_TrackErr-Ts_'];
 %
 %---
 

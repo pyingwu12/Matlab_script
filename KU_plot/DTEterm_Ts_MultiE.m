@@ -10,16 +10,24 @@ saveid=1; % save figure (1) or not (0)
 % expnam={'V05';'V20'};
 % cexp=[230 84 80; 239 144 185]/255; 
 
-expri1={'TWIN201Pr001qv062221noMP';'TWIN003Pr001qv062221noMP';'TWIN013Pr001qv062221noMP'};  
-expri2={'TWIN201B062221noMP';'TWIN003B062221noMP';'TWIN013B062221noMP'};
-exptext='noMP13';
-expnam={'FLATnoMP';'TOPOnoMP';'H500noMP'};
-cexp=[0.3,0.745,0.933; 0.929,0.694,0.125; 0.572 0.784 0.396]; 
+% expri1={'TWIN201Pr001qv062221noMP';'TWIN003Pr001qv062221noMP';'TWIN013Pr001qv062221noMP'};  
+% expri2={'TWIN201B062221noMP';'TWIN003B062221noMP';'TWIN013B062221noMP'};
+% exptext='noMP13';
+% expnam={'FLATnoMP';'TOPOnoMP';'H500noMP'};
+% cexp=[0.3,0.745,0.933; 0.929,0.694,0.125; 0.572 0.784 0.396];
+
+expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
+expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
+exptext='diffTOPO';
+% expnam={'FLAT';'TOPO';'H500';'V05';'V20'};
+expnam={'ORI_H00V00';'ORI_H10V10';'ORI_H05V10';'ORI_H10V05';'ORI_H10V20'};
+cexp=[87 198 229; 242 155 0; 146 200 101; 230 70 80; 239 154 183]/255;
+
  
 %---setting---
 plotid='LH'; % KE3D, LH, SH
 
-stday=22;  sth=21;  lenh=13;  minu=[0 20 40];  tint=1;
+stday=22;  sth=21;  lenh=11;  minu=[0 20 40];  tint=1;
 plotarea=1; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
@@ -111,8 +119,8 @@ for ei=1:nexp
     end
   end
 end
-legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+legh=legend(h,expnam,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
 %
 %---
 set(gca,'Linewidth',1.2,'fontsize',20)

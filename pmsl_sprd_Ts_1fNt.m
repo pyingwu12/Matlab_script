@@ -6,19 +6,19 @@ saveid=1;
 pltensize=50;  tint=6;
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 
-expnam='Hagibis05kme02'; infilename='201910101800';%hagibis
-% expnam='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-% expnam='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+expri='Hagibis05kme02'; infilename='201910101800';%hagibis
+% expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
+% expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
 % convert_id=2; %1: duc-san default; 2: convert by wu (<-not used,fixed on 230212)
-% expnam='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san) 
+% expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san) 
 %
 expsize=1000;  BCnum=50;
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expnam,'  Spread of Sea level pressure'];   fignam=[expnam,'_pmsl-sprd-Ts_'];
+titnam=[expri,'  Spread of Sea level pressure'];   fignam=[expri,'_pmsl-sprd-Ts_'];
 %
 %cvrt_name={'';'sfc'};
 %cvrt_time={'time';'times'};

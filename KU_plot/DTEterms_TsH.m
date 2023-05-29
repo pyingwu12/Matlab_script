@@ -4,15 +4,22 @@
 % One experiments; x-axis: time; y-axis: Height
 % PY WU @2021/06/22
 %----------------------------------------------------
-% close all;
+close all;
 clear; ccc=':';
 saveid=1;
 
 %---setting 
-expri='TWIN001';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
+% expri='TWIN201';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
+expri='TWIN201';  xsub=1:150;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
+
 % expri='TWIN013';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=30;
 % expri='TWIN021';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=00;
+%%% expri='TWIN020';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
 % expri='TWIN003';     xsub=1:150;  ysub=51:200;  stday=22;  sth=22;  stmin=50;
+% expri='TWIN017';     xsub=1:150;  ysub=51:200;  stday=22;  sth=23;  stmin=10;
+
+     % for plain area
+     % expri='TWIN003';     xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50; 
 
 % expri='TWIN042';     xsub=151:300;  ysub=151:300;  stday=23;  sth=0;  stmin=00;
 % expri='TWIN043';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
@@ -21,8 +28,9 @@ expri='TWIN001';  xsub=151:300;  ysub=51:200;   stday=23;  sth=0;  stmin=50;
 
 % expri='TWIN030';     xsub=1:150;  ysub=1:150;  stday=23;  sth=0;  stmin=20;
 % expri='TWIN031';     xsub=1:150;  ysub=76:225;  stday=22;  sth=22;  stmin=30;
-% expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];
-expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];
+
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];
+% expri1=[expri,'Pr0025THM062221'];  expri2=[expri,'B'];
 
 
 % stday=22;  sth=22;  stmin=50;
@@ -30,8 +38,9 @@ mint=10; lenm=160;  tint=2;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri];
-fignam=[expri1,'_DTE_TsH_'];  titnam=[expri1,'  time-height']; 
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/JAS_R2'];
+% outdir=['/mnt/e/figures/expri_twin/',expri];
+fignam=[expri1,'_DTE_TsH_'];  titnam=[expri,'  time-height']; 
 %
 ntime=fix(lenm/mint)+1;
 g=9.81;    nx=length(xsub); ny=length(ysub);
@@ -120,46 +129,64 @@ for mi=stmin:mint:stmin+lenm
   disp([s_hr,s_min,' done'])
 end %mi    
 [xi, zi]=meshgrid(1:ntime,zgi);
+CMDTE_m=LH_m+KE3D_m+SH_m;
+
 %}
 
 % s_sth=num2str(sth,'%2.2d');
-% load(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m.mat'])
+% load(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m_'...
+%     ,'x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end)),'.mat'])
 %%
 %---plot settings
-%colormap
 load('colormap/colormap_ncl.mat')
-cmap=colormap_ncl(20:10:90,:); %cmap(1,:)=[1 1 1];
-cmap2=cmap*255;  cmap2(:,4)= (zeros(1,size(cmap2,1))+255)*0.5;
-L=[0.001 0.005 0.01 0.05 0.1 0.5 1];
+cmap=colormap_ncl(15:11:95,:); %cmap(1,:)=[1 1 1];
+% cmap2=cmap*255;  cmap2(:,4)= (zeros(1,size(cmap2,1))+255)*0.5;
+
+% ----------------------------
+L=10.^[-3 -2.5 -2 -1.5 -1 -0.5 0];
 %contours---
-wcol=[0.88 0.1 0]; thecol=[0.98 0.8 0]; 
+
 %
 % ytick=1000:2000:zgi(end);
 ytick=1000:2000:zi(end,1);
 %
-CMDTE_m=LH_m+KE3D_m+SH_m;
 plotvar=CMDTE_m;
 pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
-%%
+%
 % close all
 %-------plot--------------------------
  hf=figure('position',[80 350 1100 600]);
 [~, hp]=contourf(xi,zi,plotvar,L2,'linestyle','none');   hold on
 % contour(xi,zgi,qc_m*1e3,[0.1 0.1],'color',[0.1 0.1 0.1],'linewidth',2,'linestyle','--');
 
-LSpac=600; Lfs=25;
+LSpac=600; Lfs=25; linw=2.4;
 
 %---hydrometeors
-[c,hdis]=contour(xi,zi,hyd2_m*1e3,[0.1 7],'linewidth',3,'color',[0 0 0],'linestyle','--');
-clabel(c,hdis,[0.1 5 6 7 8 10],'fontsize',Lfs,'color',[0 0 0],'LabelSpacing',400)   
-
-%---horizontal max updraft of cntl simulation
-[c,hdis]=contour(xi,zi,w_m,[1.5 15],'color',wcol,'linewidth',3,'linestyle','--'); 
-clabel(c,hdis,[1 1.5 2 5 6 7 10 11 12 13 14 15],'fontsize',Lfs,'color',wcol,'LabelSpacing',1000)   
+[c,hdis]=contour(xi,zi,hyd2_m*1e3,[0.1 0.1],'linewidth',linw+1.5,'color',[0.2 0.2 0.2],'linestyle','-');
+   clabel(c,hdis,[0.1 5 6 7 8 10],'fontsize',Lfs,'color',[0.2 0.2 0.2],'LabelSpacing',300)   
+[c,hdis]=contour(xi,zi,hyd2_m*1e3,[7 7],'linewidth',linw+1.2,'color',[0 0 0],'linestyle','-');
+   clabel(c,hdis,[0.1 5 6 7 8 10],'fontsize',Lfs,'color',[0 0 0],'LabelSpacing',250)   
 
 %---horizontal max of theta'---
-[c,hdis]=contour(xi,zi,theta_ano_max,[1 4],'color',thecol,'linewidth',2.7,'linestyle','--'); 
-clabel(c,hdis,[0.5 1 2 2.5 3 3.5 4 ],'fontsize',Lfs,'color',thecol,'LabelSpacing',2000)   
+ thecol=[1 0.8 0.1]; 
+[c,hdis]=contour(xi,zi,theta_ano_max,[1 1],'color',thecol,'linewidth',linw+0.8,'linestyle','-'); 
+clabel(c,hdis,[0.5 1 2 2.5 3 3.5 4 ],'fontsize',Lfs,'color',thecol,'LabelSpacing',250)   
+% thecol2=thecol-[0.1 0.1 0.1]; thecol2(thecol2<0)=0;
+ thecol2=[0.97 0.9 0]; 
+[c,hdis]=contour(xi,zi,theta_ano_max,[4 4],'color',thecol2,'linewidth',linw+0.1,'linestyle','-'); 
+clabel(c,hdis,[0.5 1 2 2.5 3 3.5 4 ],'fontsize',Lfs,'color',thecol2,'LabelSpacing',200) 
+
+
+%---horizontal max updraft of cntl simulation
+wcol=[0.9 0.1 0.4];
+% wcol=[0.95 0.1 0];
+[c,hdis]=contour(xi,zi,w_m,[1.5 1.5],'color',wcol,'linewidth',linw+0.5,'linestyle','-'); 
+clabel(c,hdis,[1 1.5 2 5 6 7 10 11 12 13 14 15],'fontsize',Lfs,'color',wcol,'LabelSpacing',300)   
+wcol2=[1 0 0.25];
+[c,hdis]=contour(xi,zi,w_m,[15 15],'color',wcol2,'linewidth',linw+0.2,'linestyle','-'); 
+clabel(c,hdis,[1 1.5 2 5 6 7 10 11 12 13 14 15],'fontsize',Lfs,'color',wcol2,'LabelSpacing',300)   
+
+  
 
 % LSpac=500; Lfs=15;
 % %---root mean square difference of hydrometeor---
@@ -172,26 +199,38 @@ set(gca,'Xlim',[1 ntime],'Xtick',tint:tint:ntime,'Xticklabel',ss_hr)
 xlabel('Local time'); ylabel('Height (km)')
 title(titnam,'Interpreter','none')
 
+
+colormap(cmap); 
+brighten(0.2)
+bri_cmap=colormap;
+cmap2=bri_cmap*255;  cmap2(:,4)= (zeros(1,size(cmap2,1))+255)*0.5;
+
 %---colorbar---
+Ltick={'10^-^3'; '10^-^2^.^5'; '10^-^2';'10^-^1^.^5';'10^-^1';'10^-^0^.^5';'10^0';};
 fi=find(L>0);
 L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',16,'LineWidth',1.2);
-colormap(cmap); title(hc,'J kg^-^1','fontsize',16);  drawnow;
+% hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',16,'LineWidth',1.2);
+hc=colorbar('YTick',L1,'YTickLabel',Ltick,'fontsize',16,'LineWidth',1.2);
+title(hc,'J kg^-^1','fontsize',16);  drawnow;
 hFills = hp.FacePrims;  % array of matlab.graphics.primitive.world.TriangleStrip objects
 for idx = 1 : numel(hFills)
   hFills(idx).ColorData=uint8(cmap2(idx+fi(1)-1,:)');
 end  
 %
+%---
 s_sth=num2str(sth,'%2.2d');
-outfile=[outdir,'/',fignam,mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m'];
+outfile=[outdir,'/',fignam,mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm)...
+    ,'m_x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end))];
 if saveid~=0
 print(hf,'-dpng',[outfile,'.png'])    
 system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}
 %%
-save(['matfile/',expri1,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m.mat'],...
-    'CMDTE_m','xi','zi','hyd2_m','w_m','theta_ano_max','ss_hr')
+% save(['matfile/',expri,'_',mon,num2str(stday),s_sth,num2str(stmin,'%2.2d'),'_',num2str(lenm),'m_'...
+%     ,'x',num2str(xsub(1)),num2str(xsub(end)),'y',num2str(ysub(1)),num2str(ysub(end)),'.mat'],...
+%     'CMDTE_m','xi','zi','hyd2_m','w_m','theta_ano_max','ss_hr')
+
 %---check vertical velocity---
 %{
 ytick=1000:2000:zgi(end);

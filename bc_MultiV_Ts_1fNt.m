@@ -5,7 +5,7 @@ addpath('/data8/wu_py/MATLAB/m_map/')
 saveid=1;
   
 experiments={'Hagibis05kme01';'Nagasaki05km';'Nagasaki02km';'Kumagawa02km'};
-expnam={'Hagibis05km';'Nagasaki05km';'Nagasaki02km';'Kumagawa02km'};
+expri={'Hagibis05km';'Nagasaki05km';'Nagasaki02km';'Kumagawa02km'};
 infilenames=['201910101800';'202108131200';'202108131300';'202007030900'];
 cexp0=[0.6 0.8 0.95; 0.96 0.7 0.5;  0.99 0.95 0.5;  0.8 0.7 0.91];
 cexp=[0 0.447 0.741; 0.85 0.325 0.098;  0.929 0.694 0.125;  0.494 0.184 0.556];
@@ -57,7 +57,7 @@ end
 % for  iexp=1:nexp
 %   h(iexp)=plot(squeeze(mean(sprd_s(:,iexp,:),3)),'linewidth',3,'color',cexp(iexp,:));
 % end
-legend(h,expnam,'box','off','location','bestout','fontsize',20)
+legend(h,expri,'box','off','location','bestout','fontsize',20)
 
 if strcmp(variname,'rain')==1; titnam=[num2str(acch),'h ',variname,' spread']; end
 tit=[titnam,'  (',num2str(nset),' BC sets, nrm',num2str(nrmid),')'];  title(tit,'fontsize',25)

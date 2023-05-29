@@ -7,21 +7,21 @@ saveid=1;
 pltensize=450;    thresholds=[15]; 
 kicksea=0; randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
-%  pltime=43; expnam1='Hagibis05kme02'; infilename='201910101800';%hagibis05
-%  expnam2='Hagibis05kme01';
+%  pltime=43; expri1='Hagibis05kme02'; infilename='201910101800';%hagibis05
+%  expri2='Hagibis05kme01';
  
- pltime=19; expnam1='Hagibis01kme06'; infilename='201910111800';%hagibis05
- expnam2='Hagibis01kme02';
-% pltime=[20 21]; expnam1='Hagibis01kme02'; infilename='201910111800';%hagibis01
+ pltime=19; expri1='Hagibis01kme06'; infilename='201910111800';%hagibis05
+ expri2='Hagibis01kme02';
+% pltime=[20 21]; expri1='Hagibis01kme02'; infilename='201910111800';%hagibis01
 expsize=1000; 
 %
-indir1=['/obs262_data01/wu_py/Experiments/',expnam1,'/',infilename];
-indir2=['/obs262_data01/wu_py/Experiments/',expnam2,'/',infilename];
-infile_hm=['/obs262_data01/wu_py/Experiments/',expnam1,'/mfhm.nc',];
+indir1=['/obs262_data01/wu_py/Experiments/',expri1,'/',infilename];
+indir2=['/obs262_data01/wu_py/Experiments/',expri2,'/',infilename];
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri1,'/mfhm.nc',];
 
 outdir='/home/wu_py/labwind/Result_fig';
 %outdir='/data8/wu_py/Result_fig';
-titnam='Wind prob. diff.';   fignam=[expnam1,'_wind-prob-diff',expnam2(end-2:end),'_'];   unit='%';
+titnam='Wind prob. diff.';   fignam=[expri1,'_wind-prob-diff',expri2(end-2:end),'_'];   unit='%';
 %
 plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
 % plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'zkd_'];  lo_int=135:5:145; la_int=30:5:40; % zoom in Kantou area
@@ -92,7 +92,7 @@ for ti=pltime
     % m_usercoast('gumby','linewidth',1,'color',[0.1 0.1 0.1],'linestyle','--')
     m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',lo_int,'ytick',la_int,'color',[0.3 0.3 0.3]); 
     % 
-    tit={[expnam1,'-',expnam2];titnam;['  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(thi),' m/s, ',num2str(pltensize),' mem)']};   
+    tit={[expri1,'-',expri2];titnam;['  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(thi),' m/s, ',num2str(pltensize),' mem)']};   
     title(tit,'fontsize',18)
     %
     %---colorbar---

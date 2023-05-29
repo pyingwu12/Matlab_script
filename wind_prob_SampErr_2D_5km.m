@@ -9,14 +9,16 @@ Lsize=1000;    Ssize=20;
 thresholds=[25]; 
 kicksea=1; 
 %
- pltime=43; expnam='Hagibis05kme01'; infilename='201910101800';%hagibis05
-% pltime=23; expnam='Hagibis01kme02'; infilename='201910111800';%hagibis
+ pltime=43; expri='Hagibis05kme01'; infilename='201910101800';%hagibis05
+% pltime=23; expri='Hagibis01kme02'; infilename='201910111800';%hagibis
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
-infile_hm=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm.nc',];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc',];
 
 outdir='/home/wu_py/labwind/Result_fig';
-titnam=['Wind prob. diff'];   fignam=[expnam,'_wind-prob-SamErr_'];   unit='%';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+%
+titnam=['Wind prob. diff'];   fignam=[expri,'_wind-prob-SamErr_'];   unit='%';
 %
 plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
 % plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'2_']; 
@@ -80,7 +82,7 @@ for ti=pltime(2:end)
 %     m_usercoast('gumby','linewidth',1,'color',[0.1 0.1 0.1],'linestyle','--')
     m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',lo_int,'ytick',la_int,'color',[0.3 0.3 0.3]); 
     % 
-    tit={[titnam,'(',num2str(Ssize),'-',num2str(Lsize),')'];[expnam,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(thi),' m/s)']};   
+    tit={[titnam,'(',num2str(Ssize),'-',num2str(Lsize),')'];[expri,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(thi),' m/s)']};   
     title(tit,'fontsize',18)
     %
     %---colorbar---

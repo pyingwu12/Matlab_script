@@ -8,14 +8,14 @@ pltensize=100;  hr=[14]; minu=[30];  thresholds=[10 15 20 25 30];
 
 plotprob=75;% unit:%
 %
-expnam='H01km';
+expri='H01km';
 expri='Hagibis01km1000';  expsize=1000;
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='Wind speed probability';   fignam=[expnam,'_windprob-compo'];  unit='m/s';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='Wind speed probability';   fignam=[expri,'_windprob-compo'];  unit='m/s';
 %
 % plon=[134 144]; plat=[30 38];
 %     plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'2_']; 

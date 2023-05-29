@@ -1,15 +1,16 @@
 close all
-clear;   ccc=':';
+clear;   ccc='-';
 saveid=0; % save figure (1) or not (0)
 %---setting
-expri='TWIN001B';  day=22;  hr=23:26;  minu=00;   
+expri='TWIN003B';  day=22;  hr=24;  minu=00;   
 %---
 year='2018'; mon='06'; 
 infilenam='wrfout';  dom='01';  grids=1; %grid_spacing(km)
 % scheme='Gaddard'; %!!!!!!!!!!!!!!!
 scheme='WSM6';
 %---
-indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri];  outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+% indir=['/mnt/HDD123/pwin/Experiments/expri_twin/',expri];  outdir=['/mnt/e/figures/expri_twin/',expri(1:7)];
+indir=['E:expri_twin/',expri];   outdir=['E:\figures',expri(1:7)];
 %---
 titnam='Zh composite';   fignam=[expri,'_zh_'];
 %

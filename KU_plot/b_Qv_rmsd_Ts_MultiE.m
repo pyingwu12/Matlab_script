@@ -77,7 +77,7 @@ hf=figure('position',[100 55 1000 600]);
 for ei=1:nexp
   plot(rmsd_qv(ei,:),'LineWidth',2.5,'color',col(ei,:)); hold on
 end
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Consolas');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log')

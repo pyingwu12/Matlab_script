@@ -5,14 +5,14 @@ saveid=1;
 %
 pltensize=1000;  hr=16; minu=[00];
 %
-expnam='H01km';
+expri='H01km';
 expri='Hagibis01km1000';  expsize=1000;
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='10-m wind speed (recenter)';   fignam=[expnam,'_windhist-recent_']; 
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='10-m wind speed (recenter)';   fignam=[expri,'_windhist-recent_']; 
 %---
 load('H01km_center.mat')
 
@@ -57,7 +57,7 @@ hist_Edge=0:35;
     yticklabels(yticks*100)
     %
     s_lon=num2str(lon(xp,yp),'%.1f');   s_lat=num2str(lat(xp,yp),'%.1f');
-    tit=[expnam,'  ',titnam,'  ',month,'/',s_date,' ',s_hr,s_min,' (',num2str(pltensize),' member)'];
+    tit=[expri,'  ',titnam,'  ',month,'/',s_date,' ',s_hr,s_min,' (',num2str(pltensize),' member)'];
     title(tit,'fontsize',18)
   
  outfile=[outdir,'/',fignam,month,s_date,'_',s_hr,s_min,'_m',num2str(pltensize)];

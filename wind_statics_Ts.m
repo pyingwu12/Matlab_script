@@ -9,16 +9,17 @@ xp=656; yp=683; % 1km 1101*1201; (139.6, 35.2), near Haneda
 
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 
-expnam='Hagibis01kme01';
+expri='Hagibis01kme01';
 sth=5; lenh=10; minu=0;   tint=1;
 %
 expsize=1000;
 yyyy='2019'; mm='10'; stday=12;  infilename='sfc';
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam]; 
+indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-
-titnam='Wind speed';   fignam=[expnam,'_wind-Ts_'];
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+%
+titnam='Wind speed';   fignam=[expri,'_wind-Ts_'];
 %
 nminu=length(minu);  ntime=lenh*nminu;
 %---

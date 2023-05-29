@@ -1,5 +1,5 @@
 %-----------------
-% find the time when max cloud area in the "sub-domain" larger than <plt_area>
+% find the time when cloud grid raito in the "whole-domain" larger than <cgrthresh>
 %    and plot CMDTE and contour of hyd at different time
 % 2021/10/15: change the criteria of cloud grid to TPW
 %---------------
@@ -8,22 +8,24 @@ close all
 clear;    ccc=':';
 saveid=1; % save figure (1) or not (0)
 
-% expri='TWIN020';   subx1=1; subx2=150; suby1=51; suby2=200;    xsub=1:150;  ysub=51:200;
-% expri='TWIN201';   subx1=151; subx2=300; suby1=51; suby2=200;   xsub=151:300;  ysub=51:200;   
+% expri='TWIN020';   subx1=1; subx2=150; suby1=51; suby2=200;   
+% expri='TWIN201';   subx1=151; subx2=300; suby1=51; suby2=200;    
 
-% expri='TWIN043';   subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225; 
-% expri='TWIN042';    subx1=151; subx2=300; suby1=151; suby2=300;    xsub=151:300;  ysub=151:300; 
+% expri='TWIN043';   subx1=1; subx2=150; suby1=76; suby2=225;    
+% expri='TWIN042';   subx1=151; subx2=300; suby1=151; suby2=300;    
 
-% expri='TWIN031';    subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225; 
-% expri='TWIN030';    subx1=1; subx2=150; suby1=1; suby2=150;     xsub=1:150;  ysub=1:150;  
+% expri='TWIN031';    subx1=1; subx2=150; suby1=76; suby2=225;   
+% expri='TWIN030';    subx1=1; subx2=150; suby1=1; suby2=150;     
 
-% expri='TWIN040';    subx1=1; subx2=150; suby1=76; suby2=225;   xsub=1:150;  ysub=76:225;  
-expri='TWIN039';     subx1=101; subx2=250; suby1=26; suby2=175;     xsub=101:250;  ysub=26:175;  
+% expri='TWIN040';    subx1=1; subx2=150; suby1=76; suby2=225;  
+% expri='TWIN039';    subx1=101; subx2=250; suby1=26; suby2=175;      
 
+%---JAS_R2: plot the whole domain---
+subx1=1; subx2=300; suby1=1; suby2=300;     
+expri='TWIN013';  
+%---
 
-expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B']; 
-
-  
+expri1=[expri,'Pr001qv062221'];  expri2=[expri,'B'];   
 %-----
 cloudtpw=0.7;
 cgrthresh=[0.1 1 5];
@@ -33,7 +35,7 @@ day=22;   hrs=[23 24 25 26 27 28 29 30];  minu=0:10:50;
 
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R2';
 titnam='CMDTE';  fignam=[expri,'_CMDTE-SpecT_'];  
 %
 fload=load('colormap/colormap_dte.mat');
@@ -106,31 +108,41 @@ nexp=size(expri1,1);
   %
   
 %%
-close all
+% close all
   plotvar=CMDTE';   
   pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end      
   %---
   hf=figure('position',[100 80 800 700]); 
   [~, hp]=contourf(plotvar,L2,'linestyle','none');    
   if (max(max(hgt))~=0)
-%       hold on; contour(hgt',[100 500 900],'color',[0.55 0.55 0.55],'linestyle','--','linewidth',3); 
-    hold on; contour(hgt',[100 500 900],'color',[0.4 0.6 0.15],'linestyle','--','linewidth',3.5); 
+%     hold on; contour(hgt',[100 500 900],'color',[0.4 0.6 0.15],'linestyle','--','linewidth',3.5);  %JAS_ORI
+    hold on; contour(hgt',[100 500 900],'color',[0.4 0.6 0.15],'linestyle','-.','linewidth',2.8);  %JAS_R2
   end
           
-  hold on;          
-   contour(TPW_plt{3}',[cloudtpw cloudtpw],'color',[0.7 0.7 0.7],'linewidth',3.5);    
-   contour(TPW_plt{2}',[cloudtpw cloudtpw],'color',[0.4 0.4 0.4],'linewidth',3.5);  
-   contour(TPW_plt{1}',[cloudtpw cloudtpw],'color',[0.1 0.1 0.1],'linewidth',3.5);    
+  hold on;         
+   contour(TPW_plt{3}',[cloudtpw cloudtpw],'color',[0.7 0.7 0.7],'linewidth',3);    
+   contour(TPW_plt{2}',[cloudtpw cloudtpw],'color',[0.4 0.4 0.4],'linewidth',2.8);  
+   contour(TPW_plt{1}',[cloudtpw cloudtpw],'color',[0.1 0.1 0.1],'linewidth',2.5);    
 
 %---upper left  
 %    text(subx1+5,suby2-8,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
 %    text(subx1+5,suby2-16,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
 %    text(subx1+5,suby2-24,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
+%JASR2
+% rectangle('Position',[subx1+3 suby2-67 63.5 63],'Facecolor',[1, 1, 1, 0.7],'Curvature',0.2,'Edgecolor',[0.5 0.5 0.5],'linewidth',1.5)
+%    text(subx1+6,suby2-16,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',19.5)
+%    text(subx1+6,suby2-36,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',19.5)
+%    text(subx1+6,suby2-56,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',19.5)
 %---upper right
-rectangle('Position',[subx2-31.5 suby2-30 29.5 28],'Facecolor',[1 1 1],'Curvature',0.2)
-   text(subx2-30,suby2-8,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
-   text(subx2-30,suby2-16,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
-   text(subx2-30,suby2-24,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
+% rectangle('Position',[subx2-31.5 suby2-30 29.5 28],'Facecolor',[1 1 1],'Curvature',0.2)
+%    text(subx2-30,suby2-8,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
+%    text(subx2-30,suby2-16,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
+%    text(subx2-30,suby2-24,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
+%JASR2
+rectangle('Position',[subx2-69.5 suby2-68 63.5 63],'Facecolor',[1, 1, 1, 0.7],'Curvature',0.2,'Edgecolor',[0.5 0.5 0.5],'linewidth',1.5)
+   text(subx2-66.5,suby2-17,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',19.5)
+   text(subx2-66,suby2-37,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',19.5)
+   text(subx2-66,suby2-57,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',19.5)
 %---outside bottom right
 %    text(subx2-30,suby1-6,time_tick{1},'color',[0.1 0.1 0.1],'fontsize',18)
 %    text(subx2-30,suby1-14,time_tick{2},'color',[0.4 0.4 0.4],'fontsize',18)
@@ -141,17 +153,17 @@ rectangle('Position',[subx2-31.5 suby2-30 29.5 28],'Facecolor',[1 1 1],'Curvatur
 %    text(subx2-30,suby1+6,time_tick{3},'color',[0.7 0.7 0.7],'fontsize',18)
 %
    set(gca,'fontsize',25,'LineWidth',2)           
-   set(gca,'Xtick',[50 100 200 250],'Xticklabel',[50 100 200 250],'Ytick',0:50:300,'Yticklabel',0:50:300)
+   set(gca,'Xtick',[50  150  250],'Xticklabel',[50  150  250],'Ytick',[50  150  250],'Yticklabel',[50  150  250])
    set(gca,'xlim',[subx1-1 subx2],'ylim',[suby1-1 suby2])
    xlabel('(km)'); ylabel('(km)');
-% 
 
-
-xp=1; yp=150;
-line([xp xp+99],[yp yp],'color',[202 75 81]/255,'Linestyle',':','Linewidth',3.3)
-
+%---line for cross section's locations --------- 
+%---for x direction
+% xp=1;  yp=144;  
+% line([xp xp+99],[yp yp],'color',[202 75 81]/255,'Linestyle',':','Linewidth',2.8)
+%---for y direction
 % xp=56; yp=50;
-% line([xp xp],[yp yp+99],'color',[202 75 81]/255,'Linestyle',':','Linewidth',3.3)
+% line([xp xp],[yp yp+99],'color',[202 75 81]/255,'Linestyle',':','Linewidth',2.8)
 
 
    tit={expri1,[titnam,'  ',mon,s_datej,'  ',time_tick{1}]}; 
@@ -168,7 +180,7 @@ line([xp xp+99],[yp yp],'color',[202 75 81]/255,'Linestyle',':','Linewidth',3.3)
    end
    drawnow
 %---        
-   outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_tpw',num2str(cloudtpw)];
+   outfile=[outdir,'/',fignam,mon,s_date,'_',s_hr,s_min,'_tpw',num2str(cloudtpw*10,'%.2d')];
    if saveid==1
    print(hf,'-dpng',[outfile,'.png']) 
    system(['convert -trim ',outfile,'.png ',outfile,'.png']); 

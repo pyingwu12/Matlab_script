@@ -8,17 +8,17 @@ pltensize=250;    thresholds=[15];
 kicksea=1; randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 
 %
-%  pltime=43; expnam='Hagibis05kme02'; infilename='201910101800';%hagibis05
-% pltime=[20 21]; expnam='Hagibis01kme06'; infilename='201910111800'; expsize=1000;  %hagibis01
-pltime=[19 20 21 22]; expnam='Hagibis01kme06'; infilename='201910111800'; expsize=250;  %hagibis01e06
+%  pltime=43; expri='Hagibis05kme02'; infilename='201910101800';%hagibis05
+% pltime=[20 21]; expri='Hagibis01kme06'; infilename='201910111800'; expsize=1000;  %hagibis01
+pltime=[19 20 21 22]; expri='Hagibis01kme06'; infilename='201910111800'; expsize=250;  %hagibis01e06
 
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
-infile_hm=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm.nc',];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc',];
 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam=[expnam,'  Wind speed probab.'];   fignam=[expnam,'_wind-probMt_'];   unit='%';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam=[expri,'  Wind speed probab.'];   fignam=[expri,'_wind-probMt_'];   unit='%';
 %
 % plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
 plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'zkd_'];  lo_int=135:5:145; la_int=30:5:40; % zoom in Kantou area

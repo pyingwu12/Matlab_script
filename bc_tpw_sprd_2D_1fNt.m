@@ -24,7 +24,7 @@ indir=['/obs262_data01/wu_py/Experiments/',expri];
 outdir=['/home/wu_py/labwind/Result_fig/',expri];
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %%
-expnam=expri;  titnam=[expnam,'  TPW spread']; fignam=[expri,'_BC_TpwSprd_']; unit='kg/m^2';
+expri=expri;  titnam=[expri,'  TPW spread']; fignam=[expri,'_BC_TpwSprd_']; unit='kg/m^2';
 %--
 % plon=[134.5 143.5]; plat=[32 38.5]; %hagibis kantou
 %--

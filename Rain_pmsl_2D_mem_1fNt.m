@@ -6,10 +6,10 @@ saveid=0;
 
 pltmem=[3]; pltime=[14];  
 %
-% expnam='Hagibis05kme01'; infilename='201910101800';%hagibis
-% expnam='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-% expnam='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
-expnam='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
+% expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+% expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
+% expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
 % convert_id=2; %1: duc-san default; 2: convert by wu (<-not used,fixed on 230212)
 expsize=1000; 
 %
@@ -19,7 +19,7 @@ expsize=1000;
 indir=['/obs262_data01/wu_py/Experiments/Nagasaki02km/',infilename]; %nagasaki02km
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
-titnam='Rainfall';   fignam=[expnam,'_rain_'];    unit='mm';
+titnam='Rainfall';   fignam=[expri,'_rain_'];    unit='mm';
 %
 %cvrt_name={'';'sfc'};
 %cvrt_time={'time';'times'};

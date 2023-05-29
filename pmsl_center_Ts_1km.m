@@ -7,14 +7,14 @@ pltensize=50;
 
 sth=0; lenh=14; minu=0:20:6;   tint=1;
 %
-expnam='H01km';
-expri='Hagibis01km1000';  expsize=1000;
+expri='Hagibis01kme01';  expsize=1000;
 yyyy='2019'; mm='10'; stday=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri];
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='Sea level pressure';   fignam=[expnam,'_pmsl-Ts_'];
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+
+titnam='Sea level pressure';   fignam=[expri,'_pmsl-Ts_'];
 %
 nminu=length(minu);  ntime=lenh*nminu;
 %---

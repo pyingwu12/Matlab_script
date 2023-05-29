@@ -99,7 +99,7 @@ for ei=1:nexp
     end
   end
 end
-legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Monospaced');
+legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','sw','FontName','Consolas');
 %
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr,'Linewidth',1.2,'fontsize',16)
 xlabel('Local time');  ylabel('SCC')

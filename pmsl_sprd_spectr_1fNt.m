@@ -8,18 +8,18 @@ tint=3;
 pltensize=20; pltime=1:tint:24;
 randmem=0; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly choose <pltensize> members
 
-%  expnam='Hagibis05kme01'; infilename='201910101800';%hagibis
-expnam='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
-% expnam='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-% expnam='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
+%  expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+% expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
+% expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
 %
 expsize=1000;  
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
-outdir=['/home/wu_py/labwind/Result_fig/',expnam];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
+outdir=['/home/wu_py/labwind/Result_fig/',expri];
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expnam,'  PSEA spread spectra'];   fignam=[expnam,'_PmslSprdSpectr_'];
+titnam=[expri,'  PSEA spread spectra'];   fignam=[expri,'_PmslSprdSpectr_'];
 %---
 if randmem==0; member=1:pltensize;  elseif randmem==50; member=1:50:1000; 
 else;  tmp=randperm(expsize); member=tmp(1:pltensize); end

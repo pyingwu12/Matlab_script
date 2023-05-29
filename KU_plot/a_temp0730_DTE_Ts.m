@@ -117,9 +117,9 @@ for ei=1:nexp
     end
   end
 end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','bestoutside','FontName','Monospaced');
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',23,'Location','southeast','FontName','Monospaced');
-legh=legend(lgnd{2},lgnd{3},'Box','off','Interpreter','none','fontsize',28,'Location','nw','FontName','Monospaced');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',25,'Location','bestoutside','FontName','Consolas');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',23,'Location','southeast','FontName','Consolas');
+legh=legend(lgnd{2},lgnd{3},'Box','off','Interpreter','none','fontsize',28,'Location','nw','FontName','Consolas');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log');  set(gca,'Ylim',[2e-4 3e1])

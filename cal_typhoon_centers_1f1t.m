@@ -4,7 +4,7 @@ close all
 
 member=1:1000; hr=18; minu=0;   %initial time: 10/12 0000 UTC
 
-expri='Hagibis01km1000';  expnam='H01km';
+expri='Hagibis01km1000';  expri='H01km';
 year='2019'; month='10'; day=12;  infilename='sfc';
 
 indir=['/obs262_data01/wu_py/Experiments/',expri];
@@ -79,7 +79,7 @@ runum=100;
   if mod(imem,100)==1; disp(['mem',s_mem,' done']); end
 end %imem
 
-% save([expnam,'_center_',month,s_date,'_',num2str(hr(1),'%.2d'),num2str(minu(1),'%.2d'),...
+% save([expri,'_center_',month,s_date,'_',num2str(hr(1),'%.2d'),num2str(minu(1),'%.2d'),...
 %       '_t',num2str(ntime),'.mat'],'typhoon_center')
 
 % m_usercoast('gumby','linewidth',0.8,'color','k')

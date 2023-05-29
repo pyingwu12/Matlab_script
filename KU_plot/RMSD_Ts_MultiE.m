@@ -98,7 +98,7 @@ for ei=1:nexp
     end
   end
 end
-legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
+legh=legend(expnam,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Consolas');
 %---
 set(gca,'Linewidth',1.2,'fontsize',16)
 set(gca,'YScale','log')

@@ -1,6 +1,6 @@
-clear;  ccc=':';
+clear;  ccc='-';
 close all
-saveid=0;
+saveid=1;
 
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221';
 %         'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN013Pr0025THM062221'};   
@@ -20,7 +20,8 @@ expri1={'TWIN201Pr001qv062221';'TWIN030Pr001qv062221';'TWIN042Pr001qv062221';...
         'TWIN003Pr001qv062221';'TWIN031Pr001qv062221';'TWIN043Pr001qv062221'};   
 expri2={'TWIN201B';'TWIN030B';'TWIN042B';'TWIN003B'; 'TWIN031B'; 'TWIN043B'}; 
 exptext='U00NS5';
-expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
+% expnam={'FLAT';'NS5_FLAT';'U00_FLAT';  'TOPO';'NS5_TOPO';'U00_TOPO'};
+expnam={'ORI_H00V00';'NS5_H00V00';'U00_H00V00';  'ORI_H10V10';'NS5_H10V10';'U00_H10V10'};
 cexp=[87 198 229; 44 125 190; 95 85 147;   242 155 0; 232 66 44; 168 63 63]/255; 
 linexp={'-';'-';'-';'-';'-';'-'};
 
@@ -31,7 +32,12 @@ stday=22;  sth=21;  lenh=11;  minu=0:10:50;  tint=1;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+
+%%
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+indir='D:expri_twin';  %outdir='D:/figures/expri_twin';
+outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
+
 % titnam=[plotid,' and cloud grid ratio'];   fignam=[plotid,'-slope_Ts_',exptext,'_'];
 %-----
 nexp=size(expri1,1); nminu=length(minu);  ntime=lenh*nminu;
@@ -82,6 +88,13 @@ for ei=1:nexp
       error2D = sum(dPm.*DTE.KE3D(:,:,1:end-1),3);     
        DiKE3D_m(nti,ei)=mean(error2D(:)); 
        
+      error2D = sum(dPm.*DTE.KE(:,:,1:end-1),3);     
+       DiKE_m(nti,ei)=mean(error2D(:)); 
+
+       diffw=DTE.KE3D-DTE.KE;
+      error2D = sum(dPm.*diffw(:,:,1:end-1),3);     
+       Diffw_m(nti,ei)=mean(error2D(:)); 
+       
       error2D = sum(dPm.*DTE.SH(:,:,1:end-1),3);     
        DiSH_m(nti,ei)=mean(error2D(:));  
        
@@ -102,8 +115,10 @@ L=[0 0.01 0.1 0.5 1 5 10];
 
 close all
 
-ploterms={'CMDTE';'DiKE3D';'DiSH';'DiLH'};
-for ploti=1:4
+DTE_m=DiSH_m+DiKE_m;
+
+ploterms={'CMDTE';'DiKE3D';'DiSH';'DiLH';'Diffw';'DiKE';'DTE'};
+for ploti=[2 3]
 
   ploterm=ploterms{ploti}; titnam=ploterm;  fignam=[ploterm,'_',exptext,'_'];
   eval(['DiffE_m=',ploterm,'_m;'])
@@ -117,20 +132,20 @@ for ploti=1:4
     h(ei)= plot(DiffE_m(:,ei),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:),'Markersize',10); hold on
   end
 
-  for ei=1:nexp
-    plot_col_line(1:ntime,ones(1,ntime)*10^(-6.3+0.3*ei),cgr(:,ei),cmap,L,7)
-  end  
+%   for ei=1:nexp
+%     plot_col_line(1:ntime,ones(1,ntime)*10^(-6.3+0.3*ei),cgr(:,ei),cmap,L,7)
+%   end  
 
-  legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
-  set(legh,'Position',[0.5773 0.3278 0.2520 0.4008])
+  legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
+%   set(legh,'Position',[0.5773 0.3278 0.2520 0.4008])
 
 
-%---colorbar---
-  L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
-  hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',16,'LineWidth',1.3);
-  colormap(cmap); 
-  ylabel(hc,'Cloud grid ratio (%)','fontsize',18)  
-  set(hc,'position',[0.87 0.160 0.018 0.7150]);
+% %---colorbar---
+%   L1=((1:length(L))*(diff(caxis)/(length(L)+1)))+min(caxis());
+%   hc=colorbar('YTick',L1,'YTickLabel',L,'fontsize',16,'LineWidth',1.3);
+%   colormap(cmap); 
+%   ylabel(hc,'Cloud grid ratio (%)','fontsize',18)  
+%   set(hc,'position',[0.87 0.160 0.018 0.7150]);
 
 %---
   set(gca,'Linewidth',1.2,'fontsize',20)
@@ -145,7 +160,7 @@ for ploti=1:4
 
   if saveid==1
   print(hf,'-dpng',[outfile,'.png'])
-  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+%   system(['convert -trim ',outfile,'.png ',outfile,'.png']);
   end
 
 end

@@ -12,15 +12,15 @@ if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); end
  
 sthr=2:16;  accuh=1;  s_min='00';
 %
-expnam='Hagibis01kme01';
+expri='Hagibis01kme01';
 year='2019'; month='10'; stday=12;  infilename='sfc';
 
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam]; 
+indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
-titnam='Wind speed & Ps';   fignam=[expnam,'_typhoon-wind_'];  unit='m s^-^1';
-% titnam='Rainfall & Ps';   fignam=[expnam,'_typhoon-rain_'];  unit='mm';
+titnam='Wind speed & Ps';   fignam=[expri,'_typhoon-wind_'];  unit='m s^-^1';
+% titnam='Rainfall & Ps';   fignam=[expri,'_typhoon-rain_'];  unit='mm';
 %
 plon=[134 144]; plat=[30 38];
 %

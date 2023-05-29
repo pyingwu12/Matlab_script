@@ -18,12 +18,12 @@ randmem=0; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly cho
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir=['/home/wu_py/labwind/Result_fig/',expri];
-%outdir='/data8/wu_py/Result_fig';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 titnam=[expri,'  Wind speed spread'];    unit='m/s';
 %
-% plon=[135 144.5]; plat=[32 39]; fignam=[expnam,'_wind-sprd_']; lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
-% plon=[135.5 142.5]; plat=[33.5 37]; fignam=[expnam,'_wind-sprd_','zkd_'];   lo_int=135:5:145; la_int=30:5:40; % old230306 zoom in Kantou area
-% plon=[135.5 142.3]; plat=[33.5 37.3]; fignam=[expnam,'_wind-sprd_','zkd2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
+% plon=[135 144.5]; plat=[32 39]; fignam=[expri,'_wind-sprd_']; lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
+% plon=[135.5 142.5]; plat=[33.5 37]; fignam=[expri,'_wind-sprd_','zkd_'];   lo_int=135:5:145; la_int=30:5:40; % old230306 zoom in Kantou area
+% plon=[135.5 142.3]; plat=[33.5 37.3]; fignam=[expri,'_wind-sprd_','zkd2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
 % plon=[139.2 140.9]; plat=[34.85 36.3 ];  fignam=[expri,'_wind-sprd_','tokyobay_']; lo_int=134:2:145; la_int=31:2:40;
 plon=[130 144.1]; plat=[28 40]; fignam=[expri,'_WindSprd_','japan_']; lo_int=105:5:155; la_int=10:5:50;% Japan area
 %

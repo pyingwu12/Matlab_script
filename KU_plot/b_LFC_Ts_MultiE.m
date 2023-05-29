@@ -60,7 +60,7 @@ end
 % for ei=1:nexp
 %   line([1 ntime],[hgt_max(ei) hgt_max(ei)],'color',cexp(ei,:),'linewidth',2,'linestyle','-.'); hold on
 % end
-legend(expnam,'Box','off','Interpreter','none','fontsize',25,'Location','bestout','FontName','Monospaced');
+legend(expnam,'Box','off','Interpreter','none','fontsize',25,'Location','bestout','FontName','Consolas');
 %
 % line([1 ntime],[hgt_max(1) hgt_max(1)],'color',[0.3 0.8 0.5],'linewidth',5,'linestyle','--')
 % line([1 ntime],[hgt_max(2) hgt_max(2)],'color',[0.2 0.5 0.1],'linewidth',5,'linestyle','--')

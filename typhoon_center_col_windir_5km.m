@@ -6,16 +6,16 @@ saveid=1;
 
 pltensize=1000;  pltime=[43];   
 %
-expnam='H05km';
+expri='H05km';
 infilename='201910101800';
 infiletrackname='201910101800track';
 expsize=1000;  
 %
 indir='/data8/leduc/nhm/exp/Fugaku05km/forecast/Fugaku05km06/201910101800';
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 titnam='Typhoon center & Wind direction';  
-fignam=[expnam,'_tcent-coldir_'];  unit='degree';
+fignam=[expri,'_tcent-coldir_'];  unit='degree';
 %
 % plon=[134 144]; plat=[30 38];
 %     plon=[135.5 142.5]; plat=[33.5 37];% fignam=[fignam,'2_']; 

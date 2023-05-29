@@ -6,19 +6,19 @@ saveid=0;
 pltensize=100;  pltime=6;   acch=3;   thresholds=10; 
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 
-% expnam='Hagibis05kme01'; infilename='201910101800';%hagibis
-% expnam='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-expnam='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+% expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+% expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
+expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
 % convert_id=2; %1: duc-san default; 2: convert by wu (<-out of use,fixed on 230212)
-% expnam='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san) 
+% expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san) 
 
 expsize=1000; BCnum=50;
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expnam,'  Rain Prob.'];   fignam=[expnam,'_RainSprd2D_']; unit1='%'; unit2='mm';
+titnam=[expri,'  Rain Prob.'];   fignam=[expri,'_RainSprd2D_']; unit1='%'; unit2='mm';
 %
 load('colormap/colormap_PQPF.mat') 
 cmap0=colormap_PQPF; cmap0(1,:)=[0.9 0.9 0.9]; cmap=cmap0([1 3 12 14 15 17],:);

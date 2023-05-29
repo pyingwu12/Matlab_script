@@ -170,7 +170,7 @@ for ploti=[2]
 %---legend
   xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
   for ei=1:nexp  
-    text(xlimit(1)+2.4 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
+    text(xlimit(1)+2.4 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',20,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
   end
   drawnow  
 

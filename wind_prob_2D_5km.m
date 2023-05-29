@@ -9,7 +9,7 @@ kicksea=1; randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensi
 %
  pltime=43; expri='Hagibis05kme02'; infilename='201910101800';%hagibis05
 % pltime=[19]; expri='Hagibis01kme06'; infilename='201910111800'; expsize=1000;  %hagibis01
-% pltime=[18 19 20 21]; expnam='Hagibis01kme06'; infilename='201910111800'; expsize=600;  %hagibis01e06
+% pltime=[18 19 20 21]; expri='Hagibis01kme06'; infilename='201910111800'; expsize=600;  %hagibis01e06
 % pltime=19; expri='H01MultiE0206'; infilename='201910111800'; expsize=1000;  %hagibis01e06
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];

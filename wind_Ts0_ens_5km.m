@@ -10,20 +10,20 @@ xp=[];
 
 % xp=561; yp=339; % near Haneda
 % 
-%  expnam='Hagibis05kme02'; infilename='201910101800'; pltime=33:33+16; obs_lag=17;  tint=1; %hagibis05
+%  expri='Hagibis05kme02'; infilename='201910101800'; pltime=33:33+16; obs_lag=17;  tint=1; %hagibis05
 % xp=569; yp=349; %Ryuhgasaki 5km
 
-expnam='Hagibis01kme02'; infilename='201910111800'; pltime=9:9+16; obs_lag=41;  tint=1; %hagibis01
+expri='Hagibis01kme02'; infilename='201910111800'; pltime=9:9+16; obs_lag=41;  tint=1; %hagibis01
 %  xp=711; yp=755; %Ryuhgasaki KTOPO roughness~0
 expsize=1000; 
 %
 ntime=length(pltime);
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expnam,'  10-m wind speed'];   fignam=[expnam,'_wind-Ts0_'];
+titnam=[expri,'  10-m wind speed'];   fignam=[expri,'_wind-Ts0_'];
 %
 %---
 %%

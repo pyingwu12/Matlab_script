@@ -5,14 +5,14 @@ saveid=1;
 pltensize=500;  pltime=47;  
 
 %
-expnam='H05km';
+expri='H05km';
 infilename='201910101800';
 expsize=1000; 
 %
 indir='/data8/leduc/nhm/exp/Fugaku05km/forecast/Fugaku05km06/201910101800';
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='10-m Wind speed (recenter)';   fignam=[expnam,'_windhist-recent_']; 
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='10-m Wind speed (recenter)';   fignam=[expri,'_windhist-recent_']; 
 %
 load('H05km_center.mat')
 
@@ -60,7 +60,7 @@ yticklabels(yticks*100)
 %   text(x_lim(2)-5,y_lim(2)+0.01,['xp=',num2str(xp),', yp=',num2str(yp)])
   %
   s_lon=num2str(lon(xp,yp),'%.1f');   s_lat=num2str(lat(xp,yp),'%.1f');
-  tit=[expnam,'  ',titnam,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem)'];   
+  tit=[expri,'  ',titnam,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem)'];   
   title(tit,'fontsize',18)
   %
   outfile=[outdir,'/',fignam,datestr(pltdate,'mmdd'),'_',datestr(pltdate,'HHMM'),'_m',num2str(pltensize)];

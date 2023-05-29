@@ -6,14 +6,14 @@ saveid=1;
 %
 pltensize=1000;  hr=[11];  minu=[30];  pltspds=[25]; 
 %
-expnam='H01km';
+expri='H01km';
 expri='Hagibis01km1000';  expsize=1000;
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='Wind speed';   fignam=[expnam,'_typhoon-spagh_'];   unit='m s^-^1';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='Wind speed';   fignam=[expri,'_typhoon-spagh_'];   unit='m s^-^1';
 %
 % plon=[134 144]; plat=[30 38];
 %   plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'2_']; 

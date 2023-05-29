@@ -8,14 +8,14 @@ pltensize=50;
 hr=17; minu=[00];  obstime=48+hr;
 staid=5;
 %
-expnam='H01km';
+expri='H01km';
 expri='Hagibis01km1000';  expsize=1000;
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='10-m wind speed';   fignam=[expnam,'_wind-hist_']; 
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='10-m wind speed';   fignam=[expri,'_wind-hist_']; 
 %---
 hist_Edge=0:35;
 %% obs
@@ -75,7 +75,7 @@ for ti=1:length(hr)
     %
     s_lon=num2str(lon(xp,yp),'%.1f');   s_lat=num2str(lat(xp,yp),'%.1f');
     tit={[titnam,' at ',sta,'(',s_lon,', ',s_lat,')'];...
-         [expnam,'  ',month,'/',s_date,' ',s_hr,s_min,' (',num2str(pltensize),' member)']};
+         [expri,'  ',month,'/',s_date,' ',s_hr,s_min,' (',num2str(pltensize),' member)']};
     title(tit,'fontsize',18)
   
  outfile=[outdir,'/',fignam,month,s_date,'_',s_hr,s_min,'_m',num2str(pltensize),'_x',num2str(xp),'y',num2str(yp)];

@@ -1,4 +1,4 @@
-% function wind_hist_5km(expnam)
+% function wind_hist_5km(expri)
 clear
 % close all
 
@@ -10,12 +10,13 @@ staid=2;
 
 % xp=561; yp=346;
 %
-expnam='Hagibis05kme02'; infilename='201910101800';%hagibis
+expri='Hagibis05kme02'; infilename='201910101800';%hagibis
 expsize=1000;  numBC=50;
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
-outdir='/home/wu_py/labwind/Result_fig/230213_DAWS';
-titnam='10-m Wind speed';   fignam=[expnam,'_wind-hist-col_']; 
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
+outdir='/home/wu_py/labwind/Result_fig';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='10-m Wind speed';   fignam=[expri,'_wind-hist-col_']; 
 %---
 hist_Edge=0:40;
 %
@@ -82,7 +83,7 @@ for ti=pltime
   %
   s_lon=num2str(lon(xp,yp),'%.1f');   s_lat=num2str(lat(xp,yp),'%.1f');
   tit={[titnam,' at ',sta,'(',s_lon,', ',s_lat,')'];...
-       [expnam,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem)']};   
+       [expri,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem)']};   
   title(tit,'fontsize',18)
   
   outfile=[outdir,'/',fignam,datestr(pltdate,'mmdd'),'_',datestr(pltdate,'HHMM'),'_m',num2str(pltensize),'_x',num2str(xp),'y',num2str(yp)];

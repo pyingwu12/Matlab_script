@@ -1,9 +1,22 @@
 clear;  ccc=':';
 close all
 
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
 %---experiments
+
+% exptext='diffpert2';
+% expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221mem2';'TWIN201Pr001qv062221mem3';'TWIN201Pr001qv062221mem4';'TWIN201Pr001qv062221mem5'}; 
+% expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
+% expnam={'ORI_H00V00';'ORI_H00V00m2';'ORI_H00V00m3';'ORI_H00V00m4';'ORI_H00V00m5'};
+% cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
+%       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
+
+exptext='AOGSFLAT';
+expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221' };   
+expri2={'TWIN201B';'TWIN201B'  }; 
+expnam={'FLAT';'FLAT_P01'};
+cexp=[   87 198 229; 87 198 229  ]/255;
 
 % exptext='diffpert2';
 % expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'
@@ -15,40 +28,13 @@ saveid=0; % save figure (1) or not (0)
 % cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110;
 %       230 101 99;     242 155 0;   240 220 20;      240 143 152; 246 209 223  ]/255;
 %   
-%   exptext='FLATdiffpert';
-% expri1={'TWIN201Pr01qv062221';'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';'TWIN201Pr001qv062223';'TWIN201Pr001qv062301'};   
-% expri2={'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B';'TWIN201B'}; 
-% expnam={'FLAT_P10';'FLAT';'FLAT_P01';'FLAT_08LT';'FALT_10LT'};
-% cexp=[62 158 209;   87 198 229;  154 211 237;     158 169 98;  189 223 110  ]/255;
-
-% exptext='diffpertU00';
+% exptext='U00diffpert';
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
-%         'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';
-%         'TWIN039Pr001qv062221';'TWIN039Pr0001qv062221';
-%         'TWIN013Pr001qv062221';'TWIN013Pr0001qv062221';
+%         'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';  
 %         'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
-% expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN039B';'TWIN039B'
-%         'TWIN013B';'TWIN013B';'TWIN003B';'TWIN003B'}; 
-% expnam={'FLAT';'FLAT_P01';'U00';'U00_P01';'U25';'U25_P01'
-%         'H500';'H500_P01';'TOPO';'TOPO_P01'};
-% cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;    24 88 139;   24 88 139
-%        146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
-
-exptext='diffpertU002';
-expri1={'TWIN201Pr001qv062221';'TWIN201Pr0001qv062221';
-        'TWIN042Pr001qv062221';'TWIN042Pr0001qv062221';        
-        'TWIN013Pr001qv062221';'TWIN013Pr0001qv062221';
-        'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221'};   
-expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN013B';'TWIN013B';'TWIN003B';'TWIN003B'}; 
-expnam={'FLAT';'FLAT_P01';'U00_FLAT';'U00_FLAT_P01';'H500';'H500_P01';'TOPO';'TOPO_P01'};
-cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  
-       146 200 101;  146 200 101;   242 155 0;   242 155 0; ]/255;
-
-% expri1={'TWIN003Pr01qv062221';'TWIN003Pr001qv062221';'TWIN003Pr0001qv062221';'TWIN003Pr001qv062223';'TWIN003Pr001qv062301'};   
-% expri2={'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B';'TWIN003B'}; 
-% exptext='TOPOdiffpert2';
-% expnam={ 'TOPO_01';'TOPO_001';'TOPO_0001';'TOPO_08LT';'TOPO_10LT'};
-% cexp=[199 42 50;  227 128 29;  244 199 2;  220 219 147;  238 180 150]/255;
+% expri2={'TWIN201B';'TWIN201B';'TWIN042B';'TWIN042B';'TWIN003B';'TWIN003B'}; 
+% expnam={'FLAT';'FLAT_P01';  'U00_FLAT';'U00_FLAT_P01';  'TOPO';'TOPO_P01'};
+% cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;  242 155 0;   242 155 0; ]/255;
 
 % expri1={'TWIN201Pr001qv062221'; 'TWIN003Pr001qv062221'; 'TWIN013Pr001qv062221'; 'TWIN021Pr001qv062221';'TWIN020Pr001qv062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B'; 'TWIN021B'; 'TWIN020B'}; 
@@ -63,19 +49,24 @@ cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;
 % expnam={'FLAT';'FLATnoMP';'TOPO';'TOPOnoMP';'H500';'H500noMP'};
 % cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
 
-
 % expri1={'TWIN201Pr001qv062221';'TWIN201Pr001qv062221noMP';'TWIN201Pr0025THM062221';'TWIN201Pr0025THM062221noMP'};  
 % expri2={'TWIN201B';'TWIN201B062221noMP';'TWIN201B';'TWIN201B062221noMP'};
 % exptext='THMnoMP';
 % expnam={'FLAT';'FLATnoMP';'FLAT_THM';'FLAT_THMnoMP'};
 % cexp=[87 198 229; 143 189 227;    28 88 119;  12 12 66 ]/255; 
 
-
 % expri1={'TWIN201Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221';
 %         'TWIN001Pr0025THM062221';'TWIN003Pr0025THM062221';'TWIN013Pr0025THM062221'};   
 % expri2={'TWIN201B';'TWIN003B';'TWIN013B';'TWIN001B';'TWIN003B';'TWIN013B'}; exptext='THM25';
 % expnam={'FLAT';'TOPO';'H500';'FLAT_THM25';'TOPO_THM25';'H500_THM25'};
 % cexp=[87 198 229; 242 155 0; 146 200 101;  28 88 119; 171 106 105; 125 127 55]/255; 
+
+% expri1={'TWIN201Pr001qv062221';'TWIN201Prl001qv062221';'TWIN003Pr001qv062221'; 'TWIN003Prl001qv062221'};  
+% expri2={'TWIN201B';'TWIN201B';'TWIN003B';'TWIN003B'};
+% exptext='prl';
+% expnam={'FLAT';'FLATlow';'TOPO';'TOPOlow'};
+% cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;  ]/255; 
+
 
 %{
 % expri1={'TWIN042Pr001qv062221';'TWIN030Pr001qv062221';'TWIN033Pr001qv062221';'TWIN036Pr001qv062221';'TWIN039Pr001qv062221'};   
@@ -97,13 +88,14 @@ cexp=[87 198 229; 87 198 229;     95 85 147;   95 85 147;
 %---setting---
 plotid='CMDTE'; % "MDTE" or "CMDTE"
 stday=22;  sth=21;  lenh=11; minu=[0 20 40];  tint=1;
-% stday=22;  sth=21;  lenh=6; minu=0:10:50;  tint=1;
 
 plotarea=0; %if ~=0, plot sub-domain average set below
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %---
 indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+% indir='D:expri_twin';  %outdir='D:/figures/expri_twin';
+% outdir='G:/我的雲端硬碟/3.博班/研究/figures/expri_twin/';
 titnam=plotid;   fignam=[plotid,'_Ts_',exptext,'_'];
 
 %---set sub-domain average range---
@@ -162,12 +154,14 @@ for ei=1:nexp
 end
 %%
 %---plot
-% close all
+close all
 % saveid=1;
+% cexp=[87 198 229; 154 211 237;     75 70 154;   147 144 212;   242 155 0;    240 220 20; ]/255;
 
-% linexp={'-';'-';'-';':';':';':'};
+% linexp={'-';'-';'-';':';':';'-';'-';'-';':';':'};
 linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
 % linexp={'-';'--';'-';'--';'-';'--';'-';'--'};
+% linexp={'-';'-';'-';'-';'-';'-';'-';'-';'-';'-'};
 
 % exptext='noMP';  fignam=[plotid,'_Ts_',exptext,'_'];
 % cexp=[87 198 229; 143 189 227;     242 155 0; 211 127 143;     146 200 101;  170 178 84]/255; 
@@ -175,12 +169,12 @@ linexp={'-';':';'-';':';'-';':';'-';':';'-';':'};
 
 
 % hf=figure('position',[100 55 1200 600]);
-hf=figure('position',[100 55 1000 600]);
-plotexp=[1 2 3 4 7 8];
-% plotexp=1:nexp;
+hf=figure('position',[100 105 1000 600]);
+% plotexp=[1 2 3 4 7 8];
+plotexp=1:nexp;
 % plotexp=[1 2 5 6 3 4];
 for ei=plotexp
-  h(ei)= plot(DTE_dm(ei,:),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:)); hold on
+  h(ei)= plot(real(DTE_dm(ei,:)),linexp{ei},'LineWidth',4.5,'color',cexp(ei,:)); hold on
 %   h(ei)= plot(DTE_dm(ei,:),'LineWidth',4.5,'color',cexp(ei,:)); hold on
 %   if plotarea~=0
 %     for ai=1
@@ -188,7 +182,8 @@ for ei=plotexp
 %     end
 %   end
 end
-legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Monospaced');
+%
+legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsize',25,'Location','se','FontName','Consolas');
 % ni=0;  lgnd=cell(nexp*(narea),1);
 % for ei=plotexp
 %   for ai=0:1
@@ -196,14 +191,14 @@ legh=legend(h(plotexp),expnam{plotexp},'Box','off','Interpreter','none','fontsiz
 %     lgnd{ni}=[expnam{ei},' (',arenam{ai+1},')'];
 %   end
 % end
-% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Monospaced');
+% legh=legend(lgnd,'Box','off','Interpreter','none','fontsize',18,'Location','bestoutside','FontName','Consolas');
 %
 %---
 set(gca,'Linewidth',1.2,'fontsize',20)
 set(gca,'YScale','log');  %
+set(gca,'Ylim',[1e-6 3e1])
 % set(gca,'Ylim',[2e-4 2e1])
 % set(gca,'Ylim',[1e-6 2e1])
-set(gca,'Ylim',[1e-6 3e1])
 % set(gca,'Ylim',[3e-5 2e1])
 
 set(gca,'Xlim',[1 ntime],'XTick',nminu*(tint-1)+1 : tint*nminu : ntime,'XTickLabel',ss_hr)

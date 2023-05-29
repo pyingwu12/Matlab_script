@@ -20,20 +20,20 @@ function zh_max=cal_zh_cmpo(infile,scheme)
    
    switch scheme   
      case ('WSM6')      %---WSM6 scheme---
-       fin=find(temp <= 273.15);
+       fin=find(temp < 273.15);
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+1.33e09*(den(fin).*qs(fin)).^1.75+1.18e09*(den(fin).*qg(fin)).^1.75);
-       fin=find(temp > 273.15);
+       fin=find(temp >= 273.15);
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+5.77e11*(den(fin).*qs(fin)).^1.75+1.18e09*(den(fin).*qg(fin)).^1.75);       
      case ('Gaddard')   %---Gaddard scheme---
-       fin=find(temp <= 273.15);
+       fin=find(temp < 273.15);
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+2.79e8*(den(fin).*qs(fin)).^1.75+1.12e9*(den(fin).*qg(fin)).^1.75);
-       fin=find(temp > 273.15);
+       fin=find(temp >= 273.15);
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+1.21e11*(den(fin).*qs(fin)).^1.75+1.12e9*(den(fin).*qg(fin)).^1.75);
      %--- 
      case ('Lin')      %---Lin scheme---
-       fin=find(temp <= 273.15);
+       fin=find(temp < 273.15);
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+9.80e8*(den(fin).*qs(fin)).^1.75+4.33e10*(den(fin).*qg(fin)).^1.75);
-       fin=find(temp > 273.15);
+       fin=find(temp >= 273.15);
        zh(fin)=10.0*log10(3.63e9*(den(fin).*qr(fin)).^1.75+4.26e11*(den(fin).*qs(fin)).^1.75+4.33e10*(den(fin).*qg(fin)).^1.75);       
    end % end of case
    

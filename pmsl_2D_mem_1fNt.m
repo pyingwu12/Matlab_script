@@ -6,7 +6,7 @@ saveid=0;
 
 pltime=35;
 
-member=[15 41];
+member=[41];
 
 % randmem=0; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly choose <pltensize> members
 

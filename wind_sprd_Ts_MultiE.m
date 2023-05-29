@@ -8,7 +8,7 @@ randmem=1; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 kicksea=1;
 
 expri={'Hagibis01kme02';'Hagibis01kme06';'H01MultiE0206'};
-expnam={'GTOPO';'KTOPO';'COMPO'};
+expri={'GTOPO';'KTOPO';'COMPO'};
 cexp=[0.3 0.75 0.9;  0.93 0.69 0.13;  0.46 0.67 0.19];
 exptext='e02e06Kanto';
 infilename='201910111800';
@@ -60,7 +60,7 @@ hf=figure('Position',[100 100 1000 630]);
 for ei=1:nexp
   plot(sprd_ts(:,ei),'linewidth',3.5,'color',cexp(ei,:)) ; hold on 
 end
-legend(expnam,'box','off','location','se','fontsize',27,'FontName','Monospaced')
+legend(expri,'box','off','location','se','fontsize',27,'FontName','Monospaced')
 %---
 xlabel('Time (UTC)');   ylabel('Spread (m/s)');
 set(gca,'fontsize',16,'linewidth',1.2) 

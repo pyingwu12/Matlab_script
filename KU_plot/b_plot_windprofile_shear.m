@@ -6,7 +6,8 @@ close all
 %
 year='2019';  mon='08';  date='19';  hr='00';  minu='00';
 figname='wind_prof_shionomisaki';
-Wind=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_wind.txt');
+%Wind=importdata('/mnt/e/data/sounding/shionomisaki_20190819_0000_wind.txt');
+Wind=importdata('D:/data/sounding/shionomisaki_20190819_0000_wind.txt');
 
 spd=Wind(:,3);
 h=Wind(:,2)./1000;
@@ -74,6 +75,6 @@ ploth(3)=plot([0 0],[0 h(end-1)],'linewidth',3.5,'color',U00_col,'linestyle','--
 
 
 outfile='/mnt/e/figures/expri_twin/wind_profiles_d';
-print(hf,'-dpng',[outfile,'.png'])
-system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+% print(hf,'-dpng',[outfile,'.png'])
+% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

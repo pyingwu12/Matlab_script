@@ -7,13 +7,13 @@ saveid=1;
 pltensize=1000; 
 randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
-expnam='Hagibis05kme01'; infilename='201910101800'; infiletrackname='201910101800track';
+expri='Hagibis05kme01'; infilename='201910101800'; infiletrackname='201910101800track';
 expsize=1000;  
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
-titnam='Tracks';   fignam=['01_',expnam,'_track_black_'];  % unit='m s^-^1';
+titnam='Tracks';   fignam=['01_',expri,'_track_black_'];  % unit='m s^-^1';
 %%
 if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); else; member=1:pltensize; end
 %---
@@ -89,7 +89,7 @@ set(gca,'linewidth',1.5)
 %---plot the box of the domain ---
 % m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 %---
-% tit={expnam,['  ',titnam,'  (',num2str(pltensize/BCmem),' mem per BC)']};   
+% tit={expri,['  ',titnam,'  (',num2str(pltensize/BCmem),' mem per BC)']};   
 % title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'_coloredBC1_p'];

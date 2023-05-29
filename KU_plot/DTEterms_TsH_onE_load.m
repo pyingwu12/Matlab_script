@@ -7,18 +7,18 @@
 %----------------------------------------------------
 close all;
 clear; ccc=':';
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 
 %---setting 
-% expri='TWIN001';   hrs=[24 25 26 27];
-expri='TWIN003';   hrs=[22 23 24 25];
+expri='TWIN001';   hrs=[24 25 26 27];
+% expri='TWIN003';   hrs=[22 23 24 25];
 stday=22;    minu=0:10:50;   tint=2; 
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-% indir='./matfile/isoh_subdom';     fignam=[expri,'_DTEterms-ht_'];  titnam=[expri,'  height-time'];  
-indir='./matfile/isoh_subdom_THM'; fignam=[expri,'_DTEterms-ht_THM_'];   titnam=[expri,'_THM  height-time'];  
-outdir=['/mnt/e/figures/expri_twin/',expri];
+indir='./matfile/isoh_subdom';     fignam=[expri,'_DTEterms-ht_'];  titnam=[expri,'  height-time'];  
+% indir='./matfile/isoh_subdom_THM'; fignam=[expri,'_DTEterms-ht_THM_'];   titnam=[expri,'_THM  height-time'];  
+outdir=['/mnt/e/figures/expri_twin/JAS_R1'];
 
 %
 nhr=length(hrs);  nminu=length(minu);  ntime=nhr*nminu;
@@ -72,6 +72,11 @@ for ti=hrs
   disp([s_hr,s_min,' done'])
 end %ti    
 %%
+
+
+%%
+%
+%
 KE3D_m(1:2,:)=NaN;
 SH_m(1:2,:)=NaN;
 LH_m(1:2,:)=NaN;
@@ -135,8 +140,8 @@ end
 s_sth=num2str(hrs(1),'%2.2d'); s_edh=num2str(mod(hrs(end),24),'%2.2d');
 outfile=[outdir,'/',fignam,mon,num2str(stday),'_',s_sth,s_edh,'_',num2str(nhr),'h',num2str(nminu),'m',num2str(minu(end))];
 if saveid~=0
-% print(hf,'-dpng',[outfile,'.png'])    
-% system(['convert -trim ',outfile,'.png ',outfile,'.png']);
+print(hf,'-dpng',[outfile,'.png'])    
+system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 end
 %}
 %%

@@ -17,7 +17,7 @@ expsize=1000;
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
-
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 titnam=['Typhoon center & ',varinam];   fignam=[expri,'_TCentCol',varinam,'_'];  unit='m/s';
 %
 % plon=[134 144]; plat=[30 38];

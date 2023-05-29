@@ -2,8 +2,8 @@
 % plot 
 %------------------------------------------
 % close all
-clear;   ccc=':';
-saveid=1; % save figure (1) or not (0)
+clear;   ccc='-';
+saveid=0; % save figure (1) or not (0)
 %---
 plotid='CMDTE';  %optioni: MDTE or CMDTE
 expri='TWIN013'; 
@@ -12,7 +12,8 @@ s_date='23';  hr=0;  minu=40;
 %
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';   grids=1; %grid_spacing(km)
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+% indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir=['/mnt/e/figures/expri_twin/',expri1(1:7)];
+indir='E:expri_twin';   outdir=['E:figures/',expri];
 titnam=[plotid,' frequency distribution'];   fignam=[expri1(8:end),'_',plotid,'_',];
 %---
 col=load('colormap/colormap_dte.mat');

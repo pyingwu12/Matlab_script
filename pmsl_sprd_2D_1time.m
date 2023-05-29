@@ -6,14 +6,13 @@ saveid=0;
 %
 pltensize=10;  hr=1; minu=30;  
 %
-expnam='H01km';
 expri='Hagibis01km1000';  expsize=1000;
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam='pmsl spread';   fignam=[expnam,'_pmsl-sprd3_'];  unit='hPa';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+titnam='pmsl spread';   fignam=[expri,'_pmsl-sprd3_'];  unit='hPa';
 %
 % plon=[134 144]; plat=[30 38];
 

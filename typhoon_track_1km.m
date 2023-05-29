@@ -3,20 +3,20 @@ close all
 
 saveid=0;
 %
-pltensize=1000;   randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
+pltensize=10;   randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 
-expnam='Hagibis01kme06';  expsize=1000; infilename='201910111800';
+expri='Hagibis01kme06';  expsize=1000; infilename='201910111800';
 %
-infile_track=[expnam,'_center_',infilename,'.mat'];
+infile_track=[expri,'_center_',infilename,'.mat'];
 %
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam='Tracks';   fignam=[expnam,'_track2_'];  % unit='m s^-^1';
+titnam='Tracks';   fignam=[expri,'_track2_'];  % unit='m s^-^1';
 %
 plon=[135 142.6]; plat=[30.2 38.5];
 %%
-infile_mfhm=['/obs262_data01/wu_py/Experiments/',expnam,'/mfhm2.nc'];  %for get lon lat
+infile_mfhm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm2.nc'];  %for get lon lat
 lon = double(ncread(infile_mfhm,'lon'));
 lat = double(ncread(infile_mfhm,'lat')); 
 %--
@@ -61,7 +61,7 @@ m_grid('fontsize',13,'LineStyle','-.','LineWidth',0.8,'xtick',110:2:150,'ytick',
 %---plot the box of the domain ---
 % m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 %---
-tit=[expnam,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
+tit=[expri,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
 title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'rnd',num2str(randmem)];
@@ -91,7 +91,7 @@ m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',110:5:150,'ytick',
 %---plot the box of the domain ---
 % m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
 %---
-tit=[expnam,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
+tit=[expri,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
 title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'_colored50_950'];

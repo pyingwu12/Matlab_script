@@ -57,7 +57,7 @@ set(gca,'linewidth',1.2,'fontsize',15,'Ylim',[0 27])
 %title(['Us= ',num2str(Us20)],'fontsize',20)
 
 xlabel('wind speed (m/s)','fontsize',17); ylabel('Height (km)','fontsize',17)
-outfile='/mnt/e/figures/idealized_wind_profile_WeismanKlemp_210906';
+outfile='/mnt/e/figures/expri_twin/idealized_wind_profile_WeismanKlemp_210906';
 % print(hf,'-dpng',[outfile,'.png'])
 % system(['convert -trim ',outfile,'.png ',outfile,'.png']);
 

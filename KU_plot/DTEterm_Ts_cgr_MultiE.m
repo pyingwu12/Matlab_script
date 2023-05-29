@@ -7,10 +7,10 @@
 %----------------------------------------------------
 
 
-% close all;  
+close all;  
 clear;   ccc=':';
 
-saveid=0; % save figure (1) or not (0)
+saveid=1; % save figure (1) or not (0)
 %
 % expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN013Pr001qv062221'};
 % expri2={'TWIN001B';'TWIN003B';'TWIN013B'};    
@@ -53,7 +53,6 @@ expri1={'TWIN001Pr001qv062221';'TWIN003Pr001qv062221';'TWIN001Pr0025THM062221';'
 expri2={'TWIN001B';'TWIN003B';'TWIN001B';'TWIN003B'}; 
 expnam={'FLAT';'TOPO';'FLAT_THM25';'TOPO_THM25'};
 cexp=[ 0,0.447,0.741; 0.85,0.325,0.098;  0.3,0.745,0.933; 0.929,0.694,0.125]; 
-expmark={'s';'^';'s';'^'};     
 exptext='THM25';
 
 %--------------------------------
@@ -96,7 +95,7 @@ stday=22;   sth=21;   lenh=7;  minu=0:10:50;   tint=1;
 % stday=22;   sth=23;   lenh=5;  minu=0:10:50;   tint=1;
 year='2018'; mon='06';  infilenam='wrfout'; dom='01';  
 %
-indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin';
+indir='/mnt/HDD123/pwin/Experiments/expri_twin';  outdir='/mnt/e/figures/expri_twin/JAS_R1';
 %
 nexp=size(expri1,1);  nminu=length(minu);  ntime=lenh*nminu;
 %
@@ -227,6 +226,7 @@ for ploti=[2]
 end
 %}
 %%
+%{
 %---plot colored curve colored by cloud grid ratio
 cmap0=loadfile.colormap_ncl(15:26:end-10,:); 
 cmap=cmap0(1:8,:); cmap(1,:)=[0.9 0.9 0.9];
@@ -301,8 +301,8 @@ for ploti=[2 4 5 6]
   xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
   for ei=1:nexp  
 %     plot(xlimit(1)+1.5 , 10^(log10(ylimit(2))-0.4*ei) ,expmark{ei},'MarkerSize',15,'MarkerFaceColor',cexp(ei,:),'MarkerEdgeColor',cexp(ei,:),'linewidth',1.5);
-%     text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(quan_err(ei)),')'],'fontsize',20,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
-    text(xlimit(1)+2.4 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',20,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
+%     text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(quan_err(ei)),')'],'fontsize',20,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
+    text(xlimit(1)+2.4 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',20,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
   end
   drawnow  
 
@@ -380,8 +380,8 @@ for ploti=[2 ]
   xlimit=get(gca,'Xlim'); ylimit=get(gca,'Ylim');
   for ei=1:nexp  
     plot(xlimit(1)+1 , 10^(log10(ylimit(2))-0.4*ei) ,expmark{ei},'MarkerSize',10,'MarkerFaceColor',cexp(ei,:),'MarkerEdgeColor',cexp(ei,:),'linewidth',1.5);
-    text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(slope(ei)),')'],'fontsize',18,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
-%  text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',18,'FontName','Monospaced','Interpreter','none','color',cexp(ei,:)); 
+    text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,[expnam{ei},' (',num2str(slope(ei)),')'],'fontsize',18,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
+%  text(xlimit(1)+1.8 , 10^(log10(ylimit(2))-0.4*ei) ,expnam{ei},'fontsize',18,'FontName','Consolas','Interpreter','none','color',cexp(ei,:)); 
   end
   drawnow  
 

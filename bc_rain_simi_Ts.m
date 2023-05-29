@@ -11,18 +11,18 @@ tint=3;
 pltensize=20; pltime=4:25;
 randmem=50; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly choose <pltensize> members
 
-%  expnam='Hagibis05kme01'; infilename='201910101800';%hagibis
-% expnam='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
-expnam='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-% expnam='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
+%  expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+% expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
+% expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
 %
 expsize=1000;  
 %
-indir=['/obs262_data01/wu_py/Experiments/',expnam,'/',infilename];
-outdir=['/home/wu_py/labwind/Result_fig/',expnam];
+indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
+outdir=['/home/wu_py/labwind/Result_fig/',expri];
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-titnam=[expnam,'  Rain similarity'];   fignam=[expnam,'_RainSimiTs_'];
+titnam=[expri,'  Rain similarity'];   fignam=[expri,'_RainSimiTs_'];
 %
 %--
 %---

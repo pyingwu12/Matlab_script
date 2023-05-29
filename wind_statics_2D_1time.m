@@ -9,14 +9,15 @@ pltensize=500;  hr=[12]; minu=[00];
 pltype='quanti'; % quanti, 1-sigma
 pro=0.4; %value=0~1 for pltype='quanti'; pro=0.1 means that 90% members have wind speed > the plotted values
 %
-expnam='H01km';
+expri='H01km';
 expri='Hagibis01km1000';  expsize=1000;
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri]; 
 outdir='/home/wu_py/labwind/Result_fig';
-%outdir='/data8/wu_py/Result_fig';
-titnam=['Wind speed ',pltype];   fignam=[expnam,'_windprob-',pltype];  unit='m/s';
+if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
+%
+titnam=['Wind speed ',pltype];   fignam=[expri,'_windprob-',pltype];  unit='m/s';
 %
 % plon=[134.5 143.5]; plat=[32 38.5]; %fignam=[fignam,'3_']; 
 plon=[138 141]; plat=[34.5 36.5];

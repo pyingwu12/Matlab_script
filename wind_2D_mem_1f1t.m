@@ -6,7 +6,7 @@ saveid=1;
 
 member=[1]; hr=[13]; minu=[00];
 %
-% expnam='e02nh01G';
+% expri='e02nh01G';
 expri='Hagibis01kme05';
 year='2019'; month='10'; day=12;  infilename='sfc';
 %
@@ -16,8 +16,8 @@ if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 titnam=[expri,'  Wind speed'];   fignam0=[expri,'_wind-spd_']; unit='m s^-^1';
 %
 % plon=[134 144]; plat=[30 38];
-% plon=[134.8 143.5]; plat=[32.3 38.5];  fignam=[expnam,'_wind-sprd_']; lo_int=135:5:144; la_int=30:5:37; % Japan center of Kanto
-% plon=[135 144.5]; plat=[32 39]; fignam=[expnam,'_wind-sprd_Kantou']; lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
+% plon=[134.8 143.5]; plat=[32.3 38.5];  fignam=[expri,'_wind-sprd_']; lo_int=135:5:144; la_int=30:5:37; % Japan center of Kanto
+% plon=[135 144.5]; plat=[32 39]; fignam=[expri,'_wind-sprd_Kantou']; lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
 plon=[139.2 140.9]; plat=[34.85 36.3 ];  fignam=[fignam0,'tokyobay_']; lo_int=134:2:145; la_int=31:2:40;
 %
 % load('colormap/colormap_wind2.mat') 

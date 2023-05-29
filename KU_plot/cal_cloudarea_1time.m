@@ -17,7 +17,8 @@ function cloud=cal_cloudarea_1time(infile1,infile2,areasize,cloudtpw,ploterm)
 % 2021/02/11: add <ploterm> option for calculating different terms in the DTE
 % 2021/08/05: change cloud area criteria to TPW
 
-topo_locx=75; topo_locy=100;  % center of topography
+% topo_locx=75; topo_locy=100;  % center of topography
+topo_locx=50; topo_locy=150;  % center of topography for U00 and NS5
 %---
 scheme='WSM6';
 
@@ -90,9 +91,9 @@ if ~isempty(stats)
       cloud.meandte(i) = mean(repDTE(L==fin(i)));
       
       %---for idealized wind profile
-      if centers(fin(i),1)>=(ny+101) && centers(fin(i),1)<=(ny+200)
-          cloud.mounarea(i)=1;
-      end
+%       if centers(fin(i),1)>=(ny+101) && centers(fin(i),1)<=(ny+200)
+%           cloud.mounarea(i)=1;
+%       end
       %---for original sounding wind profile
 %       if centers(fin(i),1)>=(ny+51) && centers(fin(i),1)<=(ny+200) && centers(fin(i),2)>=(nx+1) && centers(fin(i),2)<=(nx+150)
 %           cloud.mounarea(i)=1;
