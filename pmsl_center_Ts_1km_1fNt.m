@@ -22,9 +22,9 @@ for imem=1:pltensize
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];     
   if imem==1
       [nx, ny, ntime]=size(ncread(infile,'pmsl'));
-      pmsl0=zeros(nx,ny,ntime,pltensize);
+      pmsl0=zeros(nx,ny,pltensize,ntime);
   end  
-  pmsl0(:,:,:,imem) = ncread(infile,'pmsl');  
+  pmsl0(:,:,imem,:) = ncread(infile,'pmsl');  
 end %imem
 data_time = (ncread(infile,'time'));
 pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time);
@@ -45,7 +45,7 @@ for imem=1:pltensize
    else
      dis_cen=(lon-lonc).^2+(lat-latc).^2;   
      [xp,yp]=find(dis_cen==min(dis_cen(:)));     
-     pmsl_ens(itime,imem)=pmsl0(xp,yp,itime,imem);
+     pmsl_ens(itime,imem)=pmsl0(xp,yp,imem,itime);
    end   
   end %itime
 end

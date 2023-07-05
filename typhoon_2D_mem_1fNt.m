@@ -4,11 +4,11 @@ addpath('/data8/wu_py/MATLAB/m_map/')
 
 saveid=1;
 
-pltime=16;   accuh=3; 
-member=76; % member=[41 2];  
+pltime=9;   accuh=3; 
+member=75; % member=[41 2];  
 pltensize=0; randmem=0; %0: plot specified member ; else:randomly choose <pltensize> members 
 
-expri='Hagibis01kme03'; infilename='201910120000';  filetag='s';
+expri='Hagibis01kme01'; infilename='201910120000';  filetag='s';
 % expri='e02nh01G'; infilename='201910111800';%hagibis
 
 % convert_id=0; %1: duc-san default; 2: convert by wu

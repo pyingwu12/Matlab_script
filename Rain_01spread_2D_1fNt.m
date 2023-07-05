@@ -50,14 +50,14 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    vari0=zeros(nx,ny,ntime,pltensize);
-    pmsl=zeros(nx,ny,ntime,pltensize);
+    vari0=zeros(nx,ny,pltensize,ntime);
+    pmsl=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    vari0(:,:,:,imem) = ncread(infile,'rain');
-    pmsl(:,:,:,imem) = ncread(infile,'pmsl');
+    vari0(:,:,imem,:) = ncread(infile,'rain');
+    pmsl(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    vari0(:,:,:,imem) = NaN;
+    vari0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end    
 end
@@ -65,7 +65,7 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 % disp('finished reading files')
 %%
 for ti=pltime  
-  rain_ti=squeeze(vari0(:,:,ti,:)-vari0(:,:,ti-acch,:));
+  rain_ti=squeeze(vari0(:,:,:,ti)-vari0(:,:,:,ti-acch));
   rain_ti(rain_ti<threshold)=0; 
   rain_ti(rain_ti>=threshold)=1; 
   
@@ -94,7 +94,7 @@ for ti=pltime
 %   plotcnt=900:5:1040;    % pmsl Nagasaki05km
 %   plotcnt=970:20:1040; % pmsl, Hagibis05km
     plotcnt=[1003 1006 1009];   % pmsl, Nagasaki02km
-  [c,hdis]=m_contour(lon,lat,squeeze(mean(pmsl(:,:,ti,:),4)),plotcnt,'color',cntcol,'linewidth',1.4,'linestyle','-');     
+  [c,hdis]=m_contour(lon,lat,squeeze(mean(pmsl(:,:,:,ti),3)),plotcnt,'color',cntcol,'linewidth',1.4,'linestyle','-');     
   clabel(c,hdis,plotcnt,'fontsize',10,'LabelSpacing',500,'color',cntcol) 
   
   tit={[titnam,'  (',num2str(threshold),' mm)'];[datestr(pltdate(ti-acch),'mm/dd HHMM'),datestr(pltdate(ti),'-HHMM'),...

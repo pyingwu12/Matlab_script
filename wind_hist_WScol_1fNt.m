@@ -39,17 +39,17 @@ for imem=1:pltensize
   if imem==1
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));
-    [nx, ny]=size(lon);
-    spd10_ens=zeros(nx,ny,pltensize,length(data_time));     
+    [nx, ny]=size(lon);  ntime=length(data_time);
+    spd0=zeros(nx,ny,pltensize,ntime);     
     %--find the grid point nearest to the obs station
     dis_sta=(lon-lonp).^2+(lat-latp).^2;   [xp,yp]=find(dis_sta==min(dis_sta(:))); %!!!!!
   end  
   if isfile(infile)
   u10 = ncread(infile,'u10m');
   v10 = ncread(infile,'v10m');
-  spd10_ens(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
+  spd0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
   else
-      spd10_ens(:,:,imem,:)=NaN;
+      spd0(:,:,imem,:)=NaN;
   end
 end  %imem
 %%
@@ -64,7 +64,7 @@ hist_width=hist_Edge(2)-hist_Edge(1);
 for ti=pltime    
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
   obs_wind_spd=obs(ti+17-2,1); 
-  plotvar=squeeze(spd10_ens(xp,yp,:,ti));
+  plotvar=squeeze(spd0(xp,yp,:,ti));
   [ens_pdf, ~]=histcounts(plotvar,[hist_Edge-hist_width/2 hist_Edge(end)+hist_width/2]);
   %---plot  
   hf=figure('position',[100 55 1200 900]);    

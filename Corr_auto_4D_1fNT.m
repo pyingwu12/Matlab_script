@@ -34,10 +34,10 @@ for imem=1:pltensize
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
-    [nx, ny]=size(lon);      
     data_time = (ncread(infile,'time'));
-    Var1=zeros(nx,ny,pltensize,length(data_time));    
-    Var2=zeros(nx,ny,pltensize,length(data_time)); 
+    [nx, ny]=size(lon);      ntime=length(data_time);    
+    Var1=zeros(nx,ny,pltensize,ntime);    
+    Var2=zeros(nx,ny,pltensize,ntime); 
   end  
   Var1(:,:,imem,:) = ncread(infile,Varnam1);    
   Var2(:,:,imem,:) = ncread(infile,Varnam2); 

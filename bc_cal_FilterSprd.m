@@ -1,4 +1,4 @@
-function [sprd_s, sprd_d]=bc_cal_sprd(expri,infilename,idifx,iset,variname,acch,pltime,nrmid)
+function [sprd_s, sprd_d]=bc_cal_FilterSprd(expri,infilename,idifx,iset,variname,acch,pltime,nrmid,fLb,fLu,dx,dy)
 
 % iset=11;
 % expri='Nagasaki02km'; infilename='202108131300'; idifx=44;  nrmid=1;
@@ -22,8 +22,10 @@ for imem=1:ensize
     [nx, ny]=size(lon); ntime=length(data_time);
     vari0_s=zeros(nx,ny,ensize,ntime); vari0_d=zeros(nx,ny,ensize,ntime);
   end
-  vari0_s(:,:,imem,:) = ncread(infile_s,variname);
-  vari0_d(:,:,imem,:) = ncread(infile_d,variname);  
+  tmp=ncread(infile_s,variname);  
+  vari0_s(:,:,imem,:) = low_pass_filter(tmp,fLb,fLu,dx,dy);
+  tmp=ncread(infile_d,variname);    
+  vari0_d(:,:,imem,:) = low_pass_filter(tmp,fLb,fLu,dx,dy);
 end
 
 if strcmp(variname,'rain')==1

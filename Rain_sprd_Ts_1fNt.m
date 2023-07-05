@@ -30,9 +30,9 @@ for imem=1:pltensize
   
   if imem==1
     [nx, ny, ntime]=size(ncread(infile,'pmsl'));
-    rain0=zeros(nx,ny,ntime,pltensize);
+    rain0=zeros(nx,ny,pltensize,ntime);
   end  
-  rain0(:,:,:,imem) = ncread(infile,'rain');    
+  rain0(:,:,imem,:) = ncread(infile,'rain');    
 end
 
 data_time = (ncread(infile,'time'));
@@ -41,15 +41,15 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(
 disp('finished reading files')
 %
 %
-rain_sprd=std(rain0,0,4);
+rain_sprd=std(rain0,0,3);
 sprd_all=squeeze(mean(rain_sprd,[1 2]));
 
 clear rain_sprd
-rain_sprd=std(rain0(:,:,:,1:BCnum),0,4);
+rain_sprd=std(rain0(:,:,1:BCnum,:),0,3);
 sprd_50=squeeze(mean(rain_sprd,[1 2]));
 
 clear rain_sprd
-rain_sprd=std(rain0(:,:,:,1:BCnum:pltensize),0,4);
+rain_sprd=std(rain0(:,:,1:BCnum:pltensize,:),0,3);
 sprd_sameBC=squeeze(mean(rain_sprd,[1 2]));
 
 %%

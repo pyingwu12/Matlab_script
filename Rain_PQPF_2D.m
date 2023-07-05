@@ -39,17 +39,17 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));
     lat = double(ncread(infile,'lat'));
     [nx, ny, ntime]=size(ncread(infile,'rain'));
-    rain0=zeros(nx,ny,ntime,pltensize);
+    rain0=zeros(nx,ny,pltensize,ntime);
     data_time = (ncread(infile,'time'));
   end  
-  rain0(:,:,:,imem) = ncread(infile,'rain');    
+  rain0(:,:,imem,:) = ncread(infile,'rain');    
 end
 pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time);
 
 %%
 %---plot
 for ti=pltime     
-  rain=squeeze(rain0(:,:,ti,:)-rain0(:,:,ti-acch,:));   
+  rain=squeeze(rain0(:,:,:,ti)-rain0(:,:,:,ti-acch));   
   %---probability for different thresholds
   for thi=thresholds      
     pqpf=zeros(nx,ny);   

@@ -43,9 +43,9 @@ for imem=1:pltensize
     lon = double(ncread(infile1,'lon'));
     lat = double(ncread(infile1,'lat'));
     data_time = (ncread(infile1,'time'));
-    [nx, ny]=size(lon);
-    spd10_ens1=zeros(nx,ny,pltensize,length(data_time));  
-    spd10_ens2=zeros(nx,ny,pltensize,length(data_time)); 
+    [nx, ny]=size(lon); ntime=length(data_time);
+    spd10_ens1=zeros(nx,ny,pltensize,ntime);  
+    spd10_ens2=zeros(nx,ny,pltensize,ntime); 
   end  
   u10 = ncread(infile1,'u10m');  v10 = ncread(infile1,'v10m');
   spd10_ens1(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  

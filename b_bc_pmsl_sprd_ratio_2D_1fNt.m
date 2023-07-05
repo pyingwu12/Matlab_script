@@ -40,12 +40,12 @@ for imem=1:pltensize
 %   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',cvrt_name{convert_id},infilename,'.nc'];
   if imem==1
       [nx, ny, ntime]=size(ncread(infile,'pmsl'));
-      pmsl0=zeros(nx,ny,ntime,pltensize);
+      pmsl0=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
+    pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    pmsl0(:,:,:,imem) = NaN;
+    pmsl0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end    
 end
@@ -55,17 +55,17 @@ data_time = (ncread(infile,'time'));
 disp('finished reading files')
 %
 %%
-sprdall_ini=std(pmsl0(:,:,1,:),0,4,'omitnan');
-sprd50_ini=std(pmsl0(:,:,1,1:BCnum),0,4,'omitnan');
-sprdBC_ini=std(pmsl0(:,:,1,1:BCnum:pltensize),0,4,'omitnan');
+sprdall_ini=std(pmsl0(:,:,:,1),0,4,'omitnan');
+sprd50_ini=std(pmsl0(:,:,1:BCnum,1),0,4,'omitnan');
+sprdBC_ini=std(pmsl0(:,:,1:BCnum:pltensize,1),0,4,'omitnan');
 %%
 % plon=[131 145.5]; plat=[28 40.5];
 % close all
 for ti=pltime
     pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  sprdall=std(pmsl0(:,:,ti,:),0,4,'omitnan');
-  sprd50=std(pmsl0(:,:,ti,1:BCnum),0,4,'omitnan');
-  sprdBC=std(pmsl0(:,:,ti,1:BCnum:pltensize),0,4,'omitnan');
+  sprdall=std(pmsl0(:,:,:,ti),0,4,'omitnan');
+  sprd50=std(pmsl0(:,:,1:BCnum,ti),0,4,'omitnan');
+  sprdBC=std(pmsl0(:,:,1:BCnum:pltensize,ti),0,4,'omitnan');
   
 %     plotcnt=950:10:1010; cntcol=[0.2 0.2 0.2];
     plotcnt=974:3:1013; cntcol=[0.2 0.2 0.2];

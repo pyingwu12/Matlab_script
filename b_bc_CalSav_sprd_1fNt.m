@@ -22,13 +22,13 @@ for imem=1:expsize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    rain0=zeros(nx,ny,ntime,expsize);
-    pmsl0=zeros(nx,ny,ntime,expsize);
-    tpw0=zeros(nx,ny,ntime,expsize);
+    rain0=zeros(nx,ny,expsize,ntime);
+    pmsl0=zeros(nx,ny,expsize,ntime);
+    tpw0=zeros(nx,ny,expsize,ntime);
   end  
-    rain0(:,:,:,imem) = ncread(infile,'rain');
-%     pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
-%     tpw0(:,:,:,imem) = ncread(infile,'tpw');
+    rain0(:,:,imem,:) = ncread(infile,'rain');
+%     pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
+%     tpw0(:,:,imem,:) = ncread(infile,'tpw');
 
   if mod(imem,100)==1; disp(['member ',num2str(imem),' done']); end
 end

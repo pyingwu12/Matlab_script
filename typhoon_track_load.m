@@ -25,27 +25,10 @@ for imem=1:pltensize
     data_time = (ncread(infile,'time'));
     lon = double(ncread(infile,'lon'));
     lat = double(ncread(infile,'lat'));
-    lon_track=zeros(length(data_time),pltensize);
-    lat_track=zeros(length(data_time),pltensize);
+    ntime=length(data_time);  
+    lon_track=zeros(ntime,pltensize);
+    lat_track=zeros(ntime,pltensize);
   end  
-  
-  
-  %5km
-  %{
-  infile_track= [indir,'/',num2str(member(imem),'%.4d'),'/',infiletrackname,'.nc'];
-  len_track=length(ncread(infile_track,'lon'));
-  if len_track~=length(data_time)
-      lon_track(1:len_track,imem) = ncread(infile_track,'lon');
-      lon_track(len_track+1:end,imem) =NaN;
-      lat_track(1:len_track,imem) = ncread(infile_track,'lat');
-      lat_track(len_track+1:end,imem) =NaN;
-  else
-   lon_track(:,imem) = ncread(infile_track,'lon');
-   lat_track(:,imem) = ncread(infile_track,'lat');
-  end
-  %}
-  
-  
   
 end  %imem
 %%
@@ -95,93 +78,6 @@ tit=[expri,'  ',titnam,'  (',num2str(pltensize),' mem)'];
 title(tit,'fontsize',18)
 %
 outfile=[outdir,'/',fignam,'m',num2str(pltensize),'rnd',num2str(randmem)];
-if saveid==1
-  print(hf,'-dpng',[outfile,'.png'])    
-  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-end
-%}
-%%
-%{
-[nx, ny]=size(lon);
-BCmem=50; 
-% n=2; pltibc=randperm(BCmem,n)  %randomly plot n groups
-pltibc=[6 26 46] ;
-pmsl0=zeros(nx,ny,length(data_time),pltensize);
-for ibc=pltibc
-  for imem=ibc:BCmem:pltensize  
-       infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];        
-       pmsl0(:,:,:,imem)=ncread(infile,'pmsl'); 
-  end
-end
-%%
-%--colored by BC %--- please read data of from 1~pltensize members first
-load('colormap/colormap_ncl.mat')
-cmap=colormap_ncl;
-cmap2=cmap(8:5:end,:);
-%---
-% plon=[min(lon(:)) max(lon(:))]; plat=[min(lat(:)) max(lat(:))];
-plon=[132 148]; plat=[25 42.8];
-%
-hf=figure('Position',[100 100 800 650]);
-m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rectbox','on')
-%
-for ibc=pltibc
-  for imem=ibc:BCmem:pltensize  
-    m_plot(lon_track(:,imem),lat_track(:,imem),'color',cmap2(mod(imem,BCmem)+1,:),'Linewidth',0.8); hold on
-    m_contour(lon,lat,pmsl0(:,:,43,imem),[1015 1015],'color',cmap2(mod(imem,BCmem)+1,:),'Linewidth',0.8,'linestyle','--')
-    drawnow
-  end
-end
-%---
-% m_coast('color','k');
-% m_gshhs_h('color','k','LineWidth',0.8);  m_gshhs_h('save','gumby');
-m_usercoast('gumby','linewidth',1,'color',[0.1 0.1 0.1],'linestyle','--')
-m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',110:5:150,'ytick',15:5:50,'color',[0.3 0.3 0.3]); 
-%---plot the box of the domain ---
-% m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
-%---
-tit={expri,['  ',titnam,'  (',num2str(pltensize/BCmem),' mem per BC)']};   
-title(tit,'fontsize',18)
-%
-outfile=[outdir,'/',fignam,'m',num2str(pltensize),'_coloredBC1_p'];
-% if saveid==1
-  print(hf,'-dpng',[outfile,'.png'])    
-  system(['convert -trim ',outfile,'.png ',outfile,'.png']);
-% end
-%}
-%%
-%{
-%--colored by BC of + and - %--- please read data of from 1~1000 members first
-% plon=[min(lon(:)) max(lon(:))]; plat=[min(lat(:)) max(lat(:))];
-% plon=[130 148]; plat=[25 43];
-% plon=[135 142]; plat=[28 38];
-load('colormap/colormap_ncl.mat')
-cmap=colormap_ncl;
-cmap2=cmap(8:5:end,:);
-%
-hf=figure('Position',[100 100 800 630]);
-m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rectbox','on')
-%
-BCmem=50; 
-for i=11:6:BCmem
-  for j=[0 1]
-    imem=i+j;
-    m_plot(lon_track(:,imem),lat_track(:,imem),'color',cmap2(i,:),'Linewidth',1.8); hold on
-    drawnow
-  end
-end
-%---
-% m_coast('color','k');
-% m_gshhs_h('color','k','LineWidth',0.8);  m_gshhs_h('save','gumby');
-m_usercoast('gumby','linewidth',1,'color',[0.1 0.1 0.1],'linestyle','--')
-m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',110:5:150,'ytick',15:5:50,'color',[0.3 0.3 0.3]); 
-%---plot the box of the domain ---
-% m_plot(lon(:,1),lat(:,1),'k');m_plot(lon(1,:),lat(1,:),'k');m_plot(lon(:,end),lat(:,end),'k');m_plot(lon(end,:),lat(end,:),'k')
-%---
-tit=[expri,'  ',titnam,'  (',num2str(pltensize),' mem)'];   
-title(tit,'fontsize',18)
-%
-outfile=[outdir,'/',fignam,'m',num2str(pltensize),'_coloredBCSVpair'];
 if saveid==1
   print(hf,'-dpng',[outfile,'.png'])    
   system(['convert -trim ',outfile,'.png ',outfile,'.png']);

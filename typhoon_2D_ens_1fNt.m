@@ -37,11 +37,11 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));
     [nx, ny]=size(lon); ntime=length(data_time);
-    spd10_ens0=zeros(nx,ny,ntime,pltensize);
+    spd0=zeros(nx,ny,pltensize,ntime);
   end  
   u10 = ncread(infile,'u10m');
   v10 = ncread(infile,'v10m');
-  spd10_ens0(:,:,:,imem)=double(u10.^2+v10.^2).^0.5;  
+  spd0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
 %---
 %     infile_track= [indir_t,num2str(member(imem),'%.4d'),'/201910101800track.nc'];
 %     lon_track(:,imem) = ncread(infile_track,'lon');
@@ -51,8 +51,8 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 for ti=pltime     
   %---read ensemble
 
-  spd10=squeeze(spd10_ens0(:,:,ti,:));
-  plotvar=mean(spd10,3);
+  spd=squeeze(spd0(:,:,:,ti));
+  plotvar=mean(spd,3);
   pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end     
 %
   for plti=pltspds    
@@ -70,7 +70,7 @@ for ti=pltime
     % 
     hold on
     for imem=1:pltensize     
-      m_contour(lon,lat,spd10(:,:,imem),[plti plti],'linewidth',0.6,'color',[0.6 0.4 0.6]); 
+      m_contour(lon,lat,spd(:,:,imem),[plti plti],'linewidth',0.6,'color',[0.6 0.4 0.6]); 
       drawnow
     end    
      m_contour(lon,lat,plotvar,[plti plti],'linewidth',1.5,'color',[0.1 0.1 0.1]);  

@@ -59,24 +59,25 @@ for imem=1:pltensize
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
-    [nx, ny]=size(lon);      
     data_time = (ncread(infile,'time'));
+    [nx, ny]=size(lon);      ntime=length(data_time);         
+    
     %--find the grid point nearest to the obs station
 %     dis_sta=(lon-lonp).^2+(lat-latp).^2;   [xp,yp]=find(dis_sta==min(dis_sta(:))); %!!!!!
-    lon_track=zeros(length(data_time),pltensize);
-    lat_track=zeros(length(data_time),pltensize);
-%     vari0=zeros(nx,ny,length(data_time),pltensize);  
+    lon_track=zeros(ntime,pltensize);
+    lat_track=zeros(ntime,pltensize);
+%     vari0=zeros(nx,ny,pltensize,ntime);  
   end  
 %   if strcmp(varinam,'wind')
 %     u10 = ncread(infile,'u10m'); v10 = ncread(infile,'v10m');
-%     vari0(:,:,:,imem)=double(u10.^2+v10.^2).^0.5; 
+%     vari0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5; 
 %   else
-%     vari0(:,:,:,imem) = ncread(infile,varinam);
+%     vari0(:,:,imem,:) = ncread(infile,varinam);
 %   end
     
   infile_track= [indir,'/',num2str(member(imem),'%.4d'),'/',infiletrackname,'.nc'];
   len_track=length(ncread(infile_track,'lon'));
-  if len_track~=length(data_time)
+  if len_track~=ntime
    lon_track(1:len_track,imem) = ncread(infile_track,'lon'); lat_track(1:len_track,imem) = ncread(infile_track,'lat');
   else
    lon_track(:,imem) = ncread(infile_track,'lon');
@@ -94,7 +95,7 @@ plon=[lon(xp,yp)-2.5 lon(xp,yp)+2.5]; plat=[lat(xp,yp)-2 lat(xp,yp)+2];
 
 for ti=pltime
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  vari_p=squeeze(vari0(xp,yp,ti,:)); %---wind speed at the station
+  vari_p=squeeze(vari0(xp,yp,:,ti)); %---wind speed at the station
 
  %---plot  
     hf=figure('Position',[100 100 800 630]);

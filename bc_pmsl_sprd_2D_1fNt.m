@@ -24,7 +24,7 @@ indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir=['/home/wu_py/labwind/Result_fig/',expri];
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
-expri=expri;  titnam=[expri,'  Psea spread']; fignam=[expri,'_BC_PmslSprd_']; unit='hPa';
+titnam=[expri,'  Psea spread']; fignam=[expri,'_BC_PmslSprd_']; unit='hPa';
 %--
 % plon=[134.5 143.5]; plat=[32 38.5]; %hagibis kantou
 %--
@@ -43,12 +43,12 @@ for imem=1:expsize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    pmsl0=zeros(nx,ny,ntime,expsize);    
+    pmsl0=zeros(nx,ny,expsize,ntime);    
   end  
   if isfile(infile) 
-    pmsl0(:,:,:,imem) = ncread(infile,'pmsl');    
+    pmsl0(:,:,imem,:) = ncread(infile,'pmsl');    
   else
-    pmsl0(:,:,:,imem) = NaN;
+    pmsl0(:,:,imem,:) = NaN;
     disp(['member ',num2str(imem,'%.4d'),' file does''t exist'])
   end    
 end
@@ -57,7 +57,7 @@ end
 plotid={'sameBC';'diffBC'};
 for ti=pltime 
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  pmsl=squeeze(pmsl0(:,:,ti,:));
+  pmsl=squeeze(pmsl0(:,:,:,ti));
 %   sprd_all = std(pmsl_ti,0,3,'omitnan')  ;  
   %---
   sprd_sameBC=0; sprd_diffBC=0;

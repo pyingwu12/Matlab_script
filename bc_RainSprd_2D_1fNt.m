@@ -42,14 +42,14 @@ for imem=1:expsize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    rain0=zeros(nx,ny,ntime,expsize);
-    pmsl0=zeros(nx,ny,ntime,expsize);
+    rain0=zeros(nx,ny,expsize,ntime);
+    pmsl0=zeros(nx,ny,expsize,ntime);
   end  
   if isfile(infile) 
-    rain0(:,:,:,imem) = ncread(infile,'rain');
-    pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
+    rain0(:,:,imem,:) = ncread(infile,'rain');
+    pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    rain0(:,:,:,imem) = NaN;
+    rain0(:,:,imem,:) = NaN;
     disp(['member ',num2str(imem,'%.4d'),' file does''t exist'])
   end   
   if mod(imem,100)==0; disp(['member',num2str(imem),' done']); end
@@ -59,7 +59,7 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 %%
 plotid={'sameBC';'diffBC'};
 for ti=pltime 
-  rain=squeeze(rain0(:,:,ti,:)-rain0(:,:,ti-acch,:));
+  rain=squeeze(rain0(:,:,:,ti)-rain0(:,:,:,ti-acch));
   rain(rain<=0)=0; % for rainfall !!!
 
 %   sprd_all = std(rain0,0,3,'omitnan')  ;  

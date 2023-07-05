@@ -3,13 +3,11 @@ clear
 close all
 
 saveid=0;
-pltensize=50; 
+pltensize=300; 
 
-pltime=1; % staid=2;
+pltime=31; % staid=2;
 
-varinam='v10m';
-
- randmem=0; %0: plot member 1~pltensize; else:randomly choose members
+randmem=0; %0: plot member 1~pltensize; else:randomly choose members
 
 xp=538; yp=331; %ti=43
 % xp=521; yp=265; %ti=31
@@ -22,11 +20,11 @@ indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 % titnam='10-m Wind speed';   fignam=[expri,'_WindHist_']; 
-titnam=varinam;   fignam=[expri,'_',varinam,'Hist_']; 
+titnam='UV dot';   fignam=[expri,'_UVdot_']; 
 %---
-if strcmp(varinam,'wind'); hist_Edge=0:15; else; hist_Edge=-15:2:15; end
 %%
 % %---obs
+% staid=3;
 % station.name={'Tokyo';'Rinkai';'Haneda';'Narita';'Choshi'};
 % station.lon=[139.75 139.863 139.78 140.385 140.857];
 % station.lat=[35.692 35.638 35.553 35.763 35.738];
@@ -44,6 +42,7 @@ if strcmp(varinam,'wind'); hist_Edge=0:15; else; hist_Edge=-15:2:15; end
 if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); memtag='rndm';  %!random choose members  
 else; member=1:pltensize; memtag='seq'; %!!!!! sequential members
 end
+for ti=pltime    
 %---read ensemble
 for imem=1:pltensize     
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
@@ -51,50 +50,46 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));
     [nx, ny]=size(lon); ntime=length(data_time);
-    vari0=zeros(nx,ny,pltensize,ntime);       
+    u10m0=zeros(nx,ny,pltensize);  
+    v10m0=zeros(nx,ny,pltensize);  
 %--find the grid point nearest to the obs station-----
 %     dis_sta=(lon-lonp).^2+(lat-latp).^2;   [xp,yp]=find(dis_sta==min(dis_sta(:))); %!!!!!
   end  
-  
-  if strcmp(varinam,'wind')
-    u10 = ncread(infile,'u10m'); v10 = ncread(infile,'v10m');
-    vari0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5; 
-  else
-    vari0(:,:,imem,:) = ncread(infile,varinam);
-  end
+
+    u10m0(:,:,imem) = ncread(infile,'u10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+    v10m0(:,:,imem) = ncread(infile,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+    
+
   if mod(imem,200)==0; disp([num2str(imem),' done']); end
 end  %imem
 disp ('end reading files')
 %%
-% xp=616; yp=153;
-% xp=594; yp=260;
-% hist_Edge=[15 16 17 18 19 20 21 22 23 ];
-for ti=pltime    
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
 %   obs_wind_spd=obs(ti+17,1); 
-  plotvar=squeeze(vari0(xp,yp,:,ti));
-%   plotvar=squeeze(vari0(xp,yp,:,ti));
   %%
-%   x=hist_Edge-0.5;
-%   sig=std(plotvar); ens_me=mean(plotvar); 
-%    normal_dis=1/(sig*(2*pi)^0.5)*exp(-(1/2)*((x-ens_me)/sig).^2); 
-  %%
+  rng=0; size=rng*2+1;
+  plotu=reshape( u10m0(xp-rng:xp+rng,yp-rng:yp+rng,:), size*size, pltensize );
+  plotv=reshape( v10m0(xp-rng:xp+rng,yp-rng:yp+rng,:), size*size, pltensize );
+  
+  stdu=std(plotu);
+  stdv=std(plotv);
+  
+  [ex, ey]=ellipse(stdu,stdv,mean(plotu),mean(plotv));
+
 %---plot
-  hf=figure('Position',[100 100 1000 630]);
-%   h1=histogram(plotvar,'Normalization','probability','BinEdges',hist_Edge); hold on
-  h1=histogram(plotvar,10); %hold on
+  hf=figure('Position',[100 100 800 630]);
+  plot(plotu,plotv,'b.'); hold on
+  plot(mean(plotu),mean(plotv),'rx')
+  
+  plot(ex, ey)
+
   %---obs
 %   xline(obs_wind_spd,'linewidth',2,'color','r');  
   %
-%   xlabel('Wind speed (m/s)'); ylabel('Frequency (%)')
-%   set(gca,'xlim',[hist_Edge(1) hist_Edge(end)],'ylim',[0 0.5],'fontsize',18,'linewidth',1.4) ;    
-% %    set(gca,'ylim',[0 0.5],'fontsize',18,'linewidth',1.4) ;    
-%   yticklabels(yticks*100)
-%   %
-%   x_lim=xlim; y_lim=ylim;
-%   text(x_lim(2)-5,y_lim(2)-0.03,['xp=',num2str(xp),', yp=',num2str(yp)])
-%   %
-%   s_lon=num2str(lon(xp,yp),'%.1f');   s_lat=num2str(lat(xp,yp),'%.1f');
+  xlabel('U (m/s)'); ylabel('V (%)')
+  set(gca,'fontsize',18,'linewidth',1.4) ;    
+
+  s_lon=num2str(lon(xp,yp),'%.1f');   s_lat=num2str(lat(xp,yp),'%.1f');
 % %   tit={[titnam,' at ',sta,'(',s_lon,', ',s_lat,')'];...
 % %        [expri,'  ',datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem)']};   
   tit={[titnam,' at (',s_lon,', ',s_lat,')'];...

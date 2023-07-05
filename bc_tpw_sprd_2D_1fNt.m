@@ -39,14 +39,14 @@ for imem=1:expsize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    tpw0=zeros(nx,ny,ntime,expsize);   
-    rain0=zeros(nx,ny,ntime,expsize);  
+    tpw0=zeros(nx,ny,expsize,ntime);   
+    rain0=zeros(nx,ny,expsize,ntime);  
   end  
   if isfile(infile) 
-    tpw0(:,:,:,imem) = ncread(infile,'tpw');    
-    rain0(:,:,:,imem) = ncread(infile,'rain');    
+    tpw0(:,:,imem,:) = ncread(infile,'tpw');    
+    rain0(:,:,imem,:) = ncread(infile,'rain');    
   else
-    tpw0(:,:,:,imem) = NaN;
+    tpw0(:,:,imem,:) = NaN;
     disp(['member ',num2str(imem,'%.4d'),' file does''t exist'])
   end    
   if mod(imem,100)==0; disp(['member',num2str(imem),' done']); end
@@ -57,7 +57,7 @@ end
 plotid={'sameBC';'diffBC'};
 for ti=pltime 
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  tpw=squeeze(tpw0(:,:,ti,:));
+  tpw=squeeze(tpw0(:,:,:,ti));
 %   sprd_all = std(tpw,0,3,'omitnan')  ;  
   %---
   sprd_sameBC=0; sprd_diffBC=0;

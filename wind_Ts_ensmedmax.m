@@ -25,11 +25,10 @@ if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); else; member=1:pl
 for imem=1:pltensize     
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
-    lon = double(ncread(infile,'lon'));
-    lat = double(ncread(infile,'lat'));
+    lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));
-    [nx, ny]=size(lon);
-    spd10_ens0=zeros(nx,ny,pltensize,length(data_time));      
+    [nx, ny]=size(lon); ntime=length(data_time);
+    spd10_ens0=zeros(nx,ny,pltensize,ntime);      
   end  
   u10 = ncread(infile,'u10m');
   v10 = ncread(infile,'v10m');

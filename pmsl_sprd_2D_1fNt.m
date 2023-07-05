@@ -1,15 +1,16 @@
 clear
-close all
+% close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
-saveid=1;
+saveid=0;
 
 pltensize=20;  pltime=13;
 randmem=0; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly choose <pltensize> members
 
-% expri='Hagibis05kme01'; infilename='201910101800';  plotcnt=[970,990,1010,1015:5:1040]; idifx=53; %hagibis
-expri='Nagasaki05km'; infilename='202108131200';  plotcnt=900:5:1040; idifx=53;   %nagasaki 05 (Duc-san)
-plon=[112 153]; plat=[18 50];   lo_int=105:15:155; la_int=10:15:50;  %Fugaku05km whole domain center
+expri='Hagibis05kme03'; infilename='201910101800';  plotcnt=[970,990,1010,1015:5:1040]; %hagibis
+outag='s';
+% expri='Nagasaki05km'; infilename='202108131200';  plotcnt=900:5:1040;  %nagasaki 05 (Duc-san)
+plon=[112 153]; plat=[18 50];   lo_int=105:15:155; la_int=10:15:50;   idifx=53; %Fugaku05km whole domain center
 %---
 % expri='Kumagawa02km'; infilename='202007030900';  plotcnt=1002:3:1015; %kumakawa 02 (Duc-san)
 % idifx=[58];
@@ -40,17 +41,17 @@ if randmem==0; member=1:pltensize;  elseif randmem==50; member=1:50:1000;
 else;  tmp=randperm(expsize); member=tmp(1:pltensize); end
 %%
 for imem=1:pltensize 
-  infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];   
+  infile=[indir,'/',num2str(member(imem),'%.4d'),'/',outag,infilename,'.nc'];   
   if imem==1
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    vari0=zeros(nx,ny,ntime,pltensize);
+    vari0=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    vari0(:,:,:,imem) = ncread(infile,'pmsl');
+    vari0(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    vari0(:,:,:,imem) = NaN;
+    vari0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end    
 end
@@ -58,7 +59,7 @@ end
 %%
 for ti=pltime
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  ens=squeeze(vari0(:,:,ti,:));  sprd = std(ens,0,3,'omitnan');  
+  ens=squeeze(vari0(:,:,:,ti));  sprd = std(ens,0,3,'omitnan');  
   %---plot
   plotvar=sprd;
   pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end     

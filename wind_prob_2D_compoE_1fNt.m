@@ -49,19 +49,19 @@ for ei=1:nexp
       lon = double(ncread(infile,'lon'));
       lat = double(ncread(infile,'lat'));
       data_time = (ncread(infile,'time'));
-      [nx, ny]=size(lon);
-      spd10_ens0=zeros(nx,ny,pltensize,length(data_time));      
+      [nx, ny]=size(lon);  ntime=length(data_time);
+      spd0=zeros(nx,ny,pltensize,ntime);      
     end  
     u10 = ncread(infile,'u10m');
     v10 = ncread(infile,'v10m');
-    spd10_ens0(:,:,nmem,:)=double(u10.^2+v10.^2).^0.5;  
+    spd0(:,:,nmem,:)=double(u10.^2+v10.^2).^0.5;  
   end  %imem
 end
 %%
 for ti=pltime     
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
  
-  spd10_ens=squeeze(spd10_ens0(:,:,:,ti));
+  spd10_ens=squeeze(spd0(:,:,:,ti));
     
   %---probability for different thresholds
   for thi=thresholds      

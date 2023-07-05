@@ -45,12 +45,12 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));
     lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));
-    [nx, ny]=size(lon);
-    spd10_ens0=zeros(nx,ny,length(data_time),pltensize);      
+    [nx, ny]=size(lon);  ntime=length(data_time);
+    spd0=zeros(nx,ny,pltensize,ntime);      
   end  
   u10 = ncread(infile,'u10m');
   v10 = ncread(infile,'v10m');
-  spd10_ens0(:,:,:,imem)=double(u10.^2+v10.^2).^0.5;  
+  spd0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
   if mod(imem,100)==0; disp([num2str(imem),' done']); end
 end  %imem
 %%
@@ -86,7 +86,7 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 
 for ti=pltime     
  
- spd10_ens=squeeze(spd10_ens0(:,:,ti,:));
+ spd10_ens=squeeze(spd0(:,:,:,ti));
     
   %---probability for different thresholds
   for thi=thresholds      

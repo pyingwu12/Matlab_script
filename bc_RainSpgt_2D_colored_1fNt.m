@@ -34,21 +34,21 @@ for imem=ibc:BCnum:expsize
   infile=[indir,'/',num2str(imem,'%.4d'),'/',infilename,'.nc'];      
   if imem==pltbc(1)
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
-    [nx, ny]=size(lon);      
     data_time = (ncread(infile,'time'));
-    rain0=zeros(nx,ny,length(data_time),expsize);
-    pmsl0=zeros(nx,ny,length(data_time),expsize);
+    [nx, ny]=size(lon);      ntime=length(data_time);
+    rain0=zeros(nx,ny,pltensize,ntime);
+    pmsl0=zeros(nx,ny,pltensize,ntime);
   end  
-  rain0(:,:,:,imem) = ncread(infile,'rain');
-  pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
+  rain0(:,:,imem,:) = ncread(infile,'rain');
+  pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
 end  %imem
 end
 %%
 close all
 for ti=pltime    
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  pmsl_plt=squeeze(pmsl0(:,:,ti,:));
-%   rain_plt=squeeze(rain0(:,:,ti,:)-rain0(:,:,ti-acch,:));
+  pmsl_plt=squeeze(pmsl0(:,:,:,ti));
+%   rain_plt=squeeze(rain0(:,:,:,ti)-rain0(:,:,:,ti-acch));
   %---plot    
   hf=figure('Position',[100 100 800 630]);
   m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rectbox','on')

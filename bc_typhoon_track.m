@@ -1,3 +1,5 @@
+% specially plot typhoon tracks colored by BC
+
 clear
 % close all
 addpath('/data8/wu_py/MATLAB/m_map/')
@@ -26,9 +28,9 @@ for ibc=pltbc
     lon_track=zeros(ntime,expsize);
     lat_track=zeros(ntime,expsize);
     pmsl_track=zeros(ntime,expsize);
-    pmsl0=zeros(nx,ny,ntime,expsize);
+    pmsl0=zeros(nx,ny,expsize,ntime);
     end  
-  pmsl0(:,:,:,imem)=ncread(infile,'pmsl'); 
+  pmsl0(:,:,imem,:)=ncread(infile,'pmsl'); 
   %---
   infile_track= [indir,'/',num2str(imem,'%.4d'),'/',infiletrackname,'.nc'];
 %   len_track=length(ncread(infile_track,'lon'));
@@ -86,7 +88,7 @@ for ibc=pltbc
   for imem=ibc:BCnum:expsize
 %   for imem=ibc
     m_plot(lon_track(:,imem),lat_track(:,imem),'color',cmap2(mod(imem,BCnum)+1,:),'Linewidth',0.8); hold on
-    m_contour(lon,lat,pmsl0(:,:,ti,imem),[1015 1015],'color',cmap2(mod(imem,BCnum)+1,:),'Linewidth',0.8,'linestyle','--')
+    m_contour(lon,lat,pmsl0(:,:,imem,ti),[1015 1015],'color',cmap2(mod(imem,BCnum)+1,:),'Linewidth',0.8,'linestyle','--')
     drawnow
   end
 end

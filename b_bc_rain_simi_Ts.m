@@ -38,24 +38,23 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    vari0=zeros(nx,ny,ntime,pltensize);
-    pmsl=zeros(nx,ny,ntime,pltensize);
+    vari0=zeros(nx,ny,pltensize,ntime);
+    pmsl=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    vari0(:,:,:,imem) = ncread(infile,'rain');
-%     pmsl(:,:,:,imem) = ncread(infile,'pmsl');
+    vari0(:,:,imem,:) = ncread(infile,'rain');
+%     pmsl(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    vari0(:,:,:,imem) = NaN;
+    vari0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end    
 end
 
 
-accu=vari0(:,:,1+acch:end,:)-vari0(:,:,1:end-acch,:);
+accu=vari0(:,:,:,1+acch:end)-vari0(:,:,:,1:end-acch);
 
-
-sum_var_xi=sum(var(accu,0,[1 2]),4);
-var_sum_xi=var(sum(accu,4),0,[1 2]);
+sum_var_xi=sum(var(accu,0,[1 2]),3);
+var_sum_xi=var(sum(accu,3),0,[1 2]);
 
 simi_sameBC=squeeze(sum_var_xi./var_sum_xi);
 
@@ -65,25 +64,22 @@ member=1:20;
 for imem=1:pltensize 
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];   
   if imem==1
-    lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
-    data_time = (ncread(infile,'time'));   
-    [nx, ny]=size(lon); ntime=length(data_time);
-    vari0=zeros(nx,ny,ntime,pltensize);
-    pmsl=zeros(nx,ny,ntime,pltensize);
+    vari0=zeros(nx,ny,pltensize,ntime);
+%     pmsl=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    vari0(:,:,:,imem) = ncread(infile,'rain');
-%     pmsl(:,:,:,imem) = ncread(infile,'pmsl');
+    vari0(:,:,imem,:) = ncread(infile,'rain');
+%     pmsl(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    vari0(:,:,:,imem) = NaN;
+    vari0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end    
 end
 
-accu=vari0(:,:,1+acch:end,:)-vari0(:,:,1:end-acch,:);
+accu=vari0(:,:,:,1+acch:end)-vari0(:,:,:,1:end-acch);
 
-sum_var_xi=sum(var(accu,0,[1 2]),4);
-var_sum_xi=var(sum(accu,4),0,[1 2]);
+sum_var_xi=sum(var(accu,0,[1 2]),3);
+var_sum_xi=var(sum(accu,3),0,[1 2]);
 
 
 simi_diffBC=squeeze(sum_var_xi./var_sum_xi);

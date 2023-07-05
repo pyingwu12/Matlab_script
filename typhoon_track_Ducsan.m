@@ -24,13 +24,14 @@ for imem=1:pltensize
     data_time = (ncread(infile,'time'));
     lon = double(ncread(infile,'lon'));
     lat = double(ncread(infile,'lat'));
-    lon_track=zeros(length(data_time),pltensize);
-    lat_track=zeros(length(data_time),pltensize);
+    ntime=length(data_time);  
+    lon_track=zeros(ntime,pltensize);
+    lat_track=zeros(ntime,pltensize);
   end  
   infile_track= [indir,'/',num2str(member(imem),'%.4d'),'/',infiletrackname,'.nc'];
   
   len_track=length(ncread(infile_track,'lon'));
-  if len_track~=length(data_time)
+  if len_track~=ntime
     lon_track(1:len_track,imem) = ncread(infile_track,'lon');
     lat_track(1:len_track,imem) = ncread(infile_track,'lat');
   else
@@ -48,7 +49,7 @@ for ti=1:size(obs,1)
   st_idx=ti;
   end
 end
-bestime_idx=st_idx:st_idx+floor(length(data_time)/6);
+bestime_idx=st_idx:st_idx+floor(ntime/6);
 best_lon=obs(bestime_idx,2); best_lat=obs(bestime_idx,3);
 
  err_lon=lon_track(1:6:end,:)-repmat(best_lon,1,pltensize);
@@ -104,11 +105,11 @@ end
 BCmem=50; 
 % n=2; pltibc=randperm(BCmem,n)  %randomly plot n groups
 pltibc=[6 26 46] ;
-pmsl0=zeros(nx,ny,length(data_time),pltensize);
+pmsl0=zeros(nx,ny,pltensize,ntime);
 for ibc=pltibc
   for imem=ibc:BCmem:pltensize  
        infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];        
-       pmsl0(:,:,:,imem)=ncread(infile,'pmsl'); 
+       pmsl0(:,:,imem,:)=ncread(infile,'pmsl'); 
   end
 end
 %%
@@ -126,7 +127,7 @@ m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rec
 for ibc=pltibc
   for imem=ibc:BCmem:pltensize  
     m_plot(lon_track(:,imem),lat_track(:,imem),'color',cmap2(mod(imem,BCmem)+1,:),'Linewidth',0.8); hold on
-    m_contour(lon,lat,pmsl0(:,:,43,imem),[1015 1015],'color',cmap2(mod(imem,BCmem)+1,:),'Linewidth',0.8,'linestyle','--')
+    m_contour(lon,lat,pmsl0(:,:,imem,43),[1015 1015],'color',cmap2(mod(imem,BCmem)+1,:),'Linewidth',0.8,'linestyle','--')
     drawnow
   end
 end

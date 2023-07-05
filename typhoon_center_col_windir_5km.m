@@ -48,10 +48,10 @@ for imem=1:pltensize
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
-    [nx, ny]=size(lon);      
     data_time = (ncread(infile,'time'));
-    spd10_ens0=zeros(nx,ny,pltensize,length(data_time));  
-    dir10_ens0=zeros(nx,ny,pltensize,length(data_time));
+    [nx, ny]=size(lon);      ntime=length(data_time);     
+    spd10_ens0=zeros(nx,ny,pltensize,ntime);  
+    dir10_ens0=zeros(nx,ny,pltensize,ntime);
     %--find the grid point nearest to the obs station
     dis_sta=(lon-lonp).^2+(lat-latp).^2;   [xp,yp]=find(dis_sta==min(dis_sta(:))); %!!!!!
 

@@ -54,8 +54,8 @@ for imem=1:pltensize
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
     lon = double(ncread(infile,'lon'));  lat = double(ncread(infile,'lat'));
-    data_time = (ncread(infile,'time')); [nx, ny]=size(lon);
-    spd0=zeros(nx,ny,pltensize,length(data_time));      
+    data_time = (ncread(infile,'time')); [nx, ny]=size(lon); ntime=length(data_time);
+    spd0=zeros(nx,ny,pltensize,ntime);      
   end  
   u10 = ncread(infile,'u10m');  v10 = ncread(infile,'v10m');
   spd0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5; 
@@ -109,9 +109,9 @@ if saveid==1
 end
 %%
 %--- for maximum wind during a period
-%   spd10_ens_med=zeros(nx,ny,length(data_time));
-% %  spd10_ens_max=zeros(nx,ny,length(data_time));
-%   for ti=1:length(data_time)
+%   spd10_ens_med=zeros(nx,ny,ntime);
+% %  spd10_ens_max=zeros(nx,ny,ntime);
+%   for ti=1:ntime
 %    spd10_ens_med(:,:,ti)=squeeze(median(squeeze(spd10_ens0(:,:,:,ti)),3));
 % %   spd10_ens_max(:,:,ti)=squeeze(max(squeeze(spd10_ens0(:,:,:,ti)),[],3));
 %    if mode(ti,10)==0; disp([num2str(ti),' time done']); end

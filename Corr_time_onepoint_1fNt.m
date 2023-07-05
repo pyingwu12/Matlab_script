@@ -28,11 +28,10 @@ for imem=1:pltensize
   if imem==1
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     dis_p=(lon-lonp).^2+(lat-latp).^2;   [xp,yp]=find(dis_p==min(dis_p(:)));
-
-    [nx, ny]=size(lon);      
     data_time = (ncread(infile,'time'));
-    Var1=zeros(nx,ny,pltensize,length(data_time));    
-    Var2=zeros(nx,ny,pltensize,length(data_time)); 
+    [nx, ny]=size(lon);      ntime=length(data_time);        
+    Var1=zeros(nx,ny,pltensize,ntime);    
+    Var2=zeros(nx,ny,pltensize,ntime); 
   end  
   Var1(:,:,imem,:) = ncread(infile,Varnam1);    
   Var2(:,:,imem,:) = ncread(infile,Varnam2); 

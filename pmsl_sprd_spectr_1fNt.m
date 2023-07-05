@@ -31,12 +31,12 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    pmsl0=zeros(nx,ny,ntime,pltensize);
+    pmsl0=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
+    pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    pmsl0(:,:,:,imem) = NaN;
+    pmsl0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end    
 end
@@ -49,7 +49,7 @@ nk2=round(nk);
 %%
 for ti=pltime
   
-  ensmemb=squeeze(pmsl0(:,:,ti,:));
+  ensmemb=squeeze(pmsl0(:,:,:,ti));
   ensmean=mean(ensmemb,3);
   enspert=ensmemb-repmat(ensmean,1,1,pltensize);
   

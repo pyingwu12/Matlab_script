@@ -32,13 +32,13 @@ for imem=1:pltensize
 
   if imem==1
       [nx, ny, ntime]=size(ncread(infile,'pmsl'));
-      pmsl0=zeros(nx,ny,ntime,pltensize);
+      pmsl0=zeros(nx,ny,pltensize,ntime);
   end
   
   if isfile(infile) 
-    pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
+    pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    pmsl0(:,:,:,imem) = NaN;
+    pmsl0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end
     
@@ -51,15 +51,15 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 disp('finished reading files')
 %
 %%
-pmsl_sprd=std(pmsl0,0,4,'omitnan');
+pmsl_sprd=std(pmsl0,0,3,'omitnan');
 sprd_all=squeeze(mean(pmsl_sprd,[1 2]));
 
 clear pmsl_sprd
-pmsl_sprd=std(pmsl0(:,:,:,1:BCnum),0,4);
+pmsl_sprd=std(pmsl0(:,:,1:BCnum,:),0,3);
 sprd_50=squeeze(mean(pmsl_sprd,[1 2]));
 
 clear pmsl_sprd
-pmsl_sprd=std(pmsl0(:,:,:,1:BCnum:pltensize),0,4);
+pmsl_sprd=std(pmsl0(:,:,1:BCnum:pltensize,:),0,3);
 sprd_sameBC=squeeze(mean(pmsl_sprd,[1 2]));
 
 %%

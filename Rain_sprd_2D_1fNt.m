@@ -43,14 +43,14 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));   
     [nx, ny]=size(lon); ntime=length(data_time);
-    vari0=zeros(nx,ny,ntime,pltensize);
-    pmsl0=zeros(nx,ny,ntime,pltensize);
+    vari0=zeros(nx,ny,pltensize,ntime);
+    pmsl0=zeros(nx,ny,pltensize,ntime);
   end  
   if isfile(infile) 
-    vari0(:,:,:,imem) = ncread(infile,'rain');
-    pmsl0(:,:,:,imem) = ncread(infile,'pmsl');
+    vari0(:,:,imem,:) = ncread(infile,'rain');
+    pmsl0(:,:,imem,:) = ncread(infile,'pmsl');
   else
-    vari0(:,:,:,imem) = NaN;
+    vari0(:,:,imem,:) = NaN;
     disp(['member ',num2str(member(imem),'%.4d'),' file does''t exist'])
   end 
   if mod(imem,200)==0; disp(['member ',num2str(imem),' done']); end
@@ -58,7 +58,7 @@ end
 pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time);
 %%
 for ti=pltime      
-  ens=squeeze(vari0(:,:,ti,:)-vari0(:,:,ti-acch,:));    
+  ens=squeeze(vari0(:,:,:,ti)-vari0(:,:,:,ti-acch));    
   ens(ens<=0)=0; % for rain
   sprd = std(ens,0,3,'omitnan');  
   %---plot
@@ -74,7 +74,7 @@ for ti=pltime
   %
   %---ens mean
   cntcol=[0.2 0.2 0.2];
-  [c,hdis]=m_contour(lon,lat,squeeze(mean(pmsl0(:,:,ti,:),4)),plotcnt,'color',cntcol,'linewidth',1.8,'linestyle',':');
+  [c,hdis]=m_contour(lon,lat,squeeze(mean(pmsl0(:,:,:,ti),3)),plotcnt,'color',cntcol,'linewidth',1.8,'linestyle',':');
   clabel(c,hdis,plotcnt,'fontsize',10,'LabelSpacing',500,'color',cntcol) 
   %
   tit={[titnam];[datestr(pltdate(ti-acch),'mm/dd HHMM'),datestr(pltdate(ti),'-HHMM'),...
