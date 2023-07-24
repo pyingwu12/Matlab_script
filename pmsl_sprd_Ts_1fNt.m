@@ -51,7 +51,7 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 disp('finished reading files')
 %
 %%
-pmsl_sprd=std(pmsl0,0,3,'omitnan');
+pmsl_sprd=std(pmsl0,0,3,'omitnan');  %!!!!!!!!!!!!!! ------- need to be revised to get domain averge before take root
 sprd_all=squeeze(mean(pmsl_sprd,[1 2]));
 
 clear pmsl_sprd

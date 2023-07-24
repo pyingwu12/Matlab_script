@@ -41,8 +41,10 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(
 disp('finished reading files')
 %
 %
-rain_sprd=std(rain0,0,3);
+rain_sprd=std(rain0,0,3);  %!!!!!!!!!!!!!! ------- need to be revised to get domain averge before take root
 sprd_all=squeeze(mean(rain_sprd,[1 2]));
+%wind_sprd= (std(spd10_ens0,1,3,'omitnan')).^2;
+%sprd_all= sqrt (squeeze(mean(wind_sprd,[1 2])));
 
 clear rain_sprd
 rain_sprd=std(rain0(:,:,1:BCnum,:),0,3);

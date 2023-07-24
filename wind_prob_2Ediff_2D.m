@@ -1,17 +1,17 @@
-% clear
+clear
 close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
 saveid=1;
 
-pltensize=450;    thresholds=[15]; 
+pltensize=1000;    thresholds=[5 10 15 20 25]; 
 kicksea=0; randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
-%  pltime=43; expri1='Hagibis05kme02'; infilename='201910101800';%hagibis05
-%  expri2='Hagibis05kme01';
+ pltime=[34 37 40 43 46]; expri1='Hagibis05kme02'; infilename='201910101800';%hagibis05
+ expri2='Hagibis05kme01';
  
- pltime=19; expri1='Hagibis01kme06'; infilename='201910111800';%hagibis05
- expri2='Hagibis01kme02';
+%  pltime=19; expri1='Hagibis01kme06'; infilename='201910111800';%hagibis05
+%  expri2='Hagibis01kme02';
 % pltime=[20 21]; expri1='Hagibis01kme02'; infilename='201910111800';%hagibis01
 expsize=1000; 
 %
@@ -23,7 +23,8 @@ outdir='/home/wu_py/labwind/Result_fig';
 %outdir='/data8/wu_py/Result_fig';
 titnam='Wind prob. diff.';   fignam=[expri1,'_wind-prob-diff',expri2(end-2:end),'_'];   unit='%';
 %
-plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
+ plon=[128 145]; plat=[26 43]; lo_int=105:5:155; la_int=10:5:50;
+% plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
 % plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'zkd_'];  lo_int=135:5:145; la_int=30:5:40; % zoom in Kantou area
 %
 load('colormap/colormap_br2.mat') 
@@ -31,36 +32,32 @@ cmap0=colormap_br2;  cmap=cmap0(3:2:end-1,:);
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[-15 -10 -5 -1 1 5 10 15];
 %---
-terr = double(ncread(infile_hm,'terrain'));
 land = double(ncread(infile_hm,'landsea_mask'));
 %%
 %---read ensemble
 if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); else; member=1:pltensize; end
+for ti=pltime
+    infile=[indir1,'/',num2str(1,'%.4d'),'/',infilename,'.nc'];   
+    lon = double(ncread(infile,'lon'));    lat = double(ncread(infile,'lat'));
+    data_time = (ncread(infile,'time'));   [nx, ny]=size(lon);
+    spd1=zeros(nx,ny,pltensize);  
+    spd2=zeros(nx,ny,pltensize); 
 for imem=1:pltensize     
   infile1=[indir1,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   infile2=[indir2,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
-  if imem==1
-    lon = double(ncread(infile1,'lon'));
-    lat = double(ncread(infile1,'lat'));
-    data_time = (ncread(infile1,'time'));
-    [nx, ny]=size(lon); ntime=length(data_time);
-    spd10_ens1=zeros(nx,ny,pltensize,ntime);  
-    spd10_ens2=zeros(nx,ny,pltensize,ntime); 
-  end  
-  u10 = ncread(infile1,'u10m');  v10 = ncread(infile1,'v10m');
-  spd10_ens1(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
-  u10 = ncread(infile2,'u10m');  v10 = ncread(infile2,'v10m');
-  spd10_ens2(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;
-  if mod(imem,100)==0; disp(['Member ',num2str(imem),' done']); end
+  
+  u10 = ncread(infile1,'u10m',[1 1 ti],[Inf Inf 1],[1 1 1]); 
+  v10 = ncread(infile1,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  spd1(:,:,imem)=double(u10.^2+v10.^2).^0.5;  
+  u10 = ncread(infile2,'u10m',[1 1 ti],[Inf Inf 1],[1 1 1]); 
+  v10 = ncread(infile2,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  spd2(:,:,imem)=double(u10.^2+v10.^2).^0.5;
+  if mod(imem,500)==0; disp(['Member ',num2str(imem),' done']); end
 end  %imem
 disp('end read files')
-%%
-for ti=pltime     
+%%  
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
- 
-  spd1=squeeze(spd10_ens1(:,:,:,ti));
-  spd2=squeeze(spd10_ens2(:,:,:,ti));
-    
+     
   %---probability for different thresholds
   for thi=thresholds      
     wind_pro1=zeros(nx,ny);   
@@ -78,7 +75,8 @@ for ti=pltime
     %%
     %---plot
     plotvar=probdiff;
-    pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end     
+    tmp=plotvar(lon>=plon(1) & lon<=plon(2) & lat>=plat(1) & lat<=plat(2) );
+    pmin=min(tmp(:));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end     
     %  
     hf=figure('Position',[100 100 800 690]);
     m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rectbox','on')

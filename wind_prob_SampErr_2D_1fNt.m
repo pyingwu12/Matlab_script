@@ -2,59 +2,57 @@ clear
 close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
-saveid=1;
+saveid=0;
 
 Lsize=1000;    Ssize=20;    
 
-thresholds=[25]; 
-kicksea=1; 
+thresholds=[15]; 
+kicksea=0; 
 %
  pltime=43; expri='Hagibis05kme01'; infilename='201910101800';%hagibis05
 % pltime=23; expri='Hagibis01kme02'; infilename='201910111800';%hagibis
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
-infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc',];
 
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
 titnam=['Wind prob. diff'];   fignam=[expri,'_wind-prob-SamErr_'];   unit='%';
 %
-plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
+% plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
 % plon=[135.5 142.5]; plat=[33.5 37]; fignam=[fignam,'2_']; 
+ plon=[112 153]; plat=[18 50];   lo_int=105:15:155; la_int=10:15:50;  %Fugaku05km whole domain center
 %
 load('colormap/colormap_br2.mat') 
 cmap0=colormap_br2;  cmap=cmap0(3:2:end-1,:);
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[-15 -10 -5 -1 1 5 10 15];
-
+%
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc'];
+land = double(ncread(infile_hm,'landsea_mask'));
 %%
 %---read ensemble
 member=1:Lsize; 
+for ti=pltime  
 for imem=1:Lsize     
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
-    lon = double(ncread(infile,'lon'));
-    lat = double(ncread(infile,'lat'));
-    data_time = (ncread(infile,'time'));
-    [nx, ny]=size(lon);  ntime=length(data_time);
-    spd10_ens0=zeros(nx,ny,Lsize,ntime);      
+    lon = double(ncread(infile,'lon'));     lat = double(ncread(infile,'lat'));
+    data_time = (ncread(infile,'time'));    [nx, ny]=size(lon);  %ntime=length(data_time);
+    spd10_ens0=zeros(nx,ny,Lsize);      
   end  
-  u10 = ncread(infile,'u10m');
-  v10 = ncread(infile,'v10m');
-  spd10_ens0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
-  if mod(imem,100)==0; disp(['Member ',num2str(imem),' done']); end
+  u10 = ncread(infile,'u10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  v10 = ncread(infile,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  spd10_ens0(:,:,imem)=double(u10.^2+v10.^2).^0.5;  
+%   if mod(imem,100)==0; disp(['Member ',num2str(imem),' done']); end
 end  %imem
 disp('end read files')
   %%
-  
-for ti=pltime(2:end)    
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  spd10_ens=squeeze(spd10_ens0(:,:,:,ti));    
+  spd10_ens=spd10_ens0;    
   %---probability for different thresholds
   for thi=thresholds      
-    wind_proL=zeros(nx,ny); 
-    wind_proS=zeros(nx,ny);   
+    wind_proL=zeros(nx,ny);     wind_proS=zeros(nx,ny);   
     for i=1:nx
       for j=1:ny
         wind_proL(i,j)=length(find(spd10_ens(i,j,:)>=thi));

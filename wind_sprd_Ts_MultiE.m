@@ -45,12 +45,12 @@ for ei=1:nexp
   end
   disp([expri{ei},' read file end'])
   %---
-  wind_sprd=squeeze(std(spd10_ens0,0,3,'omitnan')); 
+  wind_sprd=squeeze(std(spd10_ens0,0,3,'omitnan')).^2; 
 %   %!!!
 %   land(lon>141 | lon<138 | lat>37 | lat<34)=0;
 %   %!!!
   if kicksea~=0; land2=repmat(land,1,1,ntime); wind_sprd(land2+1==1)=NaN;  end
-  sprd_ts(:,ei)=squeeze(mean(wind_sprd,[1 2],'omitnan'));  
+  sprd_ts(:,ei)=sqrt(squeeze(mean(wind_sprd,[1 2],'omitnan')));  
   disp([expri{ei},' finished'])
 end
 pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time);

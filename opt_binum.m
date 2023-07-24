@@ -1,8 +1,9 @@
-function [bin_num, intv, x, bic]=opt_binum(dat,n)
+function [bin_num, intv, x, bic]=opt_binum(dat)
 
 % test different bin number and find mininum BIC
 
 % dat=squeeze(vari_ens(xpi,ypi,:)); n=pltensize;
+n=length(dat);
 xup=max(dat);    xbt=min(dat);    k=zeros(6,1);  bic0=zeros(6,1);    
 
 % 1. Square-root choice, k=ceil(n^0.5)

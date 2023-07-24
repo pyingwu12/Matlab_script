@@ -3,10 +3,10 @@ close all
 
 saveid=1;
 
-pltensize=1000;    
+pltensize=1000;     BCnum=50;  imem1=1;
 randmem=0; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly choose <pltensize> members
 %
-pltrng=[1  37];  pltint=12; expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+pltrng=[1  37];  pltint=12; expri='Hagibis05kme02'; infilename='201910101800';%hagibis
 
 
 pltime=pltrng(1):pltint:pltrng(end);
@@ -17,15 +17,17 @@ if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
 %
 titnam=[expri,'  Similarity between'];   fignam=[expri,'_Simi_'];
 %
+load('colormap/colormap_ncl.mat');cmap=colormap_ncl;
+%
 ntime=length(pltime);
 %%    
 %---read ensemble
 if randmem==0; member=1:pltensize;  elseif randmem==50; member=1:50:1000; 
 else;  tmp=randperm(expsize); member=tmp(1:pltensize); end
 %
-for imem1=1:pltensize     
-  infile=[indir,'/',num2str(member(imem1),'%.4d'),'/',infilename,'.nc'];      
-  if imem1==1
+for imem=1:pltensize     
+  infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
+  if imem==1
     lon = double(ncread(infile,'lon'));  lat = double(ncread(infile,'lat'));  plev=double(ncread(infile,'lev'));
     data_time = (ncread(infile,'time'));  
     [nx, ny]=size(lon);  %ntime=length(data_time); 
@@ -35,12 +37,12 @@ for imem1=1:pltensize
     T0=zeros(nx,ny,nlev,pltensize,ntime); 
     qv0=zeros(nx,ny,nlev,pltensize,ntime); 
   end  
-  u0(:,:,:,imem1,:) = ncread(infile,'u',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]); 
-  v0(:,:,:,imem1,:) = ncread(infile,'v',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]);
-  T0(:,:,:,imem1,:) = ncread(infile,'t',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]);
-  qv0(:,:,:,imem1,:) = ncread(infile,'qv',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]);
+  u0(:,:,:,imem,:) = ncread(infile,'u',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]); 
+  v0(:,:,:,imem,:) = ncread(infile,'v',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]);
+  T0(:,:,:,imem,:) = ncread(infile,'t',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]);
+  qv0(:,:,:,imem,:) = ncread(infile,'qv',[1 1 1 pltrng(1)],[Inf Inf Inf ntime],[1 1 1 pltint]);
    
-  if mod(imem1,50)==0; disp([num2str(imem1),'mem done']); end
+  if mod(imem,50)==0; disp([num2str(imem),'mem done']); end
 end  %imem
 pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(pltime));
 disp('Done of reading files')
@@ -62,8 +64,8 @@ Tp0=T-repmat(Tmean,1,1,1,pltensize);
 qvp0=qv-repmat(qvmean,1,1,1,pltensize);
 %
 inrprdc=zeros(pltensize,pltensize);
-imem1=1;
-  for imem2=imem1:pltensize
+
+  for imem2=1:pltensize
     
   up1=up0(1+idifx:end-idifx,1+idifx:end-idifx,:,imem1);up2=up0(1+idifx:end-idifx,1+idifx:end-idifx,:,imem2);
   vp1=vp0(1+idifx:end-idifx,1+idifx:end-idifx,:,imem1);vp2=vp0(1+idifx:end-idifx,1+idifx:end-idifx,:,imem2);
@@ -91,31 +93,55 @@ end
 % colormap(jet)
 % caxis([-1 1])
 %
-load('colormap/colormap_ncl.mat');cmap=colormap_ncl;
-BCnum=50;
 %%
 theta=squeeze(real(acos(inrprdc2(:,1,:))));
 pltx=cos(theta);  plty=sin(theta);
+
+th = 0:pi/50:2*pi;
 %
-hf=figure('Position',[100 100 900 630]);
+hf=figure('Position',[100 100 950 480]);
 % line([-1 1]*ntime,[0 0],'color','k','linewidth',1.5); line([0 0],[1 -1]*ntime,'color','k','linewidth',1.5)
 % hold on
+tcol=[0.05 0.05 0.05; 0.35 0.35 0.35; 0.65 0.65 0.65; 0.9 0.9 0.9];
 for ti=ntime:-1:1
   pltx_ti=pltx(:,ti)*ti;  plty_ti=plty(:,ti)*ti;
-% for ibc=1:2:50%[1 13 25 37 49]
-  for ibc=1:8:50%[1 13 25 37 49]
+  
+  
+xunit = ti * cos(th) ;
+yunit = ti * sin(th) ;
+ plot(xunit, yunit,'color',tcol(ti,:),'linewidth',1.5); hold on
+  
+   %---other members
+  for ibc=1:6:50%[1 13 25 37 49]  % !interval must be even
+    if ibc==imem1 || ibc==imem1+1; continue; end
+    col=cmap(size(cmap,1)-ibc*4-20,:);
     for imem=ibc:BCnum:pltensize
-    plot(pltx_ti(imem),plty_ti(imem),'o','markerfacecolor',cmap(ibc*4+15,:),'markeredgecolor','k','markersize',8); hold on
-    line([0 pltx_ti(imem)],[0 plty_ti(imem)],'color',cmap(ibc*4+15,:))
-    % pair of sigular vectors
-    plot(pltx_ti(imem+1),plty_ti(imem+1),'o','markerfacecolor',cmap(ibc*4+25,:),'markeredgecolor','k','markersize',8); hold on
-    line([0 pltx_ti(imem+1)],[0 plty_ti(imem+1)],'color',cmap(ibc*4+25,:))
+    plot(pltx_ti(imem),plty_ti(imem),'+','color',col,'markersize',10,'linewidth',1.5); hold on
+%     line([0 pltx_ti(imem)],[0 plty_ti(imem)],'color',col)
+    %---pair of sigular vectors
+    plot(pltx_ti(imem+1),plty_ti(imem+1),'x','color',col,'markersize',10,'linewidth',1.5); hold on
+%     line([0 pltx_ti(imem+1)],[0 plty_ti(imem+1)],'color',col,'linestyle','--')
     drawnow
-    end %imem
+    end %imem   
   end %ibc
+  
+  ibc=imem1;
+  for imem=ibc:BCnum:pltensize
+    col=cmap(size(cmap,1)-ibc*4-20,:);
+    plot(pltx_ti(imem),plty_ti(imem),'o','markerfacecolor',col,'markeredgecolor',tcol(ti,:),'markersize',10); hold on
+%     line([0 pltx_ti(imem)],[0 plty_ti(imem)],'color',col)
+    %---pair of sigular vectors
+    plot(pltx_ti(imem+1),plty_ti(imem+1),'^','markerfacecolor',col,'markeredgecolor',tcol(ti,:),'markersize',10); hold on
+%     line([0 pltx_ti(imem+1)],[0 plty_ti(imem+1)],'color',col,'linestyle','--')
+    drawnow
+  end %imem
+  
+
+
+  plot(pltx_ti(imem1),plty_ti(imem1),'o','markerfacecolor','none','markeredgecolor',tcol(ti,:),'linewidth',2,'markersize',10);
 end %ti
-set(gca,'xlim',[min(pltx(:)) max(pltx(:))]*ntime,'ylim',[min(plty(:)) max(plty(:))]*ntime)
-set(gca,'fontsize',16,'linewidth',1.2,'Box','on') 
+set(gca,'xlim',[-ntime ntime],'ylim',[0 ntime],'ytick',1:ntime,'yticklabel',[])
+set(gca,'fontsize',16,'linewidth',1.2) 
 grid on
 %%
 tit={[titnam,' M',num2str(imem1),' and others'];...

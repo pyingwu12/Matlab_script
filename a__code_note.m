@@ -11,6 +11,9 @@ idifx=53; %Fugaku05km
 idifx=58; %Kyushu02km
 idifx=44; %Oizumi-Nagasaki
 
+vari_ens0(:,:,imem)= ncread(infile,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]); 
+
+
 ax = gca;  c = ax.Color;  ax.Color = 'blue';
 
 indir=['E:/wrfout/expri191009/',expri]; outdir='E:/figures/expri191009/'; % for matlab under windows
