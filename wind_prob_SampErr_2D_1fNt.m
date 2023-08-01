@@ -1,15 +1,16 @@
 clear
-close all
+% close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
 saveid=0;
 
-Lsize=1000;    Ssize=20;    
+Lsize=1000;    Ssize=50;    
 
 thresholds=[15]; 
 kicksea=0; 
 %
- pltime=43; expri='Hagibis05kme01'; infilename='201910101800';%hagibis05
+ pltime=43;
+ expri='Hagibis05kme02'; infilename='201910101800';%hagibis05
 % pltime=23; expri='Hagibis01kme02'; infilename='201910111800';%hagibis
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];

@@ -1,15 +1,15 @@
 clear
-close all
+% close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
-saveid=1;
+saveid=0;
 
-pltensize=20;    
+pltensize=50;    
 kicksea=0; 
 randmem=0; %0: plot member 1~pltensize; 50: members 1:50:1000; else:randomly choose <pltensize> members
 
 %
- pltime=[31];  expri='Hagibis05kme01'; infilename='201910101800';%hagibis
+ pltime=[37];  expri='Hagibis05kme02'; infilename='201910101800';%hagibis
 % pltime=[19 20]; expri='Hagibis01kme02'; infilename='201910111800';  expsize=1000;
 % pltime=[19 20]; expri='H01MultiE0206'; infilename='201910111800';  expsize=1000;  
 % expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
@@ -25,8 +25,10 @@ titnam=[expri,'  Wind speed spread'];    unit='m/s';
 % plon=[135.5 142.5]; plat=[33.5 37]; fignam=[expri,'_wind-sprd_','zkd_'];   lo_int=135:5:145; la_int=30:5:40; % old230306 zoom in Kantou area
 % plon=[135.5 142.3]; plat=[33.5 37.3]; fignam=[expri,'_wind-sprd_','zkd2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
 % plon=[139.2 140.9]; plat=[34.85 36.3 ];  fignam=[expri,'_wind-sprd_','tokyobay_']; lo_int=134:2:145; la_int=31:2:40;
-plon=[130 144.1]; plat=[28 40]; fignam=[expri,'_WindSprd_','japan_']; lo_int=105:5:155; la_int=10:5:50;% Japan area
+% plon=[130 144.1]; plat=[28 40]; fignam=[expri,'_WindSprd_','japan_']; lo_int=105:5:155; la_int=10:5:50;% Japan area
+ plon=[112 153]; plat=[18 50];  fignam=[expri,'_WindSprd_','wd_'];  lo_int=105:15:155; la_int=10:15:50;  %Fugaku05km whole domain center
 %
+
 % load('colormap/colormap_sprd.mat') 
 % cmap=colormap_sprd(1:2:end,:); cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 % % L=[0.5 1 1.5 2 3 4 5 6 7 8 9 10 11 12];
@@ -42,24 +44,25 @@ land = double(ncread(infile_hm,'landsea_mask'));
 if randmem==0; member=1:pltensize;  elseif randmem==50; member=1:50:1000; 
 else;  tmp=randperm(expsize); member=tmp(1:pltensize); end
 %
+for ti=pltime     
+
 for imem=1:pltensize     
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
   if imem==1
     lon = double(ncread(infile,'lon'));  lat = double(ncread(infile,'lat'));
-    data_time = (ncread(infile,'time'));   [nx, ny]=size(lon);  ntime=length(data_time);
-    spd10_ens0=zeros(nx,ny,pltensize,ntime);    
+    data_time = (ncread(infile,'time'));   [nx, ny]=size(lon);  %ntime=length(data_time);
+    spd=zeros(nx,ny,pltensize);    
   end  
-  u10 = ncread(infile,'u10m');    v10 = ncread(infile,'v10m');
-  spd10_ens0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5; 
-  if mod(imem,100)==0; disp([num2str(imem),'mem done']); end
+  u10 = ncread(infile,'u10m',[1 1 ti],[Inf Inf 1],[1 1 1]);  
+  v10 = ncread(infile,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  spd(:,:,imem)=double(u10.^2+v10.^2).^0.5; 
+  if mod(imem,500)==0; disp([num2str(imem),'mem done']); end
 end  %imem
 %%
-for ti=pltime     
   pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time(ti));
-  spd10_ens= squeeze(spd10_ens0(:,:,:,ti));
   %---
-  ensmean=repmat(mean(spd10_ens,3),[1,1,pltensize]);
-  enspert=spd10_ens-ensmean;
+  ensmean=repmat(mean(spd,3),[1,1,pltensize]);
+  enspert=spd-ensmean;
   sprd=sqrt(sum(enspert.^2,3)./(pltensize-1));   
   
   if kicksea~=0;   sprd(land+1==1)=NaN;  end
@@ -84,7 +87,7 @@ for ti=pltime
     % 
     %---ens mean
     plotcnt=[10 15 20 30]; cntcol=[0.1 0.1 0.1];
-    [c,hdis]=m_contour(lon,lat,squeeze(mean(spd10_ens,3)),plotcnt,'color',cntcol,'linewidth',1,'linestyle','-');     
+    [c,hdis]=m_contour(lon,lat,squeeze(mean(spd,3)),plotcnt,'color',cntcol,'linewidth',1,'linestyle','-');     
     clabel(c,hdis,plotcnt,'fontsize',11,'LabelSpacing',600,'color',cntcol)   
     %
     tit={[titnam];[datestr(pltdate,'mm/dd HHMM'),'  (',num2str(pltensize),' mem, rnd',num2str(randmem),')']};   

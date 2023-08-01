@@ -2,7 +2,7 @@
 
 clear
 
-obsz=100;   obsmp=10;
+obsz=100;   obsmp=1;
 exsz=1000;  ensmp=1;
 rksz=25;    rksmp=1;
 

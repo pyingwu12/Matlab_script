@@ -1,13 +1,15 @@
 clear
-close all
+% close all
 addpath('/data8/wu_py/MATLAB/m_map/')
 
-saveid=1;
+saveid=0;
 
-pltensize=1000;    thresholds=[15]; 
-kicksea=1; randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
+pltensize=50;    thresholds=[25]; 
+kicksea=0; randmem=0; %0: plot member 1~pltensize; else:randomly choose <pltensize> members
 %
- pltime=43; expri='Hagibis05kme02'; infilename='201910101800';%hagibis05
+%  pltime=[28 31 34 37 40 43]; 
+pltime=[37]; 
+ expri='Hagibis05kme01'; infilename='201910101800';%hagibis05
 % pltime=[19]; expri='Hagibis01kme06'; infilename='201910111800'; expsize=1000;  %hagibis01
 % pltime=[18 19 20 21]; expri='Hagibis01kme06'; infilename='201910111800'; expsize=600;  %hagibis01e06
 % pltime=19; expri='H01MultiE0206'; infilename='201910111800'; expsize=1000;  %hagibis01e06
@@ -16,11 +18,13 @@ indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 
 outdir='/home/wu_py/labwind/Result_fig';
 if ~isfolder(outdir); outdir='/data8/wu_py/Result_fig'; end
-titnam=[expri,'  Wind speed probab.'];   fignam0=[expri,'_WindProb_'];   unit='%';
+titnam=[expri,'  Wind speed probab.'];   fignam=[expri,'_WindProb_'];   unit='%';
 %
+ plon=[128 145]; plat=[26 43]; lo_int=105:5:155; la_int=10:5:50; % kld domain
+
 % plon=[134.8 143.5]; plat=[32.3 38.5];   lo_int=135:5:144; la_int=30:5:37; % Japan center of Kanto
 % plon=[135 144.5]; plat=[32 39];  lo_int=136:2:144; la_int=33:2:37; % wide Kantou area
-plon=[135.5 142]; plat=[33.6 37.4]; fignam=[fignam0,'zkd2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
+% plon=[135.5 142]; plat=[33.6 37.4]; fignam=[fignam0,'zkd2_'];  lo_int=134:2:145; la_int=31:2:40; % zoom in Kantou area
 
 % plon=[138 141]; plat=[34 37.3]; fignam=[fignam0,'ktp_'];  lo_int=130:2:146; la_int=25:2:45; msize=13;  %Kantou portrait(verticle)
 % plon=[138 141]; plat=[34 36.5]; fignam=[fignam0,'tkb_'];  lo_int=134:2:145; la_int=31:2:40; %Kantou portrait(verticle)2 
@@ -31,12 +35,13 @@ cmap0=colormap_PQPF; cmap0(1,:)=[0.9 0.9 0.9]; cmap=cmap0([1 3 12 14 15 17],:);
 cmap2=cmap*255;cmap2(:,4)=zeros(1,size(cmap2,1))+255;
 L=[10 30 50 70 90];
 %---
-infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm2.nc'];
-terr = double(ncread(infile_hm,'terrain'));
+infile_hm=['/obs262_data01/wu_py/Experiments/',expri,'/mfhm.nc'];
 land = double(ncread(infile_hm,'landsea_mask'));
 indir_o='/data8/wu_py/Data/obs/';
 
 %%
+for ti=pltime     
+
 %---read ensemble
 if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); else; member=1:pltensize; end
 for imem=1:pltensize     
@@ -45,13 +50,13 @@ for imem=1:pltensize
     lon = double(ncread(infile,'lon'));
     lat = double(ncread(infile,'lat'));
     data_time = (ncread(infile,'time'));
-    [nx, ny]=size(lon);  ntime=length(data_time);
-    spd0=zeros(nx,ny,pltensize,ntime);      
+    [nx, ny]=size(lon);  %ntime=length(data_time);
+    spd0=zeros(nx,ny,pltensize);      
   end  
-  u10 = ncread(infile,'u10m');
-  v10 = ncread(infile,'v10m');
-  spd0(:,:,imem,:)=double(u10.^2+v10.^2).^0.5;  
-  if mod(imem,100)==0; disp([num2str(imem),' done']); end
+  u10 = ncread(infile,'u10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  v10 = ncread(infile,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]);
+  spd0(:,:,imem)=double(u10.^2+v10.^2).^0.5;  
+  if mod(imem,500)==0; disp([num2str(imem),' done']); end
 end  %imem
 %%
 pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time); % for obs
@@ -84,23 +89,20 @@ pltdate = datetime(infilename,'InputFormat','yyyyMMddHHmm') + minutes(data_time)
 %%
 % pltensize=1000;
 
-for ti=pltime     
- 
- spd10_ens=squeeze(spd0(:,:,:,ti));
     
   %---probability for different thresholds
   for thi=thresholds      
     wind_pro=zeros(nx,ny);   
     for i=1:nx
       for j=1:ny
-        wind_pro(i,j)=length(find(spd10_ens(i,j,1:pltensize)>=thi));
+        wind_pro(i,j)=length(find(spd0(i,j,1:pltensize)>=thi));
       end
     end
     wind_pro=wind_pro/pltensize*100;
     wind_pro(wind_pro+1==1)=NaN;
     if kicksea~=0;   wind_pro(land+1==1)=NaN;  end
     %%
-    close all
+%     close all
     %---plot
     plotvar=wind_pro;
     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end     

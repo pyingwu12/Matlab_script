@@ -14,6 +14,9 @@ idifx=44; %Oizumi-Nagasaki
 vari_ens0(:,:,imem)= ncread(infile,'v10m',[1 1 ti],[Inf Inf 1],[1 1 1]); 
 
 
+tmp=plotvar(lon>=plon(1) & lon<=plon(2) & lat>=plat(1) & lat<=plat(2) );
+pmin=min(tmp(:));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
+
 ax = gca;  c = ax.Color;  ax.Color = 'blue';
 
 indir=['E:/wrfout/expri191009/',expri]; outdir='E:/figures/expri191009/'; % for matlab under windows
