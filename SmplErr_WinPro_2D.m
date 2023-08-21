@@ -6,9 +6,9 @@ saveid=0;
 
 expsize=1000; 
 
-refsize=1000;
+refsz=1000;
 % cmprsize=[10 18 32 56 100 178 316 562 997];
-cmprsize=[10 32 100 316 997];
+cmprsz=[10 32 100 316 997];
 nbost=1;
     
 expri0={'Hagibis05kme01';'Hagibis05kme02'};  nexp=size(expri0,1);
@@ -30,8 +30,8 @@ titnam='Wind prob. diff';   fignam='wind-prob-SamErr_';
 
 for ti=pltime  
       
-  rmsd=zeros(length(cmprsize),nbost,length(thresholds),nexp); 
-  bias=zeros(length(cmprsize),nbost,length(thresholds),nexp);
+  rmsd=zeros(length(cmprsz),nbost,length(thresholds),nexp); 
+  bias=zeros(length(cmprsz),nbost,length(thresholds),nexp);
   for iexp=1:nexp 
     expri=expri0{iexp};
       
@@ -56,15 +56,15 @@ for ti=pltime
     proRef=zeros(nx1,ny1); 
     for i=1:nx1
       for j=1:ny1
-        proRef(i,j)=length(find(spd(i,j,1:refsize)>=thresholds(thi) ));
+        proRef(i,j)=length(find(spd(i,j,1:refsz)>=thresholds(thi) ));
       end
     end
-    proRef=proRef/refsize;  
+    proRef=proRef/refsz;  
     disp('end calculate proRef')
     %--------    
-    for isz=1:length(cmprsize)
+    for isz=1:length(cmprsz)
       for k=1:nbost
-        ensz=cmprsize(isz);
+        ensz=cmprsz(isz);
         if k==1;  member=1:ensz; else; tmp=randperm(expsize); member=tmp(1:ensz);  end            
         pro=zeros(nx1,ny1);   
         for i=1:nx1
@@ -84,7 +84,7 @@ for ti=pltime
   %---plot
   for iexp=1:nexp 
 %    plot(cmprsize,rmsd(:,2:end,iexp),'linewidth',1.5,'color',cexp(iexp,:),'linestyle',':'); hold on
-   plot(cmprsize,rmsd(:,1,iexp)./rmsd(1,1,iexp),'linewidth',2.5,'marker','.','markersize',30,'color',cexp(iexp,:)); hold on
+   plot(cmprsz,rmsd(:,1,iexp)./rmsd(1,1,iexp),'linewidth',2.5,'marker','.','markersize',30,'color',cexp(iexp,:)); hold on
   end
   
 end % pltime

@@ -4,7 +4,7 @@ clear
 
 saveid=0;
 
-pltensize=1000;   
+pltensize=50;     randmem=0; %0: plot member 1~pltensize; -1:specific; else:randomly choose members
 
 % pltime=[28 31 34 37 40 43]; 
 pltime=[37]; 
@@ -14,7 +14,7 @@ pltvari='wind';  %wind, u10m, or v10m
 expri='Hagibis05kme01'; 
 infilename='201910101800';%hagibis
 %
-expsize=1000;  randmem=0; %0: plot member 1~pltensize; else:randomly choose members
+expsize=1000; 
 %
 indir=['/obs262_data01/wu_py/Experiments/',expri,'/',infilename];
 outdir='/home/wu_py/labwind/Result_fig';
@@ -29,17 +29,27 @@ L=[-0.01  0.01 0.1 0.3 0.5];
 
 %%    
 %---read ensemble
-if randmem~=0; tmp=randperm(expsize); member=tmp(1:pltensize); memtag='rndm';  %!random choose members  
-else; member=1:pltensize; memtag='seq'; %!!!!! sequential members
+if randmem==0;  member=1:pltensize; memtag='seq'; %!!!!! sequential members 
+elseif randmem==-1  %!!!!!!! specific for small ensemble with resued BC
+BCnum=50; n=0;
+for k=1:5
+  for m=1:10
+   n=n+1;
+   member(n)=BCnum*(m-1)+k;  
+  end
 end
+memtag='spfic';
+else;  tmp=randperm(expsize); member=tmp(1:pltensize); memtag='rndm';  %!random choose members 
+end
+%!!!
 %%
 %---
-infile=[indir,'/0000/',infilename,'.nc'];  
-if isfile(infile)
-rain=ncread(infile,'rain'); 
-pmsl=ncread(infile,'pmsl'); 
-end
-
+% infile=[indir,'/0000/',infilename,'.nc'];  
+% if isfile(infile)
+% rain=ncread(infile,'rain'); 
+% pmsl=ncread(infile,'pmsl'); 
+% end
+%%
 for ti=pltime     
   for imem=1:pltensize     
   infile=[indir,'/',num2str(member(imem),'%.4d'),'/',infilename,'.nc'];      
@@ -75,10 +85,9 @@ for ti=pltime
      %---gaussian
      sig=std(dat);  ens_me=mean(dat);  
      gaus=1/(sig*(2*pi)^0.5)*exp(-(1/2)*((x-ens_me)/sig).^2);   gaus(gaus+1==1)=0;
-     %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-%      kld2(xpi,ypi)=sum(gaus*log(gaus/q)); %!!! !!!! ./  !!!!!!!!
+     %
      kld(xpi,ypi)=sum(gaus.*log(gaus./q));
-     %!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     %
 
      dat_G=1/(std(dat,1)*(2*pi)^0.5)*exp(-(1/2)*((dat-ens_me)./std(dat,1)).^2);
      maxlG=sum(log(dat_G)); %---the same as the formular below
@@ -103,11 +112,10 @@ for ti=pltime
   end
   disp('end of calculating')
   kld(kld+1==1)=NaN;
-%   kld2(kld2+1==1)=NaN;
 sprd=std(vari_ens,0,3);
 %%
-enme=mean(vari_ens,3);
-save('e01_kld_0600.mat','GauSp','lon','lat','kld','sprd','enme')
+% % enme=mean(vari_ens,3);
+% % save('e01_kld_0600.mat','GauSp','lon','lat','kld','sprd','enme')
 %
 % plon=[134.5 143.5]; plat=[32 38.5];
 % plon=[135 144.5]; plat=[32 39]; % wide Kantou area
@@ -123,13 +131,10 @@ save('e01_kld_0600.mat','GauSp','lon','lat','kld','sprd','enme')
     pmin=min(tmp(:));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end
 %     pmin=double(min(min(plotvar)));   if pmin<L(1); L2=[pmin,L]; else; L2=[L(1) L]; end     
     %  
-    hf=figure('Position',[100 100 800 630]);
+    hf=figure('Position',[2500 100 800 630]);
     m_proj('Lambert','lon',plon,'lat',plat,'clongitude',140,'parallels',[30 60],'rectbox','on')
     [~, hp]=m_contourf(lon,lat,plotvar,L2,'linestyle','none'); hold on      %
    
-     
-%     m_coast('color','k');
-    % m_gshhs_h('color','k','LineWidth',0.8);  m_gshhs_h('save','gumby');
     m_usercoast('gumby','linewidth',0.8,'color',[0.8 0.8 0.8],'linestyle','-')
     m_grid('fontsize',12,'LineStyle','-.','LineWidth',0.8,'xtick',lo_int,'ytick',la_int,'color',[0.6 0.6 0.6]); 
     % 

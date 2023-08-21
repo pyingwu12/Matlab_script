@@ -42,6 +42,7 @@ theta = ncread(infile,'T');  theta=theta+300;
 temp  = theta.*(1e3./P).^(-Rcp); %temperature (K)   
 qv = ncread(infile,'QVAPOR');  
 ev = qv./(0.622+qv) .* p;  %partial pressure of water vapor
+
 %----get dimesion from netcdf file-------
 vinfo = ncinfo(infile,'U10'); nx = vinfo.Size(1); ny = vinfo.Size(2);   %nx, ny
 dx=ncreadatt(infile,'/','DX') ; 

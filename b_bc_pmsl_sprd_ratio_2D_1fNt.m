@@ -7,9 +7,9 @@ pltensize=100; pltime=[12];
 
 % expri='Hagibis05kme01'; infilename='201910101800';%hagibis
 % expri='Kumagawa02km'; infilename='202007030900';%kumakawa 02 (Duc-san)
-% expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
+expri='Nagasaki05km'; infilename='202108131200';%nagasaki 05 (Duc-san)
 % convert_id=2; %1: duc-san default; 2: convert by wu (<-not used,fixed on 230212)
-expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
+% expri='Nagasaki02km'; infilename='202108131300'; %nagasaki 02 (Oizumi-san)
 %
 expsize=1000;  BCnum=50;
 %
